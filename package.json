@@ -9,15 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.5.4",
     "next": "14.2.9",
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha": "^3.1.0",
+    "react-hook-form": "^7.53.0",
     "react-slider": "^2.0.6",
     "slugify": "^1.6.6",
-    "swiper": "^11.1.12"
+    "swiper": "^11.1.12",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

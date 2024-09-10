@@ -14,6 +14,7 @@ export { StateModal } from './Modal/StateModal/StateModal';
 export { NumberInput } from './NumberInput';
 export { Pagination } from './Pagination';
 export { Placeholder } from './Placeholder';
+export { Portal } from './Portal';
 export { Radio } from './Radio';
 export { Range } from './Range';
 export { SwiperButton } from './SwiperButton';

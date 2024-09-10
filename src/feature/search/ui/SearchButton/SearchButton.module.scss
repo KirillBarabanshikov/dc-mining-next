@@ -1,0 +1,22 @@
+.icon {
+    margin-bottom: 8px;
+
+    @media screen and (max-width: 768px) {
+        margin-bottom: unset;
+    }
+}
+
+.search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+
+    @media screen and (max-width: 768px) {
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        width: unset;
+    }
+}

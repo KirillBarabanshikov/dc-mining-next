@@ -6,6 +6,9 @@ const nextConfig = {
             use: [
                 {
                     loader: '@svgr/webpack',
+                    options: {
+                        svgo: false,
+                    },
                 },
             ],
         });

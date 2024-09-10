@@ -15,13 +15,12 @@ export const getCategories = async (): Promise<ICategory[]> => {
     }
 };
 
-export const getCategoryById = async (id: string): Promise<ICategory | null> => {
+export const getCategoryById = async (id: string): Promise<ICategory | undefined> => {
     try {
         const response = await fetch(`${BASE_URL}/api/product_categories/${id}`);
         const data = (await response.json()) as ICategoryDto;
         return mapCategory(data);
     } catch (error) {
         console.error('Ошибка при запросе категории:', error);
-        return null;
     }
 };

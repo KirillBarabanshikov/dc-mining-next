@@ -1,0 +1,59 @@
+.sections {
+    margin-top: 60px;
+
+    .bestsellersWrapper {
+        position: relative;
+
+        .backgroundIcon {
+            position: absolute;
+            z-index: -1;
+            top: -51px;
+            left: -40px;
+            width: 100vw;
+
+            @media screen and (max-width: 992px) {
+                display: none;
+            }
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+}
+
+.managers {
+    margin-top: 200px;
+    margin-bottom: 120px;
+
+    @media screen and (max-width: 992px) {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 0 16px;
+    }
+}
+
+.news {
+    .titleWrap {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+
+        h2 {
+            margin-bottom: unset;
+        }
+
+        @media screen and (max-width: 768px) {
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.button {
+    margin-top: 28px;
+}

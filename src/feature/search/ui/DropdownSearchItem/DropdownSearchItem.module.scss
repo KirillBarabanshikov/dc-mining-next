@@ -1,0 +1,29 @@
+.item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    background-color: var(--background-white);
+    border-radius: 8px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--stroke-fourthiary);
+    transition: background-color 300ms ease-out;
+
+    .icon {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+    }
+
+    .name {
+        line-height: 19.2px;
+        color: var(--text-secondary);
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+            background-color: var(--background-primary);
+        }
+    }
+}

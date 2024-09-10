@@ -1,0 +1,33 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    .input {
+        max-width: 280px;
+    }
+
+    .checkbox {
+        margin: 20px 0;
+
+        a {
+            color: var(--text-accent-blue);
+        }
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .input {
+            max-width: unset;
+        }
+
+        .buttons {
+            width: 100%;
+        }
+    }
+}

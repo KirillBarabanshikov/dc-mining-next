@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 
 import { Layout } from '@/shared/ui';
-import { Footer } from '@/widgets';
+import { Footer, Header } from '@/widgets';
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -22,9 +22,10 @@ export default function RootLayout({
     return (
         <html lang='ru'>
             <body>
-                <Layout headerSlot={<div>header</div>} footerSlot={<Footer />}>
+                <Layout headerSlot={<Header />} footerSlot={<Footer />}>
                     {children}
                 </Layout>
+                <div id={'portal'} />
             </body>
         </html>
     );

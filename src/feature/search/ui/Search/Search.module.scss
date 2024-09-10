@@ -1,0 +1,52 @@
+.searchWrap {
+    position: relative;
+
+    .icon {
+        color: var(--stroke-tertiary);
+        cursor: pointer;
+    }
+
+    .input {
+        height: 48px;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 52px;
+        left: 0;
+        width: 100%;
+        z-index: 3;
+
+        background-color: var(--background-tonal);
+        border-radius: 16px;
+        padding: 8px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .input {
+            height: 64px;
+        }
+
+        .dropdown {
+            top: 71px;
+        }
+    }
+}
+
+.overlay {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(22, 32, 53, 0.3);
+
+    @media screen and (max-width: 1200px) {
+        z-index: 3;
+    }
+}
