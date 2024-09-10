@@ -1,0 +1,31 @@
+.switch {
+    width: 36px;
+    height: 20px;
+    border-radius: 12px;
+    padding: 2px;
+    background-color: rgba(233, 233, 243, 1);
+    transition: background-color 300ms ease-out;
+
+    display: flex;
+    justify-content: flex-start;
+
+    &.isOn {
+        background-color: var(--button-normal);
+        justify-content: flex-end;
+    }
+
+    .handle {
+        width: 16px;
+        height: 16px;
+        border-radius: 16px;
+
+        background-color: var(--background-white);
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--button-hover);
+            cursor: pointer;
+        }
+    }
+}

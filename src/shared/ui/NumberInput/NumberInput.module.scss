@@ -1,0 +1,13 @@
+.numberInput {
+    display: flex;
+    gap: 8px;
+
+    .item {
+        flex: 1;
+    }
+
+    .button {
+        height: 52px;
+        padding: unset;
+    }
+}

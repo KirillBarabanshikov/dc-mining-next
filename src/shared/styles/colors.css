@@ -1,0 +1,36 @@
+:root {
+    --text-accent-blue: rgba(73, 70, 255, 1);
+    --text-ultramarin: rgba(44, 43, 124, 1);
+    --text-primary: rgba(22, 32, 53, 1);
+    --text-secondary: rgba(90, 101, 156, 1);
+    --text-tertiary: rgba(123, 135, 194, 1);
+    --text-fourthiary: rgba(190, 200, 245, 1);
+    --text-contrast: rgba(255, 255, 255, 1);
+    --text-contrast-alpha-20: rgba(255, 255, 255, 0.5);
+    --text-accent: rgba(238, 62, 136, 1);
+    --text-positive: rgba(60, 199, 141, 1);
+
+    --background-white: rgba(255, 255, 255, 1);
+    --background-tonal: rgba(248, 251, 255, 1);
+    --background-primary: rgba(242, 246, 255, 1);
+    --background-secondary: rgba(231, 238, 255, 1);
+    --background-accent: rgba(255, 225, 238, 1);
+    --background-bright-accent: rgba(238, 62, 136, 1);
+    --background-positive: rgba(233, 255, 246, 1);
+    --background-dark: rgba(22, 32, 53, 1);
+    --background-ultramarin: rgba(44, 43, 124, 1);
+    --background-ultramarin-lite: rgba(123, 135, 194, 1);
+
+    --stroke-white: rgba(233, 233, 243, 1);
+    --stroke-primary: rgba(22, 32, 53, 1);
+    --stroke-secondary: rgba(44, 43, 124, 1);
+    --stroke-tertiary: rgba(123, 135, 194, 1);
+    --stroke-fourthiary: rgba(190, 200, 245, 1);
+    --stroke-accent: rgba(238, 62, 136, 1);
+    --stroke-positive: rgba(60, 199, 141, 1);
+
+    --button-normal: rgba(73, 70, 255, 1);
+    --button-hover: rgba(95, 92, 255, 1);
+    --button-active: rgba(73, 71, 198, 1);
+    --button-disabled: rgba(233, 233, 243, 1);
+}

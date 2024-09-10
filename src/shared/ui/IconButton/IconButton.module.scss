@@ -1,0 +1,24 @@
+.iconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    width: 48px;
+    height: 48px;
+    transition:
+        background-color 300ms ease-out,
+        color 300ms ease-out;
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--background-secondary);
+            cursor: pointer;
+        }
+    }
+
+    @media (hover: none) {
+        &:active {
+            background-color: var(--background-secondary);
+        }
+    }
+}

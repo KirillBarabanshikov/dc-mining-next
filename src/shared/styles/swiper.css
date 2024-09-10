@@ -1,0 +1,92 @@
+.main-banner {
+    position: relative;
+}
+
+.main-banner .swiper {
+    max-width: 1528px;
+}
+
+.main-banner .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0 !important;
+    transition: opacity 1s ease-in-out;
+}
+
+.main-banner .swiper-slide-active {
+    opacity: 1 !important;
+}
+
+.main-banner .swiper-pagination {
+    width: unset;
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+}
+
+.main-banner .swiper-pagination .swiper-pagination-bullet {
+    width: unset;
+    padding-right: 20px;
+    height: 4px;
+    border-radius: 4px;
+    background-color: white;
+    opacity: unset;
+    position: relative;
+    overflow: hidden;
+    transition: padding-right 300ms ease-out;
+}
+
+.main-banner .swiper-pagination .swiper-pagination-bullet::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    border-radius: 4px;
+}
+
+.main-banner .swiper-pagination .swiper-pagination-bullet-active {
+    padding-right: 48px;
+
+    &::before {
+        background-color: rgba(73, 70, 255, 1);
+        animation: slide-progress 5s cubic-bezier(0.3, 0, 0.3, 1) forwards;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main-banner .swiper-pagination {
+        top: 315px;
+        bottom: unset;
+        left: calc(50% - 70px);
+    }
+
+    .main-banner .swiper-pagination .swiper-pagination-bullet {
+        background-color: var(--background-secondary);
+    }
+}
+
+@keyframes slide-progress {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.product-slider .swiper-slide {
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+    border-radius: 8px;
+    transition: outline-color 300ms ease-out;
+}
+
+.product-slider .swiper-slide-thumb-active {
+    outline: 1px solid var(--stroke-tertiary);
+}

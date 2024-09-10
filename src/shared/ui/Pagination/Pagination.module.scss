@@ -1,0 +1,47 @@
+.pagination {
+    background-color: var(--background-white);
+    border-radius: 16px;
+
+    display: flex;
+    justify-content: center;
+
+    .item {
+        flex: 1;
+        height: 64px;
+        max-width: 80px;
+        user-select: none;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        transition:
+            background-color 300ms ease-out,
+            color 300ms ease-out;
+
+        &.right {
+            transform: rotate(180deg);
+        }
+
+        &.current {
+            padding-top: 4px;
+            border-bottom: 4px solid rgba(73, 70, 255, 1);
+            pointer-events: none;
+        }
+
+        &.disabled {
+            pointer-events: none;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                cursor: pointer;
+                color: var(--text-accent-blue);
+                background-color: var(--background-primary);
+            }
+        }
+    }
+}

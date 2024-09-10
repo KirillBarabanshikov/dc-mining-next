@@ -1,0 +1,102 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 16px;
+    padding: 0 16px;
+    font-weight: 700;
+    transition:
+        opacity 300ms ease-out,
+        background-color 300ms ease-out,
+        color 300ms ease-out;
+
+    &.solid {
+        &.blue {
+            background: var(--button-normal);
+            color: var(--text-contrast);
+
+            @media (hover: hover) {
+                &:hover {
+                    background: var(--button-hover);
+                }
+            }
+
+            &:active {
+                background: var(--button-active);
+            }
+        }
+
+        &.white {
+            background: var(--background-white);
+            color: var(--text-accent-blue);
+
+            @media (hover: hover) {
+                &:hover {
+                    background: var(--button-hover);
+                    color: var(--text-contrast);
+                }
+            }
+
+            &:active {
+                background: var(--button-active);
+                color: var(--text-contrast);
+            }
+        }
+    }
+
+    &.outline {
+        color: var(--button-normal);
+        border: 1px solid var(--button-normal);
+
+        @media (hover: hover) {
+            &:hover {
+                color: var(--text-contrast);
+                background-color: var(--button-hover);
+            }
+        }
+
+        &:active {
+            color: var(--text-contrast);
+            background: var(--button-active);
+        }
+    }
+
+    &.lg {
+        height: 64px;
+
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+    }
+
+    &.md {
+        height: 48px;
+
+        font-size: 16px;
+        line-height: 19.2px;
+    }
+
+    &.sm {
+        height: 32px;
+
+        font-size: 14px;
+        line-height: 16.8px;
+        letter-spacing: 0.2px;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &.isWide {
+        width: 100%;
+    }
+
+    &.disabled {
+        cursor: unset;
+        background-color: rgba(190, 200, 245, 1) !important;
+    }
+}

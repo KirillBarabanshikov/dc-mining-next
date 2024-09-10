@@ -1,0 +1,103 @@
+.wrap {
+    display: inline-flex;
+    align-items: center;
+
+    &.lg {
+        gap: 12px;
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            border-radius: 4px;
+        }
+    }
+
+    &.sm {
+        gap: 8px;
+
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            min-width: 16px;
+            border-radius: 3.2px;
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
+    .checkbox {
+        position: relative;
+        transition:
+            background-color 300ms ease-out,
+            border-color 300ms ease-out;
+
+        @media (hover: hover) {
+            cursor: pointer;
+        }
+
+        svg {
+            position: absolute;
+            inset: -1px;
+            color: transparent;
+        }
+    }
+
+    .label {
+        font-size: 14px;
+        line-height: 18.2px;
+
+        a {
+            color: var(--text-accent-blue);
+        }
+
+        @media screen and (max-width: 768px) {
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            line-height: 15.6px;
+        }
+    }
+
+    &.blue {
+        input:checked + .checkbox {
+            border-color: var(--button-normal);
+            background-color: var(--button-normal);
+
+            svg {
+                color: var(--text-contrast);
+            }
+        }
+
+        .checkbox {
+            border: 1px solid var(--stroke-secondary);
+        }
+    }
+
+    &.white {
+        input:checked + .checkbox {
+            border-color: var(--text-contrast);
+            background-color: var(--text-contrast);
+
+            svg {
+                color: var(--text-accent-blue);
+            }
+        }
+
+        .checkbox {
+            border: 1px solid var(--text-contrast);
+        }
+
+        .label {
+            color: var(--text-contrast);
+        }
+    }
+
+    &.error {
+        .checkbox {
+            border-color: var(--stroke-accent);
+        }
+    }
+}

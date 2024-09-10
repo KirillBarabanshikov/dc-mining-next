@@ -1,0 +1,133 @@
+.dropdown {
+    position: relative;
+    background-color: var(--background-white);
+    border-radius: 8px;
+    padding: 0 8px;
+    width: 100%;
+
+    &.isOpen {
+        border-radius: 8px 8px 0 0;
+    }
+
+    .head {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 8px;
+        padding: 8px;
+        transition: background-color 300ms ease-out;
+
+        .label {
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19.2px;
+            user-select: none;
+        }
+
+        .icon {
+            height: 16px;
+            color: rgba(44, 43, 124, 1);
+            transition: color 300ms ease-out;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                background-color: var(--background-primary);
+                cursor: pointer;
+
+                .icon {
+                    color: var(--text-accent-blue);
+                }
+            }
+        }
+    }
+
+    .list {
+        position: absolute;
+        z-index: 2;
+        top: 35px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+
+        .itemsWrap {
+            background-color: var(--background-white);
+            padding: 24px 8px 8px 8px;
+            border-radius: 0 0 8px 8px;
+
+            .items {
+                max-height: 208px;
+                overflow-y: auto;
+                scrollbar-color: var(--stroke-fourthiary) var(--background-tonal);
+                scrollbar-width: thin;
+
+                &::-webkit-scrollbar {
+                    width: 8px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--stroke-fourthiary);
+                }
+
+                &::-webkit-scrollbar-track {
+                    background-color: var(--background-tonal);
+                }
+            }
+
+            .item {
+                width: 100%;
+                border-radius: 8px;
+                padding: 8px;
+                transition: background-color 300ms ease-out;
+                cursor: pointer;
+
+                &.selected {
+                    background-color: var(--background-primary);
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        background-color: var(--background-primary);
+                    }
+                }
+
+                @media screen and (max-width: 768px) {
+                    span {
+                        font-family: 'MADE Evolve Sans', sans-serif;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.physical {
+        padding: unset;
+
+        .list {
+            position: unset;
+            border-bottom: 1px solid rgba(241, 241, 241, 1);
+
+            .itemsWrap {
+                padding: 24px 0;
+                border-radius: unset;
+            }
+        }
+    }
+}
+
+.modal {
+    padding: 8px;
+
+    .item {
+        width: 100%;
+        padding: 20px;
+        border-radius: 8px;
+        transition: background-color 300ms ease-out;
+
+        &.selected {
+            background-color: var(--background-primary);
+        }
+    }
+}

@@ -1,0 +1,58 @@
+.wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+
+    &.lg {
+        .radio {
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+
+            .ellipse {
+                width: 8px;
+                height: 8px;
+                border-radius: 8px;
+            }
+        }
+    }
+
+    &.sm {
+        .radio {
+            width: 16px;
+            height: 16px;
+            border-radius: 16px;
+
+            .ellipse {
+                width: 6px;
+                height: 6px;
+                border-radius: 6px;
+            }
+        }
+    }
+
+    .radio {
+        border: 1px solid var(--stroke-primary);
+        transition: background-color 300ms ease-out;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .label {
+        font-size: 14px;
+        line-height: 18.2px;
+    }
+
+    input:checked + .radio,
+    .checked {
+        background-color: var(--button-normal);
+        border: 1px solid var(--button-normal);
+
+        .ellipse {
+            background-color: var(--background-white);
+        }
+    }
+}

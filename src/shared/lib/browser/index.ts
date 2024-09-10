@@ -1,0 +1,1 @@
+export { useIsSafari } from './useIsSafari';

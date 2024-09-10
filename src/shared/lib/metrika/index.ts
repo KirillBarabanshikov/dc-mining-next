@@ -1,0 +1,1 @@
+export { useMetrikaGoal } from './useMetrikaGoal';

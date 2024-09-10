@@ -1,0 +1,50 @@
+.categoryCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    background-color: var(--background-white);
+    border-radius: 20px;
+    padding: 32px 20px;
+    transition: background-color 300ms ease-out;
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--background-secondary);
+        }
+    }
+
+    img {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    p {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+        max-width: 240px;
+    }
+
+    @media screen and (max-width: 1300px) {
+        p {
+            font-size: 16px;
+            line-height: 19.2px;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        gap: 24px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 20px 8px;
+
+        p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            line-height: 15.6px;
+        }
+    }
+}
