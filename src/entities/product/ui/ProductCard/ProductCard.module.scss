@@ -1,0 +1,119 @@
+.productCard {
+    display: flex;
+    gap: 20px;
+
+    background-color: var(--background-tonal);
+    border-radius: 20px;
+    outline: 1px solid rgba(123, 135, 194, 0.2);
+    outline-offset: -1px;
+    padding: 20px;
+    transition:
+        background-color 300ms ease-out,
+        outline-color 300ms ease-out;
+    color: initial;
+    position: relative;
+    z-index: 1;
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 8px;
+    }
+
+    .price {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .name {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19.2px;
+    }
+
+    .specifications {
+        overflow: hidden;
+
+        .specificationsList {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            font-size: 14px;
+            line-height: 18.2px;
+            color: rgba(90, 101, 156, 1);
+        }
+    }
+
+    .buttons {
+        display: flex;
+        gap: 8px;
+
+        .button {
+            height: 48px;
+        }
+
+        .iconButton {
+            min-width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            color: rgba(44, 43, 124, 1);
+
+            @media (hover: hover) {
+                &:hover {
+                    color: var(--text-accent-blue);
+                    background-color: var(--background-secondary);
+                }
+            }
+        }
+    }
+
+    &.tile {
+        flex-direction: column;
+        height: 100%;
+
+        @media screen and (max-width: 768px) {
+            gap: 12px;
+        }
+    }
+
+    &.simple {
+        @media screen and (max-width: 565px) {
+            flex-direction: column;
+
+            .image {
+                max-width: 312px;
+                max-height: 312px;
+            }
+        }
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            background-color: var(--background-primary);
+            outline-color: transparent;
+
+            .iconButton {
+                background-color: var(--background-white);
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        background-color: var(--background-primary);
+        border-radius: 16px;
+        outline: unset;
+        padding: 8px;
+
+        &.tile {
+            justify-content: space-between;
+
+            .image {
+                img {
+                    border-radius: 8px;
+                }
+            }
+        }
+    }
+}

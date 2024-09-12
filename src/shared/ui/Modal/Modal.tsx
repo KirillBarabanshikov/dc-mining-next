@@ -3,9 +3,9 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FC, PropsWithChildren, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 
 import { useBodyScrollLock } from '@/shared/lib';
+import { Portal } from '@/shared/ui';
 
 import styles from './Modal.module.scss';
 
@@ -24,8 +24,8 @@ export const Modal: FC<IModal> = ({ children, isOpen, onClose, title, subtitle, 
         setIsLocked(isOpen);
     }, [isOpen]);
 
-    return typeof window !== 'undefined' ? (
-        createPortal(
+    return (
+        <Portal>
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -42,10 +42,7 @@ export const Modal: FC<IModal> = ({ children, isOpen, onClose, title, subtitle, 
                         </div>
                     </motion.div>
                 )}
-            </AnimatePresence>,
-            document.getElementById('portal') as HTMLDivElement,
-        )
-    ) : (
-        <></>
+            </AnimatePresence>
+        </Portal>
     );
 };

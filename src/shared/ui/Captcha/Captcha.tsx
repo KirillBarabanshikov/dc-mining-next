@@ -19,7 +19,6 @@ export const Captcha = forwardRef<ReCAPTCHA, ICaptchaProps>(({ onCaptchaVerify, 
 
     useEffect(() => {
         import('react-google-recaptcha').then((module) => {
-            // @ts-ignore
             setRecaptchaComponent(() => module.default);
         });
     }, []);
@@ -45,3 +44,5 @@ export const Captcha = forwardRef<ReCAPTCHA, ICaptchaProps>(({ onCaptchaVerify, 
         </div>
     );
 });
+
+Captcha.displayName = 'Captcha';

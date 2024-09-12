@@ -1,0 +1,1 @@
+export { getDataCenterInfo } from './pageInfoApi';

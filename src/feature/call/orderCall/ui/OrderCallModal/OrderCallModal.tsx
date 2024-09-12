@@ -4,7 +4,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
 
 import { MAX_WIDTH_MD } from '@/shared/consts';
-import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
+import { useMediaQuery } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Captcha, Checkbox, Input, Modal, StateModal } from '@/shared/ui';
 
@@ -36,6 +36,7 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOp
     // const { sendMetrikaGoal } = useMetrikaGoal();
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
+        console.log(data);
         if (!captchaVerified) return;
         // await orderCall({ ...data, title }).unwrap();
         // sendMetrikaGoal();

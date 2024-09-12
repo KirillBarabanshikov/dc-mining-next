@@ -1,0 +1,52 @@
+.body {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+
+    .info {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 300px;
+        padding-top: 40px;
+        flex: 1;
+    }
+
+    @media screen and (max-width: 1200px) {
+        flex-direction: column;
+
+        .wrap {
+            padding-top: unset;
+            max-width: unset;
+        }
+    }
+
+    @media screen and (max-width: 565px) {
+        .price {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 19.2px;
+        }
+
+        .name {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .specificationsList {
+            div {
+                font-family: 'Roboto', sans-serif;
+                font-weight: 500;
+                font-size: 10px;
+                line-height: 12px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

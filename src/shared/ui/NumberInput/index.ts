@@ -1,1 +1,1 @@
-export { NumberInput } from './NumberInput.tsx';
+export { NumberInput } from './NumberInput';

@@ -35,6 +35,8 @@ export const File = forwardRef<HTMLInputElement, IFileProps>(({ className, onCha
     );
 });
 
+File.displayName = 'File';
+
 function truncate(string: string) {
     if (string.length < 18) return string;
 

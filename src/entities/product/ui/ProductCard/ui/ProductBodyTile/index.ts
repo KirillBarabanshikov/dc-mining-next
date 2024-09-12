@@ -1,0 +1,1 @@
+export { ProductBodyTile } from './ProductBodyTile';
