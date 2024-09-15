@@ -1,0 +1,50 @@
+.wrap {
+    display: flex;
+    gap: 20px;
+}
+
+.inputProduct {
+    margin: 20px 0 40px 0;
+}
+
+.label {
+    font-size: 14px;
+    line-height: 18.2px;
+    color: var(--text-secondary);
+    display: block;
+    margin-bottom: 20px;
+}
+
+.item {
+    flex: 1;
+}
+
+.buttonsWrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .wrap {
+        flex-direction: column;
+    }
+
+    .inputProduct {
+        margin: 20px 0;
+    }
+
+    .label {
+        font-family: 'Roboto', sans-serif;
+        margin-bottom: 16px;
+    }
+
+    .buttonsWrap {
+        .wrap {
+            flex-direction: row;
+            width: 100%;
+        }
+    }
+}

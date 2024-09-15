@@ -6,7 +6,7 @@ import { FC, useState } from 'react';
 
 import { ICategory } from '@/entities/category';
 import { IDataCenterInfo } from '@/entities/pageInfo';
-import { OrderCallModal } from '@/feature/call';
+import { OrderCallModal } from '@/features/call';
 // import dottedLine from '@/shared/assets/images/data-center/dotted-line.png';
 // import dottedLineMd from '@/shared/assets/images/data-center/dotted-line-md.png';
 // import dottedLineMd2 from '@/shared/assets/images/data-center/dotted-line-md2.png';

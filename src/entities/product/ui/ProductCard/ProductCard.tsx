@@ -5,11 +5,11 @@ import Link from 'next/link';
 import React, { FC, useState } from 'react';
 
 import { IProduct } from '@/entities/product';
+import { OrderProductModal } from '@/features/product';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 
 import styles from './ProductCard.module.scss';
-// import { OrderProductModal } from '@/features/product';
 import { ProductBodySimple, ProductBodyTile, ProductImage } from './ui';
 
 interface IProductCardProps {
@@ -20,7 +20,7 @@ interface IProductCardProps {
 
 export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile', withInfo = true }) => {
     const [isHovered, setIsHovered] = useState(false);
-    // const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const matches = useMediaQuery(MAX_WIDTH_MD);
 
     const handleOnHover = (isHovered: boolean) => {
@@ -30,7 +30,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile',
 
     const handleOrderButton = (e: React.MouseEvent) => {
         e.preventDefault();
-        // setIsOpen(true);
+        setIsOpen(true);
     };
 
     return (
@@ -54,7 +54,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile',
                     )}
                 </article>
             </Link>
-            {/*<OrderProductModal isOpen={isOpen} onClose={() => setIsOpen(false)} product={product} />*/}
+            <OrderProductModal isOpen={isOpen} onClose={() => setIsOpen(false)} product={product} />
         </>
     );
 };

@@ -1,0 +1,1 @@
+export { getPersonalData } from './personalDataApi';

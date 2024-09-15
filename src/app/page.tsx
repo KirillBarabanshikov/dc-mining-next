@@ -1,15 +1,12 @@
-import clsx from 'clsx';
-import { Metadata } from 'next';
-
 import { getCategories } from '@/entities/category';
+import { getSlider } from '@/entities/mainSlider';
+import { getAboutInfo } from '@/entities/pageInfo';
 import { getProducts } from '@/entities/product';
 import { getSeo } from '@/entities/seo';
-import { Offers } from '@/widgets';
-import { Bestsellers } from '@/widgets/Bestsellers';
 
-import styles from './page.module.scss';
+import { MainPage } from './MainPage';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata() {
     const data = await getSeo('Главная страница');
 
     return {
@@ -18,13 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default async function MainPage() {
-    const [categories, products] = await Promise.all([getCategories(), getProducts()]);
+export default async function Page() {
+    const [categories, products, slides, about] = await Promise.all([
+        getCategories(),
+        getProducts(),
+        getSlider(),
+        getAboutInfo(),
+    ]);
 
-    return (
-        <div className={clsx(styles.sections, 'sections')}>
-            <Offers categories={categories} />
-            <Bestsellers products={products} />
-        </div>
-    );
+    return <MainPage categories={categories} products={products} slides={slides} massMedia={about?.massMedia} />;
 }

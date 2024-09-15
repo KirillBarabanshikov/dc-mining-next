@@ -1,0 +1,8 @@
+.isFavorite {
+    background-color: var(--background-secondary) !important;
+
+    svg {
+        color: var(--text-accent-blue);
+        fill: var(--text-accent-blue);
+    }
+}

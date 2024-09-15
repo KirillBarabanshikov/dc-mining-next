@@ -1,53 +1,48 @@
 import { BASE_URL } from '@/shared/consts';
 
-import { IDataCenterInfo } from '../model';
+import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo } from '../model';
+
+export const getAboutInfo = async (): Promise<IAboutInfo | undefined> => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/about`);
+        return (await response.json()) as IAboutInfo;
+    } catch (error) {
+        console.error('Ошибка при загрузке about:', error);
+    }
+};
+
+export const getLeasingInfo = async (): Promise<ILeasingInfo | undefined> => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/leasing`);
+        return (await response.json()) as ILeasingInfo;
+    } catch (error) {
+        console.error('Ошибка при загрузке leasing:', error);
+    }
+};
 
 export const getDataCenterInfo = async (): Promise<IDataCenterInfo | undefined> => {
     try {
         const response = await fetch(`${BASE_URL}/api/dataCenters`);
         return (await response.json()) as IDataCenterInfo;
     } catch (error) {
-        console.error('Ошибка при загрузке:', error);
+        console.error('Ошибка при загрузке data center:', error);
     }
 };
 
-// import { baseApi } from '@/shared/api';
-// import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo } from '@/entities/pageInfo';
+export const getPaymentInfo = async (): Promise<IDeliveryAndPaymentInfo[] | undefined> => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/payments`);
+        return (await response.json()) as IDeliveryAndPaymentInfo[];
+    } catch (error) {
+        console.error('Ошибка при загрузке payments:', error);
+    }
+};
 
-// const pageInfoApi = baseApi.injectEndpoints({
-//     endpoints: (build) => ({
-//         getAboutInfo: build.query<IAboutInfo, void>({
-//             query: () => ({
-//                 url: '/about',
-//             }),
-//         }),
-//         getLeasingInfo: build.query<ILeasingInfo, void>({
-//             query: () => ({
-//                 url: '/leasing',
-//             }),
-//         }),
-//         getDataCenterInfo: build.query<IDataCenterInfo, void>({
-//             query: () => ({
-//                 url: '/dataCenters',
-//             }),
-//         }),
-//         getPaymentInfo: build.query<IDeliveryAndPaymentInfo[], void>({
-//             query: () => ({
-//                 url: '/payments',
-//             }),
-//         }),
-//         getDeliveryInfo: build.query<IDeliveryAndPaymentInfo[], void>({
-//             query: () => ({
-//                 url: '/deliveries',
-//             }),
-//         }),
-//     }),
-// });
-
-// export const {
-//     useGetAboutInfoQuery,
-//     useGetLeasingInfoQuery,
-//     useGetDataCenterInfoQuery,
-//     useGetPaymentInfoQuery,
-//     useGetDeliveryInfoQuery,
-// } = pageInfoApi;
+export const getDeliveryInfo = async (): Promise<IDeliveryAndPaymentInfo[] | undefined> => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/deliveries`);
+        return (await response.json()) as IDeliveryAndPaymentInfo[];
+    } catch (error) {
+        console.error('Ошибка при загрузке payments:', error);
+    }
+};

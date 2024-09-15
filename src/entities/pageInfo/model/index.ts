@@ -5,4 +5,4 @@ export type {
     IDeliveryAndPaymentInfo,
     ILeasingInfo,
     IMassMedia,
-} from './types.ts';
+} from './types';

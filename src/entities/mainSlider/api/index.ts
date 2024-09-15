@@ -1,0 +1,1 @@
+export { getSlider } from './mainSliderApi';

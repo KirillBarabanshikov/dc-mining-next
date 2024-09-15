@@ -1,0 +1,173 @@
+.managers {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+
+    .request {
+        position: relative;
+        background-color: var(--background-secondary);
+        background-image: url('../../shared/assets/backgrounds/manager-bg1.svg');
+        background-repeat: no-repeat;
+        background-position: center left;
+        border-radius: 40px;
+        padding: 40px;
+
+        max-width: 1060px;
+        width: 100%;
+
+        h3 {
+            font-size: 40px;
+            line-height: 48px;
+            margin-bottom: 16px;
+            max-width: 592px;
+        }
+
+        p {
+            font-size: 20px;
+            line-height: 24px;
+            margin-bottom: 32px;
+        }
+
+        img {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    }
+
+    .calculator {
+        position: relative;
+        overflow: hidden;
+        background-color: var(--background-dark);
+        background-image: url('../../shared/assets/backgrounds/manager-bg2.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-x: center;
+        border-radius: 40px;
+        padding: 40px;
+
+        max-width: 436px;
+        width: 100%;
+
+        h4 {
+            font-size: 24px;
+            line-height: 28.8px;
+            color: var(--text-contrast);
+            max-width: 256px;
+            margin-bottom: 40px;
+        }
+
+        img {
+            position: absolute;
+            right: -64px;
+            bottom: -16px;
+        }
+    }
+
+    .button {
+        position: relative;
+        z-index: 1;
+    }
+
+    @media screen and (max-width: 1380px) {
+        .request {
+            img {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1380px) {
+        .request {
+            img {
+                display: none;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .request {
+            height: 436px;
+
+            h3 {
+                font-size: 32px;
+                line-height: 38.4px;
+            }
+
+            p {
+                font-size: 16px;
+                line-height: 20.8px;
+            }
+
+            img {
+                width: 250px;
+                height: 250px;
+                display: unset;
+            }
+        }
+
+        .calculator {
+            h4 {
+                font-size: 32px;
+                line-height: 38.4px;
+                max-width: unset;
+            }
+
+            img {
+                right: -32px;
+                bottom: -1px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        gap: 20px;
+        overflow: hidden;
+
+        .request,
+        .calculator {
+            height: 400px;
+            padding: 24px;
+            border-radius: 20px;
+        }
+
+        .request {
+            background-position: center;
+
+            h3 {
+                font-size: 24px;
+                line-height: 28.8px;
+                margin-bottom: 8px;
+            }
+
+            p {
+                font-family: 'Roboto', sans-serif;
+                font-size: 14px;
+                line-height: 18.2px;
+            }
+
+            img {
+                right: -28px;
+            }
+        }
+
+        .calculator {
+            max-width: unset;
+
+            h4 {
+                font-size: 24px;
+                line-height: 28.8px;
+                margin-bottom: 32px;
+            }
+
+            img {
+                width: 200px;
+                height: 200px;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}

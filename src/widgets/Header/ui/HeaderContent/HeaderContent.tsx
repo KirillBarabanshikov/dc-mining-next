@@ -7,8 +7,8 @@ import { FC, useEffect, useState } from 'react';
 
 import { ICategory } from '@/entities/category';
 import { IContacts } from '@/entities/contacts';
-import { OrderCallModal } from '@/feature/call';
-import { Search, SearchButton } from '@/feature/search';
+import { OrderCallModal } from '@/features/call';
+import { Search, SearchButton } from '@/features/search';
 import HeartIcon from '@/shared/assets/icons/heart.svg';
 import HeartIcon2 from '@/shared/assets/icons/heart2.svg';
 import PhoneIcon from '@/shared/assets/icons/phone.svg';

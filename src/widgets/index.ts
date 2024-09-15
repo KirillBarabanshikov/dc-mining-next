@@ -3,4 +3,7 @@ export { Bestsellers } from './Bestsellers';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { LivePhotos } from './LivePhotos';
+export { MainBanner } from './MainBanner';
+export { MainBannersList } from './MainBannersList';
+export { Managers } from './Managers';
 export { Offers } from './Offers';

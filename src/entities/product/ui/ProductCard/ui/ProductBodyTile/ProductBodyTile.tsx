@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { FC } from 'react';
 
 import { IProduct } from '@/entities/product';
-// import { AddToCompareButton, AddToFavoritesButton } from '@/features/product';
+import { AddToCompareButton, AddToFavoritesButton } from '@/features/product';
 import { formatter } from '@/shared/lib';
 import { Badge, Button } from '@/shared/ui';
 
@@ -55,8 +55,8 @@ export const ProductBodyTile: FC<IProductBodyTileProps> = ({ product, onClick, i
                 <Button size={'sm'} className={clsx(cardStyles.button, styles.button)} onClick={onClick} isWide>
                     Заказать
                 </Button>
-                {/*<AddToFavoritesButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />*/}
-                {/*<AddToCompareButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />*/}
+                <AddToFavoritesButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />
+                <AddToCompareButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />
             </div>
         </div>
     );

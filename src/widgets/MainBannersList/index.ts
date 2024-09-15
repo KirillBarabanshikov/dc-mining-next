@@ -1,0 +1,1 @@
+export { MainBannersList } from './MainBannersList';

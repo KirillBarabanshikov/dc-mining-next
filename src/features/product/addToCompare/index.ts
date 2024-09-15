@@ -1,0 +1,1 @@
+export { AddToCompareButton } from './ui';
