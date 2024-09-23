@@ -187,7 +187,18 @@
                     padding: 4px;
 
                     .option {
-                        padding: 13.5px 8px;
+                        max-height: 80px;
+                        justify-content: flex-end;
+                        padding: 8px;
+
+                        .icon {
+                            img {
+                                max-width: 69px;
+                                max-height: 42px;
+                                width: unset;
+                                height: unset;
+                            }
+                        }
 
                         span {
                             transition: color 300ms ease-out;

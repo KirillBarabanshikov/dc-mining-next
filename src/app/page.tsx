@@ -1,10 +1,9 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
+import { MainPage } from '@/app/MainPage';
 import { getCategories } from '@/entities/category';
-import { getSlider } from '@/entities/mainSlider';
-import { getAboutInfo } from '@/entities/pageInfo';
 import { getProducts } from '@/entities/product';
 import { getSeo } from '@/entities/seo';
-
-import { MainPage } from './MainPage';
 
 export async function generateMetadata() {
     const data = await getSeo('Главная страница');
@@ -16,12 +15,22 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-    const [categories, products, slides, about] = await Promise.all([
-        getCategories(),
-        getProducts(),
-        getSlider(),
-        getAboutInfo(),
+    const queryClient = new QueryClient();
+
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['products'],
+            queryFn: () => getProducts({ display: true }),
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['categories'],
+            queryFn: getCategories,
+        }),
     ]);
 
-    return <MainPage categories={categories} products={products} slides={slides} massMedia={about?.massMedia} />;
+    return (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <MainPage />
+        </HydrationBoundary>
+    );
 }

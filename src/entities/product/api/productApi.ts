@@ -1,16 +1,14 @@
-import { BASE_URL } from '@/shared/consts';
+import { instance } from '@/shared/api';
 
 import { mapProduct } from '../lib';
-import { IProduct } from '../model';
 import { IProductDto } from './types';
 
-export const getProducts = async (): Promise<IProduct[]> => {
+export const getProducts = async (params: { display?: boolean } = {}) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/products?display=true`);
-        const data = (await response.json()) as IProductDto[];
-        return data.map(mapProduct);
-    } catch (error) {
-        console.error('Ошибка при загрузке товаров:', error);
-        return [];
+        const response = await instance.get<IProductDto[]>('/products', { params });
+        return response.data.map(mapProduct);
+    } catch (e) {
+        console.error(e);
+        return;
     }
 };

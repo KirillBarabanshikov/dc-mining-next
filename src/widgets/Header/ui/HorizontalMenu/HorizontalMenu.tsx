@@ -12,7 +12,7 @@ import { Portal } from '@/shared/ui';
 import styles from './HorizontalMenu.module.scss';
 
 interface IHorizontalMenuProps {
-    categories: ICategory[];
+    categories?: ICategory[];
 }
 
 export const HorizontalMenu: FC<IHorizontalMenuProps> = ({ categories }) => {

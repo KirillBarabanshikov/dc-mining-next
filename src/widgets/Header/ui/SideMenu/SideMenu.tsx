@@ -16,7 +16,7 @@ import styles from './SideMenu.module.scss';
 interface ISideMenuProps {
     isOpen: boolean;
     onClose: () => void;
-    categories: ICategory[];
+    categories?: ICategory[];
     contacts?: IContacts;
 }
 
@@ -124,7 +124,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ isOpen, onClose, categories, cont
     );
 };
 
-const CollapseItemsList = ({ categories }: { categories: ICategory[] }) => {
+const CollapseItemsList = ({ categories }: { categories?: ICategory[] }) => {
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
     const handleClick = (index: number) => {

@@ -3,12 +3,15 @@ export interface ICategory {
     title: string;
     image: string;
     display: boolean;
-    name: string;
-    slug: string;
     subCategory: {
         id: number;
         title: string;
     }[];
+    images: {
+        id: number;
+        image?: string;
+    }[];
+    name: string;
+    slug: string;
     link?: string;
-    images: { id: number; image: string }[];
 }

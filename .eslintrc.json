@@ -1,9 +1,10 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": ["simple-import-sort"],
+  "plugins": ["simple-import-sort", "@tanstack/query"],
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "@tanstack/query/exhaustive-deps": "error"
   }
 }

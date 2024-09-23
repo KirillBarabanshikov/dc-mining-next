@@ -25,7 +25,7 @@ import { SideMenu } from '../SideMenu';
 import styles from './HeaderContent.module.scss';
 
 interface IHeaderContentProps {
-    categories: ICategory[];
+    categories?: ICategory[];
     contacts?: IContacts;
 }
 

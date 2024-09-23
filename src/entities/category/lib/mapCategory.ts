@@ -13,17 +13,13 @@ const links: Record<string, string> = {
 };
 
 export function mapCategory(category: ICategoryDto): ICategory {
-    const categoryName = getCategoryNameByTitle(category.title);
+    const name = getCategoryNameByTitle(category.title);
 
     return {
-        id: category.id,
-        title: category.title,
+        ...category,
         image: BASE_URL + category.image,
-        display: category.display,
-        name: categoryName,
-        slug: createSlug(categoryName),
-        subCategory: category.subCategory,
+        name,
+        slug: createSlug(name),
         link: links[category.title],
-        images: category.images,
     };
 }
