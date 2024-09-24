@@ -1,13 +1,15 @@
+import { instance } from '@/shared/api';
 import { BASE_URL } from '@/shared/consts';
 
 import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo } from '../model';
 
 export const getAboutInfo = async (): Promise<IAboutInfo | undefined> => {
     try {
-        const response = await fetch(`${BASE_URL}/api/about`);
-        return (await response.json()) as IAboutInfo;
+        const response = await instance.get<IAboutInfo>('/about');
+        return response.data;
     } catch (error) {
-        console.error('Ошибка при загрузке about:', error);
+        console.error(error);
+        return;
     }
 };
 

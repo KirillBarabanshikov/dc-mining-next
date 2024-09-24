@@ -1,19 +1,19 @@
+import { instance } from '@/shared/api';
 import { BASE_URL } from '@/shared/consts';
 
 import { ISlide } from '../model';
 
-export const getSlider = async (): Promise<ISlide[]> => {
+export const getSlider = async (): Promise<ISlide[] | undefined> => {
     try {
-        const response = await fetch(`${BASE_URL}/api/main_slider`);
-        const data = (await response.json()) as ISlide[];
+        const response = await instance.get<ISlide[]>('/main_slider');
 
-        return data.map((slide) => ({
+        return response.data.map((slide) => ({
             ...slide,
             media: BASE_URL + slide.media,
             image: BASE_URL + slide.image,
         }));
     } catch (error) {
-        console.error('Ошибка при загрузке слайдера:', error);
-        return [];
+        console.error(error);
+        return;
     }
 };

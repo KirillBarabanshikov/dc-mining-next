@@ -15,8 +15,8 @@ import { Button } from '@/shared/ui';
 import styles from './MainSlider.module.scss';
 
 interface IMainSliderProps {
-    slides: ISlide[];
-    categories: ICategory[];
+    slides?: ISlide[];
+    categories?: ICategory[];
 }
 
 export const MainSlider: FC<IMainSliderProps> = ({ slides, categories }) => {

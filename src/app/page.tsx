@@ -2,8 +2,10 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 
 import { MainPage } from '@/app/MainPage';
 import { getCategories } from '@/entities/category';
+import { getSlider } from '@/entities/mainSlider';
 import { getProducts } from '@/entities/product';
 import { getSeo } from '@/entities/seo';
+import { getAboutInfo } from '@/entities/pageInfo';
 
 export async function generateMetadata() {
     const data = await getSeo('Главная страница');
@@ -25,6 +27,11 @@ export default async function Page() {
         queryClient.prefetchQuery({
             queryKey: ['categories'],
             queryFn: getCategories,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['slider'],
+            queryFn: getSlider,
+            staleTime: Infinity,
         }),
     ]);
 

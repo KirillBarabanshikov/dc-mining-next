@@ -6,7 +6,7 @@
     .request {
         position: relative;
         background-color: var(--background-secondary);
-        background-image: url('../../shared/assets/backgrounds/manager-bg1.svg');
+        background-image: url('/backgrounds/manager-bg1.svg');
         background-repeat: no-repeat;
         background-position: center left;
         border-radius: 40px;
@@ -39,7 +39,7 @@
         position: relative;
         overflow: hidden;
         background-color: var(--background-dark);
-        background-image: url('../../shared/assets/backgrounds/manager-bg2.svg');
+        background-image: url('/backgrounds/manager-bg2.svg');
         background-repeat: no-repeat;
         background-size: cover;
         background-position-x: center;
