@@ -8,9 +8,9 @@ interface IIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
 }
 
-export const IconButton: FC<IIconButtonProps> = ({ icon, className, onClick }) => {
+export const IconButton: FC<IIconButtonProps> = ({ icon, className, onClick, ...props }) => {
     return (
-        <button type={'button'} onClick={onClick} className={clsx(styles.iconButton, className)}>
+        <button type={'button'} onClick={onClick} className={clsx(styles.iconButton, className)} {...props}>
             {icon}
         </button>
     );
