@@ -34,6 +34,7 @@ export const AddToCompareButton: FC<IAddToCompareButton> = ({ product, variant =
         <IconButton
             icon={<StatisticIcon />}
             onClick={onClick}
+            aria-label={'Add To Compare'}
             className={clsx(isCompare && styles.isCompare, className)}
         />
     );

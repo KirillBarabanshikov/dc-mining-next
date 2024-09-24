@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
@@ -65,8 +66,13 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
             <header className={clsx(styles.header, isSticky && styles.sticky)}>
                 <div className={styles.headerContainer}>
                     <div className={styles.mainMenu}>
-                        <IconButton icon={<Burger />} onClick={toggleMenu} className={styles.menuIcon} />
-                        <Link href={'/'} className={styles.logo}>
+                        <IconButton
+                            icon={<Burger />}
+                            onClick={toggleMenu}
+                            className={styles.menuIcon}
+                            aria-label={'burger-menu'}
+                        />
+                        <Link href={'/'} aria-label={'Logo'} className={styles.logo}>
                             <Logo />
                         </Link>
                         {!matchesLG && <Search className={styles.search} />}
@@ -85,7 +91,13 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
                                                 className={styles.option}
                                             >
                                                 <div className={styles.icon}>
-                                                    <img src={`${BASE_URL}/${contact.image}`} alt={contact.title} />
+                                                    <Image
+                                                        src={`${BASE_URL}/${contact.image}`}
+                                                        alt={`social ${contact.title}`}
+                                                        width={24}
+                                                        height={24}
+                                                        loading={'lazy'}
+                                                    />
                                                 </div>
                                                 <span>{contact.title}</span>
                                             </a>

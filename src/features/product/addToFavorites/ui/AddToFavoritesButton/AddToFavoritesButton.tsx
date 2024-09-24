@@ -30,6 +30,7 @@ export const AddToFavoritesButton: FC<IAddToFavoritesButton> = ({ product, class
         <IconButton
             icon={<HeartIcon />}
             onClick={onClick}
+            aria-label={'Add To Favorites'}
             className={clsx(isFavorite && styles.isFavorite, className)}
         />
     );

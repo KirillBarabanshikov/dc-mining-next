@@ -77,7 +77,14 @@ const BannerCard: FC<IBannerCardProps> = ({ title, subtitle, link, image }) => {
                     )}
                 </AnimatePresence>
             </div>
-            <Image width={580} height={300} src={image} alt={`Background Image`} className={styles.background} />
+            <Image
+                width={580}
+                height={300}
+                src={image}
+                alt={`Background Image`}
+                className={styles.background}
+                loading={'lazy'}
+            />
         </motion.div>
     );
 };
