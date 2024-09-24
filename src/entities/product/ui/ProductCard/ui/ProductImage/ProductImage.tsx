@@ -1,11 +1,11 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC, useState } from 'react';
 
-import { IProductImage } from '../../../../model';
 import styles from './ProductImage.module.scss';
 
 interface IProductImageProps {
-    images: IProductImage[];
+    images: { id: number; image?: string }[];
     className?: string;
 }
 
@@ -14,7 +14,13 @@ export const ProductImage: FC<IProductImageProps> = ({ images, className }) => {
 
     return (
         <div className={clsx(styles.image, className)} onMouseLeave={() => setCurrentSlide(0)}>
-            <img src={images[currentSlide]?.image} alt={`Product Image ${currentSlide}`} />
+            <Image
+                src={images[currentSlide]?.image || ''}
+                alt={`Product Image ${currentSlide}`}
+                width={252}
+                height={252}
+                loading={'lazy'}
+            />
             <div className={styles.slides}>
                 {images.length >= 2 &&
                     images.slice(0, 4).map((image, index) => {

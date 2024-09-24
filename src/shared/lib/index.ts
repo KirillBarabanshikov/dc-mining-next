@@ -1,4 +1,3 @@
-// export { useAppSelector, useAppDispatch } from './store';
 export { useIsSafari } from './browser';
 export { useOutsideClick } from './click';
 export { formatter } from './currency';
@@ -9,3 +8,4 @@ export { useMetrikaGoal } from './metrika';
 export { formatPhoneNumber, intFormatPhoneNumber } from './phone';
 export { useBodyScrollLock } from './scroll';
 export { createSlug } from './slug/createSlug';
+export { useStore } from './store/useStore';

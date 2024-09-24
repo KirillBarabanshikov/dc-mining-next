@@ -1,1 +1,2 @@
-export type { IOrderProduct, IProduct, IProductImage, IProductsByCategory, IProductValue } from './types';
+export { useProductsStore } from './store';
+export type { IProduct } from './types';

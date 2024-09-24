@@ -43,7 +43,7 @@ export const ProductBodyTile: FC<IProductBodyTileProps> = ({ product, onClick, i
                                 .map((value) => {
                                     return (
                                         <div key={value.id}>
-                                            {value.valueInKey} — {value.title} {value.unitInKey}
+                                            {value.valueInKey} — {value.title}
                                         </div>
                                     );
                                 })}

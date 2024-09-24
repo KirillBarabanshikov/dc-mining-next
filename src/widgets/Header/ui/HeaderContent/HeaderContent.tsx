@@ -7,6 +7,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { ICategory } from '@/entities/category';
 import { IContacts } from '@/entities/contacts';
+import { useProductsStore } from '@/entities/product';
 import { OrderCallModal } from '@/features/call';
 import { Search, SearchButton } from '@/features/search';
 import HeartIcon from '@/shared/assets/icons/heart.svg';
@@ -16,7 +17,7 @@ import StatisticIcon from '@/shared/assets/icons/statistic.svg';
 import StatisticIcon2 from '@/shared/assets/icons/statistic2.svg';
 import Logo from '@/shared/assets/logo.svg';
 import { BASE_URL, MAX_WIDTH_MD, MAX_WIDTH_XL } from '@/shared/consts';
-import { formatPhoneNumber, intFormatPhoneNumber, useBodyScrollLock, useMediaQuery } from '@/shared/lib';
+import { formatPhoneNumber, intFormatPhoneNumber, useBodyScrollLock, useMediaQuery, useStore } from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
 
 import { Burger } from '../Burger';
@@ -114,14 +115,14 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
 
 const FavoritesOption = () => {
     const matchesMD = useMediaQuery(MAX_WIDTH_MD);
-    // const { favorites } = useSelector((state: RootState) => state.products);
+    const store = useStore(useProductsStore, (state) => state);
     const pathname = usePathname();
 
     return (
         <Link href={'/favorites'} className={clsx(styles.option, pathname === '/favorites' && styles.active)}>
             <div className={styles.icon}>
                 {matchesMD ? <HeartIcon2 /> : <HeartIcon />}
-                {/*{isClient && !!favorites.length && <div className={styles.count}>{favorites.length}</div>}*/}
+                {!!store?.favorites.length && <div className={styles.count}>{store?.favorites.length}</div>}
             </div>
             <span>Избранное</span>
         </Link>

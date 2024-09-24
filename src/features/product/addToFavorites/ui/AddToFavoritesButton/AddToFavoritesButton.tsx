@@ -1,8 +1,9 @@
 import clsx from 'clsx';
 import React, { FC } from 'react';
 
-import { IProduct } from '@/entities/product';
+import { IProduct, useProductsStore } from '@/entities/product';
 import HeartIcon from '@/shared/assets/icons/heart2.svg';
+import { useStore } from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
 
 import styles from './AddToFavoritesButton.module.scss';
@@ -13,18 +14,23 @@ interface IAddToFavoritesButton {
 }
 
 export const AddToFavoritesButton: FC<IAddToFavoritesButton> = ({ product, className }) => {
+    const store = useStore(useProductsStore, (state) => state);
+    const isFavorite = !!store?.isFavorite(product.id);
+
     const onClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        console.log(product);
+        if (isFavorite) {
+            store?.removeFromFavorites(product.id);
+        } else {
+            store?.addToFavorite(product);
+        }
     };
-
-    const isFavorite = false;
 
     return (
         <IconButton
             icon={<HeartIcon />}
             onClick={onClick}
-            className={clsx(!!isFavorite && styles.isFavorite, className)}
+            className={clsx(isFavorite && styles.isFavorite, className)}
         />
     );
 };
