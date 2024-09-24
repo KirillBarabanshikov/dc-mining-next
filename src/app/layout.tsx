@@ -54,6 +54,7 @@ export default function RootLayout({
                     </Layout>
                 </QueryProvider>
                 <div id={'portal'} />
+                <div id={'overlay'}></div>
             </body>
         </html>
     );
