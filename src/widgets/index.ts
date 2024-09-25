@@ -1,5 +1,6 @@
 export { Advantages } from './Advantages';
 export { Bestsellers } from './Bestsellers';
+export { Delivery, Payments } from './DeliveryAndPayment';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { LivePhotos } from './LivePhotos';

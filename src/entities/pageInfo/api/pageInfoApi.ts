@@ -1,5 +1,4 @@
 import { instance } from '@/shared/api';
-import { BASE_URL } from '@/shared/consts';
 
 import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo, IMassMedia } from '../model';
 
@@ -34,19 +33,19 @@ export const getDataCenterInfo = async (): Promise<IDataCenterInfo | undefined> 
 
 export const getPaymentInfo = async (): Promise<IDeliveryAndPaymentInfo[] | undefined> => {
     try {
-        const response = await fetch(`${BASE_URL}/api/payments`);
-        return (await response.json()) as IDeliveryAndPaymentInfo[];
+        const response = await instance.get('/payments');
+        return response.data;
     } catch (error) {
-        console.error('Ошибка при загрузке payments:', error);
+        console.error(error);
     }
 };
 
 export const getDeliveryInfo = async (): Promise<IDeliveryAndPaymentInfo[] | undefined> => {
     try {
-        const response = await fetch(`${BASE_URL}/api/deliveries`);
-        return (await response.json()) as IDeliveryAndPaymentInfo[];
+        const response = await instance.get('/deliveries');
+        return response.data;
     } catch (error) {
-        console.error('Ошибка при загрузке payments:', error);
+        console.error(error);
     }
 };
 
