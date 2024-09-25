@@ -1,0 +1,1 @@
+export { LogoAnimationBanner } from './LogoAnimationBanner';

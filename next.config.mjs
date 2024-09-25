@@ -19,6 +19,14 @@ const nextConfig = {
             ],
         });
 
+        config.module.rules.push({
+            test: /\.(mp4|webm|ogg|swf|mov)$/,
+            type: 'asset/resource',
+            generator: {
+                filename: 'static/media/[name].[hash][ext]'
+            }
+        });
+
         return config;
     },
 };

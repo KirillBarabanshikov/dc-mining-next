@@ -1,9 +1,11 @@
 export { Advantages } from './Advantages';
+export { AdvantagesDCMining } from './AdvantagesDCMinig';
 export { Bestsellers } from './Bestsellers';
 export { Delivery, Payments } from './DeliveryAndPayment';
 export { Footer } from './Footer';
 export { Header } from './Header';
 export { LivePhotos } from './LivePhotos';
+export { LogoAnimationBanner } from './LogoAnimationBanner';
 export { MainBanner } from './MainBanner';
 export { MainBannersList } from './MainBannersList';
 export { Managers } from './Managers';

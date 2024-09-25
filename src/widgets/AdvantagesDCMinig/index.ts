@@ -1,0 +1,1 @@
+export { AdvantagesDCMining } from './AdvantagesDCMining';
