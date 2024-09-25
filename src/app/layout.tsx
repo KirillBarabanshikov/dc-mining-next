@@ -6,9 +6,6 @@ import 'swiper/css/pagination';
 import type { Metadata } from 'next';
 import React from 'react';
 
-import { Layout } from '@/shared/ui';
-import { Footer, Header } from '@/widgets';
-
 import { QueryProvider } from './queryProvider';
 
 export const metadata: Metadata = {
@@ -48,11 +45,7 @@ export default function RootLayout({
     return (
         <html lang='ru'>
             <body>
-                <QueryProvider>
-                    <Layout headerSlot={<Header />} footerSlot={<Footer />}>
-                        {children}
-                    </Layout>
-                </QueryProvider>
+                <QueryProvider>{children}</QueryProvider>
                 <div id={'portal'} />
                 <div id={'overlay'}></div>
             </body>

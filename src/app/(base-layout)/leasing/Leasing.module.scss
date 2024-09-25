@@ -35,7 +35,7 @@
         height: 708px;
         z-index: -1;
 
-        background-image: url('../../shared/assets/images/leasing/leasing-banner.png');
+        background-image: url('../../../shared/assets/images/leasing/leasing-banner.png');
         background-repeat: no-repeat;
         background-position: center;
         border-radius: 0 0 40px 40px;
@@ -80,7 +80,7 @@
         }
 
         .background {
-            background-image: url('../../shared/assets/images/leasing/leasing-banner-sm.png');
+            background-image: url('../../../shared/assets/images/leasing/leasing-banner-sm.png');
             background-size: cover;
             height: 360px;
             border-radius: 0 0 20px 20px;
@@ -434,7 +434,7 @@
 
 .contactsBanner {
     .wrap {
-        background-image: url('../../shared/assets/images/leasing/contacts-banner.png');
+        background-image: url('../../../shared/assets/images/leasing/contacts-banner.png');
         background-position: bottom;
         border-radius: 40px;
         padding: 80px;
@@ -505,7 +505,7 @@
         }
 
         @media screen and (max-width: 545px) {
-            background-image: url('../../shared/assets/images/leasing/contacts-banner2.png');
+            background-image: url('../../../shared/assets/images/leasing/contacts-banner2.png');
             background-position: bottom;
             background-repeat: no-repeat;
             background-size: cover;

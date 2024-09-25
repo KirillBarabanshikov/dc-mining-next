@@ -1,0 +1,169 @@
+.form {
+    .label {
+        font-weight: 500;
+        line-height: 19.2px;
+        margin-bottom: 20px;
+    }
+
+    .data {
+        margin-bottom: 32px;
+    }
+
+    .inputs {
+        display: flex;
+        gap: 16px;
+
+        .input {
+            width: 100%;
+        }
+    }
+
+    .problem {
+        margin-bottom: 20px;
+
+        .radioGroup {
+            background-color: var(--background-white);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+
+            p {
+                line-height: 20.8px;
+                margin-bottom: 16px;
+            }
+
+            .wrap {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+        }
+
+        .textarea {
+            position: relative;
+
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(190, 200, 245, 1);
+            padding: 16px;
+            border-radius: 16px;
+            height: 100px;
+            margin: 20px 0 8px 0;
+            transition: border-color 300ms ease-out;
+
+            &.error {
+                border-color: var(--background-accent);
+
+                textarea {
+                    color: var(--text-accent);
+
+                    &::placeholder {
+                        color: var(--text-accent);
+                    }
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        border-color: var(--background-accent);
+                    }
+                }
+            }
+
+            textarea {
+                resize: none;
+                width: 100%;
+                font-size: 16px;
+                line-height: 20.8px;
+                color: rgba(44, 44, 83, 1);
+
+                &::placeholder {
+                    color: rgba(90, 101, 156, 1);
+                }
+            }
+
+            .file {
+                position: absolute;
+                right: 8px;
+                bottom: 8px;
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    border-color: rgba(123, 135, 194, 1);
+                }
+            }
+        }
+
+        .formats {
+            font-size: 14px;
+            line-height: 18.2px;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+
+            &.error {
+                color: var(--text-accent);
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .label {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            line-height: 16.8px;
+        }
+
+        .inputs {
+            flex-direction: column;
+        }
+
+        .problem {
+            margin-bottom: 32px;
+
+            .radioGroup {
+                p {
+                    font-family: 'Roboto', sans-serif;
+                    font-size: 14px;
+                    line-height: 18.2px;
+                }
+            }
+
+            .textarea {
+                margin: 20px 0 48px 0;
+
+                textarea {
+                    height: 100%;
+                }
+
+                .file {
+                    position: absolute;
+                    left: 0;
+                    bottom: -41px;
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        border-color: rgba(123, 135, 194, 1);
+                    }
+                }
+            }
+
+            .formats {
+                font-size: 14px;
+                line-height: 18.2px;
+                color: var(--text-tertiary);
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

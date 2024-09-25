@@ -1,9 +1,10 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { MainPage } from '@/app/MainPage';
 import { getCategories } from '@/entities/category';
 import { getProducts } from '@/entities/product';
 import { getSeo } from '@/entities/seo';
+
+import { MainPage } from './MainPage';
 
 export async function generateMetadata() {
     const data = await getSeo('Главная страница');

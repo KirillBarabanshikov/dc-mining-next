@@ -1,0 +1,65 @@
+.service {
+    .body {
+        padding: 20px;
+        background-color: rgba(250, 250, 250, 0.3);
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(15px);
+        margin-top: 60px;
+        max-width: 905px;
+
+        h1 {
+            font-size: 40px;
+            line-height: 48px;
+            margin-bottom: 20px;
+            color: var(--text-accent-blue);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            line-height: 24px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100%;
+        z-index: -1;
+
+        background-image: url('../../../shared/assets/images/service/service-bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: bottom;
+    }
+
+    @media screen and (max-width: 992px) {
+        .body {
+            margin-top: 24px;
+            max-width: unset;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .body {
+            h1 {
+                font-size: 32px;
+                line-height: 38.4px;
+                text-align: start;
+            }
+
+            .subtitle {
+                font-family: 'Roboto', sans-serif;
+                font-size: 16px;
+                line-height: 20.8px;
+            }
+        }
+
+        .background {
+            display: none;
+        }
+    }
+}
