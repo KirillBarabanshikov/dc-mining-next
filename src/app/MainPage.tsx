@@ -1,6 +1,6 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 
@@ -29,12 +29,12 @@ export const MainPage = () => {
         queryKey: ['categories'],
         queryFn: getCategories,
     });
-    const { data: slides } = useSuspenseQuery({
+    const { data: slides } = useQuery({
         queryKey: ['slider'],
         queryFn: getSlider,
         staleTime: Infinity,
     });
-    const { data: info } = useSuspenseQuery({
+    const { data: info } = useQuery({
         queryKey: ['about'],
         queryFn: getAboutInfo,
         staleTime: Infinity,
