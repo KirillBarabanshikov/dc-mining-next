@@ -15,10 +15,10 @@ export const getAboutInfo = async (): Promise<IAboutInfo | undefined> => {
 
 export const getLeasingInfo = async (): Promise<ILeasingInfo | undefined> => {
     try {
-        const response = await fetch(`${BASE_URL}/api/leasing`);
-        return (await response.json()) as ILeasingInfo;
+        const response = await instance.get('/leasing');
+        return response.data;
     } catch (error) {
-        console.error('Ошибка при загрузке leasing:', error);
+        console.error(error);
     }
 };
 
