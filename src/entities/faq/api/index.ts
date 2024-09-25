@@ -1,0 +1,1 @@
+export { getFaq } from './faqApi';
