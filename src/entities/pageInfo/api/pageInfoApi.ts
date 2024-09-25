@@ -24,10 +24,11 @@ export const getLeasingInfo = async (): Promise<ILeasingInfo | undefined> => {
 
 export const getDataCenterInfo = async (): Promise<IDataCenterInfo | undefined> => {
     try {
-        const response = await fetch(`${BASE_URL}/api/dataCenters`);
-        return (await response.json()) as IDataCenterInfo;
+        const response = await instance.get<IDataCenterInfo>('/dataCenters');
+        return response.data;
     } catch (error) {
-        console.error('Ошибка при загрузке data center:', error);
+        console.error(error);
+        return;
     }
 };
 

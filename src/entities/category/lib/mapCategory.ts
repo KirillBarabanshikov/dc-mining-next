@@ -21,5 +21,6 @@ export function mapCategory(category: ICategoryDto): ICategory {
         name,
         slug: createSlug(name),
         link: links[category.title],
+        subCategory: category.subCategory?.sort((a, b) => a.title.localeCompare(b.title)),
     };
 }

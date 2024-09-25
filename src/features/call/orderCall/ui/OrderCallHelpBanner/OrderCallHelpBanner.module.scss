@@ -1,0 +1,44 @@
+.banner {
+    background-color: var(--background-dark);
+    background-image: url('/backgrounds/call-banner-bg.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    padding: 20px;
+
+    h3 {
+        font-size: 32px;
+        line-height: 38.4px;
+        color: var(--text-contrast);
+        margin-bottom: 32px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .checkbox {
+            margin: 16px 0;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        margin-top: 64px;
+
+        h3 {
+            text-align: center;
+        }
+    }
+}
+
+.captcha {
+    scale: 0.7;
+    max-height: 55px;
+
+    @media screen and (max-width: 855px) {
+        scale: unset;
+        max-height: unset;
+    }
+}

@@ -1,16 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+    FC,
+    // useRef,
+    // useState
+} from 'react';
 import { useForm } from 'react-hook-form';
 
+import { orderCall } from '@/entities/call';
+import { getPersonalData } from '@/entities/personalData';
+import { orderCallFormScheme, TOrderCallFormScheme } from '@/features/call/orderCall';
 import { MAX_WIDTH_MD } from '@/shared/consts';
-import { useMediaQuery } from '@/shared/lib';
+import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
-import { Button, Captcha, Checkbox, Input, Modal, StateModal } from '@/shared/ui';
+// import ReCAPTCHA from 'react-google-recaptcha';
+import {
+    Button,
+    // Captcha,
+    Checkbox,
+    Input,
+    Modal,
+    StateModal,
+} from '@/shared/ui';
 
-import { orderCallFormScheme, TOrderCallFormScheme } from '../../model';
-// import { useOrderCallMutation } from '@/entities/call';
-// import { useGetPersonalDataQuery } from '@/entities/personalData';
 import styles from './OrderCallModal.module.scss';
 
 interface IOrderCallModalProps {
@@ -21,8 +33,25 @@ interface IOrderCallModalProps {
 }
 
 export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOpen, onClose }) => {
-    // const { data: personalData } = useGetPersonalDataQuery();
-    // const [orderCall, { isLoading, isError, isSuccess, reset: resetOrderCall }] = useOrderCallMutation();
+    // const [captchaVerified, setCaptchaVerified] = useState(false);
+    // const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+    const matches = useMediaQuery(MAX_WIDTH_MD);
+    const { sendMetrikaGoal } = useMetrikaGoal();
+
+    const { data: personalData } = useQuery({
+        queryKey: ['personal-data'],
+        queryFn: getPersonalData,
+        staleTime: Infinity,
+    });
+
+    const {
+        mutateAsync: order,
+        isError,
+        isSuccess,
+        isPending,
+        reset: resetOrder,
+    } = useMutation({ mutationFn: orderCall });
+
     const {
         handleSubmit,
         register,
@@ -30,27 +59,21 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOp
         reset,
         setValue,
     } = useForm<TOrderCallFormScheme>({ resolver: yupResolver(orderCallFormScheme) });
-    const matches = useMediaQuery(MAX_WIDTH_MD);
-    const [captchaVerified, setCaptchaVerified] = useState(false);
-    const recaptchaRef = useRef<ReCAPTCHA | null>(null);
-    // const { sendMetrikaGoal } = useMetrikaGoal();
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
-        console.log(data);
-        if (!captchaVerified) return;
-        // await orderCall({ ...data, title }).unwrap();
-        // sendMetrikaGoal();
-        setCaptchaVerified(false);
+        // if (!captchaVerified) return;
+        await order({ ...data, title });
+        sendMetrikaGoal();
+        // setCaptchaVerified(false);
     };
 
     const handleClose = () => {
         reset();
-        // resetOrderCall();
+        resetOrder();
         onClose();
     };
 
-    // const isFinally = isSuccess || isError;
-    const isFinally = false;
+    const isFinally = isSuccess || isError;
 
     return (
         <Modal
@@ -60,10 +83,7 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOp
             subtitle={isFinally ? undefined : subtitle}
         >
             {isFinally ? (
-                <StateModal
-                    onClose={handleClose}
-                    // isError={isError}
-                />
+                <StateModal onClose={handleClose} isError={isError} />
             ) : (
                 <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                     <Input placeholder={'Имя'} error={!!errors.name} className={styles.input} {...register('name')} />
@@ -82,29 +102,25 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOp
                         className={styles.checkbox}
                         label={
                             <>
-                                Я согласен на обработку {/*<a href={personalData?.image} target={'_blank'}>*/}
-                                {/*    персональных данных*/}
-                                {/*</a>*/}
+                                Я согласен на обработку{' '}
+                                <a href={personalData?.image} target={'_blank'}>
+                                    персональных данных
+                                </a>
                             </>
                         }
                         error={!!errors.checked}
                         {...register('checked')}
                     />
-                    <Captcha
-                        ref={recaptchaRef}
-                        onCaptchaVerify={(verify) => setCaptchaVerified(verify)}
-                        onExpired={() => setCaptchaVerified(false)}
-                    />
+                    {/*<Captcha*/}
+                    {/*    ref={recaptchaRef}*/}
+                    {/*    onCaptchaVerify={(verify) => setCaptchaVerified(verify)}*/}
+                    {/*    onExpired={() => setCaptchaVerified(false)}*/}
+                    {/*/>*/}
                     <div className={styles.buttons}>
                         <Button variant={'outline'} onClick={handleClose} size={matches ? 'md' : 'lg'} isWide={matches}>
                             Отмена
                         </Button>
-                        <Button
-                            type={'submit'}
-                            size={matches ? 'md' : 'lg'}
-                            isWide={matches}
-                            // disabled={isLoading}
-                        >
+                        <Button type={'submit'} size={matches ? 'md' : 'lg'} isWide={matches} disabled={isPending}>
                             Отправить
                         </Button>
                     </div>

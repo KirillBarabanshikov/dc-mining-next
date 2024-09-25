@@ -1,7 +1,7 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { Metadata } from 'next';
 
 import { DataCenterPage } from '@/app/data-center/DataCenterPage';
-import { getCategories } from '@/entities/category';
 import { getDataCenterInfo } from '@/entities/pageInfo';
 import { getSeo } from '@/entities/seo';
 
@@ -15,7 +15,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-    const [info, categories] = await Promise.all([getDataCenterInfo(), getCategories()]);
+    const queryClient = new QueryClient();
 
-    return <DataCenterPage info={info} categories={categories} />;
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['data-center'],
+            queryFn: getDataCenterInfo,
+            staleTime: Infinity,
+        }),
+    ]);
+
+    return (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <DataCenterPage />
+        </HydrationBoundary>
+    );
 }

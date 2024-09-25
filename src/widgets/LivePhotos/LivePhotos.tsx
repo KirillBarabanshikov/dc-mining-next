@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -25,7 +26,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ images, className }) => {
                     return (
                         <SwiperSlide key={index} className={styles.slide}>
                             <div className={styles.photo}>
-                                <img src={BASE_URL + image} alt={'Photo'} />
+                                <Image src={BASE_URL + image} alt={'Photo'} width={280} height={280} loading={'lazy'} />
                             </div>
                         </SwiperSlide>
                     );

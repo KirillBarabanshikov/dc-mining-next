@@ -1,2 +1,2 @@
 export { orderCallFormScheme, type TOrderCallFormScheme } from './model';
-export { OrderCallModal } from './ui';
+export { OrderCallBanner, OrderCallHelpBanner, OrderCallModal } from './ui';
