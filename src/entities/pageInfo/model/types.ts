@@ -21,7 +21,7 @@ export interface IAdvantage {
 
 export interface IMassMedia {
     id: number;
-    image: string;
+    image?: string;
     dateAt: string;
     title: string;
     description: string;

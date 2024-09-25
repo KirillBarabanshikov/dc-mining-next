@@ -1,7 +1,7 @@
 import { instance } from '@/shared/api';
 import { BASE_URL } from '@/shared/consts';
 
-import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo } from '../model';
+import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo, IMassMedia } from '../model';
 
 export const getAboutInfo = async (): Promise<IAboutInfo | undefined> => {
     try {
@@ -47,5 +47,14 @@ export const getDeliveryInfo = async (): Promise<IDeliveryAndPaymentInfo[] | und
         return (await response.json()) as IDeliveryAndPaymentInfo[];
     } catch (error) {
         console.error('Ошибка при загрузке payments:', error);
+    }
+};
+
+export const getMassMediaById = async (id: string | number) => {
+    try {
+        const response = await instance.get<IMassMedia>(`/about_mass_media/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
     }
 };

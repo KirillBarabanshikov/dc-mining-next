@@ -1,1 +1,8 @@
-export { getAboutInfo, getDataCenterInfo, getDeliveryInfo, getLeasingInfo, getPaymentInfo } from './pageInfoApi';
+export {
+    getAboutInfo,
+    getDataCenterInfo,
+    getDeliveryInfo,
+    getLeasingInfo,
+    getMassMediaById,
+    getPaymentInfo,
+} from './pageInfoApi';
