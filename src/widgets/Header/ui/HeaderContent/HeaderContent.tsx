@@ -1,7 +1,6 @@
 'use client';
 
 import clsx from 'clsx';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
@@ -91,10 +90,9 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
                                                 className={styles.option}
                                             >
                                                 <div className={styles.icon}>
-                                                    <Image
+                                                    <img
                                                         src={`${BASE_URL}/${contact.image}`}
                                                         alt={`social ${contact.title}`}
-                                                        fill
                                                         loading={'lazy'}
                                                     />
                                                 </div>
