@@ -14,4 +14,5 @@ export interface ICategory {
     name: string;
     slug: string;
     link?: string;
+    seoName: string;
 }

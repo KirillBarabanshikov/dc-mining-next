@@ -1,1 +1,1 @@
-export { getSeo } from './seoApi';
+export { getSeo, getSeos } from './seoApi';

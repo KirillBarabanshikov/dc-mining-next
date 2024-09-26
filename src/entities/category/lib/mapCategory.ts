@@ -4,6 +4,7 @@ import { createSlug } from '@/shared/lib';
 import { ICategoryDto } from '../api';
 import { ICategory } from '../model';
 import { getCategoryNameByTitle } from './getCategoryNameByTitle';
+import { getCategorySeoName } from './getCategorySeoName';
 
 const links: Record<string, string> = {
     accommodationDataCentre: '/data-center',
@@ -22,5 +23,6 @@ export function mapCategory(category: ICategoryDto): ICategory {
         slug: createSlug(name),
         link: links[category.title],
         subCategory: category.subCategory?.sort((a, b) => a.title.localeCompare(b.title)),
+        seoName: getCategorySeoName(category.title),
     };
 }
