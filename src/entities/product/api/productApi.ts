@@ -13,6 +13,16 @@ export const getProducts = async (params: { display?: boolean; title?: string } 
     }
 };
 
+export const getProductById = async (id: string | number) => {
+    try {
+        const response = await instance.get<IProductDto>(`/products/${id}`);
+        return mapProduct(response.data);
+    } catch (e) {
+        console.error(e);
+        return;
+    }
+};
+
 export const compareProducts = async (productId: number[]) => {
     try {
         const response = await instance.post<IProductDto[]>('/product/compare', { productId });

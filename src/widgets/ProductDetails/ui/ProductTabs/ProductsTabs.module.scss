@@ -1,0 +1,83 @@
+.productTabs {
+    margin-top: 40px;
+
+    .tabs {
+        display: flex;
+
+        background-color: var(--background-white);
+        border-radius: 16px;
+        padding: 0 16px;
+        margin-bottom: 40px;
+        overflow: auto;
+
+        .tab {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 64px;
+            padding: 0 32px;
+            font-weight: 500;
+            line-height: 19.2px;
+            transition: background-color 300ms ease-out;
+            white-space: nowrap;
+
+            &.active {
+                pointer-events: none;
+
+                &:after {
+                    opacity: 1;
+                }
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                transition: opacity 300ms ease-out;
+                background-color: rgba(73, 70, 255, 1);
+                opacity: 0;
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    background-color: var(--background-primary);
+                }
+            }
+        }
+    }
+}
+
+.productSpecifications {
+    display: flex;
+    flex-direction: column;
+
+    .specification {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+
+        &:nth-child(even) {
+            border-radius: 8px;
+            background-color: var(--background-white);
+        }
+
+        .name {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16.8px;
+            color: var(--text-secondary);
+            flex: 1;
+        }
+
+        .value {
+            font-size: 14px;
+            line-height: 18.2px;
+            flex: 1;
+        }
+    }
+}

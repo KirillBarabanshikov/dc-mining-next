@@ -1,0 +1,151 @@
+.info {
+    width: 100%;
+
+    .tags {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        h1 {
+            font-size: 32px;
+            line-height: 38.4px;
+        }
+
+        .specifications {
+            display: flex;
+            gap: 8px;
+
+            .specification {
+                flex: 1;
+
+                .name {
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 24px;
+                    margin-bottom: 16px;
+                }
+
+                .value {
+                    line-height: 20.8px;
+                }
+            }
+        }
+
+        .description {
+            line-height: 20.8px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .oldPrice {
+            font-size: 14px;
+            line-height: 18.2px;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .price {
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 28.8px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 16px;
+
+            .button {
+                flex: 1;
+                max-width: 244px;
+                height: 48px;
+            }
+
+            .iconButton {
+                background-color: var(--background-white);
+                color: rgba(44, 43, 124, 1);
+
+                @media (hover: hover) {
+                    &:hover {
+                        background-color: var(--background-secondary);
+                        color: var(--text-accent-blue);
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1200px) {
+            .specifications {
+                .specification {
+                    .name {
+                        font-size: 16px;
+                        line-height: 19.2px;
+                    }
+
+                    .value {
+                        font-size: 14px;
+                        line-height: 18.2px;
+                    }
+                }
+            }
+
+            .description {
+                font-size: 14px;
+                line-height: 18.2px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            gap: 20px;
+
+            h1 {
+                font-size: 24px;
+                line-height: 28.8px;
+            }
+
+            .specifications {
+                .specification {
+                    .name {
+                        font-family: 'Roboto', sans-serif;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 16.8px;
+                    }
+
+                    .value {
+                        font-family: 'Roboto', sans-serif;
+                        font-size: 12px;
+                        line-height: 15.6px;
+                    }
+                }
+            }
+
+            .description {
+                font-family: 'Roboto', sans-serif;
+                font-size: 12px;
+                line-height: 15.6px;
+            }
+
+            .oldPrice {
+                font-size: 16px;
+                line-height: 20.8px;
+            }
+
+            .price {
+                font-size: 32px;
+                line-height: 38.4px;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 8px;
+            }
+        }
+    }
+}
