@@ -1,0 +1,1 @@
+export { BottomLinks } from './BottomLinks';

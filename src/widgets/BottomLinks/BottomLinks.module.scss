@@ -1,0 +1,53 @@
+.bottomLinks {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 4px;
+
+    .bottomLinksContainer {
+        background-color: var(--background-white);
+        padding: 8px;
+        border-radius: 16px;
+        display: flex;
+        gap: 8px;
+        box-shadow: 0 20px 20px rgba(73, 70, 255, 0.25);
+
+        .option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+
+            background-color: var(--background-secondary);
+            height: 48px;
+            border-radius: 16px;
+
+            &.telegram {
+                .icon {
+                    background-color: unset;
+                }
+            }
+
+            .icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background-color: var(--background-white);
+                padding: 5px;
+                border-radius: 16px;
+
+                img {
+                    max-width: 69px;
+                    max-height: 38px;
+                }
+
+                svg {
+                    width: 21px;
+                    height: 21px;
+                }
+            }
+        }
+    }
+}

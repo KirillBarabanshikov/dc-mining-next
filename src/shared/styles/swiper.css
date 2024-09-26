@@ -60,13 +60,13 @@
 
 @media screen and (max-width: 768px) {
     .main-banner .swiper-pagination {
-        top: 315px;
-        bottom: unset;
-        left: calc(50% - 70px);
+        top: 315px !important;
+        bottom: unset !important;
+        left: calc(50% - 70px) !important;
     }
 
     .main-banner .swiper-pagination .swiper-pagination-bullet {
-        background-color: var(--background-secondary);
+        background-color: var(--background-secondary) !important;
     }
 }
 

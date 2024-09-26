@@ -1,8 +1,12 @@
 import { PropsWithChildren } from 'react';
 
 import { Layout } from '@/shared/ui';
-import { Header } from '@/widgets';
+import { BottomLinks, Header } from '@/widgets';
 
 export default function LayoutWithoutFooter({ children }: PropsWithChildren) {
-    return <Layout headerSlot={<Header />}>{children}</Layout>;
+    return (
+        <Layout headerSlot={<Header />} bottomSlot={<BottomLinks />}>
+            {children}
+        </Layout>
+    );
 }
