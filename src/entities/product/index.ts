@@ -1,3 +1,3 @@
 export { getProducts } from './api';
-export { type IProduct, useProductsStore } from './model';
+export { type IProduct, useFavoritesStore } from './model';
 export { ProductCard } from './ui';

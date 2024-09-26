@@ -1,2 +1,2 @@
-export { useProductsStore } from './store';
+export { useFavoritesStore } from './store';
 export type { IProduct } from './types';

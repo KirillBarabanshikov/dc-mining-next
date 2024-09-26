@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { ICategory } from '@/entities/category';
 import { IContacts } from '@/entities/contacts';
-import { useProductsStore } from '@/entities/product';
+import { useFavoritesStore } from '@/entities/product';
 import { OrderCallModal } from '@/features/call';
 import { Search, SearchButton } from '@/features/search';
 import HeartIcon from '@/shared/assets/icons/heart.svg';
@@ -127,7 +127,7 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
 
 const FavoritesOption = () => {
     const matchesMD = useMediaQuery(MAX_WIDTH_MD);
-    const store = useStore(useProductsStore, (state) => state);
+    const store = useStore(useFavoritesStore, (state) => state);
     const pathname = usePathname();
 
     return (

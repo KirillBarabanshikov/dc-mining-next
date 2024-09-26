@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { FC } from 'react';
 
-import { IProduct, useProductsStore } from '@/entities/product';
+import { IProduct, useFavoritesStore } from '@/entities/product';
 import HeartIcon from '@/shared/assets/icons/heart2.svg';
 import { useStore } from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
@@ -14,7 +14,7 @@ interface IAddToFavoritesButton {
 }
 
 export const AddToFavoritesButton: FC<IAddToFavoritesButton> = ({ product, className }) => {
-    const store = useStore(useProductsStore, (state) => state);
+    const store = useStore(useFavoritesStore, (state) => state);
     const isFavorite = !!store?.isFavorite(product.id);
 
     const onClick = (e: React.MouseEvent) => {

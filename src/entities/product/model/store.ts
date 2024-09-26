@@ -3,14 +3,15 @@ import { devtools, persist } from 'zustand/middleware';
 
 import { IProduct } from '../model';
 
-interface IProductsState {
+interface IFavoritesState {
     favorites: IProduct[];
     addToFavorite: (product: IProduct) => void;
     removeFromFavorites: (productId: number) => void;
     isFavorite: (productId: number) => boolean;
+    clearFavorites: () => void;
 }
 
-export const useProductsStore = create<IProductsState>()(
+export const useFavoritesStore = create<IFavoritesState>()(
     devtools(
         persist(
             (set, get) => ({
@@ -26,6 +27,7 @@ export const useProductsStore = create<IProductsState>()(
                 isFavorite: (productId) => {
                     return get().favorites.some((item) => item.id === productId);
                 },
+                clearFavorites: () => set({ favorites: [] }),
             }),
             {
                 name: 'products-store',
