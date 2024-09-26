@@ -1,0 +1,59 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 436px;
+
+    background-color: var(--background-white);
+    border-radius: 20px;
+    padding: 16px;
+    transition: background-color 300ms ease-out;
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .name {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19.2px;
+        margin-bottom: 16px;
+        transition: color 300ms ease-out;
+    }
+
+    .price {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+            background-color: var(--background-primary);
+
+            .name {
+                color: var(--text-accent-blue);
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        min-width: 300px;
+
+        .name {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            line-height: 16.8px;
+        }
+
+        .price {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 19.2px;
+        }
+    }
+}

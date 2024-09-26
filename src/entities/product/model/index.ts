@@ -1,2 +1,2 @@
-export { useCompareStore, useFavoritesStore } from './store';
+export { useCompareStore, useFavoritesStore, useRecentStore } from './store';
 export type { IProduct } from './types';

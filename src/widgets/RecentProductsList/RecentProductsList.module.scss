@@ -1,0 +1,39 @@
+.recent {
+    .list {
+        &:hover {
+            .swiperButton {
+                opacity: 1;
+            }
+        }
+    }
+
+    .swiperButton {
+        &.next {
+            right: 16px;
+        }
+
+        &.prev {
+            left: 16px;
+        }
+    }
+
+    .slide {
+        max-width: 436px;
+
+        @media screen and (max-width: 768px) {
+            max-width: 300px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .list {
+            gap: 10px;
+            padding: 0 16px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            padding: 0 16px;
+        }
+    }
+}

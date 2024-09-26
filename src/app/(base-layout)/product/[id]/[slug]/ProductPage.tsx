@@ -5,19 +5,23 @@ import { useParams } from 'next/navigation';
 
 import { getAboutInfo } from '@/entities/pageInfo';
 import { getProductById } from '@/entities/product';
-// import { MAX_WIDTH_MD } from '@/shared/consts';
-// import { useMediaQuery } from '@/shared/lib';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
-import { AdvantagesDCMining } from '@/widgets';
+import { AdvantagesDCMining, RecentProductsList } from '@/widgets';
 import { CallMeBanner } from '@/widgets/CallMeBanner';
 import { ProductDetails } from '@/widgets/ProductDetails';
 
 import styles from './ProductPage.module.scss';
+import { useEffect } from 'react';
+import { useRecentStore } from '@/entities/product/model';
 
 const paths = [{ name: 'Главная', path: '/' }];
 
 const ProductPage = () => {
     const { id } = useParams<{ id: string }>();
+    const matches = useMediaQuery(MAX_WIDTH_MD);
+    const { addToRecent } = useRecentStore();
 
     const { data: product } = useSuspenseQuery({
         queryKey: ['product', id],
@@ -28,7 +32,12 @@ const ProductPage = () => {
         queryFn: getAboutInfo,
         staleTime: Infinity,
     });
-    // const matches = useMediaQuery(MAX_WIDTH_MD);
+
+    useEffect(() => {
+        if (!product) return;
+        console.log(product);
+        addToRecent(product);
+    }, [product]);
 
     const breadcrumbsPaths = [
         ...paths,
@@ -45,7 +54,7 @@ const ProductPage = () => {
             <div className={'sections'}>
                 <ProductDetails product={product} />
                 {info && <AdvantagesDCMining advantages={info.advantages} />}
-                {/*{!matches && <RecentProductsList />}*/}
+                {!matches && <RecentProductsList />}
                 <CallMeBanner />
             </div>
         </div>

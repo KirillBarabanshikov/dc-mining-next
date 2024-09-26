@@ -68,3 +68,34 @@ export const useCompareStore = create<ICompareState>()(
         ),
     ),
 );
+
+interface IRecentState {
+    recent: IProduct[];
+    addToRecent: (product: IProduct) => void;
+}
+
+export const useRecentStore = create<IRecentState>()(
+    devtools(
+        persist(
+            (set, get) => ({
+                recent: [],
+                addToRecent: (product) => {
+                    let recentProducts = get().recent;
+
+                    if (recentProducts.find((item) => item.id === product.id)) {
+                        recentProducts = recentProducts.filter((item) => item.id !== product.id);
+                    }
+
+                    if (recentProducts.length >= 10) {
+                        recentProducts = recentProducts.slice(0, -1);
+                    }
+
+                    set({ recent: [product, ...recentProducts] });
+                },
+            }),
+            {
+                name: 'recent',
+            },
+        ),
+    ),
+);

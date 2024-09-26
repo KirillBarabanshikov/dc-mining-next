@@ -1,0 +1,1 @@
+export { RecentProductsList } from './RecentProductsList';

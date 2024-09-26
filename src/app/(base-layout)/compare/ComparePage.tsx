@@ -4,7 +4,7 @@ import { useCompareStore } from '@/entities/product';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
-import { CompareList } from '@/widgets';
+import { CompareList, RecentProductsList } from '@/widgets';
 
 import styles from './ComparePage.module.scss';
 
@@ -25,7 +25,7 @@ const ComparePage = () => {
                 </div>
                 <div className={'container scrollable'}>{<CompareList />}</div>
             </section>
-            {/*<RecentProductsList />*/}
+            <RecentProductsList />
         </div>
     );
 };

@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     const product = await getProductById(params.id);
 
     return {
-        title: product?.title,
+        title: product?.seoTitle ? product?.seoTitle : product?.title,
     };
 }
 
