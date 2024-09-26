@@ -59,7 +59,10 @@ export const ProductBodySimple: FC<IProductBodySimpleProps> = ({ product, onClic
                         product={product}
                         className={clsx(cardStyles.iconButton, styles.iconButton)}
                     />
-                    <AddToCompareButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />
+                    <AddToCompareButton
+                        productId={product.id}
+                        className={clsx(cardStyles.iconButton, styles.iconButton)}
+                    />
                 </div>
             </div>
         </div>

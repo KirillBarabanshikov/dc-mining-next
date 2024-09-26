@@ -1,6 +1,7 @@
 export { Advantages } from './Advantages';
 export { AdvantagesDCMining } from './AdvantagesDCMinig';
 export { Bestsellers } from './Bestsellers';
+export { CompareList } from './CompareList';
 export { Delivery, Payments } from './DeliveryAndPayment';
 export { Footer } from './Footer';
 export { Header } from './Header';

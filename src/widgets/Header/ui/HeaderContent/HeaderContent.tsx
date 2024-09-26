@@ -8,7 +8,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { ICategory } from '@/entities/category';
 import { IContacts } from '@/entities/contacts';
-import { useFavoritesStore } from '@/entities/product';
+import { useCompareStore, useFavoritesStore } from '@/entities/product';
 import { OrderCallModal } from '@/features/call';
 import { Search, SearchButton } from '@/features/search';
 import HeartIcon from '@/shared/assets/icons/heart.svg';
@@ -143,14 +143,14 @@ const FavoritesOption = () => {
 
 const CompareOption = () => {
     const matchesMD = useMediaQuery(MAX_WIDTH_MD);
-    // const { compare } = useSelector((state: RootState) => state.products);
+    const store = useStore(useCompareStore, (state) => state);
     const pathname = usePathname();
 
     return (
         <Link href={'/compare'} className={clsx(styles.option, pathname === '/compare' && styles.active)}>
             <div className={styles.icon}>
                 {matchesMD ? <StatisticIcon2 /> : <StatisticIcon />}
-                {/*{isClient && !!compare.length && <div className={styles.count}>{compare.length}</div>}*/}
+                {!!store?.compare.length && <div className={styles.count}>{store?.compare.length}</div>}
             </div>
             <span>Сравнить</span>
         </Link>

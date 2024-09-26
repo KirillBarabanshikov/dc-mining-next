@@ -1,3 +1,3 @@
-export { getProducts } from './api';
-export { type IProduct, useFavoritesStore } from './model';
-export { ProductCard } from './ui';
+export { compareProducts, getProducts } from './api';
+export { type IProduct, useCompareStore, useFavoritesStore } from './model';
+export { ProductCard, ProductCompareCard } from './ui';

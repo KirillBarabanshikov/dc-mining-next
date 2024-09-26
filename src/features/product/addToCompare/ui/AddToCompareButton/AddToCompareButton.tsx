@@ -1,34 +1,30 @@
 import clsx from 'clsx';
 import React, { FC } from 'react';
 
-import { IProduct } from '@/entities/product';
+import { useCompareStore } from '@/entities/product';
 import StatisticIcon from '@/shared/assets/icons/statistic2.svg';
-import TrashIcon from '@/shared/assets/icons/trash.svg';
+import { useStore } from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
 
 import styles from './AddToCompareButton.module.scss';
 
 interface IAddToCompareButton {
-    product: IProduct;
+    productId: number;
     className?: string;
-    variant?: 'default' | 'trash';
 }
 
-export const AddToCompareButton: FC<IAddToCompareButton> = ({ product, variant = 'default', className }) => {
+export const AddToCompareButton: FC<IAddToCompareButton> = ({ productId, className }) => {
+    const store = useStore(useCompareStore, (state) => state);
+    const isCompare = !!store?.isCompare(productId);
+
     const onClick = (e: React.MouseEvent) => {
         e.preventDefault();
-        console.log(product);
+        if (isCompare) {
+            store?.removeFromCompare(productId);
+        } else {
+            store?.addToCompare(productId);
+        }
     };
-
-    const isCompare = false;
-
-    if (variant === 'trash') {
-        return (
-            <div className={clsx(styles.trashIcon, className)} onClick={onClick}>
-                <TrashIcon />
-            </div>
-        );
-    }
 
     return (
         <IconButton

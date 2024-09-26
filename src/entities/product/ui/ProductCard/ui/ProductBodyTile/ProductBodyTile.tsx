@@ -56,7 +56,7 @@ export const ProductBodyTile: FC<IProductBodyTileProps> = ({ product, onClick, i
                     Заказать
                 </Button>
                 <AddToFavoritesButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />
-                <AddToCompareButton product={product} className={clsx(cardStyles.iconButton, styles.iconButton)} />
+                <AddToCompareButton productId={product.id} className={clsx(cardStyles.iconButton, styles.iconButton)} />
             </div>
         </div>
     );

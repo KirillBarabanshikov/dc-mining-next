@@ -30,7 +30,40 @@ export const useFavoritesStore = create<IFavoritesState>()(
                 clearFavorites: () => set({ favorites: [] }),
             }),
             {
-                name: 'products-store',
+                name: 'favorites',
+            },
+        ),
+    ),
+);
+
+interface ICompareState {
+    compare: number[];
+    addToCompare: (productId: number) => void;
+    removeFromCompare: (productId: number) => void;
+    isCompare: (productId: number) => boolean;
+    clearCompare: () => void;
+}
+
+export const useCompareStore = create<ICompareState>()(
+    devtools(
+        persist(
+            (set, get) => ({
+                compare: [],
+                addToCompare: (productId) => {
+                    const currentCompare = get().compare;
+                    set({ compare: [...currentCompare, productId] });
+                },
+                removeFromCompare: (productId) => {
+                    const updatedCompare = get().compare.filter((id) => id !== productId);
+                    set({ compare: updatedCompare });
+                },
+                isCompare: (productId) => {
+                    return get().compare.some((id) => id === productId);
+                },
+                clearCompare: () => set({ compare: [] }),
+            }),
+            {
+                name: 'compare',
             },
         ),
     ),
