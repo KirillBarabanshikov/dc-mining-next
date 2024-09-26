@@ -1,1 +1,1 @@
-export { ProductSlider } from './ProductSlider.tsx';
+export { ProductSlider } from './ProductSlider';

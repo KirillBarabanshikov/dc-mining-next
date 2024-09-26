@@ -1,1 +1,1 @@
-export { ProductDetails } from './ProductDetails.tsx';
+export { ProductDetails } from './ProductDetails';

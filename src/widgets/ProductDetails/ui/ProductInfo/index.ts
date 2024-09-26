@@ -1,1 +1,1 @@
-export { ProductInfo } from './ProductInfo.tsx';
+export { ProductInfo } from './ProductInfo';

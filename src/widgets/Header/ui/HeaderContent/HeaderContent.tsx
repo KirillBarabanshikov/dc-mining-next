@@ -94,8 +94,7 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
                                                     <Image
                                                         src={`${BASE_URL}/${contact.image}`}
                                                         alt={`social ${contact.title}`}
-                                                        width={24}
-                                                        height={24}
+                                                        fill
                                                         loading={'lazy'}
                                                     />
                                                 </div>
