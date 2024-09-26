@@ -2,9 +2,11 @@
 
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 import { getAboutInfo } from '@/entities/pageInfo';
 import { getProductById } from '@/entities/product';
+import { useRecentStore } from '@/entities/product/model';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
@@ -13,8 +15,6 @@ import { CallMeBanner } from '@/widgets/CallMeBanner';
 import { ProductDetails } from '@/widgets/ProductDetails';
 
 import styles from './ProductPage.module.scss';
-import { useEffect } from 'react';
-import { useRecentStore } from '@/entities/product/model';
 
 const paths = [{ name: 'Главная', path: '/' }];
 
