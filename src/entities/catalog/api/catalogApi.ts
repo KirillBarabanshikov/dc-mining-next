@@ -33,9 +33,14 @@ export const getCustomFilters = async (): Promise<ICustomFilter[] | undefined> =
     }
 };
 
-export const getCatalogProducts = async (params: IFilterParams): Promise<ICatalogProducts | undefined> => {
+export const getCatalogProducts = async (
+    params: IFilterParams,
+    page: number = 1,
+): Promise<ICatalogProducts | undefined> => {
     try {
-        const response = await instance.get<{ total_items: number; items: IProductDto[] }>('/filtersItems', { params });
+        const response = await instance.get<{ total_items: number; items: IProductDto[] }>('/filtersItems', {
+            params: { ...params, page, limit: 12 },
+        });
         const items = response.data.items.map(mapProduct);
 
         return { total_items: response.data.total_items, items };

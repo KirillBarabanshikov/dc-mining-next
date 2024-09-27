@@ -10,7 +10,8 @@ interface ICatalogState {
     products: IProduct[];
     category?: ICategory | undefined;
     setViewMode: (viewMode: 'tile' | 'simple') => void;
-    setCatalog: ({ countProducts, products }: { countProducts: number; products: IProduct[] }) => void;
+    setCountProducts: (countProducts: number) => void;
+    setProducts: (products: IProduct[]) => void;
     setCategory: (category: ICategory) => void;
 }
 
@@ -22,7 +23,8 @@ export const useCatalogStore = create<ICatalogState>()(
             products: [],
             category: undefined,
             setViewMode: (viewMode) => set({ viewMode }),
-            setCatalog: ({ products, countProducts }) => set({ countProducts, products }),
+            setCountProducts: (countProducts) => set({ countProducts }),
+            setProducts: (products) => set({ products }),
             setCategory: (category) => set({ category }),
         }),
         {

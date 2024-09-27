@@ -1,12 +1,11 @@
 'use client';
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { useCatalogFilters, useCatalogStore } from '@/entities/catalog';
-import { getCatalogProducts } from '@/entities/catalog/api';
+import { useCatalogStore } from '@/entities/catalog';
 import { getCategoryById } from '@/entities/category';
 import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
@@ -21,8 +20,7 @@ const paths = [{ name: 'Главная', path: '/' }];
 const CatalogPage = () => {
     const { id } = useParams<{ id: string }>();
     const matches = useMediaQuery('(max-width: 855px)');
-    const { getFilterBody, params } = useCatalogFilters();
-    const { setCatalog, countProducts, setCategory } = useCatalogStore();
+    const { countProducts, setCategory } = useCatalogStore();
 
     const { data: category } = useSuspenseQuery({
         queryKey: ['category', id],
@@ -33,21 +31,6 @@ const CatalogPage = () => {
         queryFn: getSeos,
         staleTime: Infinity,
     });
-
-    const { data: catalogData, refetch } = useQuery({
-        queryKey: ['catalog', category?.title],
-        queryFn: () => getCatalogProducts(getFilterBody(category?.title ?? '')),
-    });
-
-    useEffect(() => {
-        if (!catalogData || !category) return;
-        setCatalog({ countProducts: catalogData.total_items, products: catalogData.items });
-        setCategory(category);
-    }, [catalogData, category, setCatalog]);
-
-    useEffect(() => {
-        refetch();
-    }, [params]);
 
     const currentSeo = seos?.find((seo) => seo.choose === category?.seoName);
 
