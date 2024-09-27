@@ -1,3 +1,5 @@
+import { IProduct } from '@/entities/product';
+
 export interface IFilter {
     id: number;
     category: {
@@ -34,4 +36,15 @@ export interface IFilterParams {
     profitable?: boolean;
     powerful?: boolean;
     customFilters?: string;
+}
+
+export interface ICustomFilter {
+    id: number;
+    title: string;
+    productCategoryTitle: string;
+}
+
+export interface ICatalogProducts {
+    total_items: number;
+    items: IProduct[];
 }

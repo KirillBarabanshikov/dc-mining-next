@@ -1,0 +1,116 @@
+.sorting {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--background-white);
+    border-radius: 20px;
+    padding: 20px;
+
+    .sortDropdown {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .sortLabel {
+            font-family: 'Roboto', sans-serif;
+            line-height: 20.8px;
+            color: rgba(66, 66, 66, 1);
+        }
+
+        .dropdown {
+            width: 248px;
+        }
+    }
+
+    .buttonsWrap {
+        .filterButton {
+            display: none;
+            align-items: center;
+            gap: 8px;
+
+            background-color: var(--background-white);
+            border-radius: 16px;
+            padding: 8px 16px;
+
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 16.8px;
+            transition:
+                color 300ms ease-out,
+                background-color 300ms ease-out;
+
+            &:active {
+                color: var(--text-contrast);
+                background-color: var(--button-active);
+            }
+        }
+
+        .viewModeWrap {
+            display: flex;
+            gap: 4px;
+
+            .iconButton {
+                width: 32px;
+                height: 32px;
+                color: var(--stroke-fourthiary);
+
+                &.selected {
+                    color: var(--stroke-primary);
+                    pointer-events: none;
+
+                    @media (hover: hover) {
+                        &:hover {
+                            color: var(--stroke-primary);
+                        }
+                    }
+                }
+
+                @media (hover: hover) {
+                    &:hover {
+                        color: var(--text-accent-blue);
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 855px) {
+        flex-direction: column;
+        gap: 8px;
+        background-color: unset;
+        padding: unset;
+
+        .sortDropdown {
+            .sortLabel {
+                display: none;
+            }
+
+            .dropdown {
+                width: 100%;
+            }
+        }
+
+        .buttonsWrap {
+            display: flex;
+            justify-content: space-between;
+
+            .filterButton {
+                display: flex;
+            }
+
+            .viewModeWrap {
+                display: flex;
+                gap: 4px;
+
+                .iconButton {
+                    background-color: var(--background-white);
+                }
+            }
+        }
+    }
+}
+
+.modal {
+    padding: unset;
+    max-height: 90vh;
+    overflow: auto;
+}

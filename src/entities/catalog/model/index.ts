@@ -1,1 +1,2 @@
-export type { IFilter, IFilterParams, IOffer } from './types';
+export { useCatalogStore } from './store';
+export type { ICatalogProducts, ICustomFilter, IFilter, IFilterParams, IOffer } from './types';

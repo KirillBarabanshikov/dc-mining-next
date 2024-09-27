@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
 
 import { CHARACTERISTICS_KEYS } from '@/shared/consts';
 
@@ -11,15 +10,6 @@ export const useCatalogFilters = () => {
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams.toString());
     const router = useRouter();
-
-    useEffect(() => {
-        const params = searchParams.toString();
-
-        console.log('Search params changed:', params);
-
-        const myParam = searchParams.get('profitable');
-        console.log('profitable:', myParam);
-    }, [searchParams]);
 
     const setSearchParams = () => {
         router.replace(`?${params}`, { scroll: false });
@@ -102,6 +92,7 @@ export const useCatalogFilters = () => {
 
     const resetFilters = () => {
         [...params.entries()].forEach(([key]) => {
+            if (key === 'order' || key === 'filter') return;
             params.delete(key);
         });
         // const order = searchParams.get('order');

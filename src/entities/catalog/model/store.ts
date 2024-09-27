@@ -1,0 +1,32 @@
+import { create } from 'zustand/index';
+import { devtools } from 'zustand/middleware';
+
+import { ICategory } from '@/entities/category';
+import { IProduct } from '@/entities/product';
+
+interface ICatalogState {
+    viewMode: 'tile' | 'simple';
+    countProducts: number;
+    products: IProduct[];
+    category?: ICategory | undefined;
+    setViewMode: (viewMode: 'tile' | 'simple') => void;
+    setCatalog: ({ countProducts, products }: { countProducts: number; products: IProduct[] }) => void;
+    setCategory: (category: ICategory) => void;
+}
+
+export const useCatalogStore = create<ICatalogState>()(
+    devtools(
+        (set) => ({
+            viewMode: 'tile',
+            countProducts: 0,
+            products: [],
+            category: undefined,
+            setViewMode: (viewMode) => set({ viewMode }),
+            setCatalog: ({ products, countProducts }) => set({ countProducts, products }),
+            setCategory: (category) => set({ category }),
+        }),
+        {
+            name: 'catalog',
+        },
+    ),
+);

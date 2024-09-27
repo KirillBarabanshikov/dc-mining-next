@@ -35,7 +35,6 @@ const ProductPage = () => {
 
     useEffect(() => {
         if (!product) return;
-        console.log(product);
         addToRecent(product);
     }, [product]);
 
