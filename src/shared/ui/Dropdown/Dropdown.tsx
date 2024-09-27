@@ -24,7 +24,6 @@ interface IDropdownProps extends PropsWithChildren {
     physical?: boolean;
     variant?: 'dropdown' | 'modal';
     onChange?: (value: string[]) => void;
-    reset?: boolean;
     className?: string;
 }
 
@@ -38,7 +37,6 @@ export const Dropdown: FC<IDropdownProps> = ({
     variant = 'dropdown',
     onChange,
     children,
-    reset = false,
     className,
 }) => {
     const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue);
@@ -47,7 +45,7 @@ export const Dropdown: FC<IDropdownProps> = ({
 
     useEffect(() => {
         setSelectedValue(defaultValue);
-    }, [reset]);
+    }, [defaultValue]);
 
     const handleSelect = (value: string) => {
         let selected = selectedValue;

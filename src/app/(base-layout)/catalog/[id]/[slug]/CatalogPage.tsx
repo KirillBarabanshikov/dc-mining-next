@@ -9,7 +9,7 @@ import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
 import { useMediaQuery } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
-import { LivePhotos, Managers } from '@/widgets';
+import { Catalog, LivePhotos, Managers } from '@/widgets';
 
 import styles from './CatalogPage.module.scss';
 
@@ -40,7 +40,7 @@ const CatalogPage = () => {
                     {/*<span>{`${countProducts} товаров`}</span>*/}
                 </div>
             </div>
-            {/*<Catalog key={state} />*/}
+            <Catalog />
             {category && (
                 <LivePhotos images={category.images.map(({ image }) => image ?? '')} className={styles.livePhotos} />
             )}
