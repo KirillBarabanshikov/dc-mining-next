@@ -70,7 +70,7 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
     const handleNavigate = (child: { id: number; title: string }) => {
         let path = `/catalog/${item.id}/${item.slug}`;
 
-        if (item.title === 'asicMiners') {
+        if (item.title === 'asicMiners' || item.title === 'firmware') {
             path += `?brand=${child.title}`;
         }
 
