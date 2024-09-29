@@ -6,7 +6,7 @@ export const CATEGORIES_NAMES = {
     repairAndService: 'Ремонт и сервис',
     accommodationDataCentre: 'Размещение в дата центре',
     usefulLinks: 'Полезные ссылки',
-    readyBusiness: 'Готовый бизнес под ключ',
+    readyBusiness: 'Готовый бизнес для майнинга криптовалют',
 } as const;
 
 export const CATEGORIES_KEYS: Record<string, string> = {
@@ -17,5 +17,5 @@ export const CATEGORIES_KEYS: Record<string, string> = {
     ['Ремонт и сервис']: 'repairAndService',
     ['Размещение в дата центре']: 'accommodationDataCentre',
     ['Полезные ссылки']: 'usefulLinks',
-    ['Готовый бизнес под ключ']: 'readyBusiness',
+    ['Готовый бизнес для майнинга криптовалют']: 'readyBusiness',
 } as const;

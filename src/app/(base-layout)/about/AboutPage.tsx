@@ -31,19 +31,21 @@ const AboutPage = () => {
                 <section className={styles.about}>
                     <div className={clsx(styles.abouts, 'container')}>
                         {info &&
-                            info.main.map((element) => {
-                                return (
-                                    <div key={element.id} className={styles.wrap}>
-                                        <div className={styles.image}>
-                                            <img src={BASE_URL + element.image} alt={element.title} />
+                            info.main
+                                .sort((a, b) => a.id - b.id)
+                                .map((element) => {
+                                    return (
+                                        <div key={element.id} className={styles.wrap}>
+                                            <div className={styles.image}>
+                                                <img src={BASE_URL + element.image} alt={element.title} />
+                                            </div>
+                                            <div className={styles.description}>
+                                                <h2 className={'section-title-primary'}>{element.title}</h2>
+                                                <div dangerouslySetInnerHTML={{ __html: element.description }} />
+                                            </div>
                                         </div>
-                                        <div className={styles.description}>
-                                            <h2 className={'section-title-primary'}>{element.title}</h2>
-                                            <div dangerouslySetInnerHTML={{ __html: element.description }} />
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
                     </div>
                 </section>
                 <AdvantagesDCMining advantages={info?.advantages} />

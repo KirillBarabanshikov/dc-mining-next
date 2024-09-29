@@ -52,7 +52,7 @@ export const Footer = async () => {
                                                     href={`/catalog/${category.id}/${category.slug}`}
                                                     className={styles.link}
                                                 >
-                                                    Готовый бизнес под ключ
+                                                    Готовый бизнес для майнинга криптовалют
                                                 </Link>
                                             );
                                         })}

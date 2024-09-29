@@ -88,7 +88,11 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
                                         ? params.get(filter.characteristics.value)!.split(',')
                                         : []
                                 }
-                                items={filter.lists?.map((item) => ({ label: item, value: item })) ?? []}
+                                items={
+                                    filter.lists
+                                        ?.sort((a, b) => a.localeCompare(b))
+                                        .map((item) => ({ label: item, value: item })) ?? []
+                                }
                                 onChange={(value) => setParams({ key: filter.characteristics.value, value })}
                                 physical
                                 multiply

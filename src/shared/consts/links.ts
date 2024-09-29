@@ -1,6 +1,6 @@
 export const SERVICES_LINKS = [
     { title: 'Лизинг', path: '/leasing' },
-    { title: 'Готовый бизнес', path: '/readyBusiness' },
+    { title: 'Готовый бизнес для майнинга криптовалют', path: '/readyBusiness' },
     { title: 'Ремонт и сервис', path: '/service' },
     { title: 'Размещение в дата центре', path: '/data-center' },
 ];
