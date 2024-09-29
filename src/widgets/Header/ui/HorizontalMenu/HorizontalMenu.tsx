@@ -77,7 +77,6 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
         if (item.title === 'accessories' || item.title === 'containersMining') {
             path += `?filter=${child.title}`;
         }
-
         router.push(path);
     };
 

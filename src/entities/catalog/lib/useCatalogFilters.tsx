@@ -2,9 +2,8 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
+import { ICatalogParams } from '@/entities/catalog/api/types';
 import { CHARACTERISTICS_KEYS } from '@/shared/consts';
-
-import { IFilterParams } from '../model';
 
 export const useCatalogFilters = () => {
     const searchParams = useSearchParams();
@@ -12,7 +11,7 @@ export const useCatalogFilters = () => {
     const router = useRouter();
 
     const setSearchParams = () => {
-        router.replace(`?${params}`, { scroll: false });
+        router.push(`?${params}`, { scroll: false });
     };
 
     const setParams = ({ key, value }: { key: string; value: string[] }) => {
@@ -23,14 +22,14 @@ export const useCatalogFilters = () => {
         }
     };
 
-    const getFilterBody = (type: string): IFilterParams => {
-        const body: IFilterParams = {
+    const getFilterBody = (type: string): ICatalogParams => {
+        const body: ICatalogParams = {
             type,
         };
         const characteristics: string[] = [];
 
-        if (searchParams.get('offers')) {
-            body.tags = searchParams.get('offers') ?? '';
+        if (params.get('offers')) {
+            body.tags = params.get('offers') ?? '';
         }
 
         for (const [key, value] of params.entries()) {
@@ -45,25 +44,25 @@ export const useCatalogFilters = () => {
             body.characteristics = characteristics.join(';');
         }
 
-        if (searchParams.get('brand')) {
-            body.brand = searchParams.get('brand') ?? '';
+        if (params.get('brand')) {
+            body.brand = params.get('brand') ?? '';
         }
 
-        if (searchParams.get('order')) {
-            if (searchParams.get('order') === '1') {
+        if (params.get('order')) {
+            if (params.get('order') === '1') {
                 body.sortBy = 'popularity';
             }
 
-            if (searchParams.get('order') === '2') {
+            if (params.get('order') === '2') {
                 body.sortBy = 'discount';
             }
 
-            if (searchParams.get('order') === '3') {
+            if (params.get('order') === '3') {
                 body.sortBy = 'price';
                 body.sortOrder = 'ASC';
             }
 
-            if (searchParams.get('order') === '4') {
+            if (params.get('order') === '4') {
                 body.sortBy = 'price';
                 body.sortOrder = 'DESC';
             }
@@ -71,23 +70,23 @@ export const useCatalogFilters = () => {
             body.sortBy = 'popularity';
         }
 
-        if (searchParams.get('profitable')) {
+        if (params.get('profitable')) {
             body.profitable = true;
         }
 
-        if (searchParams.get('powerful')) {
+        if (params.get('powerful')) {
             body.powerful = true;
         }
 
-        if (searchParams.get('filter')) {
-            body.customFilters = searchParams.get('filter') ?? '';
+        if (params.get('filter')) {
+            body.customFilters = params.get('filter') ?? '';
+        }
+
+        if (params.get('page')) {
+            body.page = params.get('page') ?? '1';
         }
 
         return body;
-    };
-
-    const getCurrentPage = (): string => {
-        return searchParams.get('page') ?? '1';
     };
 
     const resetFilters = () => {
@@ -95,11 +94,8 @@ export const useCatalogFilters = () => {
             if (key === 'order' || key === 'filter') return;
             params.delete(key);
         });
-        // const order = searchParams.get('order');
-        // const filter = searchParams.get('filter');
-        // setSearchParams({ ...(order && { order }), ...(filter && { filter }) });
         setSearchParams();
     };
 
-    return { getCurrentPage, setParams, getFilterBody, params, setSearchParams, resetFilters };
+    return { setParams, getFilterBody, params, setSearchParams, resetFilters };
 };

@@ -1,23 +1,23 @@
 'use client';
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useParams } from 'next/navigation';
 import { FC } from 'react';
 
-import { getCustomFilters } from '@/entities/catalog';
+import { getCatalogData, getCustomFilters } from '@/entities/catalog';
 import { useCatalogFilters } from '@/entities/catalog/lib';
-import { getCategoryById } from '@/entities/category';
+import { ICategory } from '@/entities/category';
 
 import styles from './CustomFilters.module.scss';
 
 interface ICustomFiltersProps {
+    category: ICategory;
     className?: string;
 }
 
-export const CustomFilters: FC<ICustomFiltersProps> = ({ className }) => {
-    const { id } = useParams<{ id: string }>();
-    const { setParams, params, setSearchParams } = useCatalogFilters();
+export const CustomFilters: FC<ICustomFiltersProps> = ({ category, className }) => {
+    const { setParams, params, setSearchParams, getFilterBody } = useCatalogFilters();
+    const queryClient = useQueryClient();
 
     const { data: customFilters } = useQuery({
         queryKey: ['custom-filters'],
@@ -25,14 +25,7 @@ export const CustomFilters: FC<ICustomFiltersProps> = ({ className }) => {
         staleTime: Infinity,
     });
 
-    const { data: category } = useSuspenseQuery({
-        queryKey: ['category', id],
-        queryFn: () => getCategoryById(id),
-    });
-
     const handleSelect = async (value: string) => {
-        if (!category) return;
-
         if (params.get('filter') === value) {
             setParams({ key: 'filter', value: [] });
         } else {
@@ -40,6 +33,8 @@ export const CustomFilters: FC<ICustomFiltersProps> = ({ className }) => {
         }
         params.delete('page');
         setSearchParams();
+        const catalogData = await getCatalogData({ ...getFilterBody(category.title) });
+        queryClient.setQueryData(['catalog', category.title], () => catalogData);
     };
 
     return (

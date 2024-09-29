@@ -2,9 +2,9 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-import { getCatalogData } from '@/entities/catalog';
+import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
 import { getCategoryById } from '@/entities/category';
 import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
@@ -19,7 +19,7 @@ const paths = [{ name: 'Главная', path: '/' }];
 const CatalogPage = () => {
     const { id } = useParams<{ id: string }>();
     const matches = useMediaQuery('(max-width: 855px)');
-    const searchParams = useSearchParams();
+    const { getFilterBody } = useCatalogFilters();
 
     const { data: category } = useSuspenseQuery({
         queryKey: ['category', id],
@@ -35,8 +35,7 @@ const CatalogPage = () => {
         queryKey: ['catalog', category?.title],
         queryFn: () =>
             getCatalogData({
-                type: category?.title,
-                page: searchParams.get('page') ?? '1',
+                ...getFilterBody(category?.title ?? ''),
             }),
     });
 

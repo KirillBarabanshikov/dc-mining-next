@@ -38,6 +38,7 @@ export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogDa
         const response = await instance.get<{ total_items: number; items: IProductDto[] }>('/filtersItems', {
             params: {
                 ...params,
+                page: params.page || 1,
                 limit: 12,
             },
         });
