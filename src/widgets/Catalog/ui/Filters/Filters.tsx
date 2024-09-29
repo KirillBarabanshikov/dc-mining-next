@@ -1,13 +1,12 @@
 'use client';
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useParams } from 'next/navigation';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-import { getFilters, getOffers } from '@/entities/catalog/api';
+import { getCatalogData, getFilters, getOffers } from '@/entities/catalog/api';
 import { useCatalogFilters } from '@/entities/catalog/lib';
-import { getCategoryById } from '@/entities/category';
+import { ICategory } from '@/entities/category';
 import { OrderCallHelpBanner } from '@/features/call';
 import { useMediaQuery } from '@/shared/lib';
 import { Button, Dropdown, Range, Switch } from '@/shared/ui';
@@ -15,14 +14,16 @@ import { Button, Dropdown, Range, Switch } from '@/shared/ui';
 import styles from './Filters.module.scss';
 
 interface IFiltersProps {
+    category: ICategory;
     onClose?: () => void;
     className?: string;
 }
 
-export const Filters: FC<IFiltersProps> = ({ onClose, className }) => {
-    const { id } = useParams<{ id: string }>();
+export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => {
+    const [reset, setReset] = useState(false);
     const matches = useMediaQuery('(max-width: 855px)');
-    const { resetFilters, params, setSearchParams, setParams } = useCatalogFilters();
+    const { resetFilters, params, setSearchParams, setParams, getFilterBody } = useCatalogFilters();
+    const queryClient = useQueryClient();
 
     const { data: filters } = useQuery({
         queryKey: ['filters'],
@@ -34,22 +35,24 @@ export const Filters: FC<IFiltersProps> = ({ onClose, className }) => {
         queryFn: getOffers,
         staleTime: Infinity,
     });
-    const { data: category } = useSuspenseQuery({
-        queryKey: ['category', id],
-        queryFn: () => getCategoryById(id),
-    });
 
     const onSetFilters = () => {
-        if (!category) return;
         params.delete('page');
         setSearchParams();
+        getCatalogData({ ...getFilterBody(category.title) }).then((data) =>
+            queryClient.setQueryData(['catalog', category.title], () => data),
+        );
         onClose && onClose();
     };
 
     const onResetFilters = () => {
-        if (!category) return;
         resetFilters();
+        setSearchParams();
         onClose && onClose();
+        setReset((prev) => !prev);
+        getCatalogData({ ...getFilterBody(category.title) }).then((data) =>
+            queryClient.setQueryData(['catalog', category.title], () => data),
+        );
     };
 
     return (
@@ -68,6 +71,7 @@ export const Filters: FC<IFiltersProps> = ({ onClose, className }) => {
                                 physical
                                 multiply
                                 open={!!params.get('offers')}
+                                reset={reset}
                             />
                         );
                     })}
@@ -89,6 +93,7 @@ export const Filters: FC<IFiltersProps> = ({ onClose, className }) => {
                                 physical
                                 multiply
                                 open={!!params.get(filter.characteristics.value)}
+                                reset={reset}
                             >
                                 {filter.start != undefined && filter.end != undefined && (
                                     <Range
@@ -112,6 +117,7 @@ export const Filters: FC<IFiltersProps> = ({ onClose, className }) => {
                         <Switch
                             isOn={params.has('profitable')}
                             onClick={(value) => setParams({ key: 'profitable', value: value ? ['true'] : [] })}
+                            reset={reset}
                         />
                     </div>
                     <div className={styles.switch}>
@@ -119,6 +125,7 @@ export const Filters: FC<IFiltersProps> = ({ onClose, className }) => {
                         <Switch
                             isOn={params.has('powerful')}
                             onClick={(value) => setParams({ key: 'powerful', value: value ? ['true'] : [] })}
+                            reset={reset}
                         />
                     </div>
                 </div>

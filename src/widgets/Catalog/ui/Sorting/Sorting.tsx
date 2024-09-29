@@ -1,5 +1,6 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { FC, useState } from 'react';
 
@@ -15,7 +16,6 @@ import { Dropdown, IconButton, Modal } from '@/shared/ui';
 import { Filters } from '@/widgets/Catalog/ui';
 
 import styles from './Sorting.module.scss';
-import { useQueryClient } from '@tanstack/react-query';
 
 interface ISortingProps {
     category: ICategory;
@@ -75,7 +75,7 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
                 </div>
             </div>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} className={clsx(styles.modal, 'scrollbar-hide')}>
-                <Filters onClose={() => setIsOpen(false)} />
+                <Filters onClose={() => setIsOpen(false)} category={category} />
             </Modal>
         </div>
     );

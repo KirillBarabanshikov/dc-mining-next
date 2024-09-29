@@ -94,7 +94,6 @@ export const useCatalogFilters = () => {
             if (key === 'order' || key === 'filter') return;
             params.delete(key);
         });
-        setSearchParams();
     };
 
     return { setParams, getFilterBody, params, setSearchParams, resetFilters };

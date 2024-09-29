@@ -9,14 +9,15 @@ import styles from './Switch.module.scss';
 interface ISwitchProps {
     isOn: boolean;
     onClick: (value: boolean) => void;
+    reset?: boolean;
 }
 
-export const Switch: FC<ISwitchProps> = ({ isOn, onClick }) => {
+export const Switch: FC<ISwitchProps> = ({ isOn, onClick, reset }) => {
     const [value, setValue] = useState(isOn);
 
     useEffect(() => {
         setValue(isOn);
-    }, [isOn]);
+    }, [reset, isOn]);
 
     const handleOnClick = () => {
         const currentValue = !value;
