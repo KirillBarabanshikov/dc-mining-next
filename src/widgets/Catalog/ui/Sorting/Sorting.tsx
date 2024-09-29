@@ -1,12 +1,10 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
-import { useCatalogFilters, useCatalogStore } from '@/entities/catalog';
-import { getCategoryById } from '@/entities/category';
+import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
+import { ICategory } from '@/entities/category';
 import FilterIcon from '@/shared/assets/icons/filter.svg';
 import SimpleIcon from '@/shared/assets/icons/view-mode-simple.svg';
 import SimpleIcon2 from '@/shared/assets/icons/view-mode-simple2.svg';
@@ -17,27 +15,28 @@ import { Dropdown, IconButton, Modal } from '@/shared/ui';
 import { Filters } from '@/widgets/Catalog/ui';
 
 import styles from './Sorting.module.scss';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ISortingProps {
+    category: ICategory;
+    viewMode: 'tile' | 'simple';
+    setViewMode: (viewMode: 'tile' | 'simple') => void;
     className?: string;
 }
 
-export const Sorting: FC<ISortingProps> = ({ className }) => {
+export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const matches = useMediaQuery(MAX_WIDTH_MD);
-    const { viewMode, setViewMode } = useCatalogStore();
-    const { id } = useParams<{ id: string }>();
-    const { data: category } = useQuery({
-        queryKey: ['category', id],
-        queryFn: () => getCategoryById(id),
-    });
-    const { setSearchParams, params } = useCatalogFilters();
+    const { setSearchParams, params, getFilterBody } = useCatalogFilters();
+    const queryClient = useQueryClient();
 
     const onChangeSort = (value: string[]) => {
-        if (!category) return;
         params.delete('page');
         params.set('order', value[0]);
         setSearchParams();
+        getCatalogData({ ...getFilterBody(category.title) }).then((data) =>
+            queryClient.setQueryData(['catalog', category.title], () => data),
+        );
     };
 
     return (

@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useState } from 'react';
 
 import ArrowIcon from '@/shared/assets/icons/arrow-down2.svg';
 import { useOutsideClick } from '@/shared/lib';
@@ -42,10 +42,6 @@ export const Dropdown: FC<IDropdownProps> = ({
     const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue);
     const [isOpen, setIsOpen] = useState(open);
     const ref = useOutsideClick<HTMLDivElement>(() => (physical ? {} : setIsOpen(false)));
-
-    useEffect(() => {
-        setSelectedValue(defaultValue);
-    }, [defaultValue]);
 
     const handleSelect = (value: string) => {
         let selected = selectedValue;

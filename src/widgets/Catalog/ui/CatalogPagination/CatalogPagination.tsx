@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FC } from 'react';
 
-import { getCatalogData } from '@/entities/catalog';
+import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
 import { ICatalogData } from '@/entities/catalog/model';
 import { ICategory } from '@/entities/category';
 import { MAX_WIDTH_MD } from '@/shared/consts';
@@ -27,9 +27,10 @@ export const CatalogPagination: FC<ICatalogPaginationProps> = ({ countProducts, 
     const length = Math.ceil(countProducts / 12);
     const router = useRouter();
     const queryClient = useQueryClient();
+    const { getFilterBody } = useCatalogFilters();
 
     const onSetPage = async (page: number, more: boolean) => {
-        const catalogData = await getCatalogData({ type: category.title, page });
+        const catalogData = await getCatalogData({ ...getFilterBody(category.title), page });
 
         if (!catalogData) return;
 

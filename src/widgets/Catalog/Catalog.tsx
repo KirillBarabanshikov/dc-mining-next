@@ -7,7 +7,8 @@ import { IProduct } from '@/entities/product';
 
 import { ProductsList } from '../ProductsList';
 import styles from './Catalog.module.scss';
-import { CatalogPagination, CustomFilters } from './ui';
+import { CatalogPagination, CustomFilters, Sorting } from './ui';
+import { useCatalogStore } from '@/entities/catalog';
 
 interface ICatalogProps {
     category: ICategory;
@@ -16,12 +17,15 @@ interface ICatalogProps {
 }
 
 export const Catalog: FC<ICatalogProps> = ({ products, countProducts, category }) => {
+    const { viewMode, setViewMode } = useCatalogStore();
+
     return (
         <div className={styles.catalog}>
             <CustomFilters category={category} className={styles.customFilter} />
             {/*<Filters className={styles.filters} />*/}
-            {/*<Sorting className={styles.sorting} />*/}
-            <ProductsList products={products} viewMode={'tile'} className={styles.productList} />
+            <div className={styles.filters} />
+            <Sorting category={category} viewMode={viewMode} setViewMode={setViewMode} className={styles.sorting} />
+            <ProductsList products={products} viewMode={viewMode} className={styles.productList} />
             <CatalogPagination countProducts={countProducts} category={category} />
         </div>
     );
