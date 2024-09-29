@@ -61,7 +61,10 @@ export const Footer = async () => {
                         <section>
                             <h5>Контакты</h5>
                             <div className={styles.wrap}>
-                                <a href={`tel:${intFormatPhoneNumber(contacts.phone)}`} className={styles.contact}>
+                                <a
+                                    href={`tel:${intFormatPhoneNumber(contacts.phone)}`}
+                                    className={clsx(styles.contact, 'mgo-number')}
+                                >
                                     {formatPhoneNumber(contacts.phone)}
                                 </a>
                                 <a href={`mailto:${contacts.email}`} className={styles.contact}>

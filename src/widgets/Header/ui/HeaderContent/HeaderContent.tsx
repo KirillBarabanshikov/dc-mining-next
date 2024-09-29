@@ -109,8 +109,13 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
                         {contacts && (
                             <div className={styles.horizontalMenuContacts}>
                                 <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
-                                <a href={`tel:${intFormatPhoneNumber(contacts.phone)}`}>
-                                    {formatPhoneNumber(contacts.phone)}
+                                <a
+                                    href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                                    className='mgo-number'
+                                >
+                                    {formatPhoneNumber(
+                                        typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone,
+                                    )}
                                 </a>
                             </div>
                         )}

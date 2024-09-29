@@ -6,13 +6,16 @@ import { getCategoryById } from '@/entities/category';
 import { ILink } from '@/entities/link';
 import { getSeo, getSeos } from '@/entities/seo';
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({ params }: { params: { id: string; slug: string } }) {
     const category = await getCategoryById(params.id);
     const seo = await getSeo(category?.seoName ?? '');
 
     return {
         title: seo?.title,
         description: seo?.description,
+        alternates: {
+            canonical: `https://dc-mining.ru/catalog/${params.id}/${params.slug}`,
+        },
     };
 }
 
