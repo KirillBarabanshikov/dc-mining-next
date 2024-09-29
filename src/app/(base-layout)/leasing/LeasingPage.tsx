@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { FC, useState } from 'react';
 
@@ -25,12 +25,12 @@ const LeasingPage: FC = () => {
     const matchesMd = useMediaQuery('(max-width: 854px)');
     const matchesLg = useMediaQuery(MAX_WIDTH_LG);
 
-    const { data: info } = useQuery({
+    const { data: info } = useSuspenseQuery({
         queryKey: ['leasing'],
         queryFn: getLeasingInfo,
         staleTime: Infinity,
     });
-    const { data: contacts } = useQuery({
+    const { data: contacts } = useSuspenseQuery({
         queryKey: ['contacts'],
         queryFn: getContacts,
         staleTime: Infinity,
@@ -150,23 +150,17 @@ const LeasingPage: FC = () => {
                                 <p>
                                     <span>Свяжитесь с нами </span> — мы индивидуально обсудим условия сотрудничества
                                 </p>
-                                <div className={styles.links}>
-                                    {contacts && (
-                                        <>
-                                            <a
-                                                className='mgo-number'
-                                                href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
-                                            >
-                                                {formatPhoneNumber(
-                                                    typeof window !== 'undefined' && window.phone
-                                                        ? window.phone
-                                                        : contacts.phone,
-                                                )}
-                                            </a>
-                                        </>
-                                    )}
-                                    {contacts && <a href={`mailto:${contacts.email}`}>{contacts.email}</a>}
-                                </div>
+                                {contacts && (
+                                    <div className={styles.links}>
+                                        <a
+                                            className='mgo-number'
+                                            href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                                        >
+                                            {`${formatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                                        </a>
+                                        <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
