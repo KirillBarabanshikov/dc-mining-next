@@ -1,14 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC, useEffect, useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { getPersonalData, IPersonalData } from '@/entities/personalData';
-import { IProduct } from '@/entities/product';
-import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
+import { getPersonalData } from '@/entities/personalData';
+import { IProduct, orderProduct } from '@/entities/product';
+import { MAX_WIDTH_MD } from '@/shared/consts';
 import { formatter, useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
-import { Button, Captcha, Checkbox, Input, NumberInput } from '@/shared/ui';
+import { Button, Checkbox, Input, NumberInput } from '@/shared/ui';
 
 import { orderProductFormScheme, TOrderProductFormScheme } from '../../model';
 import styles from './OrderProductForm.module.scss';
@@ -23,10 +23,8 @@ interface IOrderProductFormProps {
 export const OrderProductForm: FC<IOrderProductFormProps> = ({ onClose, product, setIsFinally, setIsError }) => {
     const [price, setPrice] = useState(product.price);
     const [count, setCount] = useState(1);
-    const [captchaVerified, setCaptchaVerified] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [personalData, setPersonalData] = useState<IPersonalData | undefined>();
-    const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+    // const [captchaVerified, setCaptchaVerified] = useState(false);
+    // const recaptchaRef = useRef<ReCAPTCHA | null>(null);
     const { sendMetrikaGoal } = useMetrikaGoal();
     const matches = useMediaQuery(MAX_WIDTH_MD);
 
@@ -40,13 +38,15 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({ onClose, product,
         resolver: yupResolver(orderProductFormScheme),
     });
 
-    useEffect(() => {
-        const fetchPersonalData = async () => {
-            const data = await getPersonalData();
-            setPersonalData(data);
-        };
-        fetchPersonalData();
-    }, []);
+    const { data: personalData } = useQuery({
+        queryKey: ['personal-data'],
+        queryFn: getPersonalData,
+        staleTime: Infinity,
+    });
+
+    const { mutateAsync: order, isPending } = useMutation({
+        mutationFn: orderProduct,
+    });
 
     const onChangeProductCount = (value: number) => {
         product.price && setPrice(product.price * value);
@@ -54,30 +54,22 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({ onClose, product,
     };
 
     const onSubmit = async (data: TOrderProductFormScheme) => {
-        if (!captchaVerified) return;
+        // if (!captchaVerified) return;
 
         try {
-            setIsLoading(true);
-            await fetch(BASE_URL + '/api/buy', {
-                method: 'POST',
-                body: JSON.stringify({ ...data, productId: product.id, price: price ?? 0, count }),
-                headers: {
-                    'Content-type': 'application/json',
-                },
-            });
+            await order({ ...data, productId: product.id, price: price ?? 0, count });
             sendMetrikaGoal();
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setIsError(true);
         } finally {
             setIsFinally(true);
-            setIsLoading(false);
         }
     };
 
     const handleClose = () => {
         reset();
-        setCaptchaVerified(false);
+        // setCaptchaVerified(false);
         onClose();
     };
 
@@ -120,16 +112,16 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({ onClose, product,
                     {...register('checked')}
                     error={!!errors.checked}
                 />
-                <Captcha
-                    ref={recaptchaRef}
-                    onCaptchaVerify={(verify) => setCaptchaVerified(verify)}
-                    onExpired={() => setCaptchaVerified(false)}
-                />
+                {/*<Captcha*/}
+                {/*    ref={recaptchaRef}*/}
+                {/*    onCaptchaVerify={(verify) => setCaptchaVerified(verify)}*/}
+                {/*    onExpired={() => setCaptchaVerified(false)}*/}
+                {/*/>*/}
                 <div className={styles.wrap}>
                     <Button variant={'outline'} onClick={handleClose} size={matches ? 'md' : 'lg'} isWide>
                         Отмена
                     </Button>
-                    <Button type={'submit'} size={matches ? 'md' : 'lg'} isWide disabled={isLoading}>
+                    <Button type={'submit'} size={matches ? 'md' : 'lg'} isWide disabled={isPending}>
                         Отправить
                     </Button>
                 </div>

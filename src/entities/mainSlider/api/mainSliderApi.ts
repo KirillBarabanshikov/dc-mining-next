@@ -3,7 +3,7 @@ import { BASE_URL } from '@/shared/consts';
 
 import { ISlide } from '../model';
 
-export const getSlider = async (): Promise<ISlide[] | undefined> => {
+export const getSlider = async (): Promise<ISlide[] | null> => {
     try {
         const response = await instance.get<ISlide[]>('/main_slider');
 
@@ -14,6 +14,6 @@ export const getSlider = async (): Promise<ISlide[] | undefined> => {
         }));
     } catch (error) {
         console.error(error);
-        return;
+        return null;
     }
 };

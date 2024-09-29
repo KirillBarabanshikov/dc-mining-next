@@ -52,15 +52,18 @@ export const OrderCallBanner = () => {
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
         // if (!captchaVerified) return;
+        try {
+            await order({ ...data, title: 'Заказать обратный звонок' });
+            sendMetrikaGoal();
+            reset();
+            // setCaptchaVerified(false);
 
-        await order({ ...data, title: 'Заказать обратный звонок' });
-        sendMetrikaGoal();
-        reset();
-        // setCaptchaVerified(false);
-
-        // if (recaptchaRef.current) {
-        //     recaptchaRef.current.reset();
-        // }
+            // if (recaptchaRef.current) {
+            //     recaptchaRef.current.reset();
+            // }
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

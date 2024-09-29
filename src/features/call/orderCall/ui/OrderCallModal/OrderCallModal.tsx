@@ -61,10 +61,14 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOp
     } = useForm<TOrderCallFormScheme>({ resolver: yupResolver(orderCallFormScheme) });
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
-        // if (!captchaVerified) return;
-        await order({ ...data, title });
-        sendMetrikaGoal();
-        // setCaptchaVerified(false);
+        try {
+            // if (!captchaVerified) return;
+            await order({ ...data, title });
+            sendMetrikaGoal();
+            // setCaptchaVerified(false);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const handleClose = () => {

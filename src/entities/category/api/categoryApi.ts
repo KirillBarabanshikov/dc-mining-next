@@ -9,7 +9,7 @@ export const getCategories = async () => {
         return response.data.map(mapCategory);
     } catch (e) {
         console.error(e);
-        return;
+        return null;
     }
 };
 
@@ -19,6 +19,6 @@ export const getCategoryById = async (id: string) => {
         return mapCategory(response.data);
     } catch (e) {
         console.error(e);
-        return;
+        return null;
     }
 };

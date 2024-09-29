@@ -4,7 +4,7 @@ import { createSlug } from '@/shared/lib';
 
 import { ILink } from '../model';
 
-export const getLinks = async (): Promise<ILink[] | undefined> => {
+export const getLinks = async (): Promise<ILink[] | null> => {
     try {
         const response = await instance.get<ILink[]>('/useful_links');
         return response.data.map((link) => ({
@@ -14,10 +14,11 @@ export const getLinks = async (): Promise<ILink[] | undefined> => {
         }));
     } catch (error) {
         console.log(error);
+        return null;
     }
 };
 
-export const getLinkById = async (id: string | number): Promise<ILink | undefined> => {
+export const getLinkById = async (id: string | number): Promise<ILink | null> => {
     try {
         const response = await instance.get<ILink>(`/useful_links/${id}`);
         return {
@@ -27,5 +28,6 @@ export const getLinkById = async (id: string | number): Promise<ILink | undefine
         };
     } catch (error) {
         console.log(error);
+        return null;
     }
 };

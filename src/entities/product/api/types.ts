@@ -36,3 +36,11 @@ export interface IProductDto {
     seoDescription: string;
     seoHOne: string;
 }
+
+export interface IOrderProductBody {
+    name: string;
+    phone: string;
+    productId: number;
+    price: number;
+    count: number;
+}

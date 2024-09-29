@@ -48,12 +48,16 @@ export const OrderCallHelpBanner = () => {
     } = useMutation({ mutationFn: orderCall });
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
-        // if (!captchaVerified) return;
-        await order({ ...data, title: 'Помочь с выбором' });
-        sendMetrikaGoal();
-        reset();
-        // setCaptchaVerified(false);
-        // if (recaptchaRef.current) recaptchaRef.current.reset();
+        try {
+            // if (!captchaVerified) return;
+            await order({ ...data, title: 'Помочь с выбором' });
+            sendMetrikaGoal();
+            reset();
+            // setCaptchaVerified(false);
+            // if (recaptchaRef.current) recaptchaRef.current.reset();
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (

@@ -6,34 +6,37 @@ import { mapFilter } from '../lib';
 import { ICatalogData, ICustomFilter, IFilter, IOffer } from '../model';
 import { ICatalogParams, IFilterDto } from './types';
 
-export const getFilters = async (): Promise<IFilter[] | undefined> => {
+export const getFilters = async (): Promise<IFilter[] | null> => {
     try {
         const response = await instance.get<IFilterDto[]>('/filters');
         return response.data.map(mapFilter);
     } catch (error) {
         console.error(error);
+        return null;
     }
 };
 
-export const getOffers = async (): Promise<IOffer[] | undefined> => {
+export const getOffers = async (): Promise<IOffer[] | null> => {
     try {
         const response = await instance.get<IOffer[]>('/offers');
         return response.data;
     } catch (error) {
         console.error(error);
+        return null;
     }
 };
 
-export const getCustomFilters = async (): Promise<ICustomFilter[] | undefined> => {
+export const getCustomFilters = async (): Promise<ICustomFilter[] | null> => {
     try {
         const response = await instance.get('/product_custom_filters');
         return response.data;
     } catch (error) {
         console.error(error);
+        return null;
     }
 };
 
-export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogData | undefined> => {
+export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogData | null> => {
     try {
         const response = await instance.get<{ total_items: number; items: IProductDto[] }>('/filtersItems', {
             params: {
@@ -48,5 +51,6 @@ export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogDa
         };
     } catch (error) {
         console.error(error);
+        return null;
     }
 };

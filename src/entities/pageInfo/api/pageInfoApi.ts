@@ -2,50 +2,53 @@ import { instance } from '@/shared/api';
 
 import { IAboutInfo, IDataCenterInfo, IDeliveryAndPaymentInfo, ILeasingInfo, IMassMedia } from '../model';
 
-export const getAboutInfo = async (): Promise<IAboutInfo | undefined> => {
+export const getAboutInfo = async (): Promise<IAboutInfo | null> => {
     try {
         const response = await instance.get<IAboutInfo>('/about');
         return response.data;
     } catch (error) {
         console.error(error);
-        return;
+        return null;
     }
 };
 
-export const getLeasingInfo = async (): Promise<ILeasingInfo | undefined> => {
+export const getLeasingInfo = async (): Promise<ILeasingInfo | null> => {
     try {
         const response = await instance.get('/leasing');
         return response.data;
     } catch (error) {
         console.error(error);
+        return null;
     }
 };
 
-export const getDataCenterInfo = async (): Promise<IDataCenterInfo | undefined> => {
+export const getDataCenterInfo = async (): Promise<IDataCenterInfo | null> => {
     try {
         const response = await instance.get<IDataCenterInfo>('/dataCenters');
         return response.data;
     } catch (error) {
         console.error(error);
-        return;
+        return null;
     }
 };
 
-export const getPaymentInfo = async (): Promise<IDeliveryAndPaymentInfo[] | undefined> => {
+export const getPaymentInfo = async (): Promise<IDeliveryAndPaymentInfo[] | null> => {
     try {
         const response = await instance.get('/payments');
         return response.data;
     } catch (error) {
         console.error(error);
+        return null;
     }
 };
 
-export const getDeliveryInfo = async (): Promise<IDeliveryAndPaymentInfo[] | undefined> => {
+export const getDeliveryInfo = async (): Promise<IDeliveryAndPaymentInfo[] | null> => {
     try {
         const response = await instance.get('/deliveries');
         return response.data;
     } catch (error) {
         console.error(error);
+        return null;
     }
 };
 
@@ -55,5 +58,6 @@ export const getMassMediaById = async (id: string | number) => {
         return response.data;
     } catch (error) {
         console.log(error);
+        return null;
     }
 };

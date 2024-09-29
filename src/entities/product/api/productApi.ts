@@ -1,7 +1,7 @@
 import { instance } from '@/shared/api';
 
 import { mapProduct } from '../lib';
-import { IProductDto } from './types';
+import { IOrderProductBody, IProductDto } from './types';
 
 export const getProducts = async (params: { display?: boolean; title?: string } = {}) => {
     try {
@@ -9,7 +9,7 @@ export const getProducts = async (params: { display?: boolean; title?: string } 
         return response.data.map(mapProduct);
     } catch (e) {
         console.error(e);
-        return;
+        return null;
     }
 };
 
@@ -19,7 +19,7 @@ export const getProductById = async (id: string | number) => {
         return mapProduct(response.data);
     } catch (e) {
         console.error(e);
-        return;
+        return null;
     }
 };
 
@@ -29,6 +29,15 @@ export const compareProducts = async (productId: number[]) => {
         return response.data.map(mapProduct);
     } catch (e) {
         console.error(e);
-        return;
+        return null;
+    }
+};
+
+export const orderProduct = async (body: IOrderProductBody) => {
+    try {
+        await instance.post('/buy', body);
+    } catch (e) {
+        console.error(e);
+        throw new Error(`${e}`);
     }
 };

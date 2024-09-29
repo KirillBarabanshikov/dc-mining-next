@@ -7,5 +7,6 @@ export const orderCall = async (body: IOrderCallBody) => {
         await instance.post('/forms', body);
     } catch (error) {
         console.error(error);
+        throw new Error(`${error}`);
     }
 };
