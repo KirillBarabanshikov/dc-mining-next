@@ -14,7 +14,7 @@ import dottedLineSm from '@/shared/assets/images/leasing/dotted-line-sm.png';
 import dottedLineSm2 from '@/shared/assets/images/leasing/dotted-line-sm2.png';
 import dottedLine2 from '@/shared/assets/images/leasing/dotted-line2.png';
 import { MAX_WIDTH_LG, MAX_WIDTH_MD } from '@/shared/consts';
-import { formatPhoneNumber, intFormatPhoneNumber, useMediaQuery } from '@/shared/lib';
+import { formatPhoneNumber, intFormatPhoneNumber, useMangoStore, useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import styles from './Leasing.module.scss';
@@ -24,6 +24,7 @@ const LeasingPage: FC = () => {
     const matches = useMediaQuery(MAX_WIDTH_MD);
     const matchesMd = useMediaQuery('(max-width: 854px)');
     const matchesLg = useMediaQuery(MAX_WIDTH_LG);
+    const { number } = useMangoStore();
 
     const { data: info } = useSuspenseQuery({
         queryKey: ['leasing'],
@@ -153,10 +154,10 @@ const LeasingPage: FC = () => {
                                 {contacts && (
                                     <div className={styles.links}>
                                         <a
+                                            href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
                                             className='mgo-number'
-                                            href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
                                         >
-                                            {`${formatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                                            {`${formatPhoneNumber(number ? number : contacts.phone)}`}
                                         </a>
                                         <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
                                     </div>

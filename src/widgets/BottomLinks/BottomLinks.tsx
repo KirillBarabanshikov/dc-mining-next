@@ -6,13 +6,14 @@ import clsx from 'clsx';
 import { getContacts } from '@/entities/contacts';
 import PhoneIcon from '@/shared/assets/icons/phone.svg';
 import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
-import { intFormatPhoneNumber, useMediaQuery } from '@/shared/lib';
+import { intFormatPhoneNumber, useMangoStore, useMediaQuery } from '@/shared/lib';
 import { Portal } from '@/shared/ui';
 
 import styles from './BottomLinks.module.scss';
 
 export const BottomLinks = () => {
     const matches = useMediaQuery(MAX_WIDTH_MD);
+    const { number } = useMangoStore();
     const { data: contacts } = useQuery({
         queryKey: ['contacts'],
         queryFn: getContacts,
@@ -39,8 +40,8 @@ export const BottomLinks = () => {
                         );
                     })}
                     <a
-                        href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
-                        className={styles.option}
+                        href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
+                        className={clsx(styles.option, 'mgo-number')}
                     >
                         <div className={styles.icon}>
                             <PhoneIcon />

@@ -8,7 +8,7 @@ import { IContacts } from '@/entities/contacts';
 import ArrowDown from '@/shared/assets/icons/arrow-down2.svg';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import { ABOUT_LINKS, BASE_URL, SERVICES_LINKS } from '@/shared/consts';
-import { formatPhoneNumber, intFormatPhoneNumber } from '@/shared/lib';
+import { formatPhoneNumber, intFormatPhoneNumber, useMangoStore } from '@/shared/lib';
 import { Portal } from '@/shared/ui';
 
 import styles from './SideMenu.module.scss';
@@ -21,6 +21,8 @@ interface ISideMenuProps {
 }
 
 export const SideMenu: FC<ISideMenuProps> = ({ isOpen, onClose, categories, contacts }) => {
+    const { number } = useMangoStore();
+
     return (
         <Portal>
             <AnimatePresence>
@@ -83,14 +85,10 @@ export const SideMenu: FC<ISideMenuProps> = ({ isOpen, onClose, categories, cont
                                         <div>
                                             <div className={styles.subtitle}>Многоконтактный телефон</div>
                                             <a
-                                                href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                                                href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
                                                 className='mgo-number'
                                             >
-                                                {formatPhoneNumber(
-                                                    typeof window !== 'undefined' && window.phone
-                                                        ? window.phone
-                                                        : contacts.phone,
-                                                )}
+                                                {formatPhoneNumber(number ? number : contacts.phone)}
                                             </a>
                                         </div>
                                         <div>

@@ -2,11 +2,12 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 
 import { getContacts } from '@/entities/contacts';
 import img from '@/shared/assets/images/call/call-me.png';
-import { formatPhoneNumber, intFormatPhoneNumber } from '@/shared/lib';
+import { formatPhoneNumber, intFormatPhoneNumber, useMangoStore } from '@/shared/lib';
 
 import styles from './CallMeBanner.module.scss';
 
 export const CallMeBanner = () => {
+    const { number } = useMangoStore();
     const { data: contacts } = useSuspenseQuery({
         queryKey: ['contacts'],
         queryFn: getContacts,
@@ -20,12 +21,10 @@ export const CallMeBanner = () => {
                 {contacts && (
                     <div className={styles.links}>
                         <a
-                            href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                            href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
                             className='mgo-number'
                         >
-                            {formatPhoneNumber(
-                                typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone,
-                            )}
+                            {formatPhoneNumber(number ? number : contacts.phone)}
                         </a>
                         <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
                     </div>
