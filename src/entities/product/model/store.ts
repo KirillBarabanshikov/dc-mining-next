@@ -18,7 +18,7 @@ export const useFavoritesStore = create<IFavoritesState>()(
                 favorites: [],
                 addToFavorite: (product) => {
                     const currentFavorites = get().favorites;
-                    set({ favorites: [...currentFavorites, product] });
+                    set({ favorites: [product, ...currentFavorites] });
                 },
                 removeFromFavorites: (productId) => {
                     const updatedFavorites = get().favorites.filter((item) => item.id !== productId);
@@ -51,7 +51,7 @@ export const useCompareStore = create<ICompareState>()(
                 compare: [],
                 addToCompare: (productId) => {
                     const currentCompare = get().compare;
-                    set({ compare: [...currentCompare, productId] });
+                    set({ compare: [productId, ...currentCompare] });
                 },
                 removeFromCompare: (productId) => {
                     const updatedCompare = get().compare.filter((id) => id !== productId);
