@@ -48,3 +48,8 @@ export interface ICatalogProducts {
     total_items: number;
     items: IProduct[];
 }
+
+export interface ICatalogData {
+    count: number;
+    products: IProduct[];
+}

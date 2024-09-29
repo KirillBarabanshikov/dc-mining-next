@@ -3,8 +3,8 @@ import { mapProduct } from '@/entities/product/lib';
 import { instance } from '@/shared/api';
 
 import { mapFilter } from '../lib';
-import { ICatalogProducts, ICustomFilter, IFilter, IFilterParams, IOffer } from '../model';
-import { IFilterDto } from './types';
+import { ICatalogData, ICustomFilter, IFilter, IOffer } from '../model';
+import { ICatalogParams, IFilterDto } from './types';
 
 export const getFilters = async (): Promise<IFilter[] | undefined> => {
     try {
@@ -33,17 +33,18 @@ export const getCustomFilters = async (): Promise<ICustomFilter[] | undefined> =
     }
 };
 
-export const getCatalogProducts = async (
-    params: IFilterParams,
-    page: number = 1,
-): Promise<ICatalogProducts | undefined> => {
+export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogData | undefined> => {
     try {
         const response = await instance.get<{ total_items: number; items: IProductDto[] }>('/filtersItems', {
-            params: { ...params, page, limit: 12 },
+            params: {
+                ...params,
+                limit: 12,
+            },
         });
-        const items = response.data.items.map(mapProduct);
-
-        return { total_items: response.data.total_items, items };
+        return {
+            count: response.data.total_items,
+            products: response.data.items.map(mapProduct),
+        };
     } catch (error) {
         console.error(error);
     }

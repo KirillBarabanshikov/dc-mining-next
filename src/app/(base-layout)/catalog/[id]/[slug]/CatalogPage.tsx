@@ -2,10 +2,9 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
 
-import { useCatalogStore } from '@/entities/catalog';
+import { getCatalogData } from '@/entities/catalog';
 import { getCategoryById } from '@/entities/category';
 import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
@@ -20,7 +19,7 @@ const paths = [{ name: 'Главная', path: '/' }];
 const CatalogPage = () => {
     const { id } = useParams<{ id: string }>();
     const matches = useMediaQuery('(max-width: 855px)');
-    const { countProducts, setCategory } = useCatalogStore();
+    const searchParams = useSearchParams();
 
     const { data: category } = useSuspenseQuery({
         queryKey: ['category', id],
@@ -32,6 +31,15 @@ const CatalogPage = () => {
         staleTime: Infinity,
     });
 
+    const { data: catalogData } = useSuspenseQuery({
+        queryKey: ['catalog', category?.title],
+        queryFn: () =>
+            getCatalogData({
+                type: category?.title,
+                page: searchParams.get('page') ?? '1',
+            }),
+    });
+
     const currentSeo = seos?.find((seo) => seo.choose === category?.seoName);
 
     return (
@@ -40,10 +48,16 @@ const CatalogPage = () => {
                 <Breadcrumbs paths={[...paths, { name: category?.name ?? '', path: '' }]} />
                 <div className={styles.catalogTitle}>
                     <h1>{currentSeo?.hOne ? currentSeo.hOne : category?.name}</h1>
-                    <span>{`${countProducts} товаров`}</span>
+                    <span>{`${catalogData?.count} товаров`}</span>
                 </div>
             </div>
-            <Catalog />
+            {category && (
+                <Catalog
+                    products={catalogData?.products ?? []}
+                    countProducts={catalogData?.count ?? 0}
+                    category={category}
+                />
+            )}
             {category && (
                 <LivePhotos images={category.images.map(({ image }) => image ?? '')} className={styles.livePhotos} />
             )}
