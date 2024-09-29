@@ -17,7 +17,14 @@ import StatisticIcon from '@/shared/assets/icons/statistic.svg';
 import StatisticIcon2 from '@/shared/assets/icons/statistic2.svg';
 import Logo from '@/shared/assets/logo.svg';
 import { BASE_URL, MAX_WIDTH_MD, MAX_WIDTH_XL } from '@/shared/consts';
-import { formatPhoneNumber, intFormatPhoneNumber, useBodyScrollLock, useMediaQuery, useStore } from '@/shared/lib';
+import {
+    formatPhoneNumber,
+    intFormatPhoneNumber,
+    useBodyScrollLock,
+    useMangoStore,
+    useMediaQuery,
+    useStore,
+} from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
 
 import { Burger } from '../Burger';
@@ -37,6 +44,7 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
     const matchesLG = useMediaQuery(MAX_WIDTH_XL);
     const matchesMD = useMediaQuery(MAX_WIDTH_MD);
     const [isSticky, setIsSticky] = useState(false);
+    const { number } = useMangoStore();
 
     useEffect(() => {
         setIsOpen(false);
@@ -110,12 +118,10 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
                             <div className={styles.horizontalMenuContacts}>
                                 <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
                                 <a
-                                    href={`tel:${intFormatPhoneNumber(typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone)}`}
+                                    href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
                                     className='mgo-number'
                                 >
-                                    {formatPhoneNumber(
-                                        typeof window !== 'undefined' && window.phone ? window.phone : contacts.phone,
-                                    )}
+                                    {formatPhoneNumber(number ? number : contacts.phone)}
                                 </a>
                             </div>
                         )}

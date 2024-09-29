@@ -3,6 +3,7 @@ export { useOutsideClick } from './click';
 export { formatter } from './currency';
 export { formatDate } from './date';
 export { useDebounce } from './debounce';
+export { useMangoStore } from './mango';
 export { useMediaQuery } from './media';
 export { useMetrikaGoal } from './metrika';
 export { formatPhoneNumber, intFormatPhoneNumber } from './phone';
