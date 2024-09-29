@@ -22,7 +22,7 @@ interface ISearchProps {
 
 export const Search: FC<ISearchProps> = ({ autoFocus = false, onClose, className }) => {
     const [searchValue, setSearchValue] = useState('');
-    const [searchProducts, setSearchProducts] = useState<IProduct[]>();
+    const [searchProducts, setSearchProducts] = useState<IProduct[] | null>();
     const [inFocus, setInFocus] = useState(false);
     const { refetch: search } = useQuery({
         queryKey: ['search', searchValue],

@@ -8,8 +8,8 @@ import Background from '@/shared/assets/backgrounds/main-banner-bg.svg';
 import styles from './MainBanner.module.scss';
 
 interface IMainBannerProps {
-    slides?: ISlide[];
-    categories?: ICategory[];
+    slides?: ISlide[] | null;
+    categories?: ICategory[] | null;
 }
 
 export const MainBanner: FC<IMainBannerProps> = ({ slides, categories }) => {

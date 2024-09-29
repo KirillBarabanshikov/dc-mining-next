@@ -26,8 +26,8 @@ import { SideMenu } from '../SideMenu';
 import styles from './HeaderContent.module.scss';
 
 interface IHeaderContentProps {
-    categories?: ICategory[];
-    contacts?: IContacts;
+    categories?: ICategory[] | null;
+    contacts?: IContacts | null;
 }
 
 export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories }) => {

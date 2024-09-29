@@ -6,7 +6,7 @@ import styles from './ProductDetails.module.scss';
 import { ProductInfo, ProductSlider, ProductsTabs } from './ui';
 
 interface IProductDetailsProps {
-    product?: IProduct;
+    product?: IProduct | null;
 }
 
 export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
