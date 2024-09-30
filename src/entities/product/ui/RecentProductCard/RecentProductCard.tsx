@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
@@ -17,7 +18,7 @@ export const RecentProductCard: FC<IRecentProductCardProps> = ({ product }) => {
 
     return (
         <article className={styles.card} onClick={() => router.push(`/product/${product.id}/${product.slug}`)}>
-            <img src={product.images[0]?.image} alt={product.title} />
+            <Image src={product.images[0]?.image || ''} alt={product.title} width={100} height={100} />
             <div>
                 <p className={styles.name}>{product.title}</p>
                 <p className={styles.price}>{product.price ? formatter.format(product.price) : 'Цена по запросу'}</p>

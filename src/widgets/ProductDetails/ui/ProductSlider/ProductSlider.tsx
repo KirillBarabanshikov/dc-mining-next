@@ -1,6 +1,7 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC, useState } from 'react';
-import { Mousewheel,Thumbs } from 'swiper/modules';
+import { Mousewheel, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { MAX_WIDTH_XL } from '@/shared/consts';
@@ -37,7 +38,7 @@ export const ProductSlider: FC<IProductSliderProps> = ({ images }) => {
                     {images.map((image) => (
                         <SwiperSlide key={image.id} className={styles.slide}>
                             <div className={styles.image}>
-                                <img src={image.image} alt={'image'} />
+                                <Image src={image.image || ''} alt={'image'} width={100} height={100} />
                             </div>
                         </SwiperSlide>
                     ))}
@@ -59,7 +60,7 @@ export const ProductSlider: FC<IProductSliderProps> = ({ images }) => {
                     {images.map((image) => (
                         <SwiperSlide key={image.id}>
                             <div className={styles.mainImage}>
-                                <img src={image.image} alt={'image'} />
+                                <Image src={image.image || ''} alt={'image'} width={476} height={464} />
                             </div>
                         </SwiperSlide>
                     ))}
