@@ -1,12 +1,13 @@
 'use client';
 
+import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { ICategory } from '@/entities/category';
-import { IContacts } from '@/entities/contacts';
+import { getCategories } from '@/entities/category';
+import { getContacts } from '@/entities/contacts';
 import { useCompareStore, useFavoritesStore } from '@/entities/product';
 import { OrderCallModal } from '@/features/call';
 import { Search, SearchButton } from '@/features/search';
@@ -32,12 +33,7 @@ import { HorizontalMenu } from '../HorizontalMenu';
 import { SideMenu } from '../SideMenu';
 import styles from './HeaderContent.module.scss';
 
-interface IHeaderContentProps {
-    categories?: ICategory[] | null;
-    contacts?: IContacts | null;
-}
-
-export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories }) => {
+export const HeaderContent = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { isLocked, setIsLocked } = useBodyScrollLock();
     const pathname = usePathname();
@@ -45,6 +41,15 @@ export const HeaderContent: FC<IHeaderContentProps> = ({ contacts, categories })
     const matchesMD = useMediaQuery(MAX_WIDTH_MD);
     const [isSticky, setIsSticky] = useState(false);
     const { number } = useMangoStore();
+
+    const { data: contacts } = useSuspenseQuery({
+        queryKey: ['contacts'],
+        queryFn: getContacts,
+    });
+    const { data: categories } = useSuspenseQuery({
+        queryKey: ['categories'],
+        queryFn: getCategories,
+    });
 
     useEffect(() => {
         setIsOpen(false);

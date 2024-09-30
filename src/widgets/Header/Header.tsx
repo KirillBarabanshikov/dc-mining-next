@@ -1,9 +1,26 @@
+import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+
 import { getCategories } from '@/entities/category';
 import { getContacts } from '@/entities/contacts';
 import { HeaderContent } from '@/widgets/Header/ui';
 
 export const Header = async () => {
-    const [contacts, categories] = await Promise.all([getContacts(), getCategories()]);
+    const queryClient = new QueryClient();
 
-    return <HeaderContent categories={categories} contacts={contacts} />;
+    await Promise.all([
+        queryClient.prefetchQuery({
+            queryKey: ['contacts'],
+            queryFn: getContacts,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['categories'],
+            queryFn: getCategories,
+        }),
+    ]);
+
+    return (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <HeaderContent />
+        </HydrationBoundary>
+    );
 };
