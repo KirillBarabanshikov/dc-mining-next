@@ -39,6 +39,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile',
                 href={`/product/${product.id}/${product.slug}`}
                 onMouseEnter={() => handleOnHover(true)}
                 onMouseLeave={() => handleOnHover(false)}
+                className={styles.wrap}
             >
                 <article className={clsx(styles.productCard, styles[viewMode])}>
                     <ProductImage className={styles.image} images={product.images} />

@@ -1,3 +1,7 @@
+.wrap {
+    display: flex;
+}
+
 .productCard {
     display: flex;
     gap: 20px;
@@ -71,7 +75,6 @@
 
     &.tile {
         flex-direction: column;
-        height: 100%;
 
         @media screen and (max-width: 768px) {
             gap: 12px;
@@ -79,6 +82,7 @@
     }
 
     &.simple {
+        width: 100%;
         @media screen and (max-width: 565px) {
             flex-direction: column;
 
