@@ -24,7 +24,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          ssh root@95.163.221.28 << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@95.163.221.28 << 'EOF'
             cd dc-mining-next
             git pull origin deploy
             npm install
