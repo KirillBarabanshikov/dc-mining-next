@@ -35,7 +35,14 @@ export const Bestsellers: FC<IBestsellersProps> = ({ products }) => {
                 <div className={styles.bestsellersList} ref={ref}>
                     {products &&
                         products.map((product) => {
-                            return <ProductCard key={product.id} product={product} withInfo={false} />;
+                            return (
+                                <ProductCard
+                                    key={product.id}
+                                    product={product}
+                                    withInfo={false}
+                                    className={styles.product}
+                                />
+                            );
                         })}
                 </div>
             </div>

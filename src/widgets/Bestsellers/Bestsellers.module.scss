@@ -25,5 +25,9 @@
         @media screen and (max-width: 460px) {
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         }
+
+        .product {
+            height: initial !important;
+        }
     }
 }

@@ -16,9 +16,10 @@ interface IProductCardProps {
     product: IProduct;
     viewMode?: 'tile' | 'simple';
     withInfo?: boolean;
+    className?: string;
 }
 
-export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile', withInfo = true }) => {
+export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile', withInfo = true, className }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -39,7 +40,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile',
                 href={`/product/${product.id}/${product.slug}`}
                 onMouseEnter={() => handleOnHover(true)}
                 onMouseLeave={() => handleOnHover(false)}
-                className={styles.wrap}
+                className={clsx(styles.wrap, className)}
             >
                 <article className={clsx(styles.productCard, styles[viewMode])}>
                     <ProductImage className={styles.image} images={product.images} />
