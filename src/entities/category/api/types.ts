@@ -3,6 +3,7 @@ export interface ICategoryDto {
     title: string;
     image?: string;
     display: boolean;
+    displayHeader: boolean;
     subCategory: {
         id: number;
         title: string;
