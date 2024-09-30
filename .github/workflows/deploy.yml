@@ -1,0 +1,33 @@
+name: Deploy to Ubuntu server
+
+on:
+  push:
+    branches:
+      - deploy
+  pull_request:
+    branches:
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: 95.163.221.28
+
+      - name: Deploy to server
+        run: |
+          ssh root@95.163.221.28 << 'EOF'
+            cd dc-mining-next
+            git pull origin deploy
+            npm install
+            npm run build
+            pm2 restart dc-mining-next
+          EOF
