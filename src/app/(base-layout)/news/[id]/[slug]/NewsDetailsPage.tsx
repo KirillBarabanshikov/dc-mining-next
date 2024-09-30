@@ -2,6 +2,7 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { FC } from 'react';
 
@@ -35,7 +36,13 @@ const NewsDetailsPage: FC = () => {
             <section>
                 <div className={clsx(styles.container, 'container')}>
                     <h1 className={styles.title}>{massMedia.title}</h1>
-                    <img src={BASE_URL + massMedia.image} alt={massMedia.title} className={styles.image} />
+                    <Image
+                        src={BASE_URL + massMedia.image}
+                        alt={massMedia.title}
+                        width={904}
+                        height={508}
+                        className={styles.image}
+                    />
                     <div dangerouslySetInnerHTML={{ __html: massMedia.description }} className={styles.description} />
                 </div>
             </section>
