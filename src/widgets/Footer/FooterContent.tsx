@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -95,7 +96,12 @@ export const FooterContent: FC<IFooterContentProps> = ({ categories, contacts })
                                 {contacts.images.map((social) => {
                                     return (
                                         <a key={social.id} href={social.url} target={'_blank'}>
-                                            <img src={BASE_URL + social.image} alt={'social'} />
+                                            <Image
+                                                src={BASE_URL + social.image}
+                                                alt={'social'}
+                                                width={48}
+                                                height={48}
+                                            />
                                         </a>
                                     );
                                 })}
