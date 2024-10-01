@@ -24,7 +24,7 @@ jobs:
             PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         run: |
             sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
-              cd $PROJECT_PATH
+              cd dc-mining-next
               git pull origin production 
               npm install
               npm run build
