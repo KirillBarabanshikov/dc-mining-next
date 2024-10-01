@@ -70,11 +70,11 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
         let path = `/catalog/${item.id}/${item.slug}`;
 
         if (item.title === 'asicMiners' || item.title === 'firmware') {
-            path += `?brand=${child.title}`;
+            path += `?${new URLSearchParams(`brand=${child.title}&state=${child.title}`)}`;
         }
 
         if (item.title === 'accessories' || item.title === 'containersMining') {
-            path += `?filter=${child.title}`;
+            path += `?${new URLSearchParams(`filter=${child.title}&state=${child.title}`)}`;
         }
         router.push(path);
     };

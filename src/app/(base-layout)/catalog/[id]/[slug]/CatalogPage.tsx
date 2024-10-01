@@ -3,6 +3,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
+import { useEffect, useRef } from 'react';
 
 import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
 import { getCategoryById } from '@/entities/category';
@@ -19,7 +20,8 @@ const paths = [{ name: 'Главная', path: '/' }];
 const CatalogPage = () => {
     const { id } = useParams<{ id: string }>();
     const matches = useMediaQuery('(max-width: 855px)');
-    const { getFilterBody } = useCatalogFilters();
+    const { getFilterBody, params } = useCatalogFilters();
+    const state = useRef<string | null>(null);
 
     const { data: category } = useSuspenseQuery({
         queryKey: ['category', id],
@@ -31,13 +33,20 @@ const CatalogPage = () => {
         staleTime: Infinity,
     });
 
-    const { data: catalogData } = useSuspenseQuery({
+    const { data: catalogData, refetch } = useSuspenseQuery({
         queryKey: ['catalog', category?.title],
         queryFn: () =>
             getCatalogData({
                 ...getFilterBody(category?.title ?? ''),
             }),
     });
+
+    useEffect(() => {
+        if (params.get('state') !== state.current) {
+            state.current = params.get('state');
+            refetch({ cancelRefetch: false });
+        }
+    }, [params, refetch]);
 
     const currentSeo = seos?.find((seo) => seo.choose === category?.seoName);
 
