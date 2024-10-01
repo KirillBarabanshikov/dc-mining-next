@@ -3,10 +3,7 @@ name: Deploy to Ubuntu server
 on:
   push:
     branches:
-      - deploy
-  pull_request:
-    branches:
-      - deploy
+      - production
 
 jobs:
   deploy:
@@ -16,18 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: 95.163.221.28
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
 
       - name: Deploy to server
+        env:
+            SSH_USER: ${{ secrets.SSH_USER }}
+            SSH_HOST: ${{ secrets.SSH_HOST }}
+            SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+            PROJECT_PATH: ${{ secrets.PROJECT_PATH }}
         run: |
-          ssh -o StrictHostKeyChecking=no root@95.163.221.28 << 'EOF'
-            cd dc-mining-next
-            git pull origin deploy
-            npm install
-            npm run build
-            pm2 restart dc-mining-next
-          EOF
+            sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
+              cd $PROJECT_PATH
+              git pull origin production 
+              npm install
+              npm run build
+              pm2 restart dc-mining-next
+            EOF
