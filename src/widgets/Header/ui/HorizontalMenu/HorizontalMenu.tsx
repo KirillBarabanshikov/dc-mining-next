@@ -21,9 +21,8 @@ export const HorizontalMenu: FC<IHorizontalMenuProps> = ({ categories }) => {
             <ul className={styles.horizontalMenuList}>
                 {categories &&
                     categories.map((item) => {
-                        if (item.title === 'readyBusiness' || item.title === 'accessories') {
-                            return <Fragment key={item.id} />;
-                        }
+                        if (!item.displayHeader) return <Fragment key={item.id} />;
+
                         if (item.link || item.subCategory.length === 0) {
                             return (
                                 <li key={item.id} className={styles.horizontalMenuItem}>
@@ -31,7 +30,7 @@ export const HorizontalMenu: FC<IHorizontalMenuProps> = ({ categories }) => {
                                         href={item.link ?? `/catalog/${item.id}/${item.slug}`}
                                         className={styles.horizontalMenuLink}
                                     >
-                                        {item.name}
+                                        {item.title === 'readyBusiness' ? 'Готовый бизнес' : item.name}
                                     </Link>
                                 </li>
                             );

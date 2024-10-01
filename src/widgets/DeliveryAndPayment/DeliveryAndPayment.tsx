@@ -2,6 +2,7 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC } from 'react';
 
 import { getDeliveryInfo, getPaymentInfo, IDeliveryAndPaymentInfo } from '@/entities/pageInfo';
@@ -67,7 +68,7 @@ const DeliveryAndPaymentCard: FC<IDeliveryCardProps> = ({ data }) => {
     return (
         <div className={styles.card}>
             <div className={styles.title}>
-                <img src={BASE_URL + data.image} alt={data.title} />
+                <Image src={BASE_URL + data.image} alt={data.title} width={24} height={24} />
                 <p>{data.title}</p>
             </div>
             <div className={styles.desc} dangerouslySetInnerHTML={{ __html: data.description }} />

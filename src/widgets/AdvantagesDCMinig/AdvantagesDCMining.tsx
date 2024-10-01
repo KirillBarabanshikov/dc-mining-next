@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC } from 'react';
 
 import { IAdvantage } from '@/entities/pageInfo/model';
@@ -23,7 +24,12 @@ export const AdvantagesDCMining: FC<IAdvantagesDCMiningProps> = ({ advantages })
                             return (
                                 <article key={advantage.id} className={styles.advantage}>
                                     <div className={styles.placeholder}>
-                                        <img src={BASE_URL + advantage.image} alt={advantage.title} />
+                                        <Image
+                                            src={BASE_URL + advantage.image}
+                                            alt={advantage.title}
+                                            width={160}
+                                            height={160}
+                                        />
                                     </div>
                                     <p className={styles.title}>{advantage.title}</p>
                                     <div

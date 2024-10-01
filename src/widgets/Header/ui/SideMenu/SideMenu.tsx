@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC, Fragment, useState } from 'react';
 
@@ -99,10 +100,12 @@ export const SideMenu: FC<ISideMenuProps> = ({ isOpen, onClose, categories, cont
                                             {contacts.images.map((social) => {
                                                 return (
                                                     <a key={social.id} href={social.url} target={'_blank'}>
-                                                        <img
+                                                        <Image
                                                             key={social.id}
                                                             src={BASE_URL + social.image}
                                                             alt={'social'}
+                                                            width={32}
+                                                            height={32}
                                                         />
                                                     </a>
                                                 );

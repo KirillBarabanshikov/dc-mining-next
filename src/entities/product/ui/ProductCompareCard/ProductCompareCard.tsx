@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import Image from 'next/image';
 import { FC, Fragment, useState } from 'react';
 
 import { IProduct, useCompareStore } from '@/entities/product';
@@ -29,7 +30,12 @@ export const ProductCompareCard: FC<IProductCompareCardProps> = ({ product, only
                 <div className={styles.trash} onClick={() => removeFromCompare(product.id)}>
                     <TrashIcon />
                 </div>
-                <img src={product.images[0] ? product.images[0].image : placeholderImg.src} alt={product.title} />
+                <Image
+                    src={product.images[0] ? product.images[0].image || '' : placeholderImg}
+                    alt={product.title}
+                    width={248}
+                    height={248}
+                />
                 <p className={styles.name}>{product.title}</p>
                 <p className={styles.price}>{product.price ? formatter.format(product.price) : 'Цена по запросу'}</p>
                 <div className={styles.buttons}>

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -21,7 +22,7 @@ export const NewsCard: FC<INewsCardProps> = ({ media, className }) => {
 
     return (
         <article className={clsx(styles.newsCard, className)}>
-            <img src={BASE_URL + media.image} alt={media.title} />
+            <Image src={BASE_URL + media.image} alt={media.title} width={488} height={240} />
             <div className={styles.cardBody}>
                 <time dateTime={media.dateAt}>{formatDate(media.dateAt)}</time>
                 <h5 className={styles.title}>{media.title}</h5>

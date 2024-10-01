@@ -2,6 +2,7 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -37,7 +38,12 @@ const AboutPage = () => {
                                     return (
                                         <div key={element.id} className={styles.wrap}>
                                             <div className={styles.image}>
-                                                <img src={BASE_URL + element.image} alt={element.title} />
+                                                <Image
+                                                    src={BASE_URL + element.image}
+                                                    alt={element.title}
+                                                    width={500}
+                                                    height={300}
+                                                />
                                             </div>
                                             <div className={styles.description}>
                                                 <h2 className={'section-title-primary'}>{element.title}</h2>
@@ -80,14 +86,18 @@ const AboutPage = () => {
                                     return (
                                         <SwiperSlide key={partner.id} className={styles.slide}>
                                             <div className={styles.partner}>
-                                                <img
+                                                <Image
                                                     src={BASE_URL + partner.image}
                                                     alt={'image'}
+                                                    width={280}
+                                                    height={100}
                                                     className={styles.image}
                                                 />
-                                                <img
+                                                <Image
                                                     src={BASE_URL + partner.preview}
                                                     alt={'preview'}
+                                                    width={280}
+                                                    height={100}
                                                     className={styles.preview}
                                                 />
                                             </div>
