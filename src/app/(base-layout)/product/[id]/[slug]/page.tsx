@@ -10,6 +10,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
     return {
         title: product?.seoTitle ? product?.seoTitle : product?.title,
+        description: product?.seoDescription || '',
     };
 }
 
