@@ -37,6 +37,9 @@ export const metadata: Metadata = {
         ],
     },
     manifest: '/site.webmanifest',
+    other: {
+        'yandex-verification': 'a930c94ae40ba145',
+    },
 };
 
 export default function RootLayout({
