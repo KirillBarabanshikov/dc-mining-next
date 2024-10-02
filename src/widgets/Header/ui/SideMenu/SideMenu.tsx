@@ -53,7 +53,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ isOpen, onClose, categories, cont
                                                     .map((category) => (
                                                         <Link
                                                             key={link.path}
-                                                            href={`catalog/${category.id}/${category.slug}`}
+                                                            href={`/catalog/${category.id}/${category.slug}`}
                                                             className={styles.link}
                                                         >
                                                             {link.title}
