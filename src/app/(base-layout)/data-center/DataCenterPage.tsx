@@ -59,7 +59,7 @@ export const DataCenterPage: FC = () => {
                         className={clsx(styles.description, 'list')}
                         dangerouslySetInnerHTML={{ __html: info?.description ?? '' }}
                     />
-                    <Button size={matches ? 'md' : 'lg'} isWide={matches}>
+                    <Button size={matches ? 'md' : 'lg'} isWide={matches} onClick={() => setIsOpen(true)}>
                         Разместить оборудование
                     </Button>
                 </div>
