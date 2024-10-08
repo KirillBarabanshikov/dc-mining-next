@@ -16,7 +16,13 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <section className={styles.info}>
+        <section className={styles.info} itemScope itemType='https://schema.org/Offer'>
+            <meta itemProp='priceCurrency' content='RUB' />
+            <meta itemProp='price' content={String(product.price) || 'Цена по запросу'} />
+            <link itemProp='availability' href='https://schema.org/InStock' />
+            <meta itemProp='itemCondition' content='https://schema.org/NewCondition' />
+            <meta itemProp='url' content={`https://dc-mining.ru/product/${product?.id}/${product?.slug}`} />
+
             {!!product.tags.length && (
                 <div className={styles.tags}>
                     {product.tags.map((tag) => {

@@ -42,6 +42,28 @@ export const MainPage = () => {
 
     return (
         <>
+            <div itemScope itemType='https://schema.org/WebSite'>
+                <meta itemProp='name' content='DC-MINING' />
+                <meta itemProp='url' content='https://dc-mining.ru/' />
+                <meta
+                    itemProp='description'
+                    content='Современное оборудование для майнинга криптовалют. Актуальные цены 2024 года, доставка по всей России. Широкий выбор ASIC и комплектующих для майнинга. Купите оборудование для майнинга выгодно!'
+                />
+
+                <div itemScope itemType='https://schema.org/Organization'>
+                    <meta itemProp='name' content='DC-MINING' />
+                    <meta itemProp='url' content='https://dc-mining.ru/' />
+                    <meta itemProp='logo' content='https://dc-mining.ru/apple-touch-icon.png' />
+                    <meta itemProp='sameAs' content='https://t.me/dcmining_1' />
+                    <meta
+                        itemProp='sameAs'
+                        content='https://api.whatsapp.com/send/?phone=79858963003&text&type=phone_number&app_absent=0'
+                    />
+                    <meta itemProp='contactPoint' content='+74955131211' />
+                    <meta itemProp='email' content='info@dc-mining.ru' />
+                    <meta itemProp='address' content='г. Москва, ул. Николоямская д.40/22с4' />
+                </div>
+            </div>
             <MainBanner categories={categories} slides={slides} />
             <div className={clsx(styles.sections, 'sections')}>
                 <MainBannersList />
