@@ -53,7 +53,12 @@ const CatalogPage = () => {
     return (
         <div className={styles.catalog}>
             <div className={'container'}>
-                <Breadcrumbs paths={[...paths, { name: category?.name ?? '', path: '' }]} />
+                <Breadcrumbs
+                    paths={[
+                        ...paths,
+                        { name: category?.name ?? '', path: `/catalog/${category?.id}/${category?.slug}` },
+                    ]}
+                />
                 <div className={styles.catalogTitle}>
                     <h1>{currentSeo?.hOne ? currentSeo.hOne : category?.name}</h1>
                     <span>{`${catalogData?.count} товаров`}</span>

@@ -8,6 +8,7 @@ import { FC } from 'react';
 
 import { getMassMediaById } from '@/entities/pageInfo';
 import { BASE_URL } from '@/shared/consts';
+import { createSlug } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
 
 import styles from './NewsDetailsPage.module.scss';
@@ -31,7 +32,12 @@ const NewsDetailsPage: FC = () => {
     return (
         <div className={styles.newsPage}>
             <div className={'container'}>
-                <Breadcrumbs paths={[...paths, { name: massMedia.title }]} />
+                <Breadcrumbs
+                    paths={[
+                        ...paths,
+                        { name: massMedia.title, path: `/news/${massMedia.id}/${createSlug(massMedia.title)}` },
+                    ]}
+                />
             </div>
             <section>
                 <div className={clsx(styles.container, 'container')}>

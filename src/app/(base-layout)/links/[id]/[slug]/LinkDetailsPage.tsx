@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 import { getLinkById } from '@/entities/link';
@@ -16,7 +16,7 @@ const paths = [
 const LinksDetailsPage = () => {
     const { id } = useParams<{ id: string }>();
 
-    const { data: link } = useQuery({
+    const { data: link } = useSuspenseQuery({
         queryKey: ['links', id],
         queryFn: () => getLinkById(id),
         staleTime: Infinity,
@@ -25,7 +25,9 @@ const LinksDetailsPage = () => {
     return (
         <div className={styles.link}>
             <div className={'container'}>
-                <Breadcrumbs paths={[...paths, { name: link?.title ?? '', path: '' }]} />
+                <Breadcrumbs
+                    paths={[...paths, { name: link?.title ?? '', path: `/links/${link?.id}/${link?.slug}` }]}
+                />
             </div>
             <section>
                 <div className={'container'}>
