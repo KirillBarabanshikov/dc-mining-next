@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        remotePatterns: [{
-            protocol: "https",
-            hostname: "**",
-        }],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**',
+            },
+        ],
     },
     webpack(config) {
         config.module.rules.push({
@@ -23,12 +25,13 @@ const nextConfig = {
             test: /\.(mp4|webm|ogg|swf|mov)$/,
             type: 'asset/resource',
             generator: {
-                filename: 'static/media/[name].[hash][ext]'
-            }
+                filename: 'static/media/[name].[hash][ext]',
+            },
         });
 
         return config;
     },
+    reactStrictMode: false,
 };
 
 export default nextConfig;

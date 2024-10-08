@@ -7,13 +7,14 @@ import { useMangoStore } from '@/shared/lib';
 
 export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
     const pathname = usePathname();
+
     const { setNumber } = useMangoStore();
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
         if (window.ym) {
-            window.ym(98130237, 'hit', pathname);
+            window.ym(98130237, 'hit');
         }
 
         if (window.mgo) {
