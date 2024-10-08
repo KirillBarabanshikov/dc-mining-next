@@ -110,6 +110,7 @@ export default function RootLayout({
                             src='https://mc.yandex.ru/watch/98130237'
                             style={{ position: 'absolute', left: '-9999px' }}
                             alt=''
+                            loading='lazy'
                         />
                     </div>
                 </noscript>
