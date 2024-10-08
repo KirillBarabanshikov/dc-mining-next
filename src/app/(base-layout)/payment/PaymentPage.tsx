@@ -1,7 +1,10 @@
 import { Breadcrumbs } from '@/shared/ui';
 import { Payments } from '@/widgets';
 
-const paths = [{ name: 'Главная', path: '/' }, { name: 'Оплата' }];
+const paths = [
+    { name: 'Главная', path: '/' },
+    { name: 'Оплата', path: '/payment' },
+];
 
 const PaymentPage = () => {
     return (

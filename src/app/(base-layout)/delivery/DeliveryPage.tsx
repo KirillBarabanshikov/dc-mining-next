@@ -1,7 +1,10 @@
 import { Breadcrumbs } from '@/shared/ui';
 import { Delivery } from '@/widgets';
 
-const paths = [{ name: 'Главная', path: '/' }, { name: 'Доставка' }];
+const paths = [
+    { name: 'Главная', path: '/' },
+    { name: 'Доставка', path: '/delivery' },
+];
 
 const DeliveryPage = () => {
     return (

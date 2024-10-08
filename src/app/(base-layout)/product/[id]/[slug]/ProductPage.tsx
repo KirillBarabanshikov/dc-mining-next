@@ -44,7 +44,7 @@ const ProductPage = () => {
             name: product?.category?.name ?? '',
             path: product ? `/catalog/${product?.category?.id}/${product?.category?.slug}` : '',
         },
-        { name: product?.title ?? '' },
+        { name: product?.title ?? '', path: `/product/${product?.id}/${product?.slug}` },
     ];
 
     return (

@@ -5,13 +5,18 @@
     gap: 8px;
     margin: 24px 0 20px 0;
 
-    .link {
-        font-weight: 500;
-        color: var(--text-tertiary);
-
+    li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         &:last-child {
             pointer-events: none;
         }
+    }
+
+    .link {
+        font-weight: 500;
+        color: var(--text-tertiary);
 
         @media (hover: hover) {
             &:hover {

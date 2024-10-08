@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 
 import ArrowIcon from '@/shared/assets/icons/arrow-right.svg';
 
@@ -18,21 +18,22 @@ interface IBreadcrumbsProps {
 
 export const Breadcrumbs: FC<IBreadcrumbsProps> = ({ paths, className }) => {
     return (
-        <nav className={clsx(styles.breadcrumbs, className)}>
+        <ul className={clsx(styles.breadcrumbs, className)} itemScope itemType='https://schema.org/BreadcrumbList'>
             {paths.map((path, index) => {
                 return (
-                    <Fragment key={index}>
+                    <li key={index} itemProp='itemListElement' itemScope itemType='https://schema.org/ListItem'>
                         {index > 0 && <ArrowIcon />}
                         {path.path ? (
-                            <Link href={path.path} className={styles.link}>
-                                {path.name}
+                            <Link href={path.path} className={styles.link} title={path.name} itemProp='item'>
+                                <span itemProp='name'>{path.name}</span>
+                                <meta itemProp='position' content={String(index)} />
                             </Link>
                         ) : (
                             <span className={styles.link}>{path.name}</span>
                         )}
-                    </Fragment>
+                    </li>
                 );
             })}
-        </nav>
+        </ul>
     );
 };
