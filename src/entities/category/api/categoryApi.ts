@@ -22,3 +22,13 @@ export const getCategoryById = async (id: string) => {
         return null;
     }
 };
+
+export const getCategoryBySlug = async (slug: string) => {
+    try {
+        const response = await instance.get<ICategoryDto>(`product_categories/slug?slug=${slug}`);
+        return mapCategory(response.data);
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+};

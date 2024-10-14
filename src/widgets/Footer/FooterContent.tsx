@@ -41,7 +41,7 @@ export const FooterContent: FC<IFooterContentProps> = ({ categories, contacts })
                                             return (
                                                 <Link
                                                     key={category.id}
-                                                    href={`/catalog/${category.id}/${category.slug}`}
+                                                    href={`/catalog/${category.slug}`}
                                                     className={styles.link}
                                                 >
                                                     {category.name}
@@ -58,7 +58,7 @@ export const FooterContent: FC<IFooterContentProps> = ({ categories, contacts })
                                             return (
                                                 <Link
                                                     key={category.id}
-                                                    href={`/catalog/${category.id}/${category.slug}`}
+                                                    href={`/catalog/${category.slug}`}
                                                     className={styles.link}
                                                 >
                                                     Готовый бизнес для майнинга криптовалют

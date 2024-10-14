@@ -53,7 +53,7 @@ export const SideMenu: FC<ISideMenuProps> = ({ isOpen, onClose, categories, cont
                                                     .map((category) => (
                                                         <Link
                                                             key={link.path}
-                                                            href={`/catalog/${category.id}/${category.slug}`}
+                                                            href={`/catalog/${category.slug}`}
                                                             className={styles.link}
                                                         >
                                                             {link.title}
@@ -170,7 +170,7 @@ const CollapseItemsList = ({ categories }: { categories?: ICategory[] | null }) 
                                     >
                                         <div className={styles.collapseBody}>
                                             {item.subCategory.map((child) => {
-                                                let href = `/catalog/${item.id}/${item.slug}`;
+                                                let href = `/catalog/${item.slug}`;
                                                 if (item.title === 'asicMiners' || item.title === 'firmware') {
                                                     href += `?brand=${child.title}`;
                                                 }

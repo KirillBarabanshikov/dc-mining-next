@@ -7,9 +7,11 @@ export interface ICategoryDto {
     subCategory: {
         id: number;
         title: string;
+        slug: string;
     }[];
     images: {
         id: number;
         image?: string;
     }[];
+    slug: string;
 }

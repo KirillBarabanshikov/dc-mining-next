@@ -7,6 +7,7 @@ export interface ICategory {
     subCategory: {
         id: number;
         title: string;
+        slug: string;
     }[];
     images: {
         id: number;

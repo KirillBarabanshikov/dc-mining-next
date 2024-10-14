@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
-import { getCategoryById } from '@/entities/category';
+import { getCategoryBySlug } from '@/entities/category';
 import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
 import { useMediaQuery } from '@/shared/lib';
@@ -18,14 +18,14 @@ import styles from './CatalogPage.module.scss';
 const paths = [{ name: 'Главная', path: '/' }];
 
 const CatalogPage = () => {
-    const { id } = useParams<{ id: string }>();
+    const { slug } = useParams<{ slug: string[] }>();
     const matches = useMediaQuery('(max-width: 855px)');
     const { getFilterBody, params } = useCatalogFilters();
     const state = useRef<string | null>(null);
 
     const { data: category } = useSuspenseQuery({
-        queryKey: ['category', id],
-        queryFn: () => getCategoryById(id),
+        queryKey: ['category', slug[0]],
+        queryFn: () => getCategoryBySlug(slug[0]),
     });
     const { data: seos } = useSuspenseQuery({
         queryKey: ['seos'],
@@ -53,12 +53,7 @@ const CatalogPage = () => {
     return (
         <div className={styles.catalog}>
             <div className={'container'}>
-                <Breadcrumbs
-                    paths={[
-                        ...paths,
-                        { name: category?.name ?? '', path: `/catalog/${category?.id}/${category?.slug}` },
-                    ]}
-                />
+                <Breadcrumbs paths={[...paths, { name: category?.name ?? '', path: `/catalog/${category?.slug}` }]} />
                 <div className={styles.catalogTitle}>
                     <h1>{currentSeo?.hOne ? currentSeo.hOne : category?.name}</h1>
                     <span>{`${catalogData?.count} товаров`}</span>

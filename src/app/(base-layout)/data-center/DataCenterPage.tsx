@@ -43,7 +43,7 @@ export const DataCenterPage: FC = () => {
     const handleNavigate = () => {
         refetchCategorites().then((data) => {
             const category = data.data?.filter((category) => category.title === 'containersMining');
-            if (category) router.push(`/catalog/${category[0].id}/${category[0].slug}`);
+            if (category) router.push(`/catalog/${category[0].slug}`);
         });
     };
 

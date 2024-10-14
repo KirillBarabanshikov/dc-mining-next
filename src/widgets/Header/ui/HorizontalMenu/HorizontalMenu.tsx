@@ -27,7 +27,7 @@ export const HorizontalMenu: FC<IHorizontalMenuProps> = ({ categories }) => {
                             return (
                                 <li key={item.id} className={styles.horizontalMenuItem}>
                                     <Link
-                                        href={item.link ?? `/catalog/${item.id}/${item.slug}`}
+                                        href={item.link ?? `/catalog/${item.slug}`}
                                         className={styles.horizontalMenuLink}
                                     >
                                         {item.title === 'readyBusiness' ? 'Готовый бизнес' : item.name}
@@ -66,16 +66,16 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
         setIsOpen(false);
     };
 
-    const handleNavigate = (child: { id: number; title: string }) => {
-        let path = `/catalog/${item.id}/${item.slug}`;
+    const handleNavigate = (child: { id: number; slug: string }) => {
+        let path = `/catalog/${item.slug}/${child.slug}`;
 
-        if (item.title === 'asicMiners' || item.title === 'firmware') {
-            path += `?${new URLSearchParams(`brand=${child.title}&state=${child.title}`)}`;
-        }
-
-        if (item.title === 'accessories' || item.title === 'containersMining') {
-            path += `?${new URLSearchParams(`filter=${child.title}&state=${child.title}`)}`;
-        }
+        // if (item.title === 'asicMiners' || item.title === 'firmware') {
+        //     path += `?${new URLSearchParams(`brand=${child.title}&state=${child.title}`)}`;
+        // }
+        //
+        // if (item.title === 'accessories' || item.title === 'containersMining') {
+        //     path += `?${new URLSearchParams(`filter=${child.title}&state=${child.title}`)}`;
+        // }
         router.push(path);
     };
 
@@ -87,10 +87,7 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
                 onHoverEnd={handleHoverEnd}
                 className={clsx(styles.horizontalMenuItem, isOpen && styles.open)}
             >
-                <Link
-                    href={`/catalog/${item.id}/${item.slug}`}
-                    className={clsx(styles.horizontalMenuLink, styles.dropdownLink)}
-                >
+                <Link href={`/catalog/${item.slug}`} className={clsx(styles.horizontalMenuLink, styles.dropdownLink)}>
                     {item.name}
                 </Link>
             </motion.li>

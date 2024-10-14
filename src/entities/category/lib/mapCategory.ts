@@ -1,5 +1,4 @@
 import { BASE_URL } from '@/shared/consts';
-import { createSlug } from '@/shared/lib';
 
 import { ICategoryDto } from '../api';
 import { ICategory } from '../model';
@@ -20,7 +19,6 @@ export function mapCategory(category: ICategoryDto): ICategory {
         ...category,
         image: BASE_URL + category.image,
         name,
-        slug: createSlug(name),
         link: links[category.title],
         subCategory: category.subCategory?.sort((a, b) => a.title.localeCompare(b.title)),
         seoName: getCategorySeoName(category.title),

@@ -33,10 +33,10 @@ export const MainSlider: FC<IMainSliderProps> = ({ slides, categories }) => {
             path = '/data-center';
         } else if (link === 'products') {
             const category = categories.find((category) => category.title === 'asicMiners');
-            path = category ? `/catalog/${category.id}/${category.slug}` : '/';
+            path = category ? `/catalog/${category.slug}` : '/';
         } else if (link === 'containers') {
             const category = categories.find((category) => category.title === 'containersMining');
-            path = category ? `/catalog/${category.id}/${category.slug}` : '/';
+            path = category ? `/catalog/${category.slug}` : '/';
         }
 
         router.push(path);
