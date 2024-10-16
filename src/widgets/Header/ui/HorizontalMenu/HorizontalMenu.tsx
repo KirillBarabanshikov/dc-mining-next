@@ -67,7 +67,7 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
     };
 
     const handleNavigate = (child: { id: number; slug: string }) => {
-        let path = `/catalog/${item.slug}/${child.slug}`;
+        const path = `/catalog/${item.slug}/${child.slug}`;
 
         // if (item.title === 'asicMiners' || item.title === 'firmware') {
         //     path += `?${new URLSearchParams(`brand=${child.title}&state=${child.title}`)}`;
