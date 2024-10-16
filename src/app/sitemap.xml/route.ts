@@ -8,7 +8,9 @@ interface ISitemapData {
 
 export async function GET() {
     try {
-        const response = await fetch(BASE_URL + '/api/settings');
+        const response = await fetch(BASE_URL + '/api/settings', {
+            cache: 'no-store',
+        });
         const robotsData: ISitemapData = await response.json();
 
         return new NextResponse(robotsData.sitemap, {

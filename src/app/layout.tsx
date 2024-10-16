@@ -10,6 +10,8 @@ import React from 'react';
 import { LocationProvider } from './locationProvider';
 import { QueryProvider } from './queryProvider';
 
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: 'dc mining',
     description: 'dc mining',

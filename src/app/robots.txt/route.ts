@@ -8,14 +8,12 @@ interface IRobotsData {
 
 export async function GET() {
     try {
-        const response = await fetch(BASE_URL + '/api/settings');
+        const response = await fetch(BASE_URL + '/api/settings', {
+            cache: 'no-store',
+        });
         const robotsData: IRobotsData = await response.json();
 
-        return new NextResponse(robotsData.robots, {
-            headers: {
-                'Content-Type': 'text/plain; charset=utf-8',
-            },
-        });
+        return new NextResponse(robotsData.robots);
     } catch (error) {
         return new NextResponse('Error robots.txt', { status: 500 });
     }
