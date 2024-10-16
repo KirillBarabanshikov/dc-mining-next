@@ -35,6 +35,7 @@ export interface IProductDto {
     seoTitle: string;
     seoDescription: string;
     seoHOne: string;
+    slug: string;
 }
 
 export interface IOrderProductBody {

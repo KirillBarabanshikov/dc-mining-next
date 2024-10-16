@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
         title: seo?.title,
         description: seo?.description,
         alternates: {
-            canonical: `https://dc-mining.ru/catalog/${params.slug[0]}`,
+            canonical: `https://dc-mining.ru/catalog/${params.slug.join('/')}`,
         },
     };
 }

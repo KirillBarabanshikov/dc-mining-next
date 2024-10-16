@@ -37,7 +37,7 @@ export const ProductCard: FC<IProductCardProps> = ({ product, viewMode = 'tile',
     return (
         <>
             <Link
-                href={`/product/${product.id}/${product.slug}`}
+                href={`/product/${product.slug}`}
                 onMouseEnter={() => handleOnHover(true)}
                 onMouseLeave={() => handleOnHover(false)}
                 className={clsx(styles.wrap, className)}
