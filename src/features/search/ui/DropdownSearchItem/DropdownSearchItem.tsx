@@ -16,7 +16,7 @@ export const DropdownSearchItem: FC<IDropdownSearchItem> = ({ product }) => {
     const router = useRouter();
 
     return (
-        <div className={styles.item} onClick={() => router.push(`/product/${product.id}/${product.slug}`)}>
+        <div className={styles.item} onClick={() => router.push(`/product/${product.slug}`)}>
             <SearchIcon className={styles.icon} />
             <div className={styles.name}>{product.title}</div>
         </div>

@@ -43,14 +43,18 @@ export const ProductsTabs: FC<IProductTabsProps> = ({ product }) => {
     );
 };
 
-const ProductSpecifications: FC<{ value: { id: number; title: string; valueInKey?: string }[] }> = ({ value }) => {
+const ProductSpecifications: FC<{ value: { id: number; title: string; valueInKey?: string; unit?: string }[] }> = ({
+    value,
+}) => {
     return (
         <div className={styles.productSpecifications}>
             {value.map((value) => {
                 return (
                     <div key={value.id} className={styles.specification}>
                         <div className={styles.name}>{value.valueInKey}</div>
-                        <div className={styles.value}>{value.title}</div>
+                        <div className={styles.value}>
+                            {value.title} {value.unit}
+                        </div>
                     </div>
                 );
             })}

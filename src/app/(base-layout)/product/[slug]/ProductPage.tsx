@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { getAboutInfo } from '@/entities/pageInfo';
-import { getProductById, getProductBySlug } from '@/entities/product';
+import { getProductBySlug } from '@/entities/product';
 import { useRecentStore } from '@/entities/product/model';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
