@@ -66,8 +66,17 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
         setIsOpen(false);
     };
 
-    const handleNavigate = (child: { id: number; slug: string }) => {
-        const path = `/catalog/${item.slug}/${child.slug}`;
+    const handleNavigate = (child: { id: number; slug: string; title: string }) => {
+        let path = `/catalog/${item.slug}`;
+
+        if (item.title === 'asicMiners' || item.title === 'firmware') {
+            path += `/${child.slug}`;
+        }
+
+        if (item.title === 'accessories' || item.title === 'containersMining') {
+            path += `?${new URLSearchParams(`filter=${child.title}&state=${child.title}`)}`;
+        }
+
         router.push(path);
     };
 

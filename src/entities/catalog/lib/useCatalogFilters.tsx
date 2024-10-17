@@ -22,10 +22,20 @@ export const useCatalogFilters = () => {
         }
     };
 
-    const getFilterBody = (type: string): ICatalogParams => {
+    const getFilterBody = (type: string, slug?: string[], brand?: string): ICatalogParams => {
         const body: ICatalogParams = {
-            type,
+            type: type,
         };
+
+        if (slug) {
+            body.type = slug.length === 1 ? type : 'slugCategory';
+            body.brand = slug.length === 1 ? undefined : slug[slug.length - 1];
+        }
+
+        if (brand) {
+            body.brand = brand;
+        }
+
         const characteristics: string[] = [];
 
         if (params.get('offers')) {

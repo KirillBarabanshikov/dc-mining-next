@@ -34,10 +34,10 @@ const CatalogPage = () => {
     });
 
     const { data: catalogData, refetch } = useSuspenseQuery({
-        queryKey: ['catalog', category?.title],
+        queryKey: ['catalog', category?.title, slug],
         queryFn: () =>
             getCatalogData({
-                ...getFilterBody(category?.title ?? ''),
+                ...getFilterBody(category?.title ?? '', slug),
             }),
     });
 

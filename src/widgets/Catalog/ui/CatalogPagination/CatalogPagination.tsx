@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { FC } from 'react';
 
 import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
@@ -28,9 +28,10 @@ export const CatalogPagination: FC<ICatalogPaginationProps> = ({ countProducts, 
     const router = useRouter();
     const queryClient = useQueryClient();
     const { getFilterBody } = useCatalogFilters();
+    const { slug } = useParams<{ slug: string[] }>();
 
     const onSetPage = async (page: number, more: boolean) => {
-        const catalogData = await getCatalogData({ ...getFilterBody(category.title), page });
+        const catalogData = await getCatalogData({ ...getFilterBody(category.title, slug), page });
 
         if (!catalogData) return;
 
@@ -40,14 +41,14 @@ export const CatalogPagination: FC<ICatalogPaginationProps> = ({ countProducts, 
 
         if (more) {
             queryClient.setQueryData(
-                ['catalog', category.title],
+                ['catalog', category.title, slug],
                 (oldData: ICatalogData): ICatalogData => ({
                     count: oldData.count,
                     products: [...oldData.products, ...catalogData.products],
                 }),
             );
         } else {
-            queryClient.setQueryData(['catalog', category.title], () => catalogData);
+            queryClient.setQueryData(['catalog', category.title, slug], () => catalogData);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };

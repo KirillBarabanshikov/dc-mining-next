@@ -2,6 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
@@ -29,13 +30,14 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
     const matches = useMediaQuery(MAX_WIDTH_MD);
     const { setSearchParams, params, getFilterBody } = useCatalogFilters();
     const queryClient = useQueryClient();
+    const { slug } = useParams<{ slug: string[] }>();
 
     const onChangeSort = (value: string[]) => {
         params.delete('page');
         params.set('order', value[0]);
         setSearchParams();
-        getCatalogData({ ...getFilterBody(category.title) }).then((data) =>
-            queryClient.setQueryData(['catalog', category.title], () => data),
+        getCatalogData({ ...getFilterBody(category.title, slug) }).then((data) =>
+            queryClient.setQueryData(['catalog', category.title, slug], () => data),
         );
     };
 

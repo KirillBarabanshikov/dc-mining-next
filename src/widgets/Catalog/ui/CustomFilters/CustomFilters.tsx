@@ -2,6 +2,7 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useParams } from 'next/navigation';
 import { FC } from 'react';
 
 import { getCatalogData, getCustomFilters } from '@/entities/catalog';
@@ -18,6 +19,7 @@ interface ICustomFiltersProps {
 export const CustomFilters: FC<ICustomFiltersProps> = ({ category, className }) => {
     const { setParams, params, setSearchParams, getFilterBody } = useCatalogFilters();
     const queryClient = useQueryClient();
+    const { slug } = useParams<{ slug: string[] }>();
 
     const { data: customFilters } = useQuery({
         queryKey: ['custom-filters'],
@@ -33,8 +35,8 @@ export const CustomFilters: FC<ICustomFiltersProps> = ({ category, className }) 
         }
         params.delete('page');
         setSearchParams();
-        const catalogData = await getCatalogData({ ...getFilterBody(category.title) });
-        queryClient.setQueryData(['catalog', category.title], () => catalogData);
+        const catalogData = await getCatalogData({ ...getFilterBody(category.title, slug) });
+        queryClient.setQueryData(['catalog', category.title, slug], () => catalogData);
     };
 
     return (

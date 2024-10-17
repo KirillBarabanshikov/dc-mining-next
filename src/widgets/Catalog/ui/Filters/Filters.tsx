@@ -2,6 +2,7 @@
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { getCatalogData, getFilters, getOffers } from '@/entities/catalog/api';
@@ -24,6 +25,7 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
     const matches = useMediaQuery('(max-width: 855px)');
     const { resetFilters, params, setSearchParams, setParams, getFilterBody } = useCatalogFilters();
     const queryClient = useQueryClient();
+    const { slug } = useParams<{ slug: string[] }>();
 
     const { data: filters } = useQuery({
         queryKey: ['filters'],
@@ -39,9 +41,9 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
     const onSetFilters = () => {
         params.delete('page');
         setSearchParams();
-        getCatalogData({ ...getFilterBody(category.title) }).then((data) =>
-            queryClient.setQueryData(['catalog', category.title], () => data),
-        );
+        getCatalogData({
+            ...getFilterBody(category.title, undefined, slug.length > 1 ? slug[slug.length - 1] : undefined),
+        }).then((data) => queryClient.setQueryData(['catalog', category.title, slug], () => data));
         onClose && onClose();
     };
 
@@ -50,9 +52,9 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
         setSearchParams();
         onClose && onClose();
         setReset((prev) => !prev);
-        getCatalogData({ ...getFilterBody(category.title) }).then((data) =>
-            queryClient.setQueryData(['catalog', category.title], () => data),
-        );
+        getCatalogData({
+            ...getFilterBody(category.title, undefined, slug.length > 1 ? slug[slug.length - 1] : undefined),
+        }).then((data) => queryClient.setQueryData(['catalog', category.title, slug], () => data));
     };
 
     return (
