@@ -27,6 +27,7 @@ const CatalogPage = () => {
         queryKey: ['category', slug[0]],
         queryFn: () => getCategoryBySlug(slug[0]),
     });
+
     const { data: seos } = useSuspenseQuery({
         queryKey: ['seos'],
         queryFn: getSeos,
