@@ -171,7 +171,10 @@ const CollapseItemsList = ({ categories }: { categories?: ICategory[] | null }) 
                                         <div className={styles.collapseBody}>
                                             {item.subCategory.map((child) => {
                                                 let href = `/catalog/${item.slug}`;
-                                                if (item.title === 'asicMiners' || item.title === 'firmware') {
+                                                if (item.title === 'asicMiners') {
+                                                    href += `/${child.slug}`;
+                                                }
+                                                if (item.title === 'firmware') {
                                                     href += `?brand=${child.title}`;
                                                 }
                                                 if (item.title === 'accessories' || item.title === 'containersMining') {

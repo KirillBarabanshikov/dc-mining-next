@@ -32,6 +32,23 @@ const nextConfig = {
         return config;
     },
     reactStrictMode: false,
+    async redirects() {
+        return [
+            {
+                source: '/product/:id/:slug',
+                destination: '/product/:slug',
+                permanent: true,
+                statusCode: 301,
+            },
+            {
+                source: '/catalog/:id(\\d{1,})/:slug',
+                destination: '/catalog/:slug',
+                permanent: true,
+                statusCode: 301,
+            },
+        ];
+    },
+
 };
 
 export default nextConfig;
