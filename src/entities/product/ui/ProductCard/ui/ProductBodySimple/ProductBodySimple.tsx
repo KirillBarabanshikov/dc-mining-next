@@ -38,7 +38,7 @@ export const ProductBodySimple: FC<IProductBodySimpleProps> = ({ product, onClic
                             .map((value) => {
                                 return (
                                     <div key={value.id}>
-                                        {value.valueInKey} — {value.title}
+                                        {value.valueInKey} — {value.title} {value.unit}
                                     </div>
                                 );
                             })}

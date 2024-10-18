@@ -62,7 +62,9 @@ export const ProductCompareCard: FC<IProductCompareCardProps> = ({ product, only
                             className={clsx(styles.specification, value.difference && styles.difference)}
                         >
                             <div className={styles.title}>{value.valueInKey}</div>
-                            <div className={styles.value}>{value.title}</div>
+                            <div className={styles.value}>
+                                {value.title} {value.unit}
+                            </div>
                         </div>
                     );
                 })}

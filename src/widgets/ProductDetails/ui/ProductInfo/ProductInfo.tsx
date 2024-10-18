@@ -39,7 +39,9 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                             return (
                                 <div key={value.id} className={styles.specification}>
                                     <p className={styles.name}>{value.valueInKey}</p>
-                                    <p className={styles.value}>{value.title}</p>
+                                    <p className={styles.value}>
+                                        {value.title} {value.unit}
+                                    </p>
                                 </div>
                             );
                         })}
