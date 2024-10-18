@@ -39,6 +39,7 @@ export const useCatalogFilters = () => {
         const characteristics: string[] = [];
 
         if (params.get('offers')) {
+            body.type = type;
             body.tags = params.get('offers') ?? '';
         }
 
@@ -55,10 +56,12 @@ export const useCatalogFilters = () => {
         }
 
         if (params.get('brand')) {
+            body.type = type;
             body.brand = params.get('brand') ?? '';
         }
 
         if (params.get('order')) {
+            body.type = type;
             if (params.get('order') === '1') {
                 body.sortBy = 'popularity';
             }
@@ -81,18 +84,22 @@ export const useCatalogFilters = () => {
         }
 
         if (params.get('profitable')) {
+            body.type = type;
             body.profitable = true;
         }
 
         if (params.get('powerful')) {
+            body.type = type;
             body.powerful = true;
         }
 
         if (params.get('filter')) {
+            body.type = type;
             body.customFilters = params.get('filter') ?? '';
         }
 
         if (params.get('page')) {
+            body.type = type;
             body.page = params.get('page') ?? '1';
         }
 
