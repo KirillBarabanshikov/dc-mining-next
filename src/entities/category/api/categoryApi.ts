@@ -32,3 +32,15 @@ export const getCategoryBySlug = async (slug: string) => {
         return null;
     }
 };
+
+export const getSubCategoryBySlug = async (slug: string) => {
+    try {
+        const response = await instance.get<{ id: number; title: string; slug: string }>(
+            `/product_sub_categories/slug?slug=${slug}`,
+        );
+        return response.data;
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+};

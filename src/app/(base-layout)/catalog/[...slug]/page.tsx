@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
-import { getCategoryBySlug, ICategory } from '@/entities/category';
+import { getCategoryBySlug, getSubCategoryBySlug, ICategory } from '@/entities/category';
 import { getSeo, getSeos } from '@/entities/seo';
 
 import CatalogPage from './CatalogPage';
@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
     const queryClient = new QueryClient();
+    const withSubCategory = params.slug.length > 1;
 
     await Promise.all([
         queryClient.prefetchQuery({
@@ -38,11 +39,17 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             queryFn: getSeos,
             staleTime: Infinity,
         }),
+        withSubCategory &&
+            queryClient.prefetchQuery({
+                queryKey: ['subCategory', params.slug[1]],
+                queryFn: () => getSubCategoryBySlug(params.slug[1]),
+            }),
     ]);
 
     const category = queryClient.getQueryData<ICategory>(['category', params.slug[0]]);
+    const subCategory = queryClient.getQueryData(['subCategory', params.slug[1]]);
 
-    if (!category) return notFound();
+    if (!category || (withSubCategory && !subCategory)) return notFound();
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>

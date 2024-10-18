@@ -36,7 +36,7 @@ export const CustomFilters: FC<ICustomFiltersProps> = ({ category, className }) 
         params.delete('page');
         setSearchParams();
         const catalogData = await getCatalogData({ ...getFilterBody(category.title, slug) });
-        queryClient.setQueryData(['catalog', category.title, slug], () => catalogData);
+        queryClient.setQueryData(['catalog', category.title, ...slug], () => catalogData);
     };
 
     return (

@@ -37,7 +37,7 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
         params.set('order', value[0]);
         setSearchParams();
         getCatalogData({ ...getFilterBody(category.title, slug) }).then((data) =>
-            queryClient.setQueryData(['catalog', category.title, slug], () => data),
+            queryClient.setQueryData(['catalog', category.title, ...slug], () => data),
         );
     };
 

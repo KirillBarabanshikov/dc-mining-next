@@ -43,7 +43,7 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
         setSearchParams();
         getCatalogData({
             ...getFilterBody(category.title, undefined, slug.length > 1 ? slug[slug.length - 1] : undefined),
-        }).then((data) => queryClient.setQueryData(['catalog', category.title, slug], () => data));
+        }).then((data) => queryClient.setQueryData(['catalog', category.title, ...slug], () => data));
         onClose && onClose();
     };
 
@@ -54,7 +54,7 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
         setReset((prev) => !prev);
         getCatalogData({
             ...getFilterBody(category.title, undefined, slug.length > 1 ? slug[slug.length - 1] : undefined),
-        }).then((data) => queryClient.setQueryData(['catalog', category.title, slug], () => data));
+        }).then((data) => queryClient.setQueryData(['catalog', category.title, ...slug], () => data));
     };
 
     return (

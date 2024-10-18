@@ -41,14 +41,14 @@ export const CatalogPagination: FC<ICatalogPaginationProps> = ({ countProducts, 
 
         if (more) {
             queryClient.setQueryData(
-                ['catalog', category.title, slug],
+                ['catalog', category.title, ...slug],
                 (oldData: ICatalogData): ICatalogData => ({
                     count: oldData.count,
                     products: [...oldData.products, ...catalogData.products],
                 }),
             );
         } else {
-            queryClient.setQueryData(['catalog', category.title, slug], () => catalogData);
+            queryClient.setQueryData(['catalog', category.title, ...slug], () => catalogData);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
