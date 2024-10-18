@@ -1,6 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
@@ -74,13 +75,13 @@ export const MainSlider: FC<IMainSliderProps> = ({ slides, categories }) => {
                                 </div>
                                 <div className={styles.imageWrap}>
                                     {isSafari ? (
-                                        <img src={`${slide.image}`} alt={slide.title} />
+                                        <Image src={`${slide.image}`} alt={slide.title} width={904} height={580} />
                                     ) : slide.media.includes('.webm') || slide.media.includes('.mp4') ? (
                                         <video autoPlay loop muted playsInline>
                                             <source src={slide.media} />
                                         </video>
                                     ) : (
-                                        <img src={`${slide.media}`} alt={slide.title} />
+                                        <Image src={`${slide.image}`} alt={slide.title} width={904} height={580} />
                                     )}
                                 </div>
                             </section>

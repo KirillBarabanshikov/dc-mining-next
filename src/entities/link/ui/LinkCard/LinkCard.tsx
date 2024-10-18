@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
@@ -19,7 +20,7 @@ export const LinkCard: FC<ILinkCardProps> = ({ link }) => {
     return (
         <article className={styles.card}>
             <div className={styles.imgArea}>
-                <img src={link.media} alt={link.title} />
+                <Image src={link.media} alt={link.title} fill sizes={'400px'} />
             </div>
             <div className={styles.body}>
                 <h5 className={styles.title}>{link.title}</h5>

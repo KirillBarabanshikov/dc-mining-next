@@ -45,13 +45,17 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // const response = await fetch(BASE_URL + '/api/settings');
+    // const data = await response.json();
+
     return (
         <html lang='ru'>
+            {/*<head dangerouslySetInnerHTML={{ __html: data.yandex }} />*/}
             <body>
                 <Script
                     id='yandex-metrika'
