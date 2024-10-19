@@ -11,7 +11,6 @@ interface IProductDetailsProps {
 
 export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
     if (!product) return <></>;
-    console.log(product);
 
     return (
         <div className={styles.details} itemScope itemType='https://schema.org/Product'>
