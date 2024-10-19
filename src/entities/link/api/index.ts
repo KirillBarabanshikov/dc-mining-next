@@ -1,1 +1,1 @@
-export { getLinkById, getLinks } from './linkApi';
+export { getLinkById, getLinkBySlug, getLinks } from './linkApi';

@@ -30,7 +30,7 @@ export const LinkCard: FC<ILinkCardProps> = ({ link }) => {
                     ))}
                 </ul>
                 <div className={styles.buttons}>
-                    <Button size={'sm'} isWide onClick={() => router.push(`/links/${link.id}/${link.slug}`)}>
+                    <Button size={'sm'} isWide onClick={() => router.push(`/links/${link.slug}`)}>
                         Подробнее
                     </Button>
                     <Button size={'sm'} variant={'outline'} isWide>

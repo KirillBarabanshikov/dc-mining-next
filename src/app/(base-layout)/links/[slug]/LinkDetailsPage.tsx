@@ -1,9 +1,9 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-import { getLinkById } from '@/entities/link';
+import { getLinkBySlug } from '@/entities/link';
 import { Accordion, Breadcrumbs } from '@/shared/ui';
 
 import styles from './LinkDetailsPage.module.scss';
@@ -14,12 +14,11 @@ const paths = [
 ];
 
 const LinksDetailsPage = () => {
-    const { id } = useParams<{ id: string }>();
+    const { slug } = useParams<{ slug: string }>();
 
-    const { data: link } = useSuspenseQuery({
-        queryKey: ['links', id],
-        queryFn: () => getLinkById(id),
-        staleTime: Infinity,
+    const { data: link } = useQuery({
+        queryKey: ['links', slug],
+        queryFn: () => getLinkBySlug(slug),
     });
 
     return (
