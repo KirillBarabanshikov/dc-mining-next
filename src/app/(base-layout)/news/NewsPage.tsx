@@ -2,7 +2,7 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 
-import { getAboutInfo } from '@/entities/pageInfo';
+import { getMassMedia } from '@/entities/pageInfo';
 import { Breadcrumbs } from '@/shared/ui';
 import { NewsList } from '@/widgets/NewsList';
 
@@ -12,10 +12,9 @@ const paths = [
 ];
 
 export const NewsPage = () => {
-    const { data: info } = useSuspenseQuery({
-        queryKey: ['about'],
-        queryFn: getAboutInfo,
-        staleTime: Infinity,
+    const { data: news } = useSuspenseQuery({
+        queryKey: ['news'],
+        queryFn: getMassMedia,
     });
 
     return (
@@ -26,7 +25,7 @@ export const NewsPage = () => {
             <section>
                 <div className={'container'}>
                     <h1 className={'section-title-secondary'}>СМИ о нас</h1>
-                    <NewsList massMedia={info?.massMedia} />
+                    {news && <NewsList massMedia={news} />}
                 </div>
             </section>
         </div>

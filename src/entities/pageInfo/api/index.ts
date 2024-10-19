@@ -3,6 +3,7 @@ export {
     getDataCenterInfo,
     getDeliveryInfo,
     getLeasingInfo,
+    getMassMedia,
     getMassMediaById,
     getMassMediaBySlug,
     getPaymentInfo,

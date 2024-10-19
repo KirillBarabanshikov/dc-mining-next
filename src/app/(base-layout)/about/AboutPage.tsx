@@ -1,13 +1,13 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { NewsCard } from '@/entities/news';
-import { getAboutInfo } from '@/entities/pageInfo';
+import { getAboutInfo, getMassMedia } from '@/entities/pageInfo';
 import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
@@ -19,10 +19,14 @@ const AboutPage = () => {
     const matches = useMediaQuery(MAX_WIDTH_MD);
     const router = useRouter();
 
-    const { data: info } = useSuspenseQuery({
+    const { data: info } = useQuery({
         queryKey: ['about'],
         queryFn: getAboutInfo,
-        staleTime: Infinity,
+    });
+
+    const { data: news } = useQuery({
+        queryKey: ['news'],
+        queryFn: getMassMedia,
     });
 
     return (
@@ -62,8 +66,8 @@ const AboutPage = () => {
                             {!matches && <Button onClick={() => router.push('/news')}>Больше новостей</Button>}
                         </div>
                         <div className={styles.wrap}>
-                            {info &&
-                                info.massMedia
+                            {news &&
+                                news
                                     .filter((media) => media.display)
                                     .map((media) => {
                                         return <NewsCard key={media.id} media={media} />;

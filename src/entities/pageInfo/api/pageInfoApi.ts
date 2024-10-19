@@ -52,6 +52,16 @@ export const getDeliveryInfo = async (): Promise<IDeliveryAndPaymentInfo[] | nul
     }
 };
 
+export const getMassMedia = async () => {
+    try {
+        const response = await instance.get<IMassMedia[]>(`/about/news`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 export const getMassMediaById = async (id: string | number) => {
     try {
         const response = await instance.get<IMassMedia>(`/about_mass_media/${id}`);

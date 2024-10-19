@@ -22,7 +22,7 @@ export const AddToFavoritesButton: FC<IAddToFavoritesButton> = ({ product, class
         if (isFavorite) {
             store?.removeFromFavorites(product.id);
         } else {
-            store?.addToFavorite(product);
+            store?.addToFavorite(product.id);
         }
     };
 

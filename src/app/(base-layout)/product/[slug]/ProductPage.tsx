@@ -35,7 +35,7 @@ const ProductPage = () => {
 
     useEffect(() => {
         if (!product) return;
-        addToRecent(product);
+        addToRecent(product.id);
     }, [addToRecent, product]);
 
     const breadcrumbsPaths = [

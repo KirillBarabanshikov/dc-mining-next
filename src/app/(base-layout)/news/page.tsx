@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getAboutInfo } from '@/entities/pageInfo';
+import { getMassMedia } from '@/entities/pageInfo';
 import { getSeo } from '@/entities/seo';
 
 import { NewsPage } from './NewsPage';
@@ -18,9 +18,8 @@ export default async function Page() {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery({
-        queryKey: ['about'],
-        queryFn: getAboutInfo,
-        staleTime: Infinity,
+        queryKey: ['news'],
+        queryFn: getMassMedia,
     });
 
     return (

@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getCategories } from '@/entities/category';
+import { getMassMedia } from '@/entities/pageInfo';
 import { getProducts } from '@/entities/product';
 import { getSeo } from '@/entities/seo';
 
@@ -26,6 +27,10 @@ export default async function Page() {
         queryClient.prefetchQuery({
             queryKey: ['categories'],
             queryFn: getCategories,
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['news'],
+            queryFn: getMassMedia,
         }),
     ]);
 

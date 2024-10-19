@@ -1,20 +1,26 @@
 'use client';
 
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { getProductsByIds } from '@/entities/product';
 import { useRecentStore } from '@/entities/product/model';
 import { RecentProductCard } from '@/entities/product/ui';
-import { useStore } from '@/shared/lib';
 import { SwiperButton } from '@/shared/ui';
 
 import styles from './RecentProductsList.module.scss';
 
 export const RecentProductsList = () => {
-    const store = useStore(useRecentStore, (state) => state);
-    const recentLength = store?.recent.length ?? 0;
+    const { recent } = useRecentStore();
 
-    if (!recentLength) return <></>;
+    const { data: products } = useQuery({
+        queryKey: ['recent', recent],
+        queryFn: () => getProductsByIds(recent),
+        placeholderData: keepPreviousData,
+    });
+
+    if (!products) return <></>;
 
     return (
         <section className={styles.recent}>
@@ -25,17 +31,17 @@ export const RecentProductsList = () => {
                     breakpoints={{ 0: { spaceBetween: 10 }, 769: { spaceBetween: 32 } }}
                     className={styles.list}
                 >
-                    {recentLength >= 4 && (
+                    {recent.length >= 4 && (
                         <SwiperButton variant={'prev'} className={clsx(styles.swiperButton, styles.prev)} />
                     )}
-                    {store?.recent.map((product) => {
+                    {products.map((product) => {
                         return (
                             <SwiperSlide key={product.id} className={styles.slide}>
                                 <RecentProductCard product={product} />
                             </SwiperSlide>
                         );
                     })}
-                    {recentLength >= 4 && (
+                    {recent.length >= 4 && (
                         <SwiperButton variant={'next'} className={clsx(styles.swiperButton, styles.next)} />
                     )}
                 </Swiper>

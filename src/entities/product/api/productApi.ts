@@ -51,3 +51,13 @@ export const orderProduct = async (body: IOrderProductBody) => {
         throw new Error(`${e}`);
     }
 };
+
+export const getProductsByIds = async (ids: number[]) => {
+    try {
+        const response = await instance.get<IProductDto[]>('/productsByIds', { params: { ids } });
+        return response.data.map(mapProduct);
+    } catch (e) {
+        console.error(e);
+        return null;
+    }
+};

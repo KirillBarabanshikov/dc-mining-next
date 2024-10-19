@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { getCategories } from '@/entities/category';
 import { getSlider } from '@/entities/mainSlider';
-import { getAboutInfo } from '@/entities/pageInfo';
+import { getMassMedia } from '@/entities/pageInfo';
 import { getProducts } from '@/entities/product';
 import Background from '@/shared/assets/backgrounds/main-bg.svg';
 import { MAX_WIDTH_MD } from '@/shared/consts';
@@ -34,10 +34,9 @@ export const MainPage = () => {
         queryFn: getSlider,
         staleTime: Infinity,
     });
-    const { data: info } = useQuery({
-        queryKey: ['about'],
-        queryFn: getAboutInfo,
-        staleTime: Infinity,
+    const { data: news } = useQuery({
+        queryKey: ['news'],
+        queryFn: getMassMedia,
     });
 
     return (
@@ -86,7 +85,7 @@ export const MainPage = () => {
                             </Button>
                         )}
                     </div>
-                    <NewsList display={true} massMedia={info?.massMedia} />
+                    {news && <NewsList display={true} massMedia={news} />}
                     {matches && (
                         <Button size={'md'} isWide onClick={() => router.push('/news')} className={styles.button}>
                             Все новости
