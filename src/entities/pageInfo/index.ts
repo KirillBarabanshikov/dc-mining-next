@@ -4,6 +4,7 @@ export {
     getDeliveryInfo,
     getLeasingInfo,
     getMassMediaById,
+    getMassMediaBySlug,
     getPaymentInfo,
 } from './api';
 export type {

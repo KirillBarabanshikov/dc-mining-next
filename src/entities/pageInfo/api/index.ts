@@ -4,5 +4,6 @@ export {
     getDeliveryInfo,
     getLeasingInfo,
     getMassMediaById,
+    getMassMediaBySlug,
     getPaymentInfo,
 } from './pageInfoApi';

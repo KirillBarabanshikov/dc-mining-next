@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 import { IMassMedia } from '@/entities/pageInfo/model';
 import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
-import { createSlug, formatDate, useMediaQuery } from '@/shared/lib';
+import { formatDate, useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import styles from './NewsCard.module.scss';
@@ -18,7 +18,7 @@ interface INewsCardProps {
 export const NewsCard: FC<INewsCardProps> = ({ media, className }) => {
     const matches = useMediaQuery(MAX_WIDTH_MD);
 
-    const currentLink = media.link ? media.link : `/news/${media.id}/${createSlug(media.title)}`;
+    const currentLink = media.link ? media.link : `/news/${media.slug}`;
 
     return (
         <article className={clsx(styles.newsCard, className)}>

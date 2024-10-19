@@ -61,3 +61,13 @@ export const getMassMediaById = async (id: string | number) => {
         return null;
     }
 };
+
+export const getMassMediaBySlug = async (slug: string) => {
+    try {
+        const response = await instance.get<IMassMedia>(`/about/slug?slug=${slug}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};

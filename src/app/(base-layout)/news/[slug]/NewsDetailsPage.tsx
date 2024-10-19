@@ -8,7 +8,6 @@ import { FC } from 'react';
 
 import { getMassMediaById } from '@/entities/pageInfo';
 import { BASE_URL } from '@/shared/consts';
-import { createSlug } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
 
 import styles from './NewsDetailsPage.module.scss';
@@ -19,12 +18,11 @@ const paths = [
 ];
 
 const NewsDetailsPage: FC = () => {
-    const { id } = useParams<{ id: string }>();
+    const { slug } = useParams<{ slug: string }>();
 
     const { data: massMedia } = useSuspenseQuery({
-        queryKey: ['news', id],
-        queryFn: () => getMassMediaById(id),
-        staleTime: Infinity,
+        queryKey: ['news', slug],
+        queryFn: () => getMassMediaById(slug),
     });
 
     if (!massMedia) return <></>;
@@ -33,10 +31,7 @@ const NewsDetailsPage: FC = () => {
         <div className={styles.newsPage}>
             <div className={'container'}>
                 <Breadcrumbs
-                    paths={[
-                        ...paths,
-                        { name: massMedia.title, path: `/news/${massMedia.id}/${createSlug(massMedia.title)}` },
-                    ]}
+                    paths={[...paths, { name: massMedia.title, path: `/news/${massMedia.id}/${massMedia.slug}` }]}
                 />
             </div>
             <section>

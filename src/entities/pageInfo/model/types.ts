@@ -27,6 +27,7 @@ export interface IMassMedia {
     description: string;
     display: boolean;
     link?: string;
+    slug: string;
 }
 
 export interface ILeasingInfo {
