@@ -17,14 +17,14 @@ export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
             window.ym(98130237, 'hit');
         }
 
-        if (window.mgo) {
-            window.mgo(function (mg: any) {
-                mg?.getNumber('', function (result: any) {
-                    setNumber(result.number.toString());
-                    window.phone = result.number;
-                });
-            });
-        }
+        // if (window.mgo) {
+        //     window.mgo(function (mg: any) {
+        //         mg?.getNumber('', function (result: any) {
+        //             setNumber(result.number.toString());
+        //             window.phone = result.number;
+        //         });
+        //     });
+        // }
     }, [pathname, setNumber]);
 
     return <>{children}</>;

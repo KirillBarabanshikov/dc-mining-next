@@ -4,7 +4,7 @@ declare global {
     interface Window {
         phone: string | undefined;
         ym: (id: number, method: string, ...args: any[]) => void;
-        mgo: any;
+        // mgo: any;
     }
 }
 

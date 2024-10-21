@@ -89,28 +89,36 @@ export default async function RootLayout({
                 />
 
                 <Script
-                    id='mango-widget'
+                    id='calltouch'
                     strategy='afterInteractive'
                     dangerouslySetInnerHTML={{
-                        __html: `(function (w, d, u, i, o, s, p) {
-                  if (d.getElementById(i)) { return; }
-                  w['MangoObject'] = o;
-                  w[o] = w[o] || function () {
-                    (w[o].q = w[o].q || []).push(arguments);
-                  };
-                  w[o].u = u;
-                  w[o].t = 1 * new Date();
-                  s = d.createElement('script');
-                  s.async = 1;
-                  s.id = i;
-                  s.src = u;
-                  p = d.getElementsByTagName('script')[0];
-                  p.parentNode.insertBefore(s, p);
-              })(window, document, '//widgets.mango-office.ru/widgets/mango.js', 'mango-js', 'mgo');
-              
-              mgo({ calltracking: { id: 33382 } });`,
+                        __html: `(function(w,d,n,c){w.CalltouchDataObject=n;w[n]=function(){w[n]["callbacks"].push(arguments)};if(!w[n]["callbacks"]){w[n]["callbacks"]=[]}w[n]["loaded"]=false;if(typeof c!=="object"){c=[c]}w[n]["counters"]=c;for(var i=0;i<c.length;i+=1){p(c[i])}function p(cId){var a=d.getElementsByTagName("script")[0],s=d.createElement("script"),i=function(){a.parentNode.insertBefore(s,a)},m=typeof Array.prototype.find === 'function',n=m?"init-min.js":"init.js";s.async=true;s.src="https://mod.calltouch.ru/"+n+"?id="+cId;if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",i,false)}else{i()}}})(window,document,"ct","a3jdr6dx");`,
                     }}
                 />
+
+                {/*  <Script*/}
+                {/*      id='mango-widget'*/}
+                {/*      strategy='afterInteractive'*/}
+                {/*      dangerouslySetInnerHTML={{*/}
+                {/*          __html: `(function (w, d, u, i, o, s, p) {*/}
+                {/*    if (d.getElementById(i)) { return; }*/}
+                {/*    w['MangoObject'] = o;*/}
+                {/*    w[o] = w[o] || function () {*/}
+                {/*      (w[o].q = w[o].q || []).push(arguments);*/}
+                {/*    };*/}
+                {/*    w[o].u = u;*/}
+                {/*    w[o].t = 1 * new Date();*/}
+                {/*    s = d.createElement('script');*/}
+                {/*    s.async = 1;*/}
+                {/*    s.id = i;*/}
+                {/*    s.src = u;*/}
+                {/*    p = d.getElementsByTagName('script')[0];*/}
+                {/*    p.parentNode.insertBefore(s, p);*/}
+                {/*})(window, document, '//widgets.mango-office.ru/widgets/mango.js', 'mango-js', 'mgo');*/}
+
+                {/*mgo({ calltracking: { id: 33382 } });`,*/}
+                {/*      }}*/}
+                {/*  />*/}
                 <noscript>
                     <div>
                         <img
