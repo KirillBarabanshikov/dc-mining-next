@@ -1,11 +1,12 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
+import { getFilters, getOffers } from '@/entities/catalog/api';
 import { ICategory } from '@/entities/category';
 import FilterIcon from '@/shared/assets/icons/filter.svg';
 import SimpleIcon from '@/shared/assets/icons/view-mode-simple.svg';
@@ -31,6 +32,17 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
     const { setSearchParams, params, getFilterBody } = useCatalogFilters();
     const queryClient = useQueryClient();
     const { slug } = useParams<{ slug: string[] }>();
+
+    const { data: filters } = useQuery({
+        queryKey: ['filters'],
+        queryFn: getFilters,
+        staleTime: Infinity,
+    });
+    const { data: offers } = useQuery({
+        queryKey: ['offers'],
+        queryFn: getOffers,
+        staleTime: Infinity,
+    });
 
     const onChangeSort = (value: string[]) => {
         params.delete('page');
@@ -59,10 +71,15 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
                 />
             </div>
             <div className={styles.buttonsWrap}>
-                <button className={styles.filterButton} onClick={() => setIsOpen(true)}>
-                    <FilterIcon />
-                    Фильтры
-                </button>
+                {!!filters?.filter((item) => item.category.value === category?.title).length ||
+                !!offers?.filter((offer) => offer.category === category?.name).length ? (
+                    <button className={styles.filterButton} onClick={() => setIsOpen(true)}>
+                        <FilterIcon />
+                        Фильтры
+                    </button>
+                ) : (
+                    <div />
+                )}
                 <div className={styles.viewModeWrap}>
                     <IconButton
                         icon={matches ? <SimpleIcon2 /> : <SimpleIcon />}
