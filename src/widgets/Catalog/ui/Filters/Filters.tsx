@@ -136,14 +136,17 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
                     </div>
                 </div>
             )}
-            <div className={styles.buttons}>
-                <Button size={'md'} onClick={onSetFilters}>
-                    Применить
-                </Button>
-                <Button size={'md'} variant={'outline'} onClick={onResetFilters}>
-                    Сбросить
-                </Button>
-            </div>
+            {(!!filters?.filter((item) => item.category.value === category?.title).length ||
+                !!offers?.filter((offer) => offer.category === category?.name).length) && (
+                <div className={styles.buttons}>
+                    <Button size={'md'} onClick={onSetFilters}>
+                        Применить
+                    </Button>
+                    <Button size={'md'} variant={'outline'} onClick={onResetFilters}>
+                        Сбросить
+                    </Button>
+                </div>
+            )}
             {!matches && <OrderCallHelpBanner />}
         </div>
     );
