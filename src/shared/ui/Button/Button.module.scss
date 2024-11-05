@@ -43,6 +43,10 @@
         color: var(--text-contrast);
       }
     }
+    &.pink {
+      background: var(--background-bright-accent);
+      color: var(--text-contrast);
+    }
   }
 
   &.outline {
