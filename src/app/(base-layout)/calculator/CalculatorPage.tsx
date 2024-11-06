@@ -1,5 +1,5 @@
 import { Breadcrumbs } from '@/shared/ui';
-import { Calculator } from '@/widgets/Calculator/Calculator';
+import { Calculator } from '@/widgets/Calculator';
 
 const paths = [
   { name: 'Главная', path: '/' },
