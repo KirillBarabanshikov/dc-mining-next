@@ -12,6 +12,7 @@ import { formatter } from '@/shared/lib';
 import { Button, Dropdown, IconButton, Input } from '@/shared/ui';
 
 import { calculatorApi } from './api';
+import CalculatorAsics from './lib/calculator';
 import { useCalculatorStore } from './model/store';
 import { CalculatorHead } from './ui/CalculatorHead';
 import { CalculatorTotal } from './ui/CalculatorTotal';
@@ -33,7 +34,16 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setElectricityCoast,
   } = useCalculatorStore();
 
+  // const calculatorAsics = new CalculatorAsics();
+
   const [isProError, setIsProError] = useState(false);
+  const [totalConsumption, setTotalConsumption] = useState(0);
+  const [electricityConsumption, setElectricityConsumption] = useState(0);
+  const [profitWithoutElectricity, setProfitWithoutElectricity] = useState(0);
+  const [profitWithElectricity, setProfitWithElectricity] = useState(0);
+  const [paybackWithElectricity, setPaybackWithElectricity] = useState(0);
+  const [paybackWithoutElectricity, setPaybackWithoutElectricity] = useState(0);
+  const [calculatorAsics, setCalculatorAsics] = useState<CalculatorAsics>();
 
   const changeElectricityCoast = (e: ChangeEvent<HTMLInputElement>) => {
     if (type === 'lite') {
@@ -74,11 +84,29 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       if (!data) return;
       setAsics(data.products);
       setElectricityCoast(data.electricityCoast || 3);
-      setSelectedAsics([data.products[0]]);
+      // setSelectedAsics([data.products[0]]);
+      setSelectedAsics(data.products);
     });
-
-    // setSelectedAsics([asics[0]]);
   }, []);
+
+  useEffect(() => {
+    if (!selectedAsics.length) return;
+    setCalculatorAsics(
+      () => new CalculatorAsics(selectedAsics, electricityCoast),
+    );
+  }, [selectedAsics, electricityCoast]);
+
+  useEffect(() => {
+    if (!calculatorAsics) return;
+    setTotalConsumption(calculatorAsics.getTotalConsumption());
+    setElectricityConsumption(calculatorAsics.getElectricityConsumption());
+    setProfitWithoutElectricity(calculatorAsics.getProfitWithoutElectricity());
+    setProfitWithElectricity(calculatorAsics.getProfitWithElectricity());
+    setPaybackWithElectricity(calculatorAsics.getPaybackWithElectricity());
+    setPaybackWithoutElectricity(
+      calculatorAsics.getPaybackWithoutElectricity(),
+    );
+  }, [calculatorAsics]);
 
   return (
     <div className={clsx('calculator', className)}>
@@ -185,7 +213,26 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
             </div>
           </div>
         </div>
-        <CalculatorTotal />
+        {calculatorAsics && (
+          <CalculatorTotal
+            totalConsumption={totalConsumption.toLocaleString('ru-RU')}
+            electricityConsumption={electricityConsumption.toLocaleString(
+              'ru-RU',
+            )}
+            profitWithoutElectricity={profitWithoutElectricity.toLocaleString(
+              'ru-RU',
+            )}
+            profitWithElectricity={profitWithElectricity.toLocaleString(
+              'ru-RU',
+            )}
+            paybackWithElectricity={paybackWithElectricity.toLocaleString(
+              'ru-RU',
+            )}
+            paybackWithoutElectricity={paybackWithoutElectricity.toLocaleString(
+              'ru-RU',
+            )}
+          />
+        )}
       </div>
     </div>
   );
