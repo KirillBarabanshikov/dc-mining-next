@@ -51,7 +51,7 @@ export const CalculatorTotal: React.FC<Props> = ({
       </div>
       <div className='calculatorTotal-btns'>
         <Button variant='outline' isWide>
-          Добавить в закладки
+          Добавить в&nbsp;закладки
           <StarIcon />
         </Button>
         <Button theme='pink' isWide>

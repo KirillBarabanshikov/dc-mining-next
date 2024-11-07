@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/lib';
 import { formatter } from '@/shared/lib';
 import { Button, Dropdown, IconButton, Input } from '@/shared/ui';
 
@@ -34,7 +36,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setElectricityCoast,
   } = useCalculatorStore();
 
-  // const calculatorAsics = new CalculatorAsics();
+  const matches = useMediaQuery(MAX_WIDTH_MD);
 
   const [isProError, setIsProError] = useState(false);
   const [totalConsumption, setTotalConsumption] = useState(0);
@@ -113,72 +115,105 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       <CalculatorHead
         calculatorTypes={calculatorTypes}
         calculatorType={calculatorType}
+        isProError={isProError}
       />
       <div className='calculator-row'>
         <div className='calculator-card calculatorFeature'>
           <div className='calculatorFeature-content'>
-            <div className='calculatorFeature-head'>
-              <div className='calculatorFeature-subtitle'>
-                Калькулятор доходности
+            {!matches && (
+              <div className='calculatorFeature-head'>
+                <div className='calculatorFeature-subtitle'>
+                  Калькулятор доходности
+                </div>
+                <div
+                  className={clsx('calculatorFeature-switch', {
+                    active: isProError,
+                  })}
+                >
+                  <span className='active'>Lite</span>
+                  <span>Pro</span>
+                </div>
               </div>
-              <div
-                className={clsx('calculatorFeature-switch', {
-                  active: isProError,
-                })}
-              >
-                <span className='active'>Lite</span>
-                <span>Pro</span>
-              </div>
-            </div>
+            )}
+
             <div className='calculatorFeature-list'>
-              <div className='calculatorFeature-row'>
-                <span>Модель</span>
-                <span>Количество</span>
-                <span>Цена</span>
-              </div>
+              {!matches && (
+                <div className='calculatorFeature-row'>
+                  <span className='calculatorFeature-description'>Модель</span>
+                  <span className='calculatorFeature-description'>
+                    Количество
+                  </span>
+                  <span className='calculatorFeature-description'>Цена</span>
+                </div>
+              )}
+
               <div className='calculatorFeature-data'>
                 {selectedAsics.map((asic, index) => (
                   <div
                     key={asic.additionalId}
                     className='calculatorFeature-row'
                   >
-                    <div className='calculatorFeature-models'>
-                      <Dropdown
-                        defaultValue={[asic.value]}
-                        items={asics}
-                        hasIcon={false}
-                        onChange={(value) => onAsicChage(value, index)}
-                      />
+                    <div className='calculatorFeature-col'>
+                      {matches && (
+                        <span className='calculatorFeature-description'>
+                          Модель
+                        </span>
+                      )}
+
+                      <div className='calculatorFeature-models'>
+                        <Dropdown
+                          defaultValue={[asic.value]}
+                          items={asics}
+                          hasIcon={false}
+                          onChange={(value) => onAsicChage(value, index)}
+                        />
+                      </div>
                     </div>
-                    <div className='calculatorFeature-counts'>
-                      <IconButton
-                        onClick={() => setAsicsCount(--asic.count, index)}
-                        icon={<MinusIcon />}
-                        variant='outline'
-                        rounded
-                        disabled={asic.count === 1}
-                      ></IconButton>
-                      <Input
-                        value={asic.count}
-                        onChange={(e) => setAsicsCount(+e.target.value, index)}
-                        className='calculatorFeature-count'
-                        sizes='md'
-                        type='number'
-                      />
-                      <IconButton
-                        onClick={() => setAsicsCount(++asic.count, index)}
-                        icon={<PlusIcon />}
-                        variant='outline'
-                        rounded
-                      ></IconButton>
+                    <div className='calculatorFeature-col'>
+                      {matches && (
+                        <span className='calculatorFeature-description'>
+                          Количество
+                        </span>
+                      )}
+                      <div className='calculatorFeature-counts'>
+                        <IconButton
+                          onClick={() => setAsicsCount(--asic.count, index)}
+                          icon={<MinusIcon />}
+                          variant='outline'
+                          rounded
+                          disabled={asic.count === 1}
+                        ></IconButton>
+                        <Input
+                          value={asic.count}
+                          onChange={(e) =>
+                            setAsicsCount(+e.target.value, index)
+                          }
+                          className='calculatorFeature-count'
+                          sizes='md'
+                          type='number'
+                        />
+                        <IconButton
+                          onClick={() => setAsicsCount(++asic.count, index)}
+                          icon={<PlusIcon />}
+                          variant='outline'
+                          rounded
+                        ></IconButton>
+                      </div>
                     </div>
-                    <div className='calculatorFeature-price'>
-                      <Input
-                        defaultValue={formatter.format(asic.price)}
-                        className='calculatorFeature-price-input'
-                        sizes='md'
-                        disabled
-                      />
+                    <div className='calculatorFeature-col'>
+                      {matches && (
+                        <span className='calculatorFeature-description'>
+                          Цена
+                        </span>
+                      )}
+                      <div className='calculatorFeature-price'>
+                        <Input
+                          defaultValue={formatter.format(asic.price)}
+                          className='calculatorFeature-price-input'
+                          sizes='md'
+                          disabled
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}

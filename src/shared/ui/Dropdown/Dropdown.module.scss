@@ -24,6 +24,10 @@
       font-size: 16px;
       line-height: 19.2px;
       user-select: none;
+      max-width: 88%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .icon {

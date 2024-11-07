@@ -9,6 +9,7 @@
   transition:
     background-color 300ms ease-out,
     color 300ms ease-out;
+  flex-shrink: 0;
 
   &.outline {
     background: var(--background-white);
