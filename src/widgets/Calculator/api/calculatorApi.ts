@@ -4,11 +4,18 @@ import { instance } from '@/shared/api';
 
 import { ICalculatorApi } from '../types';
 
+type QueryTypes = 'asicMiners' | 'readyBusiness';
+
 class CalculatorApi {
-  public getAsics = async () => {
+  public getAsics = async (type: QueryTypes) => {
     try {
       const response = await instance.get<ICalculatorApi>(
         '/product/calculating',
+        {
+          params: {
+            type,
+          },
+        },
       );
       // добавляю доп поля label value для dropdown
       // count для калькулятора

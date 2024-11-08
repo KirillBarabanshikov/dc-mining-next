@@ -82,12 +82,12 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   };
 
   useEffect(() => {
-    calculatorApi.getAsics().then((data) => {
+    calculatorApi.getAsics('asicMiners').then((data) => {
       if (!data) return;
       setAsics(data.products);
       setElectricityCoast(data.electricityCoast || 3);
-      // setSelectedAsics([data.products[0]]);
-      setSelectedAsics(data.products);
+      setSelectedAsics([data.products[0]]);
+      // setSelectedAsics(data.products);
     });
   }, []);
 
