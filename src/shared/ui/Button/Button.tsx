@@ -7,7 +7,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'solid' | 'outline';
   size?: 'lg' | 'md' | 'sm';
   isWide?: boolean;
-  theme?: 'blue' | 'white' | 'pink';
+  theme?: 'blue' | 'white' | 'pink' | 'gray';
 }
 
 export const Button: FC<IButtonProps> = ({

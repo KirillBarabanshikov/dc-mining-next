@@ -3,31 +3,6 @@ import { devtools } from 'zustand/middleware';
 
 import { IAsic } from '../types';
 
-// const data: IAsic[] = [
-//   {
-//     id: 1,
-//     title: 'Elphapex DG1 11G',
-//     label: 'Elphapex DG1 11G',
-//     value: '1',
-//     price: 549328,
-//     profitDayAll: 1402.21,
-//     watt: 3247,
-//     count: 1,
-//     additionalId: '123',
-//   },
-//   {
-//     id: 2,
-//     title: 'Bitmain Antminer S21 188 Th/s',
-//     label: 'Bitmain Antminer S21 188 Th/s',
-//     value: '2',
-//     price: 402164,
-//     profitDayAll: 792.82,
-//     watt: 3247,
-//     count: 1,
-//     additionalId: '1234',
-//   },
-// ];
-
 interface ICalculatorState {
   calculatorType: number;
   calculatorTypes: {

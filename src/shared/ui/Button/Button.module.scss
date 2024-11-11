@@ -51,6 +51,10 @@
       background: var(--background-bright-accent);
       color: var(--text-contrast);
     }
+    &.gray {
+      background: var(--background-secondary);
+      color: var(--text-secondary);
+    }
   }
 
   &.outline {
