@@ -4,16 +4,16 @@ import { instance } from '@/shared/api';
 
 import { ICalculatorApi } from '../types';
 
-type QueryTypes = 'asicMiners' | 'readyBusiness';
+// type QueryTypes = 'asicMiners' | 'readyBusiness';
 
 class CalculatorApi {
-  public getAsics = async (type: QueryTypes) => {
+  public getAsics = async () => {
     try {
       const response = await instance.get<ICalculatorApi>(
         '/product/calculating',
         {
           params: {
-            type,
+            type: 'asicMiners',
           },
         },
       );
@@ -32,6 +32,42 @@ class CalculatorApi {
       };
 
       return mutateData;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+  public getBusiness = async () => {
+    try {
+      const response = await instance.get<ICalculatorApi>(
+          '/product/calculating',
+          {
+            params: {
+              type: 'readyBusiness',
+            },
+          },
+      );
+      // добавляю доп поля label value для dropdown
+      // count для калькулятора
+      // additionalId для возможности выбора и уникализации в dropdown
+      const products = response.data.products.flatMap(product =>
+          product.productAdd.map(add => {
+            const productAsics = add.productAsics || {};
+            return {
+              id: productAsics.id,
+              title: productAsics.title || '',
+              price: productAsics.price,
+              profitDayAll: productAsics.profitDayAll || 0,
+              watt: productAsics.watt || 0,
+              count: add.count || 0,
+              label: product.title,
+              value: productAsics.id.toString(),
+              additionalId: uuidv4(),
+            };
+          })
+      );
+
+      return { ...response.data, products };
     } catch (error) {
       console.error(error);
       return null;

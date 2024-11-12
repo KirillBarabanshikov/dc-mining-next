@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand/index';
 import { devtools } from 'zustand/middleware';
 
@@ -17,6 +18,8 @@ interface ICalculatorState {
   setSelectedAsics: (selectedAsics: IAsic[]) => void;
   setCalculatorType: (type: number) => void;
   setElectricityCoast: (coast: number) => void;
+  addSelectedAsics: (asic: IAsic) => void;
+  removeSelectedAsics: (additionalId: string) => void;
 }
 
 export const useCalculatorStore = create<ICalculatorState>()(
@@ -62,6 +65,25 @@ export const useCalculatorStore = create<ICalculatorState>()(
     setSelectedAsics: (selectedAsics) => {
       return set({ selectedAsics });
     },
+      addSelectedAsics: (asic: IAsic) => {
+          const newSelectedAsic = {
+              ...asic,
+              additionalId: uuidv4(),
+              count: 1,
+          };
+
+          set((state) => ({
+              selectedAsics: [...state.selectedAsics, newSelectedAsic]
+          }));
+      },
+
+      removeSelectedAsics: (additionalId: string) => {
+          set((state) => ({
+              selectedAsics: state.selectedAsics.filter(
+                  (asic) => asic.additionalId !== additionalId
+              )
+          }));
+      },
     setElectricityCoast: (electricityCoast) => {
       return set({ electricityCoast });
     },

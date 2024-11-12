@@ -273,9 +273,14 @@
   }
   &-change {
     display: block;
+    margin-top: 8px;
     &-btn {
       font-size: 14px;
-      color: var(--text-secondary)
+      color: var(--text-secondary);
+    }
+    &-row {
+      align-items: center;
+      margin-top: 8px;
     }
   }
 }
@@ -347,6 +352,11 @@
     @media (max-width: (540 + px)) {
       grid-template-columns: 2fr 1fr;
     }
+    &-leasing {
+      font-size: 20px;
+      grid-template-columns: 2fr 1fr;
+      padding: 19px 16px;
+    }
   }
   &-btns {
     display: flex;
@@ -361,10 +371,16 @@
   width: 59%; // ))
   height: max-content;
 
+  @media (max-width: (1200 + px)) {
+    width: 100%;
+  }
+
   &-content {
     &-description {
       font-size: 20px;
       line-height: 48px;
+      margin-bottom: 40px;
+      margin-top: 20px;
     }
     &-header {
       font-size: 40px;
@@ -382,7 +398,7 @@
     height: 100%;
     background:
             url('../../shared/assets/images/calculator/leasing.png') center right /
-    220px no-repeat,
+    290px no-repeat,
             url('/backgrounds/manager-bg1.svg') center / cover no-repeat;
   }
 }

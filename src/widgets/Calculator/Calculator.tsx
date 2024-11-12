@@ -36,6 +36,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setAsics,
     setSelectedAsics,
     setElectricityCoast,
+      addSelectedAsics,
+      removeSelectedAsics
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -88,54 +90,33 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setIsEditBusinessDetails((prev) => !prev);
   }
 
+  const addAsic = (asicId: number) => {
+    const newAsic = asics.find((asic) => asic.id === asicId);
+
+    if (!newAsic) return;
+
+    addSelectedAsics(newAsic);
+  };
+
   useEffect(() => {
-    const apiType = calculatorType === 2 ? 'readyBusiness' : 'asicMiners';
+    const fetchData = async () => {
+        let data;
+        if (calculatorType !== 2) {
+          data = await calculatorApi.getAsics();
+        } else if (calculatorType === 2) {
+          data = await calculatorApi.getBusiness();
+        }
 
-    calculatorApi.getAsics(apiType).then((data) => {
-      if (!data) return;
+        if (!data) return;
 
-      const products = calculatorType === 2
-          ? data.products.flatMap(product =>
-              product.productAdd.map(add => {
-                const productAsics = add.productAsics || {};
-                return {
-                  id: productAsics.id,
-                  title: productAsics.title || '',
-                  price: productAsics.price * add.count,
-                  profitDayAll: productAsics.profitDayAll || 0,
-                  watt: productAsics.watt || 0,
-                  count: add.count || 0,
-                  label: product.title,
-                  value: productAsics.id.toString(),
-                  additionalId: uuidv4(),
-                };
-              })
-          )
-          : data.products.map(product => ({
-            id: product.id,
-            title: product.title || '',
-            price: product.price,
-            profitDayAll: product.profitDayAll || 0,
-            watt: product.watt || 0,
-            count: product.count || 0,
-            label: product.title,
-            value: product.id.toString(),
-            additionalId: uuidv4(),
-          }));
+        const products = data.products;
 
-      console.log(products);
-
-      setAsics(products);
-      setElectricityCoast(data.electricityCoast || 3);
-      setSelectedAsics([products[0]]);
-    });
-
-    // обнуление при ченже
-    return () => {
-      setAsics([]);
-      setSelectedAsics([]);
-      setElectricityCoast(0);
+        setAsics(products);
+        setElectricityCoast(data.electricityCoast || 3);
+        setSelectedAsics([products[0]]);
     };
+
+    fetchData();
   }, [calculatorType]);
 
   useEffect(() => {
@@ -209,7 +190,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
                   <div className='calculatorFeature-data'>
                     {selectedAsics.map((asic, index) => (
-                        <>
+                        <div key={asic.additionalId}>
                           <div
                               key={asic.additionalId}
                               className="calculatorFeature-row"
@@ -271,7 +252,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                               )}
                               <div className="calculatorFeature-price">
                                 <Input
-                                    defaultValue={formatter.format(asic.price)}
+                                    value={formatter.format(asic.price * asic.count)}
                                     className="calculatorFeature-price-input"
                                     sizes="md"
                                     disabled
@@ -280,11 +261,49 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                             </div>
                           </div>
                           {calculatorType === 2 && isEditBusinessDetails && (
-                              <div>
-                                {asic.title} - {asic.price}
-                                <Button size='sm' theme='white'>
-                                  <TrashIcon />
-                                </Button>
+                              <div className='calculatorFeature-row calculatorFeature-change-row'>
+                                <div className="calculatorFeature-col">
+                                  <Input
+                                      defaultValue={asic.title}
+                                      className="calculatorFeature-price-input"
+                                      sizes="md"
+                                      disabled
+                                  />
+                                </div>
+
+                                <div className="calculatorFeature-col">
+                                  <div className="calculatorFeature-counts">
+                                    <IconButton
+                                        onClick={() => setAsicsCount(--asic.count, index)}
+                                        icon={<MinusIcon />}
+                                        variant="outline"
+                                        rounded
+                                        disabled={asic.count === 1}
+                                    ></IconButton>
+                                    <Input
+                                        value={asic.count}
+                                        onChange={(e) =>
+                                            setAsicsCount(+e.target.value, index)
+                                        }
+                                        className="calculatorFeature-count"
+                                        sizes="md"
+                                        type="number"
+                                    />
+                                    <IconButton
+                                        onClick={() => setAsicsCount(++asic.count, index)}
+                                        icon={<PlusIcon />}
+                                        variant="outline"
+                                        rounded
+                                    ></IconButton>
+                                  </div>
+                                </div>
+
+                                <div className="calculatorFeature-col">
+                                  <Button onClick={() => {}} size='sm' theme='white'>
+                                    <TrashIcon />
+                                  </Button>
+                                </div>
+
                               </div>
                           )}
                           {calculatorType === 2 && (
@@ -301,7 +320,31 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                                 </Button>
                               </div>
                           )}
-                        </>
+                          {calculatorType === 3 && (
+                              <div className="calculatorFeature-change">
+                                <Button
+                                    className="calculatorFeature-change-btn"
+                                    variant="solid"
+                                    size="sm"
+                                    theme="gray"
+                                    onClick={() => addAsic(29)}
+                                >
+                                  Добавить оборудование
+                                  <span>+</span>
+                                </Button>
+                                <Button
+                                    className="calculatorFeature-change-btn"
+                                    variant="solid"
+                                    size="sm"
+                                    theme="gray"
+                                    onClick={() => removeSelectedAsics(asic.additionalId)}
+                                >
+                                  УБРАТЬ
+                                  <span>-</span>
+                                </Button>
+                              </div>
+                          )}
+                        </div>
                     ))}
                   </div>
                 </div>
@@ -316,7 +359,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     />
                     {isProError && (
                         <div className="calculatorElectricity-error">
-                          Доступно в Pro версии
+                        Доступно в Pro версии
                         </div>
                     )}
                   </div>

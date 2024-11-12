@@ -4,13 +4,7 @@ export interface IProductAdd {
   productAsics: IAsic;
 }
 
-export interface IProduct {
-  price: number;
-  id: number;
-  title: string;
-  count: number;
-  profitDayAll: number | null;
-  watt: number | null;
+export interface IProduct extends IAsic{
   productAdd: IProductAdd[];
 }
 
