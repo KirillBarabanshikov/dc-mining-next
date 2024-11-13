@@ -52,4 +52,6 @@ export interface ICatalogProducts {
 export interface ICatalogData {
     count: number;
     products: IProduct[];
+    minPrice: number;
+    maxPrice: number;
 }

@@ -76,13 +76,9 @@ const CatalogPage = () => {
                     <span>{`${catalogData?.count} товаров`}</span>
                 </div>
             </div>
-            {category && (
+            {category && catalogData && (
                 <>
-                    <Catalog
-                        products={catalogData?.products ?? []}
-                        countProducts={catalogData?.count ?? 0}
-                        category={category}
-                    />
+                    <Catalog catalogData={catalogData} category={category} />
                     <LivePhotos
                         images={category.images.map(({ image }) => image ?? '')}
                         className={styles.livePhotos}

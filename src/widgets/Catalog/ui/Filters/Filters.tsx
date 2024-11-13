@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
+import { ICatalogData } from '@/entities/catalog';
 import { getCatalogData, getFilters, getOffers } from '@/entities/catalog/api';
 import { useCatalogFilters } from '@/entities/catalog/lib';
 import { ICategory } from '@/entities/category';
@@ -17,10 +18,11 @@ import styles from './Filters.module.scss';
 interface IFiltersProps {
     category: ICategory;
     onClose?: () => void;
+    catalogData: ICatalogData;
     className?: string;
 }
 
-export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => {
+export const Filters: FC<IFiltersProps> = ({ category, onClose, catalogData, className }) => {
     const [reset, setReset] = useState(false);
     const matches = useMediaQuery('(max-width: 855px)');
     const { resetFilters, params, setSearchParams, setParams, getFilterBody } = useCatalogFilters();
@@ -59,6 +61,20 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
 
     return (
         <div className={clsx(styles.filters, className)}>
+            <Dropdown label={'Цена'} items={[]} physical open={!!params.get('price')}>
+                <Range
+                    min={catalogData.minPrice}
+                    max={catalogData.maxPrice}
+                    value={[catalogData.minPrice, catalogData.maxPrice]}
+                    onChange={(values) =>
+                        setParams({
+                            key: 'price',
+                            value: [`${values[0]}`, `${values[1]}`],
+                        })
+                    }
+                    reset={reset}
+                />
+            </Dropdown>
             {offers &&
                 offers
                     .filter((offer) => offer.category === category?.name)
@@ -105,12 +121,21 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, className }) => 
                                     <Range
                                         min={filter.start}
                                         max={filter.end}
+                                        value={
+                                            params.get(filter.characteristics.value)
+                                                ? [
+                                                      +params.get(filter.characteristics.value)!.split(',')[0],
+                                                      +params.get(filter.characteristics.value)!.split(',')[1],
+                                                  ]
+                                                : [filter.start, filter.end]
+                                        }
                                         onChange={(values) =>
                                             setParams({
                                                 key: filter.characteristics.value,
                                                 value: [`${values[0]}`, `${values[1]}`],
                                             })
                                         }
+                                        reset={reset}
                                     />
                                 )}
                             </Dropdown>

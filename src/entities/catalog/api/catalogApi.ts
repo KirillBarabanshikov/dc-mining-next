@@ -38,7 +38,12 @@ export const getCustomFilters = async (): Promise<ICustomFilter[] | null> => {
 
 export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogData | null> => {
     try {
-        const response = await instance.get<{ total_items: number; items: IProductDto[] }>('/filtersItems', {
+        const response = await instance.get<{
+            total_items: number;
+            items: IProductDto[];
+            min_price?: number;
+            max_price?: number;
+        }>('/filtersItems', {
             params: {
                 ...params,
                 page: params.page || 1,
@@ -48,6 +53,8 @@ export const getCatalogData = async (params: ICatalogParams): Promise<ICatalogDa
         return {
             count: response.data.total_items,
             products: response.data.items.map(mapProduct),
+            minPrice: response.data.min_price ?? 0,
+            maxPrice: response.data.max_price ?? 0,
         };
     } catch (error) {
         console.error(error);

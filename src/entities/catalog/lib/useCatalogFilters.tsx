@@ -103,6 +103,11 @@ export const useCatalogFilters = () => {
             body.page = params.get('page') ?? '1';
         }
 
+        if (params.get('price')) {
+            body.type = type;
+            body.price = params.get('price')!;
+        }
+
         return body;
     };
 
