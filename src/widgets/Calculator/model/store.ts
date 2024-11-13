@@ -12,6 +12,8 @@ interface ICalculatorState {
     onClick: () => void;
   }[];
   electricityCoast: number;
+  readyBusinessAsics: IAsic[];
+  setReadyBusinessAsics: (readyBusinessAsics: IAsic[]) => void;
   asics: IAsic[];
   selectedAsics: IAsic[];
   setAsics: (asics: IAsic[]) => void;
@@ -20,6 +22,12 @@ interface ICalculatorState {
   setElectricityCoast: (coast: number) => void;
   addSelectedAsics: (asic: IAsic) => void;
   removeSelectedAsics: (additionalId: string) => void;
+  addReadyBusinessAsic: (asic: IAsic) => void;
+  removeReadyBusinessAsic: (additionalId: string) => void;
+    businessPackageAsics: IAsic[];
+    setBusinessPackageAsics: (asics: IAsic[]) => void;
+    addBusinessPackageAsic: () => void;
+    removeBusinessPackageAsic: (additionalId: string) => void;
 }
 
 export const useCalculatorStore = create<ICalculatorState>()(
@@ -58,9 +66,75 @@ export const useCalculatorStore = create<ICalculatorState>()(
     electricityCoast: 5.5,
     asics: [],
     selectedAsics: [],
+    readyBusinessAsics: [],
+      businessPackageAsics: [],
+      setBusinessPackageAsics: (asics) => set({ businessPackageAsics: asics }),
+      addBusinessPackageAsic: () => {
+          set((state) => {
+              if (state.readyBusinessAsics.length > 0) {
+                  return {
+                      businessPackageAsics: [
+                          ...state.businessPackageAsics,
+                          {
+                              ...state.readyBusinessAsics[0],
+                              additionalId: uuidv4(),
+                              count: 1
+                          }
+                      ]
+                  };
+              }
+              return state;
+          });
+      },
+      removeBusinessPackageAsic: (additionalId) => {
+          set((state) => ({
+              businessPackageAsics: state.businessPackageAsics.filter(
+                  (asic) => asic.additionalId !== additionalId
+              )
+          }));
+      },
     setAsics: (asics) => {
       return set({ asics });
     },
+      setReadyBusinessAsics: (readyBusinessAsics) => {
+        return set({ readyBusinessAsics })
+      },
+      addReadyBusinessAsic: (asic) => {
+          set((state) => {
+              if (state.selectedAsics.length === 0) {
+                  const newAsic = {
+                      ...asic,
+                      additionalId: uuidv4(),
+                      count: 1,
+                  };
+                  return { selectedAsics: [newAsic] };
+              }
+
+              const updatedSelectedAsics = state.selectedAsics.map(existingAsic => ({
+                  ...existingAsic,
+                  additionalId: existingAsic.additionalId
+              }));
+
+              const newAsic = {
+                  ...asic,
+                  additionalId: uuidv4(),
+                  count: 1,
+              };
+
+              console.log(state.selectedAsics);
+
+              return {
+                  selectedAsics: [...updatedSelectedAsics, newAsic]
+              };
+          });
+      },
+      removeReadyBusinessAsic: (additionalId) => {
+        set((state) => ({
+            selectedAsics: state.selectedAsics.filter(
+                (asic) => asic.additionalId !== additionalId
+            )
+        }))
+      },
     setCalculatorType: (calculatorType) => set({ calculatorType }),
     setSelectedAsics: (selectedAsics) => {
       return set({ selectedAsics });
