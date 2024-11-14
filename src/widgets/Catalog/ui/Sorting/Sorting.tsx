@@ -5,9 +5,9 @@ import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
-import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
+import { getCatalogData, getCustomFilterBySlug, ICatalogData, useCatalogFilters } from '@/entities/catalog';
 import { getFilters, getOffers } from '@/entities/catalog/api';
-import { ICategory } from '@/entities/category';
+import { getSubCategoryBySlug, ICategory } from '@/entities/category';
 import FilterIcon from '@/shared/assets/icons/filter.svg';
 import SimpleIcon from '@/shared/assets/icons/view-mode-simple.svg';
 import SimpleIcon2 from '@/shared/assets/icons/view-mode-simple2.svg';
@@ -23,10 +23,11 @@ interface ISortingProps {
     category: ICategory;
     viewMode: 'tile' | 'simple';
     setViewMode: (viewMode: 'tile' | 'simple') => void;
+    catalogData: ICatalogData;
     className?: string;
 }
 
-export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, className }) => {
+export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, catalogData, className }) => {
     const [isOpen, setIsOpen] = useState(false);
     const matches = useMediaQuery(MAX_WIDTH_MD);
     const { setSearchParams, params, getFilterBody } = useCatalogFilters();
@@ -43,13 +44,30 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
         queryFn: getOffers,
         staleTime: Infinity,
     });
+    const { data: subCategory } = useQuery({
+        queryKey: ['subCategory', slug[1]],
+        queryFn: () => getSubCategoryBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
+
+    const { data: customFilter } = useQuery({
+        queryKey: ['customFilter', slug[1]],
+        queryFn: () => getCustomFilterBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
 
     const onChangeSort = (value: string[]) => {
         params.delete('page');
         params.set('order', value[0]);
         setSearchParams();
-        getCatalogData({ ...getFilterBody(category.title, slug) }).then((data) =>
-            queryClient.setQueryData(['catalog', category.title, ...slug], () => data),
+        getCatalogData({
+            ...getFilterBody({
+                type: category?.title ?? '',
+                subCategory: subCategory ? slug[1] : undefined,
+                customFilter: customFilter ? slug[1] : undefined,
+            }),
+        }).then((data) =>
+            queryClient.setQueryData(['catalog', category?.title, subCategory, slug[1], customFilter], () => data),
         );
     };
 
@@ -94,7 +112,7 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, cl
                 </div>
             </div>
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} className={clsx(styles.modal, 'scrollbar-hide')}>
-                <Filters onClose={() => setIsOpen(false)} category={category} />
+                <Filters onClose={() => setIsOpen(false)} category={category} catalogData={catalogData} />
             </Modal>
         </div>
     );

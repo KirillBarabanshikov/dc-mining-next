@@ -41,6 +41,12 @@ export interface IFilterParams {
 export interface ICustomFilter {
     id: number;
     title: string;
+    slug: string;
+    visible: boolean;
+    hOne: string;
+    seoTitle: string;
+    seoDescription: string;
+    productText: string;
     productCategoryTitle: string;
 }
 

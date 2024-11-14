@@ -5,10 +5,10 @@ import clsx from 'clsx';
 import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
-import { ICatalogData } from '@/entities/catalog';
+import { getCustomFilterBySlug, ICatalogData } from '@/entities/catalog';
 import { getCatalogData, getFilters, getOffers } from '@/entities/catalog/api';
 import { useCatalogFilters } from '@/entities/catalog/lib';
-import { ICategory } from '@/entities/category';
+import { getSubCategoryBySlug, ICategory } from '@/entities/category';
 import { OrderCallHelpBanner } from '@/features/call';
 import { useMediaQuery } from '@/shared/lib';
 import { Button, Dropdown, Range, Switch } from '@/shared/ui';
@@ -39,13 +39,30 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, catalogData, cla
         queryFn: getOffers,
         staleTime: Infinity,
     });
+    const { data: subCategory } = useQuery({
+        queryKey: ['subCategory', slug[1]],
+        queryFn: () => getSubCategoryBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
+
+    const { data: customFilter } = useQuery({
+        queryKey: ['customFilter', slug[1]],
+        queryFn: () => getCustomFilterBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
 
     const onSetFilters = () => {
         params.delete('page');
         setSearchParams();
         getCatalogData({
-            ...getFilterBody(category.title, undefined, slug.length > 1 ? slug[slug.length - 1] : undefined),
-        }).then((data) => queryClient.setQueryData(['catalog', category.title, ...slug], () => data));
+            ...getFilterBody({
+                type: category.title,
+                subCategory: subCategory ? slug[1] : undefined,
+                customFilter: customFilter ? slug[1] : undefined,
+            }),
+        }).then((data) =>
+            queryClient.setQueryData(['catalog', category.title, subCategory, slug[1], customFilter], () => data),
+        );
         onClose && onClose();
     };
 
@@ -55,8 +72,14 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, catalogData, cla
         onClose && onClose();
         setReset((prev) => !prev);
         getCatalogData({
-            ...getFilterBody(category.title, undefined, slug.length > 1 ? slug[slug.length - 1] : undefined),
-        }).then((data) => queryClient.setQueryData(['catalog', category.title, ...slug], () => data));
+            ...getFilterBody({
+                type: category.title,
+                subCategory: subCategory ? slug[1] : undefined,
+                customFilter: customFilter ? slug[1] : undefined,
+            }),
+        }).then((data) =>
+            queryClient.setQueryData(['catalog', category.title, subCategory, slug[1], customFilter], () => data),
+        );
     };
 
     return (

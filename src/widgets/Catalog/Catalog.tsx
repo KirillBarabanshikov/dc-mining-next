@@ -21,7 +21,13 @@ export const Catalog: FC<ICatalogProps> = ({ category, catalogData }) => {
         <div className={styles.catalog}>
             <CustomFilters category={category} className={styles.customFilter} />
             <Filters category={category} catalogData={catalogData} className={styles.filters} />
-            <Sorting category={category} viewMode={viewMode} setViewMode={setViewMode} className={styles.sorting} />
+            <Sorting
+                category={category}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                catalogData={catalogData}
+                className={styles.sorting}
+            />
             <ProductsList products={catalogData.products} viewMode={viewMode} className={styles.productList} />
             <CatalogPagination countProducts={catalogData.count} category={category} />
         </div>

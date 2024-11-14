@@ -26,9 +26,19 @@ export const getOffers = async (): Promise<IOffer[] | null> => {
     }
 };
 
-export const getCustomFilters = async (): Promise<ICustomFilter[] | null> => {
+export const getCustomFilters = async (categoryId?: string | number): Promise<ICustomFilter[] | null> => {
     try {
-        const response = await instance.get('/product_custom_filters');
+        const response = await instance.get('/product_custom_filters', { params: { categoryId } });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+
+export const getCustomFilterBySlug = async (slug: string): Promise<ICustomFilter | null> => {
+    try {
+        const response = await instance.get('/product_custom_filters/slug', { params: { slug } });
         return response.data;
     } catch (error) {
         console.error(error);
