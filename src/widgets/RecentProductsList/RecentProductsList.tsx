@@ -18,6 +18,7 @@ export const RecentProductsList = () => {
         queryKey: ['recent', recent],
         queryFn: () => getProductsByIds(recent),
         placeholderData: keepPreviousData,
+        enabled: !!recent.length,
     });
 
     if (!products) return <></>;
