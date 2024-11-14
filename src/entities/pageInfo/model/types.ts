@@ -1,9 +1,6 @@
 export interface IAboutInfo {
     id: number;
-    description: string;
-    image: string;
     advantages: IAdvantage[];
-    massMedia: IMassMedia[];
     partners: {
         id: number;
         image: string;
