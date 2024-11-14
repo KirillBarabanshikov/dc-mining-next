@@ -44,4 +44,5 @@ export interface IOrderProductBody {
     productId: number;
     price: number;
     count: number;
+    entryPoint: string;
 }
