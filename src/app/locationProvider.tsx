@@ -13,15 +13,16 @@ export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
     useEffect(() => {
         if (typeof window === 'undefined') return;
 
-        if (!localStorage.getItem('entryPoint')) {
-            const fullUrl = `${window.location.origin}${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
-            localStorage.setItem('entryPoint', fullUrl);
-        }
-
         if (window.ym) {
             window.ym(98130237, 'hit');
         }
     }, [pathname, searchParams, setNumber]);
+
+    useEffect(() => {
+        if (!sessionStorage.getItem('entryPoint')) {
+            sessionStorage.setItem('entryPoint', document.referrer);
+        }
+    }, []);
 
     return <>{children}</>;
 };

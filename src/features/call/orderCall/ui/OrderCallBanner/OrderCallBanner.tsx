@@ -52,7 +52,7 @@ export const OrderCallBanner = () => {
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
         // if (!captchaVerified) return;
-        const entryPoint = localStorage.getItem('entryPoint') || '';
+        const entryPoint = sessionStorage.getItem('entryPoint') || '';
         try {
             await order({ ...data, title: 'Заказать обратный звонок', entryPoint });
             sendMetrikaGoal();
