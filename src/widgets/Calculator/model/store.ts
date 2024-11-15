@@ -24,10 +24,10 @@ interface ICalculatorState {
   removeSelectedAsics: (additionalId: string) => void;
   addReadyBusinessAsic: (asic: IAsic) => void;
   removeReadyBusinessAsic: (additionalId: string) => void;
-    businessPackageAsics: IAsic[];
-    setBusinessPackageAsics: (asics: IAsic[]) => void;
-    addBusinessPackageAsic: () => void;
-    removeBusinessPackageAsic: (additionalId: string) => void;
+  businessPackageAsics: IAsic[];
+  setBusinessPackageAsics: (asics: IAsic[]) => void;
+  addBusinessPackageAsic: () => void;
+  removeBusinessPackageAsic: (additionalId: string) => void;
 }
 
 export const useCalculatorStore = create<ICalculatorState>()(
@@ -67,97 +67,99 @@ export const useCalculatorStore = create<ICalculatorState>()(
     asics: [],
     selectedAsics: [],
     readyBusinessAsics: [],
-      businessPackageAsics: [],
-      setBusinessPackageAsics: (asics) => set({ businessPackageAsics: asics }),
-      addBusinessPackageAsic: () => {
-          set((state) => {
-              if (state.readyBusinessAsics.length > 0) {
-                  return {
-                      businessPackageAsics: [
-                          ...state.businessPackageAsics,
-                          {
-                              ...state.readyBusinessAsics[0],
-                              additionalId: uuidv4(),
-                              count: 1
-                          }
-                      ]
-                  };
-              }
-              return state;
-          });
-      },
-      removeBusinessPackageAsic: (additionalId) => {
-          set((state) => ({
-              businessPackageAsics: state.businessPackageAsics.filter(
-                  (asic) => asic.additionalId !== additionalId
-              )
-          }));
-      },
+    businessPackageAsics: [],
+    setBusinessPackageAsics: (asics) => set({ businessPackageAsics: asics }),
+    addBusinessPackageAsic: () => {
+      set((state) => {
+        if (state.readyBusinessAsics.length > 0) {
+          return {
+            businessPackageAsics: [
+              ...state.businessPackageAsics,
+              {
+                ...state.readyBusinessAsics[0],
+                additionalId: uuidv4(),
+                  count: 1,
+              },
+            ],
+          };
+        }
+        return state;
+      });
+    },
+    removeBusinessPackageAsic: (additionalId) => {
+      set((state) => ({
+        businessPackageAsics: state.businessPackageAsics.filter(
+          (asic) => asic.additionalId !== additionalId,
+        ),
+      }));
+    },
     setAsics: (asics) => {
       return set({ asics });
     },
-      setReadyBusinessAsics: (readyBusinessAsics) => {
-        return set({ readyBusinessAsics })
-      },
-      addReadyBusinessAsic: (asic) => {
-          set((state) => {
-              if (state.selectedAsics.length === 0) {
-                  const newAsic = {
-                      ...asic,
-                      additionalId: uuidv4(),
-                      count: 1,
-                  };
-                  return { selectedAsics: [newAsic] };
-              }
+    setReadyBusinessAsics: (readyBusinessAsics) => {
+      return set({ readyBusinessAsics });
+    },
+    addReadyBusinessAsic: (asic) => {
+      set((state) => {
+        if (state.selectedAsics.length === 0) {
+          const newAsic = {
+            ...asic,
+            additionalId: uuidv4(),
+          };
+          return { selectedAsics: [newAsic] };
+        }
 
-              const updatedSelectedAsics = state.selectedAsics.map(existingAsic => ({
-                  ...existingAsic,
-                  additionalId: existingAsic.additionalId
-              }));
+        const updatedSelectedAsics = state.selectedAsics.map(
+          (existingAsic) => ({
+            ...existingAsic,
+            additionalId: existingAsic.additionalId,
+          }),
+        );
 
-              const newAsic = {
-                  ...asic,
-                  additionalId: uuidv4(),
-                  count: 1,
-              };
+        const newAsic = {
+          ...asic,
+          additionalId: uuidv4(),
+          count: 1,
+        };
 
-              console.log(state.selectedAsics);
+        console.log(state.selectedAsics);
 
-              return {
-                  selectedAsics: [...updatedSelectedAsics, newAsic]
-              };
-          });
-      },
-      removeReadyBusinessAsic: (additionalId) => {
-        set((state) => ({
-            selectedAsics: state.selectedAsics.filter(
-                (asic) => asic.additionalId !== additionalId
-            )
-        }))
-      },
+        return {
+          selectedAsics: [...updatedSelectedAsics, newAsic],
+        };
+      });
+    },
+    removeReadyBusinessAsic: (additionalId) => {
+      set((state) => ({
+        selectedAsics: state.selectedAsics.filter(
+          (asic) => asic.additionalId !== additionalId,
+        ),
+      }));
+    },
     setCalculatorType: (calculatorType) => set({ calculatorType }),
     setSelectedAsics: (selectedAsics) => {
       return set({ selectedAsics });
     },
-      addSelectedAsics: (asic: IAsic) => {
-          const newSelectedAsic = {
-              ...asic,
-              additionalId: uuidv4(),
-              count: 1,
-          };
+    addSelectedAsics: (asic: IAsic) => {
+      const newSelectedAsic = {
+        ...asic,
+        additionalId: uuidv4(),
+        count: 1,
+      };
 
-          set((state) => ({
-              selectedAsics: [...state.selectedAsics, newSelectedAsic]
-          }));
-      },
+      set((state) => ({
+        selectedAsics: [...state.selectedAsics, newSelectedAsic],
+      }));
+    },
 
-      removeSelectedAsics: (additionalId: string) => {
-          set((state) => ({
-              selectedAsics: state.selectedAsics.filter(
-                  (asic) => asic.additionalId !== additionalId
-              )
-          }));
-      },
+    removeSelectedAsics: (additionalId: string) => {
+      console.log('Removing ASIC with ID:', additionalId);
+      set((state) => ({
+        selectedAsics: state.selectedAsics.filter(
+          (asic) => asic.additionalId !== additionalId,
+        ),
+      }));
+    },
     setElectricityCoast: (electricityCoast) => {
       return set({ electricityCoast });
     },

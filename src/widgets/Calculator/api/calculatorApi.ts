@@ -53,13 +53,14 @@ class CalculatorApi {
       const products = response.data.products.flatMap(product =>
           product.productAdd.map(add => {
             const productAsics = add.productAsics || {};
+            console.log(add);
             return {
               id: productAsics.id,
               title: productAsics.title || '',
               price: productAsics.price,
               profitDayAll: productAsics.profitDayAll || 0,
               watt: productAsics.watt || 0,
-              count: add.count || 0,
+              count: add.count,
               label: product.title,
               value: productAsics.id.toString(),
               additionalId: uuidv4(),
