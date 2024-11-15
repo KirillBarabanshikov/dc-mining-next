@@ -358,7 +358,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   }
                 </div>
 
-                {calculatorType === 2 && (
+                {calculatorType === 2 && !isEditBusinessDetails && (
                   <div className='calculatorFeature-change'>
                     <Button
                       className='calculatorFeature-change-btn'

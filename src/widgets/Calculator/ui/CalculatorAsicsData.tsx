@@ -5,6 +5,7 @@ import { formatter } from '@/shared/lib';
 import { Dropdown, IconButton, Input } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 import { IAsic } from '@/widgets/Calculator/types';
+import { useEffect } from 'react';
 
 interface Props {
     className?: string;
@@ -18,7 +19,7 @@ interface Props {
 }
 
 
-const CalculatorAsicsData: React.FC<Props> = ({ isEditBusinessDetails, matches, onAsicChange, setAsicsCount, businessTotalPrice, isEditingTouched }) => {
+const CalculatorAsicsData: React.FC<Props> = ({ isEditBusinessDetails, matches, onAsicChange, setAsicsCount }) => {
     const {
         calculatorType,
         asics,
@@ -133,16 +134,10 @@ const CalculatorAsicsData: React.FC<Props> = ({ isEditBusinessDetails, matches, 
                             )}
                             {calculatorType !== 3 && (
                                 <div className='calculatorFeature-price'>
-                                    {/*shit*/}
                                     <Input
                                         value={formatter.format(
                                             calculatorType === 2
-                                                ? isEditBusinessDetails
-                                                    ? businessPackageAsics[index].price *
-                                                    businessPackageAsics[index].count
-                                                    : isEditingTouched
-                                                        ? businessTotalPrice
-                                                        : ReadyBusinessTotalPrice(businessPackageAsics)
+                                                ? ReadyBusinessTotalPrice(businessPackageAsics)
                                                 : asic.price * asic.count,
                                         )}
                                         className='calculatorFeature-price-input'
