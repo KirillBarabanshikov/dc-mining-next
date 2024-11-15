@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
+
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { Dropdown, IconButton, Input } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 import { IAsic } from '@/widgets/Calculator/types';
-import { useEffect } from 'react';
 
 interface Props {
     className?: string;
