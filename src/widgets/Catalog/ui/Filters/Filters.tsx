@@ -64,6 +64,7 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, catalogData, cla
             queryClient.setQueryData(['catalog', category.title, subCategory, slug[1], customFilter], () => data),
         );
         onClose && onClose();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     const onResetFilters = () => {
@@ -80,6 +81,7 @@ export const Filters: FC<IFiltersProps> = ({ category, onClose, catalogData, cla
         }).then((data) =>
             queryClient.setQueryData(['catalog', category.title, subCategory, slug[1], customFilter], () => data),
         );
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
