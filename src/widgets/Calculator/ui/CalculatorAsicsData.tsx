@@ -5,7 +5,6 @@ import { formatter } from '@/shared/lib';
 import { Dropdown, IconButton, Input } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 import { IAsic } from '@/widgets/Calculator/types';
-import { useEffect } from 'react';
 
 interface Props {
     className?: string;
