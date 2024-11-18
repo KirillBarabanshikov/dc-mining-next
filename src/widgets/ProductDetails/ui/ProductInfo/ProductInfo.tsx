@@ -69,7 +69,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                             return <link key={tag.id} itemProp='availability' href='https://schema.org/InStock' />;
                         }
 
-                        if (tagTitle === 'новый') {
+                        if (tagTitle === 'новинка') {
                             return (
                                 <link key={tag.id} itemProp='itemCondition' href='https://schema.org/NewCondition' />
                             );
