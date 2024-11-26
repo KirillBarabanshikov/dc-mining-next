@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { create } from 'zustand/index';
 import { devtools } from 'zustand/middleware';
 
-import { IAsic } from '../types';
+import { IAsic, IPackage } from '../types';
 
 interface ICalculatorState {
   calculatorType: number;
@@ -28,6 +28,11 @@ interface ICalculatorState {
   setBusinessPackageAsics: (asics: IAsic[]) => void;
   addBusinessPackageAsic: () => void;
   removeBusinessPackageAsic: (additionalId: string) => void;
+  businessPackages: IPackage[];
+  setBusinessPackages: (packages: IPackage[]) => void;
+  selectedPackageId: number | null;
+  setSelectedPackageId: (id: number | null) => void;
+  // changeBusinessPackages: (packages: IPackage) => void;
 }
 
 export const useCalculatorStore = create<ICalculatorState>()(
@@ -68,6 +73,11 @@ export const useCalculatorStore = create<ICalculatorState>()(
     selectedAsics: [],
     readyBusinessAsics: [],
     businessPackageAsics: [],
+    businessPackages: [],
+    selectedPackageId: null,
+    setSelectedPackageId: (id) => set({ selectedPackageId: id }),
+    setBusinessPackages: (packages) => set({ businessPackages: packages }),
+    // changeBusinessPackages: (packages) => {set({ businessPackages: packages }); },
     setBusinessPackageAsics: (asics) => set({ businessPackageAsics: asics }),
     addBusinessPackageAsic: () => {
       set((state) => {
@@ -78,7 +88,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
               {
                 ...state.readyBusinessAsics[0],
                 additionalId: uuidv4(),
-                  count: 1,
+                count: 1,
               },
             ],
           };

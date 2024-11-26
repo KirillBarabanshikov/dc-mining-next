@@ -45,7 +45,9 @@ export const Dropdown: FC<IDropdownProps> = ({
 }) => {
   const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue);
   const [isOpen, setIsOpen] = useState(open);
-  const ref = useOutsideClick<HTMLDivElement>(() => (physical ? {} : setIsOpen(false)));
+  const ref = useOutsideClick<HTMLDivElement>(() =>
+    physical ? {} : setIsOpen(false),
+  );
 
   useEffect(() => {
     if (typeof reset !== 'undefined') setSelectedValue(defaultValue);
@@ -71,10 +73,20 @@ export const Dropdown: FC<IDropdownProps> = ({
   };
 
   return (
-    <div ref={ref} className={clsx(styles.dropdown, isOpen && styles.isOpen, physical && styles.physical, className)}>
+    <div
+      ref={ref}
+      className={clsx(
+        styles.dropdown,
+        isOpen && styles.isOpen,
+        physical && styles.physical,
+        className,
+      )}
+    >
       <div className={styles.head} onClick={() => setIsOpen(!isOpen)}>
         <span className={styles.label}>
-          {label ? label : items.find((item) => item.value === selectedValue[0])?.label}
+          {label
+            ? label
+            : items.find((item) => item.value === selectedValue[0])?.label}
         </span>
         <motion.div
           initial={false}
@@ -103,7 +115,11 @@ export const Dropdown: FC<IDropdownProps> = ({
         </AnimatePresence>
       )}
       {variant === 'modal' && (
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} className={styles.modal}>
+        <Modal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          className={styles.modal}
+        >
           <ItemsList
             items={items}
             handleSelect={handleSelect}
@@ -136,6 +152,8 @@ const ItemsList: FC<IItemsListProps> = ({
   hasIcon = true,
   children,
 }) => {
+  const isSelectedValueArray = Array.isArray(selectedValue);
+
   return (
     <motion.div
       className={styles.list}
@@ -146,37 +164,47 @@ const ItemsList: FC<IItemsListProps> = ({
       <div className={styles.itemsWrap}>
         <div className={clsx(styles.items)}>
           {children}
-          {items.map((item) => {
-            return (
-              <div
-                key={item.value}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleSelect(item.value);
-                }}
-              >
-                {multiply ? (
-                  <Checkbox
-                    label={item.label}
-                    className={clsx(styles.item, selectedValue.includes(item.value) && styles.selected)}
-                    checked={selectedValue.includes(item.value)}
-                    onChange={() => {}}
-                    sizing={'sm'}
-                    hasIcon={hasIcon}
-                  />
-                ) : (
-                  <Radio
-                    label={item.label}
-                    className={clsx(styles.item, selectedValue.includes(item.value) && styles.selected)}
-                    checked={selectedValue.includes(item.value)}
-                    onChange={() => {}}
-                    sizing={'sm'}
-                    hasIcon={hasIcon}
-                  />
-                )}
-              </div>
-            );
-          })}
+          {items
+            .filter((item) => item.value !== '')
+            .map((item) => {
+              const isSelected =
+                isSelectedValueArray && selectedValue.includes(item.value);
+              return (
+                <div
+                  key={item.value}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSelect(item.value);
+                  }}
+                >
+                  {multiply ? (
+                    <Checkbox
+                      label={item.label}
+                      className={clsx(
+                        styles.item,
+                        isSelected && styles.selected,
+                      )}
+                      checked={isSelected}
+                      onChange={() => {}}
+                      sizing={'sm'}
+                      hasIcon={hasIcon}
+                    />
+                  ) : (
+                    <Radio
+                      label={item.label}
+                      className={clsx(
+                        styles.item,
+                        isSelected && styles.selected,
+                      )}
+                      checked={isSelected}
+                      onChange={() => {}}
+                      sizing={'sm'}
+                      hasIcon={hasIcon}
+                    />
+                  )}
+                </div>
+              );
+            })}
         </div>
       </div>
     </motion.div>

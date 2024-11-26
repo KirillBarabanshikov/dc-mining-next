@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import DownloadIcon from '@/shared/assets/icons/download.svg';
 import PencilIcon from '@/shared/assets/icons/pencil.svg';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
@@ -42,12 +41,18 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     businessPackageAsics,
     setBusinessPackageAsics,
     addBusinessPackageAsic,
+    setBusinessPackages,
+    setSelectedPackageId,
+    selectedPackageId,
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
 
+  const [isPro, setIsPro] = useState(type === 'pro');
   const [isProError, setIsProError] = useState(false);
   const [totalConsumption, setTotalConsumption] = useState(0);
+  const [totalConsumptionDataCenter, setTotalConsumptionDataCenter] =
+    useState(0);
   const [electricityConsumption, setElectricityConsumption] = useState(0);
   const [profitWithoutElectricity, setProfitWithoutElectricity] = useState(0);
   const [profitWithElectricity, setProfitWithElectricity] = useState(0);
@@ -74,10 +79,26 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   });
 
   const changeElectricityCoast = (e: ChangeEvent<HTMLInputElement>) => {
-    if (type === 'lite') {
+    const newValue = e.target.value;
+
+    const numericValue = parseFloat(newValue);
+
+    if (!isPro) {
       e.preventDefault();
       setIsProError(true);
+      return;
     }
+
+    setElectricityCoast(numericValue);
+    setIsProError(false);
+  };
+
+  const toggleProMode = () => {
+    // if (type === 'lite') {
+    //   setIsProError(true);
+    //   return;
+    // }
+    setIsPro(!isPro);
   };
 
   const onAsicChange = (selected: string[], index: number) => {
@@ -119,7 +140,6 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         i === index ? { ...asic, count } : asic,
       );
       setBusinessPackageAsics(updatedBusinessPackageAsics);
-      console.log(businessPackageAsics);
     }
     // selectedAsics
     else {
@@ -140,6 +160,11 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   };
 
   const handleChangeBusinessDetails = () => {
+    if (!isPro && calculatorType === 2) {
+      setIsProError(true);
+      return;
+    }
+
     setIsEditingTouched(true);
     if (!isEditBusinessDetails) {
       if (businessPackageAsics.length === 0) {
@@ -161,6 +186,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     if (!newAsic) return;
 
     addSelectedAsics(newAsic);
+
+    console.log(selectedAsics);
   };
 
   useEffect(() => {
@@ -170,32 +197,46 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   }, [calculatorType, businessPackageAsics]);
 
   useEffect(() => {
+    if (isPro) {
+      setIsProError(false);
+    }
+  }, [isPro]);
+
+  useEffect(() => {
     const fetchData = async () => {
       let data;
+      let businessReadyData;
       if (calculatorType !== 2) {
         data = await calculatorApi.getAsics();
+        setSelectedPackageId(null);
       } else if (calculatorType === 2) {
-        data = await calculatorApi.getBusiness();
-        // console.log(data);
+        businessReadyData = await calculatorApi.getBusiness();
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setBusinessPackages(businessReadyData);
+
+        setSelectedAsics([selectedAsics[0]]);
 
         const asicMinersData = await calculatorApi.getAsics();
         console.log(asicMinersData);
         if (asicMinersData) {
           setReadyBusinessAsics(asicMinersData.products);
           setBusinessInitialItems(asicMinersData.products);
-          console.log(asics);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          setBusinessPackageAsics(businessReadyData);
         }
       }
 
       if (!data) return;
-
-      setBusinessPackageAsics(data.products);
 
       const products = data.products;
 
       setAsics(products);
       setElectricityCoast(data.electricityCoast || 3);
       setSelectedAsics([products[0]]);
+      console.log(selectedAsics);
     };
 
     fetchData();
@@ -235,6 +276,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
     const newCalculationData = {
       totalConsumption: calculatorAsics.getTotalConsumption(),
+      totalConsumptionDataCenter:
+        calculatorAsics.getTotalConsumptionDataCenter(),
       electricityConsumption: calculatorAsics.getElectricityConsumption(),
       profitWithoutElectricity: calculatorAsics.getProfitWithoutElectricity(),
       profitWithElectricity: calculatorAsics.getProfitWithElectricity(),
@@ -246,6 +289,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       setBusinessCalculationData(newCalculationData);
     }
 
+    setTotalConsumptionDataCenter(
+      newCalculationData.totalConsumptionDataCenter,
+    );
     setTotalConsumption(newCalculationData.totalConsumption);
     setElectricityConsumption(newCalculationData.electricityConsumption);
     setProfitWithoutElectricity(newCalculationData.profitWithoutElectricity);
@@ -291,11 +337,12 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   </div>
                   <div
                     className={clsx('calculatorFeature-switch', {
-                      active: isProError,
+                      active: isPro,
                     })}
+                    onClick={toggleProMode}
                   >
-                    <span className='active'>Lite</span>
-                    <span>Pro</span>
+                    <span className={!isPro ? 'active' : ''}>Lite</span>
+                    <span className={isPro ? 'active' : ''}>Pro</span>
                   </div>
                 </div>
               )}
@@ -322,7 +369,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                           Количество
                         </span>
                         <span className='calculatorFeature-description'>
-                          Расход кВт/мес.
+                          Цена
                         </span>
                       </>
                     )}
@@ -335,43 +382,61 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                 )}
 
                 <div className='calculatorFeature-data'>
-                  {!isEditBusinessDetails &&
-                      (
-                          <CalculatorAsicsData
-                            asics={asics}
-                            businessTotalPrice={businessTotalPrice}
-                            isEditBusinessDetails={isEditBusinessDetails}
-                            isEditingTouched={isEditingTouched}
-                            matches={matches}
-                            onAsicChange={onAsicChange}
-                            setAsicsCount={setAsicsCount}
-                          />
-                      )
-                  }
+                  {!isEditBusinessDetails && (
+                    <CalculatorAsicsData
+                      asics={asics}
+                      businessTotalPrice={businessTotalPrice}
+                      isEditBusinessDetails={isEditBusinessDetails}
+                      isEditingTouched={isEditingTouched}
+                      matches={matches}
+                      onAsicChange={onAsicChange}
+                      setAsicsCount={setAsicsCount}
+                    />
+                  )}
                 </div>
 
                 <div className='calculatorFeature-data'>
-                  {isEditBusinessDetails &&
-                      (
-                          <CalculatorBusinessIsEditing isEditBusinessDetails={isEditBusinessDetails} matches={matches} onAsicChange={onAsicChange} setAsicsCount={setAsicsCount} isEditingTouched={isEditingTouched} businessTotalPrice={businessTotalPrice} businessInitialItems={businessInitialItems} />
-                      )
-                  }
+                  {isEditBusinessDetails && (
+                    <CalculatorBusinessIsEditing
+                      isEditBusinessDetails={isEditBusinessDetails}
+                      matches={matches}
+                      onAsicChange={onAsicChange}
+                      setAsicsCount={setAsicsCount}
+                      isEditingTouched={isEditingTouched}
+                      businessTotalPrice={businessTotalPrice}
+                      businessInitialItems={businessInitialItems}
+                    />
+                  )}
                 </div>
 
-                {calculatorType === 2 && !isEditBusinessDetails && (
-                  <div className='calculatorFeature-change'>
-                    <Button
-                      className='calculatorFeature-change-btn'
-                      variant='solid'
-                      size='sm'
-                      theme='gray'
-                      onClick={handleChangeBusinessDetails}
-                    >
-                      <PencilIcon />
-                      Изменить состав пакета
-                    </Button>
-                  </div>
-                )}
+                {calculatorType === 2 &&
+                  !isEditBusinessDetails &&
+                  selectedPackageId && (
+                    <div className='calculatorFeature-change'>
+                      <Button
+                        className='calculatorFeature-change-btn'
+                        variant='solid'
+                        size='sm'
+                        theme='gray'
+                        onClick={() => {
+                          if (!isPro && calculatorType === 2) {
+                            setIsProError(true);
+                            return;
+                          }
+
+                          handleChangeBusinessDetails();
+                        }}
+                      >
+                        <PencilIcon />
+                        Изменить состав пакета
+                      </Button>
+                      {isProError && (
+                        <div className='calculatorElectricity-error calculatorElectricity-error-change'>
+                          Доступно в Pro версии
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                 {calculatorType === 2 && isEditBusinessDetails && (
                   <div className='calculatorFeature-row calculatorFeature-change-row'>
@@ -398,11 +463,25 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                       variant='solid'
                       size='sm'
                       theme='gray'
-                      onClick={() => addAsic(29)}
+                      onClick={() => {
+                        if (!isPro && calculatorType === 3) {
+                          setIsProError(true);
+                          return;
+                        }
+
+                        if (readyBusinessAsics.length > 0) {
+                          addAsic(29);
+                        }
+                      }}
                     >
                       Добавить оборудование
                       <span>+</span>
                     </Button>
+                    {isProError && (
+                      <div className='calculatorElectricity-error calculatorElectricity-error-change'>
+                        Доступно в Pro версии
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -422,14 +501,14 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     </div>
                   )}
                 </div>
-                <Button
+                {/* <Button
                   className='calculatorElectricity-btn'
                   variant='outline'
                   size='md'
                 >
                   Скачать фин модель
                   <DownloadIcon />
-                </Button>
+                </Button> */}
               </div>
               <div className='calculator-description'>
                 Не является публичной офертой
@@ -437,14 +516,15 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
             </div>
           </div>
         )}
-        {calculatorType === 4 && (
-          <CalculatorBodyLeasing />
-        )}
+        {calculatorType === 4 && <CalculatorBodyLeasing />}
         {calculatorAsics && (
           <CalculatorTotal
+            totalConsumptionDataCenter={totalConsumptionDataCenter.toLocaleString(
+              'ru-RU',
+            )}
             totalConsumptonGuests={(
-              totalConsumption +
-              totalConsumption * 0.1
+              totalConsumptionDataCenter +
+              totalConsumptionDataCenter * 0.1
             ).toLocaleString('ru-RU')}
             totalConsumption={
               calculatorType === 2 &&
@@ -464,7 +544,10 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   )
                 : electricityConsumption.toLocaleString('ru-RU')
             }
-            totalPriceGuests={(electricityConsumption + electricityConsumption * 0.1).toLocaleString('ru-RU')}
+            totalPriceGuests={(
+              electricityConsumption +
+              electricityConsumption * 0.1
+            ).toLocaleString('ru-RU')}
             profitWithoutElectricity={
               calculatorType === 2 &&
               !isEditBusinessDetails &&

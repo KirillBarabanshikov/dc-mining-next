@@ -1,9 +1,12 @@
 import Image from 'next/image';
+import { useState } from 'react';
 
-import StarIcon from '@/shared/assets/icons/star.svg';
+import { OrderCallModal } from '@/features/call';
+import { OrderProductModal } from '@/features/product';
 import sale from '@/shared/assets/images/calculator/sale.png';
 import { Button } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
+
 interface Props {
   totalConsumption: string;
   electricityConsumption: string;
@@ -13,6 +16,7 @@ interface Props {
   paybackWithoutElectricity: string;
   totalConsumptonGuests: string;
   totalPriceGuests: string;
+  totalConsumptionDataCenter: string;
 }
 
 export const CalculatorTotal: React.FC<Props> = ({
@@ -22,10 +26,44 @@ export const CalculatorTotal: React.FC<Props> = ({
   profitWithElectricity,
   paybackWithElectricity,
   paybackWithoutElectricity,
-  totalConsumptonGuests,
-    totalPriceGuests
+  totalPriceGuests,
 }) => {
-  const { calculatorType } = useCalculatorStore();
+  const {
+    calculatorType,
+    selectedAsics,
+    electricityCoast,
+    businessPackages,
+    selectedPackageId,
+  } = useCalculatorStore();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+
+  const getProductForModal = () => {
+    if (calculatorType !== 2) {
+      return selectedAsics[0];
+    } else {
+      const selectedPackage = businessPackages.find(
+        (pkg) => pkg.id === selectedPackageId,
+      );
+
+      return selectedPackage || businessPackages[0];
+    }
+  };
+
+  const getAdditionalProducts = () => {
+    if (calculatorType === 3) {
+      return selectedAsics.slice(1);
+    }
+    return [];
+  };
+
+  const handleOpenOrderModal = () => {
+    const product = getProductForModal();
+    if (product) {
+      setIsOrderModalOpen(true);
+    }
+  };
+
   return (
     <div className='calculator-card calculatorTotal'>
       {calculatorType !== 4 && calculatorType !== 3 && (
@@ -61,11 +99,12 @@ export const CalculatorTotal: React.FC<Props> = ({
             </div>
           </div>
           <div className='calculatorTotal-btns'>
-            <Button variant='outline' isWide>
-              Добавить в&nbsp;закладки
-              <StarIcon />
-            </Button>
-            <Button theme='pink' isWide>
+            <Button
+              disabled={calculatorType === 2 && !selectedPackageId}
+              theme='pink'
+              isWide
+              onClick={handleOpenOrderModal}
+            >
               Оставить заявку
             </Button>
           </div>
@@ -79,7 +118,7 @@ export const CalculatorTotal: React.FC<Props> = ({
               <span>От 1 до 2 лет</span>
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-leasing'>
-              <span>Сумма</span>
+              <span> Сумма</span>
               <span>от 600 000 ₽</span>
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-leasing'>
@@ -104,8 +143,8 @@ export const CalculatorTotal: React.FC<Props> = ({
           <div className='calculatorTotal-list'>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>Тариф, ₽ кВт/час</span>
-              <span>{totalConsumptonGuests}</span>
-              <span>{totalConsumption}</span>
+              <span>{electricityCoast + electricityCoast * 0.1}</span>
+              <span>{electricityCoast}</span>
               <Image src={sale} alt='sale image' />
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
@@ -121,16 +160,25 @@ export const CalculatorTotal: React.FC<Props> = ({
             </div>
           </div>
           <div className='calculatorTotal-btns'>
-            <Button variant='outline' isWide>
-              Добавить в&nbsp;закладки
-              <StarIcon />
-            </Button>
-            <Button theme='pink' isWide>
+            <Button theme='pink' isWide onClick={handleOpenOrderModal}>
               Получить скидку
             </Button>
           </div>
         </>
       )}
+      <OrderCallModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+      />
+      <OrderProductModal
+        isOpen={isOrderModalOpen}
+        onClose={() => setIsOrderModalOpen(false)}
+        product={getProductForModal()}
+        isMultiple={calculatorType === 3}
+        additionalProducts={getAdditionalProducts()}
+      />
     </div>
   );
 };

@@ -163,7 +163,8 @@
 
     &.active {
       &::before {
-        animation: toRight 2s ease-out infinite 0s normal forwards;
+        transform: translateX(44px);
+        animation: switchToggle 0.3s ease-in-out;
       }
       span {
         &:nth-child(1) {
@@ -185,6 +186,7 @@
       border-radius: 16px;
       top: 4px;
       left: 4px;
+      transition: transform 0.3s ease-in-out;
     }
 
     span {
@@ -321,6 +323,11 @@
     position: absolute;
     left: 0;
     top: calc(100% + 8px);
+    &-change {
+      position: relative;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
   }
   &-btn {
     @media (max-width: (540 + px)) {
@@ -419,6 +426,9 @@
         color: var(--text-accent-blue);
       }
     }
+    @media (max-width: 768px) {
+      padding-top: 250px;
+    }
   }
 
   &-img {
@@ -429,15 +439,30 @@
       url('../../shared/assets/images/calculator/leasing.png') center right /
         290px no-repeat,
       url('/backgrounds/manager-bg1.svg') center / cover no-repeat;
+
+    @media (max-width: 768px) {
+      background:
+        url('../../shared/assets/images/calculator/leasing.png') center top /
+          250px no-repeat,
+        url('/backgrounds/manager-bg1.svg') center / cover no-repeat;
+    }
   }
 }
 
-@keyframes toRight {
+@keyframes switchToggle {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(44px);
+  }
+}
+
+@keyframes switchToggleBack {
+  0% {
+    transform: translateX(44px);
+  }
+  100% {
+    transform: translateX(0);
   }
 }

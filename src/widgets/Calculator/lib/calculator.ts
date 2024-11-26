@@ -23,6 +23,15 @@ class CalculatorAsics {
     }, 0);
   }
 
+  public getTotalConsumptionDataCenter() {
+    return this.asics.reduce((total, asic) => {
+      return (
+        total +
+        (asic.watt * 1 * this.HOURS_IN_DAY * this.DAYS_IN_MONTH) / this.WATT
+      );
+    }, 0);
+  }
+
   public getElectricityConsumption() {
     return this.getTotalConsumption() * this.electricityCoast;
   }
