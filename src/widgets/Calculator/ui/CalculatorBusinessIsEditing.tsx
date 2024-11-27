@@ -1,7 +1,6 @@
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
-import { formatter } from '@/shared/lib/currency/formatter';
 import { Dropdown, IconButton, Input } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 import { IAsic } from '@/widgets/Calculator/types';
@@ -37,7 +36,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
       <div className='calculatorFeature-row'>
         <span className='calculatorFeature-description'>Модель</span>
         <span className='calculatorFeature-description'>Количество</span>
-        <span className='calculatorFeature-description'>Цена</span>
+        {/* <span className='calculatorFeature-description'>Цена</span> */}
       </div>
       {businessPackageAsics.map((asic, index) => (
         <div
@@ -46,7 +45,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
         >
           <div className='calculatorFeature-col'>
             <Dropdown
-              defaultValue={[asic.additionalId ? asic.additionalId : '29']}
+              defaultValue={[asic.id ? asic.id.toString() : '29']}
               items={businessInitialItems}
               hasIcon={false}
               onChange={(value) => onAsicChange(value, index)}
@@ -90,14 +89,14 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
               <span className='calculatorFeature-description'>Цена</span>
             )}
             <div className='calculatorFeature-trash'>
-              <div className='calculatorFeature-price'>
+              {/* <div className='calculatorFeature-price'>
                 <Input
                   value={formatter.format(asic.price * asic.count)}
                   className='calculatorFeature-price-input'
                   sizes='md'
                   disabled
                 />
-              </div>
+              </div> */}
               <IconButton
                 icon={<TrashIcon />}
                 onClick={() => removeBusinessPackageAsic(asic.additionalId)}
