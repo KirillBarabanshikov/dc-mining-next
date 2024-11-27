@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
@@ -33,13 +31,14 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
   //   return ((asic.watt * asic.count * hoursInMonth) / 1000).toFixed(0);
   // };
 
-  useEffect(() => {
-    console.log(businessPackageAsics);
-    console.log(businessInitialItems);
-  }, []);
-
   return (
     <>
+      <span className='calculatorFeature-packages-title'>Состав пакета</span>
+      <div className='calculatorFeature-row'>
+        <span className='calculatorFeature-description'>Модель</span>
+        <span className='calculatorFeature-description'>Количество</span>
+        <span className='calculatorFeature-description'>Цена</span>
+      </div>
       {businessPackageAsics.map((asic, index) => (
         <div
           key={asic.additionalId}
@@ -47,7 +46,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
         >
           <div className='calculatorFeature-col'>
             <Dropdown
-              defaultValue={[asic.additionalId]}
+              defaultValue={[asic.additionalId ? asic.additionalId : '29']}
               items={businessInitialItems}
               hasIcon={false}
               onChange={(value) => onAsicChange(value, index)}

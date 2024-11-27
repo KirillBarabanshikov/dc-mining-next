@@ -87,7 +87,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
               ...state.businessPackageAsics,
               {
                 ...state.readyBusinessAsics[0],
-                additionalId: uuidv4(),
+                additionalId: state.businessPackageAsics[0].additionalId,
                 count: 1,
               },
             ],

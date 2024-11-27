@@ -382,17 +382,15 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                 )}
 
                 <div className='calculatorFeature-data'>
-                  {!isEditBusinessDetails && (
-                    <CalculatorAsicsData
-                      asics={asics}
-                      businessTotalPrice={businessTotalPrice}
-                      isEditBusinessDetails={isEditBusinessDetails}
-                      isEditingTouched={isEditingTouched}
-                      matches={matches}
-                      onAsicChange={onAsicChange}
-                      setAsicsCount={setAsicsCount}
-                    />
-                  )}
+                  <CalculatorAsicsData
+                    asics={asics}
+                    businessTotalPrice={businessTotalPrice}
+                    isEditBusinessDetails={isEditBusinessDetails}
+                    isEditingTouched={isEditingTouched}
+                    matches={matches}
+                    onAsicChange={onAsicChange}
+                    setAsicsCount={setAsicsCount}
+                  />
                 </div>
 
                 <div className='calculatorFeature-data'>
