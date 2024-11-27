@@ -365,9 +365,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     )}
                     {isEditBusinessDetails && (
                       <>
-                        <span className='calculatorFeature-description'>
+                        {/* <span className='calculatorFeature-description'>
                           Количество
-                        </span>
+                        </span> */}
                         <span className='calculatorFeature-description'>
                           Цена
                         </span>
