@@ -2,10 +2,13 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import Image from 'next/image';
 
 import { getContacts } from '@/entities/contacts';
+import { BASE_URL } from '@/shared/consts';
 import { formatPhoneNumber, intFormatPhoneNumber, useMangoStore } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
+import { Map } from '@/widgets';
 
 import styles from './ContactsPage.module.scss';
 
@@ -56,10 +59,42 @@ export const ContactsPage = () => {
                             </div>
                             <div className={styles.contactWrap}>
                                 <div className={styles.contactTitle}>Социальные сети</div>
+                                <div className={styles.socials}>
+                                    {contacts.images.map((social) => (
+                                        <a key={social.id} href={social.url} target={'_blank'}>
+                                            <Image
+                                                src={BASE_URL + social.image}
+                                                alt={'social'}
+                                                width={48}
+                                                height={48}
+                                            />
+                                        </a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                        <div>1</div>
-                        <div>2</div>
+                        <div className={styles.mapsWrap}>
+                            <div className={styles.mapWrap}>
+                                <div className={styles.contactWrap}>
+                                    <div className={styles.contactTitle}>Офис</div>
+                                    <div
+                                        className={styles.contact}
+                                        dangerouslySetInnerHTML={{ __html: contacts.office }}
+                                    />
+                                </div>
+                                <Map coordinates={[56.848728, 53.205444]} />
+                            </div>
+                            <div className={styles.mapWrap}>
+                                <div className={styles.contactWrap}>
+                                    <div className={styles.contactTitle}>Хостинг</div>
+                                    <div
+                                        className={styles.contact}
+                                        dangerouslySetInnerHTML={{ __html: contacts.office }}
+                                    />
+                                </div>
+                                <Map coordinates={[56.848728, 53.205444]} />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

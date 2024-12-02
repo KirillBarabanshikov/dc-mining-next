@@ -6,6 +6,8 @@ declare global {
         ym: (id: number, method: string, ...args: any[]) => void;
         // mgo: any;
     }
+
+    const ymaps: any;
 }
 
 export {};

@@ -96,6 +96,11 @@ export default async function RootLayout({
                     }}
                 />
 
+                <Script
+                    src={'https://api-maps.yandex.ru/2.1/?apikey=3264ca32-f578-44c1-b743-f030dca1ba3a&lang=ru_RU'}
+                    strategy={'beforeInteractive'}
+                />
+
                 {/*  <Script*/}
                 {/*      id='mango-widget'*/}
                 {/*      strategy='afterInteractive'*/}

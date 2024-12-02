@@ -11,19 +11,80 @@
             display: flex;
             flex-direction: column;
             gap: 40px;
+            max-width: 280px;
+            min-width: 280px;
+        }
+
+        .contactWrap {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .contactTitle {
+                font-weight: 700;
+                font-size: 20px;
+                color: var(--text-accent-blue);
+            }
+
+            .socials {
+                display: flex;
+                gap: 8px;
+            }
+        }
+
+        .mapsWrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+
+            .mapWrap {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .contactsPage {
+        .title {
+            margin-bottom: 32px !important;
+        }
+
+        .wrap {
+            display: flex;
+            gap: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .contactsPage {
+        .title {
+            margin-bottom: 20px !important;
+        }
+
+        .wrap {
+            flex-direction: column;
+
+            .contacts {
+                max-width: unset;
+            }
 
             .contactWrap {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-
                 .contactTitle {
-                    font-weight: 700;
-                    font-size: 20px;
-                    color: var(--text-accent-blue);
+                    font-size: 16px;
                 }
 
                 .contact {
+                    font-size: 14px;
+                }
+            }
+
+            .mapsWrap {
+                gap: 24px;
+
+                .mapWrap {
+                    width: 100%;
                 }
             }
         }
