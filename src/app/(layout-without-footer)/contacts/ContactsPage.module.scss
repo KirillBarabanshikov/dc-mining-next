@@ -36,10 +36,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 32px;
-
-            .mapWrap {
-                width: 100%;
-            }
         }
     }
 }
@@ -53,6 +49,10 @@
         .wrap {
             display: flex;
             gap: 24px;
+
+            .mapWrap {
+                width: 100%;
+            }
         }
     }
 }
