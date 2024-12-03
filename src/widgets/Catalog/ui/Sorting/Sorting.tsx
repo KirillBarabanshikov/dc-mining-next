@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { getCatalogData, getCustomFilterBySlug, ICatalogData, useCatalogFilters } from '@/entities/catalog';
-import { getFilters, getOffers } from '@/entities/catalog/api';
 import { getSubCategoryBySlug, ICategory } from '@/entities/category';
 import FilterIcon from '@/shared/assets/icons/filter.svg';
 import SimpleIcon from '@/shared/assets/icons/view-mode-simple.svg';
@@ -34,16 +33,16 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, ca
     const queryClient = useQueryClient();
     const { slug } = useParams<{ slug: string[] }>();
 
-    const { data: filters } = useQuery({
-        queryKey: ['filters'],
-        queryFn: getFilters,
-        staleTime: Infinity,
-    });
-    const { data: offers } = useQuery({
-        queryKey: ['offers'],
-        queryFn: getOffers,
-        staleTime: Infinity,
-    });
+    // const { data: filters } = useQuery({
+    //     queryKey: ['filters'],
+    //     queryFn: getFilters,
+    //     staleTime: Infinity,
+    // });
+    // const { data: offers } = useQuery({
+    //     queryKey: ['offers'],
+    //     queryFn: getOffers,
+    //     staleTime: Infinity,
+    // });
     const { data: subCategory } = useQuery({
         queryKey: ['subCategory', slug[1]],
         queryFn: () => getSubCategoryBySlug(slug[1]),
@@ -89,15 +88,10 @@ export const Sorting: FC<ISortingProps> = ({ category, viewMode, setViewMode, ca
                 />
             </div>
             <div className={styles.buttonsWrap}>
-                {!!filters?.filter((item) => item.category.value === category?.title).length ||
-                !!offers?.filter((offer) => offer.category === category?.name).length ? (
-                    <button className={styles.filterButton} onClick={() => setIsOpen(true)}>
-                        <FilterIcon />
-                        Фильтры
-                    </button>
-                ) : (
-                    <div />
-                )}
+                <button className={styles.filterButton} onClick={() => setIsOpen(true)}>
+                    <FilterIcon />
+                    Фильтры
+                </button>
                 <div className={styles.viewModeWrap}>
                     <IconButton
                         icon={matches ? <SimpleIcon2 /> : <SimpleIcon />}

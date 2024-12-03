@@ -21,7 +21,7 @@ export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
 
     useEffect(() => {
         if (!sessionStorage.getItem('entryPoint')) {
-            sessionStorage.setItem('entryPoint', document.referrer);
+            sessionStorage.setItem('entryPoint', document.referrer || '/');
         }
     }, []);
 
