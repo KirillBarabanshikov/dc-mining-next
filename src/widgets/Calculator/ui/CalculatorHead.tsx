@@ -3,12 +3,14 @@ import clsx from 'clsx';
 interface Props {
   className?: string;
   isPro: boolean;
+  isProError: boolean;
   toggleProMode: () => void;
 }
 
 export const CalculatorHead: React.FC<Props> = ({
   isPro,
     toggleProMode,
+    isProError
 }) => {
   return (
       <div className='calculatorFeature-head'>
@@ -21,7 +23,8 @@ export const CalculatorHead: React.FC<Props> = ({
                     ? 'calculatorFeature-switch'
                     : 'calculatorFeature-switch calculatorFeature-switch-pro',
                 {
-                  active: isPro,
+                  'active': isPro,
+                    'active-error': isProError
                 },
             )}
             onClick={toggleProMode}

@@ -98,7 +98,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   };
 
   const toggleProMode = () => {
-    setIsPro(!isPro);
+    setIsPro(true);
   };
 
   const onAsicChange = (selected: string[], index: number) => {
@@ -337,7 +337,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           Рассчитайте <span>выгоду</span>
         </h2>
         {matches && (
-          <CalculatorHead isPro={isPro} toggleProMode={toggleProMode} />
+          <CalculatorHead isProError={isProError} isPro={isPro} toggleProMode={toggleProMode} />
         )}
         <div className='calculator-types'>
           {calculatorTypes.map((item) => (
@@ -473,7 +473,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           <div className='calculator-card calculatorFeature'>
             <div className='calculatorFeature-content'>
               {!matches && (
-                <CalculatorHead isPro={isPro} toggleProMode={toggleProMode} />
+                <CalculatorHead isPro={isPro} isProError={isProError} toggleProMode={toggleProMode} />
               )}
 
               <div className='calculatorFeature-list'>

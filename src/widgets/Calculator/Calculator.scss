@@ -168,6 +168,22 @@
     }
 
     &.active {
+      &-error {
+        &::before {
+          transform: translateX(44px);
+          animation: toRight 2s ease-out infinite 0s normal forwards;
+        }
+        span {
+          &:nth-child(1) {
+            color: var(--text-contrast);
+            animation: changeColor 2s linear infinite 0s normal forwards;
+          }
+          &:nth-child(2) {
+            color: var(--text-accent-blue);
+            animation: changeColorReverse 2s linear infinite 0s normal forwards;
+          }
+        }
+      }
       &::before {
         transform: translateX(44px);
         animation: switchToggle 0.3s ease-in-out;
@@ -259,13 +275,13 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-     max-height: 250px;
-     overflow-y: auto;
-     overflow-x: hidden;
+     //max-height: 250px;
+     //overflow-y: auto;
+     //overflow-x: hidden;
     @media (max-width: (768 + px)) {
       gap: 12px;
-      max-height: 100%;
-      overflow-x: auto;
+      //max-height: 100%;
+      //overflow-x: auto;
     }
   }
   &-models {
@@ -554,6 +570,42 @@
   }
   100% {
     transform: translateX(44px);
+  }
+}
+
+@keyframes toRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(44px)
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes changeColor {
+  0% {
+    color: var(--text-accent-blue)
+  }
+  45% {
+    color: var(--text-contrast)
+  }
+  100% {
+    color: var(--text-accent-blue)
+  }
+}
+
+@keyframes changeColorReverse {
+  0% {
+    color: var(--text-contrast)
+  }
+  45% {
+    color: var(--text-accent-blue)
+  }
+  100% {
+    color: var(--text-contrast)
   }
 }
 

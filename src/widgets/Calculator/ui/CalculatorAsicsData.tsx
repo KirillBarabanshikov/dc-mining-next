@@ -172,7 +172,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
               <Input
                 value={formatter.format(
                   calculatorType === 2
-                    ? ReadyBusinessTotalPrice(businessPackageAsics)
+                    ? ReadyBusinessTotalPrice(businessPackageAsics) ? ReadyBusinessTotalPrice(businessPackageAsics) : 0
                     : asic.price * asic.count,
                 )}
                 className='calculatorFeature-price-input'
