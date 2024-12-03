@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+// import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import { orderCall } from '@/entities/call';
 import { getPersonalData } from '@/entities/personalData';
 import { orderCallFormScheme, TOrderCallFormScheme } from '@/features/call/orderCall';
 import miner from '@/shared/assets/images/data-center/miner.png';
-import { MAX_WIDTH_MD, TURNSTILE_SITE_KEY } from '@/shared/consts';
+import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input, Modal, StateModal } from '@/shared/ui';
@@ -42,13 +42,14 @@ export const OrderCallBanner = () => {
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
         const entryPoint = sessionStorage.getItem('entryPoint') || '/test';
-        const token = document.querySelector<HTMLInputElement>('input[name="cf-turnstile-response"]')?.value;
+        // const token = document.querySelector<HTMLInputElement>('input[name="cf-turnstile-response"]')?.value;
 
         try {
-            await axios.post('/api/turnstile', { token });
+            // await axios.post('/api/turnstile', { token });
             await order({ ...data, title: 'Заказать обратный звонок', entryPoint });
             sendMetrikaGoal();
             reset();
+            // window.turnstile.reset();
         } catch (error) {
             console.error(error);
         }
@@ -96,12 +97,12 @@ export const OrderCallBanner = () => {
                                 className={styles.checkbox}
                                 {...register('checked')}
                             />
-                            <div
-                                className='cf-turnstile'
-                                data-sitekey={TURNSTILE_SITE_KEY}
-                                data-callback='javascriptCallback'
-                                data-theme={'light'}
-                            ></div>
+                            {/*<div*/}
+                            {/*    className='cf-turnstile'*/}
+                            {/*    data-sitekey={TURNSTILE_SITE_KEY}*/}
+                            {/*    data-callback='javascriptCallback'*/}
+                            {/*    data-theme={'light'}*/}
+                            {/*></div>*/}
                             <div className={styles.buttons}>
                                 <Button
                                     type={'submit'}

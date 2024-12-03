@@ -12,12 +12,10 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: 'Токен отсутствует' }, { status: 400 });
         }
         const ip = headers().get('x-real-ip');
-
         const verifyFormData = new FormData();
         verifyFormData.append('secret', TURNSTILE_SECRET_KEY);
         verifyFormData.append('response', String(token));
         verifyFormData.append('remoteip', String(ip));
-
         const url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
         const result = await fetch(url, {
@@ -26,6 +24,10 @@ export async function POST(req: NextRequest) {
         });
 
         const outcome = await result.json();
+
+        if (!outcome.success) {
+            return NextResponse.json({ message: outcome }, { status: 400 });
+        }
 
         return NextResponse.json({ message: outcome });
     } catch (error) {
