@@ -4,8 +4,6 @@ import clsx from 'clsx';
 import React, { forwardRef, useEffect, useState } from 'react';
 import ReCAPTCHA, { ReCAPTCHAProps } from 'react-google-recaptcha';
 
-import { RECAPTCHA_SITE_KEY } from '@/shared/consts';
-
 interface ICaptchaProps {
     onCaptchaVerify: (verify: boolean) => void;
     onExpired: () => void;
@@ -35,12 +33,7 @@ export const Captcha = forwardRef<ReCAPTCHA, ICaptchaProps>(({ onCaptchaVerify, 
 
     return (
         <div style={{ transformOrigin: '0 0' }} className={clsx(className)}>
-            <RecaptchaComponent
-                ref={ref}
-                sitekey={RECAPTCHA_SITE_KEY}
-                onChange={handleCaptchaVerify}
-                onExpired={onExpired}
-            />
+            <RecaptchaComponent ref={ref} sitekey={''} onChange={handleCaptchaVerify} onExpired={onExpired} />
         </div>
     );
 });
