@@ -12,6 +12,7 @@ export { LogoAnimationBanner } from './LogoAnimationBanner';
 export { MainBanner } from './MainBanner';
 export { MainBannersList } from './MainBannersList';
 export { Managers } from './Managers';
+export { Map } from './Map';
 export { Offers } from './Offers';
 export { ProductsList } from './ProductsList';
 export { RecentProductsList } from './RecentProductsList';

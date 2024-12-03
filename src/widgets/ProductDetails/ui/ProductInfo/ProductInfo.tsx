@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 
 import { IProduct } from '@/entities/product';
 import { AddToCompareButton, AddToFavoritesButton, OrderProductModal } from '@/features/product';
@@ -16,13 +16,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <section className={styles.info} itemScope itemType='https://schema.org/Offer'>
-            <meta itemProp='priceCurrency' content='RUB' />
-            <meta itemProp='price' content={String(product.price) || 'Цена по запросу'} />
-            <link itemProp='availability' href='https://schema.org/InStock' />
-            <meta itemProp='itemCondition' content='https://schema.org/NewCondition' />
-            <meta itemProp='url' content={`https://dc-mining.ru/product/${product?.id}/${product?.slug}`} />
-
+        <section className={styles.info}>
             {!!product.tags.length && (
                 <div className={styles.tags}>
                     {product.tags.map((tag) => {
@@ -31,7 +25,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                 </div>
             )}
             <div className={styles.content}>
-                <h1>{product.seoHOne ? product.seoHOne : product.title}</h1>
+                <h1 itemProp='name'>{product.seoHOne ? product.seoHOne : product.title}</h1>
                 <div className={styles.specifications}>
                     {product.value
                         .filter((value) => value.display)
@@ -46,14 +40,43 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
                             );
                         })}
                 </div>
-                <div className={styles.description} dangerouslySetInnerHTML={{ __html: product.shortDescription }} />
-                <div>
+                <div
+                    itemProp='description'
+                    className={styles.description}
+                    dangerouslySetInnerHTML={{ __html: product.shortDescription }}
+                />
+
+                <div itemProp='offers' itemScope itemType='https://schema.org/Offer'>
                     {!!product.oldPrice && (
                         <span className={styles.oldPrice}>{formatter.format(product.oldPrice)}</span>
                     )}
-                    <p className={styles.price}>
-                        {product.price ? formatter.format(product.price) : 'Цена по запросу'}
-                    </p>
+                    <span itemProp='price' className={styles.price}>
+                        {product.price
+                            ? new Intl.NumberFormat('ru-RU', {
+                                  currency: 'RUB',
+                                  maximumFractionDigits: 0,
+                              }).format(product.price)
+                            : 'Цена по запросу'}
+                    </span>
+                    <span> </span>
+                    <span itemProp='priceCurrency' content='RUB' className={styles.price}>
+                        ₽
+                    </span>
+                    {product.tags.map((tag) => {
+                        const tagTitle = tag.title.toLowerCase();
+
+                        if (tagTitle === 'в наличии') {
+                            return <link key={tag.id} itemProp='availability' href='https://schema.org/InStock' />;
+                        }
+
+                        if (tagTitle === 'новинка') {
+                            return (
+                                <link key={tag.id} itemProp='itemCondition' href='https://schema.org/NewCondition' />
+                            );
+                        }
+
+                        return <Fragment key={tag.id} />;
+                    })}
                 </div>
                 <div className={styles.buttons}>
                     <Button size={'sm'} className={styles.button} onClick={() => setIsOpen(true)}>

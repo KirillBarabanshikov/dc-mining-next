@@ -53,7 +53,7 @@ export const SendRequestForm = () => {
     });
 
     const onSubmit = async (data: TSendRequestFormScheme) => {
-        const entryPoint = localStorage.getItem('entryPoint') || '';
+        const entryPoint = sessionStorage.getItem('entryPoint') || '';
 
         try {
             // if (!captchaVerified) return;

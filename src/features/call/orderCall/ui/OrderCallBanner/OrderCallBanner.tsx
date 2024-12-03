@@ -1,6 +1,6 @@
-// import { useRef, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+// import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import { orderCall } from '@/entities/call';
@@ -10,21 +10,11 @@ import miner from '@/shared/assets/images/data-center/miner.png';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
-// import ReCAPTCHA from 'react-google-recaptcha';
-import {
-    Button,
-    // Captcha,
-    Checkbox,
-    Input,
-    Modal,
-    StateModal,
-} from '@/shared/ui';
+import { Button, Checkbox, Input, Modal, StateModal } from '@/shared/ui';
 
 import styles from './OrderCallBanner.module.scss';
 
 export const OrderCallBanner = () => {
-    // const [captchaVerified, setCaptchaVerified] = useState(false);
-    // const recaptchaRef = useRef<ReCAPTCHA | null>(null);
     const matches = useMediaQuery(MAX_WIDTH_MD);
     const { sendMetrikaGoal } = useMetrikaGoal();
 
@@ -51,17 +41,15 @@ export const OrderCallBanner = () => {
     } = useForm<TOrderCallFormScheme>({ resolver: yupResolver(orderCallFormScheme) });
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
-        // if (!captchaVerified) return;
-        const entryPoint = localStorage.getItem('entryPoint') || '';
+        const entryPoint = sessionStorage.getItem('entryPoint') || '/test';
+        // const token = document.querySelector<HTMLInputElement>('input[name="cf-turnstile-response"]')?.value;
+
         try {
+            // await axios.post('/api/turnstile', { token });
             await order({ ...data, title: 'Заказать обратный звонок', entryPoint });
             sendMetrikaGoal();
             reset();
-            // setCaptchaVerified(false);
-
-            // if (recaptchaRef.current) {
-            //     recaptchaRef.current.reset();
-            // }
+            // window.turnstile.reset();
         } catch (error) {
             console.error(error);
         }
@@ -109,12 +97,13 @@ export const OrderCallBanner = () => {
                                 className={styles.checkbox}
                                 {...register('checked')}
                             />
+                            {/*<div*/}
+                            {/*    className='cf-turnstile'*/}
+                            {/*    data-sitekey={TURNSTILE_SITE_KEY}*/}
+                            {/*    data-callback='javascriptCallback'*/}
+                            {/*    data-theme={'light'}*/}
+                            {/*></div>*/}
                             <div className={styles.buttons}>
-                                {/*<Captcha*/}
-                                {/*    ref={recaptchaRef}*/}
-                                {/*    onCaptchaVerify={(verify) => setCaptchaVerified(verify)}*/}
-                                {/*    onExpired={() => setCaptchaVerified(false)}*/}
-                                {/*/>*/}
                                 <Button
                                     type={'submit'}
                                     size={matches ? 'md' : 'lg'}

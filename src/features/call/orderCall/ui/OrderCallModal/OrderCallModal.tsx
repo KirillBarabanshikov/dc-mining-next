@@ -61,7 +61,7 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({ title, subtitle, isOp
     } = useForm<TOrderCallFormScheme>({ resolver: yupResolver(orderCallFormScheme) });
 
     const onSubmit = async (data: TOrderCallFormScheme) => {
-        const entryPoint = localStorage.getItem('entryPoint') || '';
+        const entryPoint = sessionStorage.getItem('entryPoint') || '';
 
         try {
             // if (!captchaVerified) return;

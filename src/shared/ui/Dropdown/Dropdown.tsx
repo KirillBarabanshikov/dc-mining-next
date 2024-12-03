@@ -47,7 +47,7 @@ export const Dropdown: FC<IDropdownProps> = ({
 
     useEffect(() => {
         if (typeof reset !== 'undefined') setSelectedValue(defaultValue);
-    }, [reset, defaultValue]);
+    }, [reset]);
 
     const handleSelect = (value: string) => {
         let selected = selectedValue;

@@ -4,8 +4,11 @@ declare global {
     interface Window {
         phone: string | undefined;
         ym: (id: number, method: string, ...args: any[]) => void;
+        turnstile: any;
         // mgo: any;
     }
+
+    const ymaps: any;
 }
 
 export {};
