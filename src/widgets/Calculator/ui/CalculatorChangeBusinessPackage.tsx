@@ -1,5 +1,5 @@
-import { Button } from '@/shared/ui';
 import PencilIcon from '@/shared/assets/icons/pencil.svg';
+import { Button } from '@/shared/ui';
 
 interface Props {
     calculatorType: number;

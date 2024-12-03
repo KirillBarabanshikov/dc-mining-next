@@ -1,5 +1,6 @@
-import { Input } from '@/shared/ui';
 import { ChangeEvent } from 'react';
+
+import { Input } from '@/shared/ui';
 
 interface Props {
     electricityCoast: number;
