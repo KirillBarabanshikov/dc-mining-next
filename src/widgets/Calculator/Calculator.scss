@@ -23,17 +23,19 @@
     display: flex;
     padding: 4px;
     border-radius: 16px;
-    gap: 4px;
+    gap: 8px;
     background: var(--background-secondary);
     @media (max-width: (768 + px)) {
+      gap: 16px;
       overflow-x: auto;
       margin: 0 auto;
       &::-webkit-scrollbar {
         display: none;
       }
     }
-    @media (max-width: (540 + px)) {
+    @media (max-width: (768 + px)) {
       width: 100%;
+      flex-direction: column;
     }
   }
   &-type {
@@ -161,6 +163,10 @@
     background: var(--button-normal);
     position: relative;
 
+    &-pro {
+      background: var(--text-accent);
+    }
+
     &.active {
       &::before {
         transform: translateX(44px);
@@ -171,7 +177,7 @@
           color: var(--text-contrast);
         }
         &:nth-child(2) {
-          color: var(--text-accent-blue);
+          color: var(--text-accent);
         }
       }
     }
@@ -202,6 +208,9 @@
       width: 42px;
       &.active {
         color: var(--text-accent-blue);
+      }
+      &.active-pro {
+        color: var(--text-accent);
       }
     }
   }
@@ -352,6 +361,7 @@
 }
 
 .calculatorTotal {
+  min-width: 490px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -361,11 +371,15 @@
     font-weight: 700;
     color: var(--text-accent-blue);
     &-dataCenter {
+      position: relative;
       font-size: 20px;
       font-weight: 700;
       color: var(--text-primary);
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+      @media (max-width: 520 + 'px') {
+        font-size: 16px;
+      }
     }
   }
   &-list {
@@ -379,7 +393,7 @@
     font-size: 14px;
     color: var(--text-secondary);
     padding: 10px 16px;
-    border-radius: 8px;
+    border-radius: 16px;
     background: var(--background-white);
     line-height: 1.3;
     &:nth-child(odd) {
@@ -392,19 +406,34 @@
       grid-template-columns: 2fr 1fr;
     }
     &-dataCenter {
-      grid-template-columns: 2fr 1fr 1fr;
+      max-height: 78px;
+      grid-template-columns: 1fr 1fr 1fr;
       position: relative;
-      padding: 30px 16px;
+      padding: 30px 10px;
       img {
         position: absolute;
         right: 10px;
         top: 10%;
+      }
+      &-old {
+        text-decoration: line-through;
+        font-weight: 700;
+      }
+      &-new {
+        color: var(--text-accent);
+        font-weight: 700;
+      }
+      @media (max-width: 620 + 'px') {
+        grid-template-columns: 1.5fr 1fr 1fr;
       }
     }
     &-leasing {
       font-size: 20px;
       grid-template-columns: 2fr 1fr;
       padding: 19px 16px;
+      @media (max-width: 768 + 'px') {
+        font-size: 16px;
+      }
     }
   }
   &-btns {
@@ -430,6 +459,15 @@
       line-height: 48px;
       margin-bottom: 40px;
       margin-top: 20px;
+      @media (max-width: 768 + 'px') {
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+    &-btn {
+      @media (max-width: 768 + 'px') {
+        width: 100%;
+      }
     }
     &-header {
       font-size: 40px;
@@ -437,6 +475,10 @@
       font-weight: 700;
       span {
         color: var(--text-accent-blue);
+      }
+      @media (max-width: 768 + 'px') {
+        font-size: 32px;
+        text-align: center;
       }
     }
     @media (max-width: 768px) {
@@ -462,6 +504,45 @@
   }
 }
 
+.sale-image {
+  //position: relative;
+
+  .sale-badge {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    //transform: translate(-50%, -50%);
+    transform: translateY(-50%);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+
+    @media (max-width: 768px) {
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+
+    &-discount {
+      font-size: 16px;
+      text-transform: lowercase;
+    }
+    &-percent {
+      font-size: 20px;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+
+  }
+}
+
 @keyframes switchToggle {
   0% {
     transform: translateX(0);
@@ -479,3 +560,66 @@
     transform: translateX(0);
   }
 }
+
+.calculator-type-accordion {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--background-secondary);
+  transition: all 0.3s ease;
+  margin-bottom: 0;
+
+  @media (max-width: 768 + 'px') {
+    margin-bottom: 8px;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 30px;
+    cursor: pointer;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+
+    .accordion-arrow {
+      transition: transform 0.3s ease;
+      transform: rotate(0);
+    }
+
+    &.active {
+      color: var(--text-contrast);
+      background: var(--button-normal);
+    }
+  }
+
+  &.open {
+    .calculator-type-accordion-header {
+      .accordion-arrow {
+        transform: rotate(180deg);
+      }
+    }
+
+    .calculator-type-accordion-content {
+      max-height: 100%;
+      opacity: 1;
+      padding: 12px 16px;
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+    }
+  }
+
+  &-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background: var(--background-primary);
+  }
+}
+
+
+
+

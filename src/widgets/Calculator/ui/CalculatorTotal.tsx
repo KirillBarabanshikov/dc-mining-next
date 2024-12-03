@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { OrderCallModal } from '@/features/call';
 import { OrderProductModal } from '@/features/product';
-import sale from '@/shared/assets/images/calculator/sale.png';
+import sale from '@/shared/assets/images/calculator/sale-side.png';
 import { Button } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 
@@ -144,19 +144,47 @@ export const CalculatorTotal: React.FC<Props> = ({
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>Тариф, ₽ кВт/час</span>
               <span>{electricityCoast + electricityCoast * 0.1}</span>
-              <span>{electricityCoast}</span>
-              <Image src={sale} alt='sale image' />
+              <span>
+                <span className='calculatorTotal-item-dataCenter-old'>
+                  {electricityCoast + electricityCoast * 0.1}
+                </span>{' '}
+                <span className='calculatorTotal-item-dataCenter-new'>
+                  {electricityCoast}
+                </span>
+              </span>
+              <div className='sale-image'>
+                <span className='sale-badge'>
+                  <span className='sale-badge-discount'>Скидка</span> <br />{' '}
+                  <span className='sale-badge-percent'>-10%</span>
+                </span>
+                <Image src={sale} alt='sale image' />
+              </div>
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
-              <span>Общее потребление в месяц, кВт</span>
+              <span>
+                Общее потребление в <br /> месяц, кВт
+              </span>
               <span>{totalConsumption}</span>
-              <span>{totalConsumption}</span>
+              <span style={{fontWeight: 700}}>{totalConsumption}</span>
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>Ежемесячные расходы, ₽</span>
               <span>{totalPriceGuests}</span>
-              <span>{electricityConsumption}</span>
-              <Image src={sale} alt='sale image' />
+              <span>
+                <span className='calculatorTotal-item-dataCenter-old'>
+                  {totalPriceGuests}
+                </span>{' '}
+                <span className='calculatorTotal-item-dataCenter-new'>
+                  {electricityConsumption}
+                </span>
+              </span>
+              <div className='sale-image'>
+                <span className='sale-badge'>
+                  <span className='sale-badge-discount'>Скидка</span> <br />{' '}
+                  <span className='sale-badge-percent'>-10%</span>
+                </span>
+                <Image src={sale} alt='sale image' />
+              </div>
             </div>
           </div>
           <div className='calculatorTotal-btns'>

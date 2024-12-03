@@ -136,3 +136,16 @@
     }
   }
 }
+
+.search {
+  padding: 0 10px 10px 10px;
+  //border-bottom: 1px solid var(--text-secondary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--stroke-fourthiary);
+  border-radius: 8px;
+  outline: none;
+}

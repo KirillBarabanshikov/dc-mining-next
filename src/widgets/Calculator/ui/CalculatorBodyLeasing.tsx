@@ -16,7 +16,7 @@ const CalculatorBodyLeasing = () => {
           <p className='leasing-content-description'>
             Оставьте заявку, мы подберем лучшее предложение
           </p>
-          <Button variant='solid' size='lg' onClick={() => setIsOpen(true)}>
+          <Button className='leasing-content-btn' variant='solid' size='lg' onClick={() => setIsOpen(true)}>
             Оставить заявку
           </Button>
         </div>

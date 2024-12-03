@@ -27,6 +27,7 @@ interface IDropdownProps extends PropsWithChildren {
   reset?: boolean;
   className?: string;
   hasIcon?: boolean;
+  searchable?: boolean;
 }
 
 export const Dropdown: FC<IDropdownProps> = ({
@@ -42,11 +43,16 @@ export const Dropdown: FC<IDropdownProps> = ({
   reset,
   className,
   hasIcon = true,
+  searchable = false,
 }) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue);
   const [isOpen, setIsOpen] = useState(open);
   const ref = useOutsideClick<HTMLDivElement>(() =>
     physical ? {} : setIsOpen(false),
+  );
+  const filteredItems = items.filter((item) =>
+      item.label.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
@@ -100,17 +106,29 @@ export const Dropdown: FC<IDropdownProps> = ({
       {variant === 'dropdown' && (
         <AnimatePresence initial={false}>
           {isOpen && (
-            <>
-              <ItemsList
-                items={items}
-                handleSelect={handleSelect}
-                multiply={multiply}
-                selectedValue={selectedValue}
-                hasIcon={hasIcon}
-              >
-                {children}
-              </ItemsList>
-            </>
+              <>
+
+                <ItemsList
+                    items={searchable ? filteredItems : items}
+                    handleSelect={handleSelect}
+                    multiply={multiply}
+                    selectedValue={selectedValue}
+                    hasIcon={hasIcon}
+                >
+                  {searchable && (
+                      <div className={styles.search}>
+                        <input
+                            type="text"
+                            placeholder="Поиск..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className={styles.searchInput}
+                        />
+                      </div>
+                  )}
+                  {children}
+                </ItemsList>
+              </>
           )}
         </AnimatePresence>
       )}

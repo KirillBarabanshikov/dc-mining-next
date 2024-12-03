@@ -25,18 +25,22 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
   const { removeBusinessPackageAsic, businessPackageAsics } =
     useCalculatorStore();
 
-  // const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
-  //   const hoursInMonth = 24 * 30;
-  //   return ((asic.watt * asic.count * hoursInMonth) / 1000).toFixed(0);
-  // };
+  const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
+    const hoursInMonth = 24 * 30;
+    return ((asic.watt * hoursInMonth) / 1000).toFixed(0);
+  };
 
   return (
     <>
       <span className='calculatorFeature-packages-title'>Состав пакета</span>
       <div className='calculatorFeature-row'>
         <span className='calculatorFeature-description'>Модель</span>
-        <span className='calculatorFeature-description'>Количество</span>
-        {/* <span className='calculatorFeature-description'>Цена</span> */}
+        {!matches && (
+          <span className='calculatorFeature-description'>Количество</span>
+        )}
+        {!matches && (
+          <span className='calculatorFeature-description'>Расход кВт/мес.</span>
+        )}
       </div>
       {businessPackageAsics.map((asic, index) => (
         <div
@@ -48,6 +52,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
               defaultValue={[asic.id ? asic.id.toString() : '29']}
               items={businessInitialItems}
               hasIcon={false}
+              searchable={true}
               onChange={(value) => onAsicChange(value, index)}
             />
           </div>
@@ -86,17 +91,17 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
 
           <div className='calculatorFeature-col'>
             {matches && (
-              <span className='calculatorFeature-description'>Цена</span>
+              <span className='calculatorFeature-description'>Расход кВт/мес.</span>
             )}
             <div className='calculatorFeature-trash'>
-              {/* <div className='calculatorFeature-price'>
+              <div className='calculatorFeature-price'>
                 <Input
-                  value={formatter.format(asic.price * asic.count)}
+                  value={getTotalPowerConsumptionPerMonth(asic)}
                   className='calculatorFeature-price-input'
                   sizes='md'
                   disabled
                 />
-              </div> */}
+              </div>
               <IconButton
                 icon={<TrashIcon />}
                 onClick={() => removeBusinessPackageAsic(asic.additionalId)}

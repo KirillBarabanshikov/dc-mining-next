@@ -55,7 +55,6 @@ const CalculatorAsicsData: React.FC<Props> = ({
         count: item.productAsics.count,
         additionalId: item.productAsics.id.toString(),
       }));
-      console.log(businessPackages[0].title);
       setBusinessPackageAsics(packageAsics);
     }
   };
@@ -75,6 +74,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
             )}
             <div className='calculatorFeature-models'>
               <Dropdown
+                  searchable={true}
                 items={[
                   { label: 'Не выбрано', value: '' },
                   ...businessPackages.map((pkg) => ({
@@ -100,6 +100,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
 
             <div className='calculatorFeature-models'>
               <Dropdown
+                  searchable={true}
                 defaultValue={[asic.value]}
                 items={asics}
                 hasIcon={false}
