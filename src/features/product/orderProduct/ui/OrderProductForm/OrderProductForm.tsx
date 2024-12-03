@@ -55,9 +55,9 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({ onClose, product,
 
     const onSubmit = async (data: TOrderProductFormScheme) => {
         // if (!captchaVerified) return;
-
+        const entryPoint = localStorage.getItem('entryPoint') || '';
         try {
-            await order({ ...data, productId: product.id, price: price ?? 0, count });
+            await order({ ...data, productId: product.id, price: price ?? 0, count, entryPoint });
             sendMetrikaGoal();
         } catch (error) {
             console.error(error);

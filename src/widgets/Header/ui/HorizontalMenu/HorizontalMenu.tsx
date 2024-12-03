@@ -69,16 +69,12 @@ const MenuItemDropdown: FC<{ item: ICategory }> = ({ item }) => {
     const handleNavigate = (child: { id: number; slug: string; title: string }) => {
         let path = `/catalog/${item.slug}`;
 
-        if (item.title === 'asicMiners') {
+        if (item.title === 'asicMiners' || item.title === 'accessories' || item.title === 'containersMining') {
             path += `/${child.slug}`;
         }
 
         if (item.title === 'firmware') {
-            path += `?${new URLSearchParams(`brand=${child.title}&state=${child.title}`)}`;
-        }
-
-        if (item.title === 'accessories' || item.title === 'containersMining') {
-            path += `?${new URLSearchParams(`filter=${child.title}&state=${child.title}`)}`;
+            path += `?${new URLSearchParams(`brand=${child.title}`)}`;
         }
 
         router.push(path);

@@ -1,13 +1,13 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { FC } from 'react';
 
-import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
+import { getCatalogData, getCustomFilterBySlug, useCatalogFilters } from '@/entities/catalog';
 import { ICatalogData } from '@/entities/catalog/model';
-import { ICategory } from '@/entities/category';
+import { getSubCategoryBySlug, ICategory } from '@/entities/category';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Button, Pagination } from '@/shared/ui';
@@ -30,8 +30,27 @@ export const CatalogPagination: FC<ICatalogPaginationProps> = ({ countProducts, 
     const { getFilterBody } = useCatalogFilters();
     const { slug } = useParams<{ slug: string[] }>();
 
+    const { data: subCategory } = useQuery({
+        queryKey: ['subCategory', slug[1]],
+        queryFn: () => getSubCategoryBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
+
+    const { data: customFilter } = useQuery({
+        queryKey: ['customFilter', slug[1]],
+        queryFn: () => getCustomFilterBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
+
     const onSetPage = async (page: number, more: boolean) => {
-        const catalogData = await getCatalogData({ ...getFilterBody(category.title, slug), page });
+        const catalogData = await getCatalogData({
+            ...getFilterBody({
+                type: category?.title ?? '',
+                subCategory: subCategory ? slug[1] : undefined,
+                customFilter: customFilter ? slug[1] : undefined,
+            }),
+            page,
+        });
 
         if (!catalogData) return;
 
@@ -41,14 +60,19 @@ export const CatalogPagination: FC<ICatalogPaginationProps> = ({ countProducts, 
 
         if (more) {
             queryClient.setQueryData(
-                ['catalog', category.title, ...slug],
+                ['catalog', category.title, subCategory, slug[1], customFilter],
                 (oldData: ICatalogData): ICatalogData => ({
                     count: oldData.count,
                     products: [...oldData.products, ...catalogData.products],
+                    maxPrice: oldData.maxPrice,
+                    minPrice: oldData.minPrice,
                 }),
             );
         } else {
-            queryClient.setQueryData(['catalog', category.title, ...slug], () => catalogData);
+            queryClient.setQueryData(
+                ['catalog', category.title, subCategory, slug[1], customFilter],
+                () => catalogData,
+            );
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };

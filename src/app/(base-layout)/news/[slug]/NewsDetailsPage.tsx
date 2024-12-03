@@ -1,12 +1,12 @@
 'use client';
 
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { FC } from 'react';
 
-import { getMassMediaById } from '@/entities/pageInfo';
+import { getMassMediaBySlug } from '@/entities/pageInfo';
 import { BASE_URL } from '@/shared/consts';
 import { Breadcrumbs } from '@/shared/ui';
 
@@ -20,9 +20,9 @@ const paths = [
 const NewsDetailsPage: FC = () => {
     const { slug } = useParams<{ slug: string }>();
 
-    const { data: massMedia } = useSuspenseQuery({
+    const { data: massMedia } = useQuery({
         queryKey: ['news', slug],
-        queryFn: () => getMassMediaById(slug),
+        queryFn: () => getMassMediaBySlug(slug),
     });
 
     if (!massMedia) return <></>;
@@ -37,13 +37,15 @@ const NewsDetailsPage: FC = () => {
             <section>
                 <div className={clsx(styles.container, 'container')}>
                     <h1 className={styles.title}>{massMedia.title}</h1>
-                    <Image
-                        src={BASE_URL + massMedia.image}
-                        alt={massMedia.title}
-                        width={904}
-                        height={508}
-                        className={styles.image}
-                    />
+                    {massMedia.image && (
+                        <Image
+                            src={BASE_URL + massMedia.image}
+                            alt={massMedia.title}
+                            width={904}
+                            height={508}
+                            className={styles.image}
+                        />
+                    )}
                     <div dangerouslySetInnerHTML={{ __html: massMedia.description }} className={styles.description} />
                 </div>
             </section>

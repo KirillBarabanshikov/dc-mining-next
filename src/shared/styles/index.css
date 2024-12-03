@@ -184,6 +184,20 @@ input[type='number'] {
     }
 }
 
+.track {
+    background-color: var(--button-normal);
+    height: 100%;
+    border-radius: 5px;
+}
+
+.track-0 {
+    background-color: #ddd;
+}
+
+.track-2 {
+    background-color: #ddd;
+}
+
 @media screen and (max-width: 1200px) {
     .list {
         font-size: 14px;

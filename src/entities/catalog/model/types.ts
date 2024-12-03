@@ -41,6 +41,12 @@ export interface IFilterParams {
 export interface ICustomFilter {
     id: number;
     title: string;
+    slug: string;
+    visible: boolean;
+    hOne: string;
+    seoTitle: string;
+    seoDescription: string;
+    productText: string;
     productCategoryTitle: string;
 }
 
@@ -52,4 +58,6 @@ export interface ICatalogProducts {
 export interface ICatalogData {
     count: number;
     products: IProduct[];
+    minPrice: number;
+    maxPrice: number;
 }
