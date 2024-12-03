@@ -603,13 +603,13 @@
 
 @keyframes changeColorReverse {
   0% {
-    color: var(--text-contrast-alpha-20)
+    color: var(--text-contrast)
   }
   45% {
     color: var(--text-accent)
   }
   100% {
-    color: var(--text-contrast-alpha-20)
+    color: var(--text-contrast)
   }
 }
 
