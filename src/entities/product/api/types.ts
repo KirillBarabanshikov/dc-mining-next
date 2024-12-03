@@ -25,9 +25,10 @@ export interface IProductDto {
         color: string;
     }[];
     display: boolean;
-    productSubCategory?: {
+    productSubCategory: {
         id: number;
         title: string;
+        slug: string;
     };
     count?: number;
     profitable?: number;
