@@ -38,7 +38,13 @@ export const ProductSlider: FC<IProductSliderProps> = ({ images }) => {
                     {images.map((image) => (
                         <SwiperSlide key={image.id} className={styles.slide}>
                             <div className={styles.image}>
-                                <Image src={image.image || ''} alt={'image'} width={100} height={100} />
+                                <Image
+                                    src={image.image || ''}
+                                    alt={'image'}
+                                    width={100}
+                                    height={100}
+                                    itemProp='image'
+                                />
                             </div>
                         </SwiperSlide>
                     ))}
@@ -60,7 +66,13 @@ export const ProductSlider: FC<IProductSliderProps> = ({ images }) => {
                     {images.map((image) => (
                         <SwiperSlide key={image.id}>
                             <div className={styles.mainImage}>
-                                <Image src={image.image || ''} alt={'image'} width={476} height={464} />
+                                <Image
+                                    src={image.image || ''}
+                                    alt={'image'}
+                                    width={476}
+                                    height={464}
+                                    itemProp='image'
+                                />
                             </div>
                         </SwiperSlide>
                     ))}

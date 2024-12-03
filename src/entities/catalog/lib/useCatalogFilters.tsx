@@ -22,18 +22,33 @@ export const useCatalogFilters = () => {
         }
     };
 
-    const getFilterBody = (type: string, slug?: string[], brand?: string): ICatalogParams => {
+    const getFilterBody = ({
+        type,
+        subCategory,
+        customFilter,
+        brand,
+    }: {
+        type: string;
+        subCategory?: string;
+        customFilter?: string;
+        brand?: string;
+    }): ICatalogParams => {
         const body: ICatalogParams = {
             type: type,
         };
 
-        if (slug) {
-            body.type = slug.length === 1 ? type : 'slugCategory';
-            body.brand = slug.length === 1 ? undefined : slug[slug.length - 1];
+        if (subCategory) {
+            body.type = 'slugCategory';
+            body.brand = subCategory;
         }
 
         if (brand) {
             body.brand = brand;
+        }
+
+        if (customFilter) {
+            body.type = type;
+            body.customFilters = customFilter;
         }
 
         const characteristics: string[] = [];
@@ -93,14 +108,14 @@ export const useCatalogFilters = () => {
             body.powerful = true;
         }
 
-        if (params.get('filter')) {
-            body.type = type;
-            body.customFilters = params.get('filter') ?? '';
-        }
-
         if (params.get('page')) {
             body.type = type;
             body.page = params.get('page') ?? '1';
+        }
+
+        if (params.get('price')) {
+            body.type = type;
+            body.price = params.get('price')!;
         }
 
         return body;

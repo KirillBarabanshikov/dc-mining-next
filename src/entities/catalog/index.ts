@@ -1,3 +1,3 @@
-export { getCatalogData, getCustomFilters, type IFilterDto } from './api';
+export { getCatalogData, getCustomFilterBySlug, getCustomFilters, type IFilterDto } from './api';
 export { useCatalogFilters } from './lib';
-export { useCatalogStore } from './model';
+export { type ICatalogData, useCatalogStore } from './model';

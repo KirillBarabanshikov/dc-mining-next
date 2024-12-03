@@ -1,13 +1,13 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { FC, PropsWithChildren, useEffect } from 'react';
 
 import { useMangoStore } from '@/shared/lib';
 
 export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
     const pathname = usePathname();
-
+    const searchParams = useSearchParams();
     const { setNumber } = useMangoStore();
 
     useEffect(() => {
@@ -16,16 +16,13 @@ export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
         if (window.ym) {
             window.ym(98130237, 'hit');
         }
+    }, [pathname, searchParams, setNumber]);
 
-        // if (window.mgo) {
-        //     window.mgo(function (mg: any) {
-        //         mg?.getNumber('', function (result: any) {
-        //             setNumber(result.number.toString());
-        //             window.phone = result.number;
-        //         });
-        //     });
-        // }
-    }, [pathname, setNumber]);
+    useEffect(() => {
+        if (!sessionStorage.getItem('entryPoint')) {
+            sessionStorage.setItem('entryPoint', document.referrer);
+        }
+    }, []);
 
     return <>{children}</>;
 };

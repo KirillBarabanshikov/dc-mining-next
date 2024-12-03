@@ -7,4 +7,5 @@ export interface IServiceFormBody {
     description: string;
     address: string;
     buy: boolean;
+    entryPoint: string;
 }

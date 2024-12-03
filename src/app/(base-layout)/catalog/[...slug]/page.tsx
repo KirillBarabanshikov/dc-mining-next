@@ -1,33 +1,49 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
+import { getCustomFilterBySlug } from '@/entities/catalog';
 import { getCategoryBySlug, getSubCategoryBySlug, ICategory } from '@/entities/category';
 import { getSeo, getSeos } from '@/entities/seo';
 
 import CatalogPage from './CatalogPage';
 
-export async function generateMetadata({ params }: { params: { slug: string[] } }) {
-    let choose: string;
-    if (params.slug.length === 1) {
-        const category = await getCategoryBySlug(params.slug[0]);
-        choose = category?.seoName || '';
-    } else {
-        choose = params.slug[params.slug.length - 1];
-    }
-    const seo = await getSeo(choose);
+interface IMetadata {
+    title?: string;
+    description?: string;
+    alternates: { canonical: string };
+}
 
-    return {
-        title: seo?.title,
-        description: seo?.description,
+export async function generateMetadata({ params }: { params: { slug: string[] } }) {
+    const metadata: IMetadata = {
         alternates: {
             canonical: `https://dc-mining.ru/catalog/${params.slug.join('/')}`,
         },
     };
+
+    if (params.slug.length === 1) {
+        const category = await getCategoryBySlug(params.slug[0]);
+        const seo = await getSeo(category?.seoName || '');
+        metadata.title = seo?.title;
+        metadata.description = seo?.description;
+    }
+
+    if (params.slug.length === 2) {
+        const seo = await getSeo(params.slug[1]);
+        if (seo) {
+            metadata.title = seo?.title;
+            metadata.description = seo?.description;
+        } else {
+            const customFilter = await getCustomFilterBySlug(params.slug[1]);
+            metadata.title = customFilter?.seoTitle;
+            metadata.description = customFilter?.seoDescription;
+        }
+    }
+
+    return metadata;
 }
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
     const queryClient = new QueryClient();
-    const withSubCategory = params.slug.length > 1;
 
     await Promise.all([
         queryClient.prefetchQuery({
@@ -39,17 +55,19 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
             queryFn: getSeos,
             staleTime: Infinity,
         }),
-        withSubCategory &&
-            queryClient.prefetchQuery({
-                queryKey: ['subCategory', params.slug[1]],
-                queryFn: () => getSubCategoryBySlug(params.slug[1]),
-            }),
+        queryClient.prefetchQuery({
+            queryKey: ['subCategory', params.slug[1]],
+            queryFn: () => getSubCategoryBySlug(params.slug[1]),
+        }),
+        queryClient.prefetchQuery({
+            queryKey: ['customFilter', params.slug[1]],
+            queryFn: () => getCustomFilterBySlug(params.slug[1]),
+        }),
     ]);
 
     const category = queryClient.getQueryData<ICategory>(['category', params.slug[0]]);
-    const subCategory = queryClient.getQueryData(['subCategory', params.slug[1]]);
 
-    if (!category || (withSubCategory && !subCategory)) return notFound();
+    if (!category) return notFound();
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>

@@ -53,9 +53,11 @@ export const SendRequestForm = () => {
     });
 
     const onSubmit = async (data: TSendRequestFormScheme) => {
+        const entryPoint = sessionStorage.getItem('entryPoint') || '';
+
         try {
             // if (!captchaVerified) return;
-            await sendRequest({ ...data, buy: !!data.buy, mediaFile: data.mediaFile?.[0] });
+            await sendRequest({ ...data, buy: !!data.buy, mediaFile: data.mediaFile?.[0], entryPoint });
             sendMetrikaGoal();
             reset();
             setResetFile(true);

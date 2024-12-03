@@ -15,6 +15,11 @@ export interface IProduct {
     seoTitle: string;
     seoDescription: string;
     seoHOne: string;
+    productSubCategory: {
+        id: number;
+        title: string;
+        slug: string;
+    };
 }
 
 interface IProductValue {

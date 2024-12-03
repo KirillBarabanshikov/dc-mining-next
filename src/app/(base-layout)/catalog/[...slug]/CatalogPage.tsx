@@ -3,9 +3,8 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
-import { useEffect, useRef } from 'react';
 
-import { getCatalogData, useCatalogFilters } from '@/entities/catalog';
+import { getCatalogData, getCustomFilterBySlug, useCatalogFilters } from '@/entities/catalog';
 import { getCategoryBySlug, getSubCategoryBySlug } from '@/entities/category';
 import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
@@ -20,10 +19,9 @@ const paths = [{ name: 'Главная', path: '/' }];
 const CatalogPage = () => {
     const { slug } = useParams<{ slug: string[] }>();
     const matches = useMediaQuery('(max-width: 855px)');
-    const { getFilterBody, params } = useCatalogFilters();
-    const state = useRef<string | null>(null);
+    const { getFilterBody } = useCatalogFilters();
 
-    const { data: category } = useSuspenseQuery({
+    const { data: category } = useQuery({
         queryKey: ['category', slug[0]],
         queryFn: () => getCategoryBySlug(slug[0]),
     });
@@ -34,30 +32,34 @@ const CatalogPage = () => {
         enabled: !!slug[1],
     });
 
-    const { data: seos } = useSuspenseQuery({
+    const { data: customFilter } = useQuery({
+        queryKey: ['customFilter', slug[1]],
+        queryFn: () => getCustomFilterBySlug(slug[1]),
+        enabled: !!slug[1],
+    });
+
+    const { data: seos } = useQuery({
         queryKey: ['seos'],
         queryFn: getSeos,
         staleTime: Infinity,
     });
 
-    const { data: catalogData, refetch } = useSuspenseQuery({
-        queryKey: ['catalog', category?.title, ...slug],
+    const { data: catalogData } = useSuspenseQuery({
+        queryKey: ['catalog', category?.title, subCategory, slug[1], customFilter],
         queryFn: () =>
             getCatalogData({
-                ...getFilterBody(category?.title ?? '', slug),
+                ...getFilterBody({
+                    type: category?.title ?? '',
+                    subCategory: subCategory ? slug[1] : undefined,
+                    customFilter: customFilter ? slug[1] : undefined,
+                }),
             }),
         staleTime: 0,
     });
 
-    useEffect(() => {
-        if (params.get('state') !== state.current) {
-            state.current = params.get('state');
-            refetch({ cancelRefetch: false });
-        }
-    }, [params, refetch]);
-
     const choose = slug.length === 1 ? category?.seoName : slug[1];
     const currentSeo = seos?.find((seo) => seo.choose === choose);
+    const title = currentSeo?.hOne || customFilter?.hOne;
 
     return (
         <div className={styles.catalog}>
@@ -66,23 +68,19 @@ const CatalogPage = () => {
                     paths={[
                         ...paths,
                         ...(category ? [{ name: category.name, path: `/catalog/${category.slug}` }] : []),
-                        ...(category && subCategory
-                            ? [{ name: subCategory.title, path: `/catalog/${category.slug}/${subCategory.slug}` }]
+                        ...(category && (subCategory || customFilter)
+                            ? [{ name: subCategory?.title || customFilter?.title || '', path: '' }]
                             : []),
                     ]}
                 />
                 <div className={styles.catalogTitle}>
-                    <h1>{currentSeo?.hOne ? currentSeo.hOne : category?.name}</h1>
+                    <h1>{title || category?.name}</h1>
                     <span>{`${catalogData?.count} товаров`}</span>
                 </div>
             </div>
-            {category && (
+            {category && catalogData && (
                 <>
-                    <Catalog
-                        products={catalogData?.products ?? []}
-                        countProducts={catalogData?.count ?? 0}
-                        category={category}
-                    />
+                    <Catalog catalogData={catalogData} category={category} />
                     <LivePhotos
                         images={category.images.map(({ image }) => image ?? '')}
                         className={styles.livePhotos}
