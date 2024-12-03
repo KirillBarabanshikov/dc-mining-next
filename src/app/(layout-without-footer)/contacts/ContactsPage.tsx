@@ -94,7 +94,7 @@ export const ContactsPage = () => {
                                         dangerouslySetInnerHTML={{ __html: contacts.hosting }}
                                     />
                                 </div>
-                                <Map coordinates={contacts.coordinatesOffice} />
+                                <Map coordinates={contacts.coordinatesHosting} />
                             </div>
                         </div>
                     </div>
