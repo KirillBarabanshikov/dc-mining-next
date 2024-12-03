@@ -22,6 +22,7 @@ export const CalculatorHead: React.FC<Props> = ({
                 !isPro
                     ? 'calculatorFeature-switch'
                     : 'calculatorFeature-switch calculatorFeature-switch-pro',
+                isProError && 'calculatorFeature-switch-error',
                 {
                   'active': isPro,
                     'active-error': isProError
