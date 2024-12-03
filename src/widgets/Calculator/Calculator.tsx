@@ -84,7 +84,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   const changeElectricityCoast = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
 
-    const numericValue = newValue.trim() === '' ? 0 : parseFloat(newValue);
+    // const numericValue = newValue.trim() === '' ? 0 : parseFloat(newValue);
 
     if (!isPro) {
       e.preventDefault();
@@ -92,7 +92,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       return;
     }
 
-    setElectricityCoast(numericValue);
+    // setElectricityCoast(+newValue);
+    setElectricityCoast(newValue);
     setIsProError(false);
   };
 
@@ -249,7 +250,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     if (!currentAsicsForCalculation.length) return;
 
     setCalculatorAsics(
-      () => new CalculatorAsics(currentAsicsForCalculation, electricityCoast),
+      () => new CalculatorAsics(currentAsicsForCalculation, +electricityCoast),
     );
   }, [
     selectedAsics,
@@ -263,7 +264,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   useEffect(() => {
     if (!selectedAsics.length) return;
     setCalculatorAsics(
-      () => new CalculatorAsics(selectedAsics, electricityCoast),
+      () => new CalculatorAsics(selectedAsics, +electricityCoast),
     );
   }, [selectedAsics, electricityCoast]);
 
@@ -304,7 +305,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     if (!currentAsicsForCalculation.length) return;
 
     setCalculatorAsics(
-      () => new CalculatorAsics(currentAsicsForCalculation, electricityCoast),
+      () => new CalculatorAsics(currentAsicsForCalculation, +electricityCoast),
     );
   }, [
     selectedAsics,

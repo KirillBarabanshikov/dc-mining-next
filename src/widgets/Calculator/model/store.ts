@@ -11,7 +11,7 @@ interface ICalculatorState {
     title: string;
     onClick: () => void;
   }[];
-  electricityCoast: number;
+  electricityCoast: number | string;
   readyBusinessAsics: IAsic[];
   setReadyBusinessAsics: (readyBusinessAsics: IAsic[]) => void;
   asics: IAsic[];
@@ -19,7 +19,7 @@ interface ICalculatorState {
   setAsics: (asics: IAsic[]) => void;
   setSelectedAsics: (selectedAsics: IAsic[]) => void;
   setCalculatorType: (type: number) => void;
-  setElectricityCoast: (coast: number) => void;
+  setElectricityCoast: (coast: number | string) => void;
   addSelectedAsics: (asic: IAsic) => void;
   removeSelectedAsics: (additionalId: string) => void;
   addReadyBusinessAsic: (asic: IAsic) => void;
