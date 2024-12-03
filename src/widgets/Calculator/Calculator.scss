@@ -593,6 +593,10 @@
     &.active {
       color: var(--text-contrast);
       background: var(--button-normal);
+      @media (max-width: 768 + 'px') {
+        color: var(--text-primary);
+        background: none;
+      }
     }
   }
 
