@@ -101,6 +101,8 @@ export default async function RootLayout({
                     strategy={'beforeInteractive'}
                 />
 
+                <Script src={'https://challenges.cloudflare.com/turnstile/v0/api.js'} async defer />
+
                 {/*  <Script*/}
                 {/*      id='mango-widget'*/}
                 {/*      strategy='afterInteractive'*/}

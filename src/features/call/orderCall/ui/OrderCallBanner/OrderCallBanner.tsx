@@ -108,6 +108,7 @@ export const OrderCallBanner = () => {
                                 className={styles.checkbox}
                                 {...register('checked')}
                             />
+                            {/*<div className='cf-turnstile' data-sitekey='0x4AAAAAAA1YFA6lA5cJqL_i'></div>*/}
                             <div className={styles.buttons}>
                                 {/*<Captcha*/}
                                 {/*    ref={recaptchaRef}*/}
