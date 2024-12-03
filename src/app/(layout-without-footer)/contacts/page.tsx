@@ -5,6 +5,12 @@ import { getContacts } from '@/entities/contacts';
 
 import { ContactsPage } from './ContactsPage';
 
+export async function generateMetadata() {
+    return {
+        title: 'Контакты',
+    };
+}
+
 export default async function Page() {
     const queryClient = new QueryClient();
 

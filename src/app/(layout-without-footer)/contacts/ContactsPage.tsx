@@ -54,8 +54,10 @@ export const ContactsPage = () => {
                             </div>
                             <div className={styles.contactWrap}>
                                 <div className={styles.contactTitle}>Реквизиты</div>
-                                <div className={styles.contact}>ООО «ДИСИ ИНТЕГРАТОР»</div>
-                                <div className={styles.contact}>ИНН 9705234029, КПП 770501001, ОГРН 1247700722213</div>
+                                <div
+                                    className={styles.contact}
+                                    dangerouslySetInnerHTML={{ __html: contacts.details }}
+                                />
                             </div>
                             <div className={styles.contactWrap}>
                                 <div className={styles.contactTitle}>Социальные сети</div>
@@ -82,17 +84,17 @@ export const ContactsPage = () => {
                                         dangerouslySetInnerHTML={{ __html: contacts.office }}
                                     />
                                 </div>
-                                <Map coordinates={[56.848728, 53.205444]} />
+                                <Map coordinates={contacts.coordinatesOffice} />
                             </div>
                             <div className={styles.mapWrap}>
                                 <div className={styles.contactWrap}>
                                     <div className={styles.contactTitle}>Хостинг</div>
                                     <div
                                         className={styles.contact}
-                                        dangerouslySetInnerHTML={{ __html: contacts.office }}
+                                        dangerouslySetInnerHTML={{ __html: contacts.hosting }}
                                     />
                                 </div>
-                                <Map coordinates={[56.848728, 53.205444]} />
+                                <Map coordinates={contacts.coordinatesOffice} />
                             </div>
                         </div>
                     </div>

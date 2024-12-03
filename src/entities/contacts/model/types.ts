@@ -5,6 +5,10 @@ export interface IContacts {
     office: string;
     images: IContactsImages[];
     contactHeaders: IContactHeaders[];
+    details: string;
+    coordinatesOffice: number[];
+    coordinatesHosting: number[];
+    hosting: string;
 }
 
 interface IContactsImages {
