@@ -1,17 +1,22 @@
 import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 
 interface Props {
   className?: string;
   isPro: boolean;
   isProError: boolean;
   toggleProMode: () => void;
+  onClick: () => void;
 }
 
 export const CalculatorHead: React.FC<Props> = ({
   isPro,
     toggleProMode,
-    isProError
+    isProError,
+    onClick
 }) => {
+    const path = usePathname()
+
   return (
       <div className='calculatorFeature-head'>
         <div className='calculatorFeature-subtitle'>
@@ -28,7 +33,7 @@ export const CalculatorHead: React.FC<Props> = ({
                     'active-error': isProError
                 },
             )}
-            onClick={toggleProMode}
+            onClick={path !== '/calculator' ? onClick : toggleProMode}
         >
               <span
                   className={!isPro ? 'active' : ''}

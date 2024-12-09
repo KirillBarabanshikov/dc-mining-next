@@ -2,6 +2,7 @@
 import './Calculator.scss';
 
 import clsx from 'clsx';
+import { usePathname, useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -97,9 +98,22 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setIsProError(false);
   };
 
+  const path = usePathname()
+
   const toggleProMode = () => {
-    setIsPro(true);
+    if (path !== '/calculator') {
+      router.push('/calculator')
+    }
+    // setIsPro(true);
   };
+
+  useEffect(() => {
+    if (path === '/calculator') {
+      setIsPro(true)
+    } else {
+      setIsPro(false)
+    }
+  }, [path])
 
   const onAsicChange = (selected: string[], index: number) => {
     if (isEditBusinessDetails) {
@@ -329,6 +343,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     }
   };
 
+  const router = useRouter()
+
   return (
     <div className={clsx('calculator', className)}>
 
@@ -337,7 +353,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           Рассчитайте <span>выгоду</span>
         </h2>
         {matches && (
-          <CalculatorHead isProError={isProError} isPro={isPro} toggleProMode={toggleProMode} />
+          <CalculatorHead onClick={() => {}} isProError={isProError} isPro={isPro} toggleProMode={toggleProMode} />
         )}
         <div className='calculator-types'>
           {calculatorTypes.map((item) => (
@@ -473,7 +489,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           <div className='calculator-card calculatorFeature'>
             <div className='calculatorFeature-content'>
               {!matches && (
-                <CalculatorHead isPro={isPro} isProError={isProError} toggleProMode={toggleProMode} />
+                <CalculatorHead onClick={() => router.push('/calculate')} isPro={isPro} isProError={isProError} toggleProMode={toggleProMode} />
               )}
 
               <div className='calculatorFeature-list'>
