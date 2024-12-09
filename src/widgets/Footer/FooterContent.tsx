@@ -68,7 +68,9 @@ export const FooterContent: FC<IFooterContentProps> = ({ categories, contacts })
                             </div>
                         </section>
                         <section>
-                            <h5>Контакты</h5>
+                            <h5>
+                                <Link href={'/contacts'}>Контакты</Link>
+                            </h5>
                             <div className={styles.wrap}>
                                 <a
                                     href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
