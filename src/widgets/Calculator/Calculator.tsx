@@ -489,7 +489,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           <div className='calculator-card calculatorFeature'>
             <div className='calculatorFeature-content'>
               {!matches && (
-                <CalculatorHead onClick={() => router.push('/calculate')} isPro={isPro} isProError={isProError} toggleProMode={toggleProMode} />
+                <CalculatorHead onClick={() => router.push('/calculator')} isPro={isPro} isProError={isProError} toggleProMode={toggleProMode} />
               )}
 
               <div className='calculatorFeature-list'>
