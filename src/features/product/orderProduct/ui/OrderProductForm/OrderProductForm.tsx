@@ -73,9 +73,15 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
   };
 
   const onSubmit = async (data: TOrderProductFormScheme) => {
-      const entryPoint = sessionStorage.getItem('entryPoint') || '';
+    const entryPoint = sessionStorage.getItem('entryPoint') || '/';
     try {
-      await order({ ...data, productId: product.id, price: price ?? 0, count,entryPoint });
+      await order({
+        ...data,
+        productId: product.id,
+        price: price ?? 0,
+        count,
+        entryPoint,
+      });
       sendMetrikaGoal();
     } catch (error) {
       console.error(error);
