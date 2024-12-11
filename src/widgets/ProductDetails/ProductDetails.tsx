@@ -17,7 +17,7 @@ export const ProductDetails: FC<IProductDetailsProps> = ({ product }) => {
             <div itemScope itemType='https://schema.org/Product' className={styles.info}>
                 <ProductSlider images={product.images} />
                 <ProductInfo product={product} />
-                <meta itemProp='brand' content={product.productSubCategory.title} />
+                <meta itemProp='brand' content={product.productSubCategory?.title} />
             </div>
             <ProductsTabs product={product} />
         </div>
