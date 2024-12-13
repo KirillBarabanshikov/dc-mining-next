@@ -73,9 +73,13 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
               </span>
             </>
           ) : (
-            <span itemProp='priceSpecification' className={styles.price}>
-              Цена по запросу
-            </span>
+            <>
+              <meta itemProp='priceCurrency' content='RUB' />
+              <meta itemProp='price' content='0' />
+              <span itemProp='description' className={styles.price}>
+                Цена по запросу
+              </span>
+            </>
           )}
           {product.tags.map((tag) => {
             const tagTitle = tag.title.toLowerCase();
