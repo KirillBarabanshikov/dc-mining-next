@@ -58,24 +58,22 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
               {formatter.format(product.oldPrice)}
             </span>
           )}
-          <span itemProp='price' className={styles.price}>
-            {product.price
-              ? new Intl.NumberFormat('ru-RU', {
-                  currency: 'RUB',
-                  maximumFractionDigits: 0,
-                  useGrouping: false,
-                }).format(product.price)
-              : 'Цена по запросу'}
-          </span>
-          <span> </span>
-          {!!product.price && (
-            <span
-              itemProp='priceCurrency'
-              content='RUB'
-              className={styles.price}
-            >
-              ₽
-            </span>
+          {product.price ? (
+            <>
+              <span itemProp='price' className={styles.price}>
+                {product.price}
+              </span>
+              <span> </span>
+              <span
+                itemProp='priceCurrency'
+                content='RUB'
+                className={styles.price}
+              >
+                ₽
+              </span>
+            </>
+          ) : (
+            <span className={styles.price}>Цена по запросу</span>
           )}
           {product.tags.map((tag) => {
             const tagTitle = tag.title.toLowerCase();
