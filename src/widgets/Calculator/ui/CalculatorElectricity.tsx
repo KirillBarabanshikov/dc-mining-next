@@ -25,14 +25,17 @@ interface Props {
 
 const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectricityCoast, isProError, totalConsumption, profitWithoutElectricity}) => {
 
-    const { selectedAsics, businessPackageAsics, calculatorType, readyBusinessTotalPrice, setReadyBusinessTotalPrice, selectedPackageId } = useCalculatorStore();
+    const { selectedAsics, businessPackageAsics, calculatorType, readyBusinessTotalPrice, setReadyBusinessTotalPrice, selectedPackageId, dollar } = useCalculatorStore();
 
     useEffect(() => {
         setReadyBusinessTotalPrice(businessPackageAsics.reduce((total, asic) => total + asic.price * asic.count, 0));
     }, [calculatorType, businessPackageAsics])
 
     const handleDownload = async () => {
-        const course = '103';
+
+        const course = dollar;
+
+        console.log(course)
 
         let pdfData;
 
@@ -42,7 +45,7 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
 
             pdfData = {
                 sumRuble: totalPrice.toLocaleString('ru-RU'),
-                sumDollar: (totalPrice / +course).toFixed(2),
+                sumDollar: (totalPrice / course).toFixed(2),
                 curs: course.toString(),
                 sumIn: totalPrice.toLocaleString('ru-RU'),
                 everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
@@ -53,14 +56,14 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
                     title: item.title,
                     hashrate: `${item.hashrate} ${item.dimension}`,
                     quantity: item.count.toLocaleString('ru-RU'),
-                    priceOnePiece: (item.price / +course).toFixed(2),
-                    price: (item.price * item.count / +course).toFixed(2),
+                    priceOnePiece: (item.price / course).toFixed(2),
+                    price: (item.price * item.count / course).toFixed(2),
                 })),
             };
         } else if (calculatorType === 2) {
             pdfData = {
                 sumRuble: readyBusinessTotalPrice.toLocaleString('ru-RU'),
-                sumDollar: (readyBusinessTotalPrice / +course).toFixed(2),
+                sumDollar: (readyBusinessTotalPrice / course).toFixed(2),
                 curs: course.toString(),
                 sumIn: readyBusinessTotalPrice.toLocaleString('ru-RU'),
                 everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
@@ -71,15 +74,15 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
                     title: item.title,
                     hashrate: `${item.hashrate} ${item.dimension}`,
                     quantity: item.count.toLocaleString('ru-RU'),
-                    priceOnePiece: (item.price / +course).toFixed(2),
-                    price: (item.price * item.count / +course).toFixed(2),
+                    priceOnePiece: (item.price / course).toFixed(2),
+                    price: (item.price * item.count / course).toFixed(2),
                 })),
             };
         } else {
             const totalPrice = selectedAsics.reduce((total, asic) => total + asic.price * asic.count, 0);
             pdfData = {
                 sumRuble: totalPrice.toLocaleString('ru-RU'),
-                sumDollar: (totalPrice / +course).toFixed(2),
+                sumDollar: (totalPrice / course).toFixed(2),
                 curs: course.toString(),
                 sumIn: totalPrice.toLocaleString('ru-RU'),
                 everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
@@ -90,8 +93,8 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
                     title: item.title,
                     hashrate: `${item.hashrate} ${item.dimension}`,
                     quantity: item.count.toLocaleString('ru-RU'),
-                    priceOnePiece: (item.price / +course).toFixed(2),
-                    price: (item.price * item.count / +course).toFixed(2),
+                    priceOnePiece: (item.price / course).toFixed(2),
+                    price: (item.price * item.count / course).toFixed(2),
                 })),
             };
         }

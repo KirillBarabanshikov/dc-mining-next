@@ -48,6 +48,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setBusinessPackages,
     setSelectedPackageId,
     selectedPackageId,
+    setDollar
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -244,6 +245,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       if (!data) return;
 
       const products = data.products;
+
+      console.log(data)
+      setDollar(data.dollar);
 
       setAsics(products);
       setElectricityCoast(data.electricityCoast || 3);

@@ -34,6 +34,8 @@ interface ICalculatorState {
   setSelectedPackageId: (id: number | null) => void;
   readyBusinessTotalPrice: number;
   setReadyBusinessTotalPrice: (price: number) => void;
+  dollar: number;
+  setDollar: (currency: number) => void;
   // changeBusinessPackages: (packages: IPackage) => void;
 }
 
@@ -77,7 +79,9 @@ export const useCalculatorStore = create<ICalculatorState>()(
     businessPackageAsics: [],
     businessPackages: [],
     selectedPackageId: null,
-      readyBusinessTotalPrice: 0,
+    readyBusinessTotalPrice: 0,
+    dollar: 0,
+    setDollar: (currency: number) => set({ dollar: currency }),
     setSelectedPackageId: (id) => set({ selectedPackageId: id }),
     setBusinessPackages: (packages) => set({ businessPackages: packages }),
     // changeBusinessPackages: (packages) => {set({ businessPackages: packages }); },
