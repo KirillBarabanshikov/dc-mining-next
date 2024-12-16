@@ -21,6 +21,7 @@ interface Props {
 }
 
 const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, businessCalculationData, calculatorType, electricityConsumption, isEditBusinessDetails, totalConsumption, paybackWithElectricity, paybackWithoutElectricity, profitWithElectricity, profitWithoutElectricity}) => {
+
     return (
         <CalculatorTotal
             totalConsumptionDataCenter={totalConsumptionDataCenter.toLocaleString(
@@ -37,7 +38,7 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                     ? businessCalculationData.totalConsumption.toLocaleString(
                         'ru-RU',
                     )
-                    : totalConsumption.toLocaleString('ru-RU')
+                    : isNaN(businessCalculationData.totalConsumption) && calculatorType === 2 ? String(0) : totalConsumption.toLocaleString('ru-RU')
             }
             electricityConsumption={
                 calculatorType === 2 &&
@@ -46,7 +47,7 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                     ? businessCalculationData.electricityConsumption.toLocaleString(
                         'ru-RU',
                     )
-                    : electricityConsumption.toLocaleString('ru-RU')
+                    : isNaN(businessCalculationData.electricityConsumption) && calculatorType === 2 ? String(0) :  electricityConsumption.toLocaleString('ru-RU')
             }
             totalPriceGuests={(
                 electricityConsumption +
@@ -59,7 +60,7 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                     ? businessCalculationData.profitWithoutElectricity.toLocaleString(
                         'ru-RU',
                     )
-                    : profitWithoutElectricity.toLocaleString('ru-RU')
+                    : isNaN(businessCalculationData.profitWithoutElectricity) && calculatorType === 2 ? String(0) : profitWithoutElectricity.toLocaleString('ru-RU')
             }
             profitWithElectricity={
                 calculatorType === 2 &&
@@ -68,7 +69,7 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                     ? businessCalculationData.profitWithElectricity.toLocaleString(
                         'ru-RU',
                     )
-                    : profitWithElectricity.toLocaleString('ru-RU')
+                    : isNaN(businessCalculationData.profitWithElectricity) && calculatorType === 2 ? String(0) : profitWithElectricity.toLocaleString('ru-RU')
             }
             paybackWithElectricity={
                 calculatorType === 2 &&
@@ -77,7 +78,7 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                     ? businessCalculationData.paybackWithElectricity.toLocaleString(
                         'ru-RU',
                     )
-                    : paybackWithElectricity.toLocaleString('ru-RU')
+                    : isNaN(businessCalculationData.paybackWithElectricity) && calculatorType === 2 ? String(0) : paybackWithElectricity.toLocaleString('ru-RU')
             }
             paybackWithoutElectricity={
                 calculatorType === 2 &&
@@ -86,7 +87,7 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                     ? businessCalculationData.paybackWithoutElectricity.toLocaleString(
                         'ru-RU',
                     )
-                    : paybackWithoutElectricity.toLocaleString('ru-RU')
+                    : isNaN(businessCalculationData.paybackWithoutElectricity) && calculatorType === 2 ? String(0) : paybackWithoutElectricity.toLocaleString('ru-RU')
             }
         />
     )

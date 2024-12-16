@@ -8,14 +8,14 @@ import { Button } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 
 interface Props {
-  totalConsumption: string;
-  electricityConsumption: string;
-  profitWithoutElectricity: string;
-  profitWithElectricity: string;
-  paybackWithElectricity: string;
-  paybackWithoutElectricity: string;
-  totalConsumptonGuests: string;
-  totalPriceGuests: string;
+  totalConsumption: string | number;
+  electricityConsumption: string | number;
+  profitWithoutElectricity: string | number;
+  profitWithElectricity: string | number;
+  paybackWithElectricity: string | number;
+  paybackWithoutElectricity: string | number;
+  totalConsumptonGuests: string | number;
+  totalPriceGuests: string | number;
   totalConsumptionDataCenter: string;
 }
 
@@ -34,6 +34,7 @@ export const CalculatorTotal: React.FC<Props> = ({
     electricityCoast,
     businessPackages,
     selectedPackageId,
+    readyBusinessTotalPrice
   } = useCalculatorStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
@@ -45,6 +46,17 @@ export const CalculatorTotal: React.FC<Props> = ({
       const selectedPackage = businessPackages.find(
         (pkg) => pkg.id === selectedPackageId,
       );
+
+      // let selectedPackageCopy;
+
+      // if (businessPackageAsics.slice(1).length > 0) {
+        // selectedPackageCopy = structuredClone(selectedPackage)
+        // selectedPackageCopy?.productAdd[0].productAsics.push(businessPackageAsics[1])
+      // }
+
+      if (selectedPackage) {
+        selectedPackage.price = readyBusinessTotalPrice
+      }
 
       return selectedPackage || businessPackages[0];
     }
