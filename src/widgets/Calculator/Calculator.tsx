@@ -296,7 +296,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       paybackWithoutElectricity: calculatorAsics.getPaybackWithoutElectricity(),
     };
 
-    if (calculatorType === 2 && isEditBusinessDetails) {
+    if (calculatorType === 2 && !isEditBusinessDetails) {
       setBusinessCalculationData(newCalculationData);
     }
 
@@ -587,7 +587,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
               </div>
 
               {!matches && (
-                <CalculatorElectricity electricityCoast={electricityCoast} changeElectricityCoast={changeElectricityCoast} isProError={isProError} />
+                <CalculatorElectricity businessCalculationData={businessCalculationData} profitWithoutElectricity={profitWithoutElectricity} businessTotalPrice={businessTotalPrice} totalConsumption={totalConsumption} electricityCoast={electricityCoast} changeElectricityCoast={changeElectricityCoast} isProError={isProError} />
               )}
               {!matches && (
                 <div className='calculator-description'>

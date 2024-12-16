@@ -32,6 +32,8 @@ interface ICalculatorState {
   setBusinessPackages: (packages: IPackage[]) => void;
   selectedPackageId: number | null;
   setSelectedPackageId: (id: number | null) => void;
+  readyBusinessTotalPrice: number;
+  setReadyBusinessTotalPrice: (price: number) => void;
   // changeBusinessPackages: (packages: IPackage) => void;
 }
 
@@ -75,6 +77,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
     businessPackageAsics: [],
     businessPackages: [],
     selectedPackageId: null,
+      readyBusinessTotalPrice: 0,
     setSelectedPackageId: (id) => set({ selectedPackageId: id }),
     setBusinessPackages: (packages) => set({ businessPackages: packages }),
     // changeBusinessPackages: (packages) => {set({ businessPackages: packages }); },
@@ -106,6 +109,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
     setAsics: (asics) => {
       return set({ asics });
     },
+    setReadyBusinessTotalPrice: (price: number) => set({ readyBusinessTotalPrice: price }),
     setReadyBusinessAsics: (readyBusinessAsics) => {
       return set({ readyBusinessAsics });
     },

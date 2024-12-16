@@ -1,4 +1,6 @@
 export interface IProductAdd {
+  hashrate: string;
+  dimension: string;
   id: number;
   count: number;
   productAsics: IAsic;
@@ -41,4 +43,26 @@ export interface IAsic {
   value: string;
   count: number;
   additionalId: string;
+  hashrate: string;
+  dimension: string;
+}
+
+export interface IAsicPDF {
+  id: number;
+  title: string;
+  hashrate: string;
+  quantity: string;
+  priceOnePiece: string;
+  price: string;
+}
+
+export interface IPostPDFRequest {
+  sumRuble: string;
+  sumDollar: string;
+  curs: string;
+  sumIn: string;
+  everyMonthWatt: string;
+  profitWithoutWatt: string;
+  profitWithMonth: string;
+  asics: IAsicPDF[];
 }

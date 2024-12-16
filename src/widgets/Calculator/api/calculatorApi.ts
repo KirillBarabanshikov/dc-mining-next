@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { instance } from '@/shared/api';
 
-import { ICalculatorApi } from '../types';
+import { ICalculatorApi, IPostPDFRequest } from '../types';
 
 // type QueryTypes = 'asicMiners' | 'readyBusiness';
 
@@ -47,26 +47,6 @@ class CalculatorApi {
           },
         },
       );
-      // добавляю доп поля label value для dropdown
-      // count для калькулятора
-      // additionalId для возможности выбора и уникализации в dropdown
-      // const products = response.data.products.flatMap((product) =>
-      //   product.productAdd.map((add) => {
-      //     const productAsics = add.productAsics || {};
-      //     console.log(add);
-      //     return {
-      //       id: productAsics.id,
-      //       title: productAsics.title || '',
-      //       price: productAsics.price,
-      //       profitDayAll: productAsics.profitDayAll || 0,
-      //       watt: productAsics.watt || 0,
-      //       count: add.count,
-      //       label: product.title,
-      //       value: productAsics.id.toString(),
-      //       additionalId: uuidv4(),
-      //     };
-      //   }),
-      // );
 
       const products = response.data.products.map((product) => ({
         id: product.id,
@@ -80,6 +60,8 @@ class CalculatorApi {
             price: add.productAsics.price,
             watt: add.productAsics.watt,
             count: add.count,
+            hashrate: add.productAsics.hashrate,
+            dimension: add.productAsics.dimension,
             additionalId: uuidv4(),
           },
         })),
@@ -91,6 +73,18 @@ class CalculatorApi {
       return [];
     }
   };
+
+  public postPDF = async (data: IPostPDFRequest) => {
+    try {
+      const response = await instance.post('/product/calculatingExportPdf', data, {
+        responseType: 'blob',
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error posting PDF data:", error);
+      return null;
+    }
+  }
 }
 
 export const calculatorApi = new CalculatorApi();
