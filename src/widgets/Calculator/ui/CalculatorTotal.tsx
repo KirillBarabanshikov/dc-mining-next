@@ -155,10 +155,10 @@ export const CalculatorTotal: React.FC<Props> = ({
           <div className='calculatorTotal-list'>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>Тариф, ₽ кВт/час</span>
-              <span>{+electricityCoast + +electricityCoast * 0.1}</span>
+              <span>{(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}</span>
               <span>
                 <span className='calculatorTotal-item-dataCenter-old'>
-                  {+electricityCoast + +electricityCoast * 0.1}
+                  {(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}
                 </span>{' '}
                 <span className='calculatorTotal-item-dataCenter-new'>
                   {electricityCoast}
