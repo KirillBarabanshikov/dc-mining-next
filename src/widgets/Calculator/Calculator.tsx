@@ -467,6 +467,10 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   )}
 
                   {matches && (
+                      <CalculatorElectricity businessCalculationData={businessCalculationData} profitWithoutElectricity={profitWithoutElectricity} businessTotalPrice={businessTotalPrice} totalConsumption={totalConsumption} electricityCoast={electricityCoast} changeElectricityCoast={changeElectricityCoast} isProError={isProError} />
+                  )}
+
+                  {matches && (
                       <CalculatorTotalWrapper
                           totalConsumptionDataCenter={totalConsumptionDataCenter}
                           calculatorType={calculatorType}
