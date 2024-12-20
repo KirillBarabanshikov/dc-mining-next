@@ -48,7 +48,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setBusinessPackages,
     setSelectedPackageId,
     selectedPackageId,
-    setDollar
+    setDollar,
+      setReadyBusinessTotalPrice
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -224,7 +225,6 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         setSelectedPackageId(null);
       } else if (calculatorType === 2) {
         businessReadyData = await calculatorApi.getBusiness();
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setBusinessPackages(businessReadyData);
@@ -239,6 +239,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           setBusinessPackageAsics(businessReadyData);
+          setReadyBusinessTotalPrice(0);
         }
       }
 

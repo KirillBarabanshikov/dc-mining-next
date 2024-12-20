@@ -75,19 +75,15 @@ const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, bu
                 calculatorType === 2 &&
                 !isEditBusinessDetails &&
                 businessCalculationData.paybackWithElectricity
-                    ? businessCalculationData.paybackWithElectricity.toLocaleString(
-                        'ru-RU',
-                    )
-                    : isNaN(businessCalculationData.paybackWithElectricity) && calculatorType === 2 ? String(0) : paybackWithElectricity.toLocaleString('ru-RU')
+                    ? businessCalculationData.paybackWithElectricity.toFixed(1)
+                    : isNaN(businessCalculationData.paybackWithElectricity) && calculatorType === 2 ? String(0) : paybackWithElectricity.toFixed(1)
             }
             paybackWithoutElectricity={
                 calculatorType === 2 &&
                 !isEditBusinessDetails &&
                 businessCalculationData.paybackWithoutElectricity
-                    ? businessCalculationData.paybackWithoutElectricity.toLocaleString(
-                        'ru-RU',
-                    )
-                    : isNaN(businessCalculationData.paybackWithoutElectricity) && calculatorType === 2 ? String(0) : paybackWithoutElectricity.toLocaleString('ru-RU')
+                    ? businessCalculationData.paybackWithoutElectricity.toFixed(1)
+                    : isNaN(businessCalculationData.paybackWithoutElectricity) && calculatorType === 2 ? String(0) : paybackWithoutElectricity.toFixed(1)
             }
         />
     )

@@ -55,7 +55,9 @@ export const CalculatorTotal: React.FC<Props> = ({
       // }
 
       if (selectedPackage) {
-        selectedPackage.price = readyBusinessTotalPrice
+        if (typeof readyBusinessTotalPrice === 'number') {
+          selectedPackage.price = readyBusinessTotalPrice;
+        }
       }
 
       return selectedPackage || businessPackages[0];
