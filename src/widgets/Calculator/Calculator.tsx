@@ -473,6 +473,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
                   {matches && (
                       <CalculatorTotalWrapper
+                          matches={matches}
                           totalConsumptionDataCenter={totalConsumptionDataCenter}
                           calculatorType={calculatorType}
                           businessCalculationData={businessCalculationData}
@@ -609,6 +610,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         {calculatorType === 4 && !matches && <CalculatorBodyLeasing />}
         {calculatorAsics && !matches && (
           <CalculatorTotalWrapper
+              matches={matches}
               totalConsumptionDataCenter={totalConsumptionDataCenter}
               calculatorType={calculatorType}
               businessCalculationData={businessCalculationData}

@@ -17,6 +17,7 @@ interface Props {
   totalConsumptonGuests: string | number;
   totalPriceGuests: string | number;
   totalConsumptionDataCenter: string;
+  matches: boolean;
 }
 
 export const CalculatorTotal: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const CalculatorTotal: React.FC<Props> = ({
   paybackWithElectricity,
   paybackWithoutElectricity,
   totalPriceGuests,
+  matches
 }) => {
   const {
     calculatorType,
@@ -157,8 +159,10 @@ export const CalculatorTotal: React.FC<Props> = ({
           <div className='calculatorTotal-list'>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>Тариф, ₽ кВт/час</span>
-              <span>{(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}</span>
               <span>
+                {(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}
+              </span>
+              <span className='calculatorTotal-item-dataCenter-span'>
                 <span className='calculatorTotal-item-dataCenter-old'>
                   {(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}
                 </span>{' '}
@@ -166,25 +170,27 @@ export const CalculatorTotal: React.FC<Props> = ({
                   {electricityCoast}
                 </span>
               </span>
-              <div className='sale-image'>
-                <span className='sale-badge'>
-                  <span className='sale-badge-discount'>Скидка</span> <br />{' '}
-                  <span className='sale-badge-percent'>-10%</span>
-                </span>
-                <Image src={sale} alt='sale image' />
-              </div>
+              {!matches && (
+                <div className='sale-image'>
+                  <span className='sale-badge'>
+                    <span className='sale-badge-discount'>Скидка</span> <br />{' '}
+                    <span className='sale-badge-percent'>-10%</span>
+                  </span>
+                  <Image src={sale} alt='sale image' />
+                </div>
+              )}
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>
                 Общее потребление в <br /> месяц, кВт
               </span>
               <span>{totalConsumption}</span>
-              <span style={{fontWeight: 700}}>{totalConsumption}</span>
+              <span style={{ fontWeight: 700 }}>{totalConsumption}</span>
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>Ежемесячные расходы, ₽</span>
               <span>{totalPriceGuests}</span>
-              <span>
+              <span className='calculatorTotal-item-dataCenter-span'>
                 <span className='calculatorTotal-item-dataCenter-old'>
                   {totalPriceGuests}
                 </span>{' '}
@@ -192,13 +198,15 @@ export const CalculatorTotal: React.FC<Props> = ({
                   {electricityConsumption}
                 </span>
               </span>
-              <div className='sale-image'>
-                <span className='sale-badge'>
-                  <span className='sale-badge-discount'>Скидка</span> <br />{' '}
-                  <span className='sale-badge-percent'>-10%</span>
-                </span>
-                <Image src={sale} alt='sale image' />
-              </div>
+              {!matches && (
+                <div className='sale-image'>
+                  <span className='sale-badge'>
+                    <span className='sale-badge-discount'>Скидка</span> <br />{' '}
+                    <span className='sale-badge-percent'>-10%</span>
+                  </span>
+                  <Image src={sale} alt='sale image' />
+                </div>
+              )}
             </div>
           </div>
           <div className='calculatorTotal-btns'>
