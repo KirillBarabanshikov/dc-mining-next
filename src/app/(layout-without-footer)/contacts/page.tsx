@@ -1,4 +1,8 @@
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import React from 'react';
 
 import { getContacts } from '@/entities/contacts';
@@ -6,22 +10,24 @@ import { getContacts } from '@/entities/contacts';
 import { ContactsPage } from './ContactsPage';
 
 export async function generateMetadata() {
-    return {
-        title: 'Контакты',
-    };
+  return {
+    title: 'Контактные данные DC-MINING: адрес, телефон, почта, Telegram',
+    description:
+      'Адреса и контактные данные компании DC-MINING в Москве: номер телефона, почта, Telegram, WhatsApp, реквизиты. Свяжитесь с нами для получения информации или консультаций по интересующим вопросам.',
+  };
 }
 
 export default async function Page() {
-    const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery({
-        queryKey: ['contacts'],
-        queryFn: getContacts,
-    });
+  await queryClient.prefetchQuery({
+    queryKey: ['contacts'],
+    queryFn: getContacts,
+  });
 
-    return (
-        <HydrationBoundary state={dehydrate(queryClient)}>
-            <ContactsPage />
-        </HydrationBoundary>
-    );
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ContactsPage />
+    </HydrationBoundary>
+  );
 }
