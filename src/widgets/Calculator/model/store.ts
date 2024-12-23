@@ -96,6 +96,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
                 ...state.readyBusinessAsics[0],
                 additionalId: uuidv4(),
                 count: 1,
+                isInitial: false,
               },
             ],
           };

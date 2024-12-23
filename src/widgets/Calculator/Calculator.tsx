@@ -49,7 +49,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setSelectedPackageId,
     selectedPackageId,
     setDollar,
-      setReadyBusinessTotalPrice
+      setReadyBusinessTotalPrice,
+      readyBusinessTotalPrice
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -102,6 +103,14 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
   const path = usePathname()
 
+  // const calculateTotalPrice = () => {
+  //   const totalPrice = businessPackageAsics.reduce((total, asic) => {
+  //     return total + (asic.price * asic.count);
+  //   }, 0)
+  //
+  //   setReadyBusinessTotalPrice(totalPrice)
+  // }
+
   const toggleProMode = () => {
     if (path !== '/calculator') {
       router.push('/calculator')
@@ -130,6 +139,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
               ...changedAsic,
               additionalId: businessPackageAsics[index].additionalId,
               count: businessPackageAsics[index].count,
+              isInitial: businessPackageAsics[index].isInitial,
             }
           : asic,
       );
@@ -156,6 +166,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         i === index ? { ...asic, count } : asic,
       );
       setBusinessPackageAsics(updatedBusinessPackageAsics);
+      // calculateTotalPrice();
     }
     // selectedAsics
     else {
@@ -200,6 +211,10 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     const newAsic = asics.find((asic) => asic.id === asicId);
 
     if (!newAsic) return;
+
+    // if (calculatorType === 2) {
+    //   calculateTotalPrice(updatedSelectedAsics);
+    // }
 
     addSelectedAsics(newAsic);
   };
@@ -352,13 +367,17 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
   return (
     <div className={clsx('calculator', className)}>
-
       <div className={clsx('calculator-head', className)}>
         <h2 className={clsx('calculator-title', 'section-title-primary')}>
           Рассчитайте <span>выгоду</span>
         </h2>
         {matches && (
-          <CalculatorHead onClick={() => {}} isProError={isProError} isPro={isPro} toggleProMode={toggleProMode} />
+          <CalculatorHead
+            onClick={() => {}}
+            isProError={isProError}
+            isPro={isPro}
+            toggleProMode={toggleProMode}
+          />
         )}
         <div className='calculator-types'>
           {calculatorTypes.map((item) => (
@@ -395,98 +414,108 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   {openAccordionId === 4 && <CalculatorBodyLeasing />}
 
                   {calculatorType === 2 &&
-                      matches &&
-                      !isEditBusinessDetails &&
-                      selectedPackageId && (
-                          <CalculatorChangeBusinessPackage
-                              isPro={isPro}
-                              calculatorType={calculatorType}
-                              handleChangeBusinessDetails={handleChangeBusinessDetails}
-                              isProError={isProError}
-                              setIsProError={setIsProError}
-                          />
-                      )}
+                    matches &&
+                    !isEditBusinessDetails &&
+                    selectedPackageId && (
+                      <CalculatorChangeBusinessPackage
+                        isPro={isPro}
+                        calculatorType={calculatorType}
+                        handleChangeBusinessDetails={
+                          handleChangeBusinessDetails
+                        }
+                        isProError={isProError}
+                        setIsProError={setIsProError}
+                      />
+                    )}
 
                   {isEditBusinessDetails && matches && (
-                      <CalculatorBusinessIsEditing
-                          isEditBusinessDetails={isEditBusinessDetails}
-                          matches={matches}
-                          onAsicChange={onAsicChange}
-                          setAsicsCount={setAsicsCount}
-                          isEditingTouched={isEditingTouched}
-                          businessTotalPrice={businessTotalPrice}
-                          businessInitialItems={businessInitialItems}
-                      />
+                    <CalculatorBusinessIsEditing
+                      isEditBusinessDetails={isEditBusinessDetails}
+                      matches={matches}
+                      onAsicChange={onAsicChange}
+                      setAsicsCount={setAsicsCount}
+                      isEditingTouched={isEditingTouched}
+                      businessTotalPrice={businessTotalPrice}
+                      businessInitialItems={businessInitialItems}
+                    />
                   )}
 
                   {calculatorType === 2 && isEditBusinessDetails && matches && (
-                      <div className='calculatorFeature-row calculatorFeature-change-row'>
-                        <Button
-                            className='calculatorFeature-add-btn'
-                            variant='solid'
-                            size='sm'
-                            theme='gray'
-                            onClick={() => {
-                              if (readyBusinessAsics.length > 0) {
-                                addBusinessPackageAsic();
-                              }
-                            }}
-                        >
-                          Добавить оборудование
-                          <span>+</span>
-                        </Button>
-                      </div>
+                    <div className='calculatorFeature-row calculatorFeature-change-row'>
+                      <Button
+                        className='calculatorFeature-add-btn'
+                        variant='solid'
+                        size='sm'
+                        theme='gray'
+                        onClick={() => {
+                          if (readyBusinessAsics.length > 0) {
+                            addBusinessPackageAsic();
+                            setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
+                          }
+                        }}
+                      >
+                        Добавить оборудование
+                        <span>+</span>
+                      </Button>
+                    </div>
                   )}
 
                   {calculatorType === 3 && matches && (
-                      <div className='calculatorFeature-change'>
-                        <Button
-                            className='calculatorFeature-change-btn'
-                            variant='solid'
-                            size='sm'
-                            theme='gray'
-                            onClick={() => {
-                              if (!isPro && calculatorType === 3) {
-                                setIsProError(true);
-                                return;
-                              }
+                    <div className='calculatorFeature-change'>
+                      <Button
+                        className='calculatorFeature-change-btn'
+                        variant='solid'
+                        size='sm'
+                        theme='gray'
+                        onClick={() => {
+                          if (!isPro && calculatorType === 3) {
+                            setIsProError(true);
+                            return;
+                          }
 
-                              if (readyBusinessAsics.length > 0) {
-                                addAsic(29);
-                              }
-                            }}
-                        >
-                          Добавить оборудование
-                          <span>+</span>
-                        </Button>
-                        {isProError && (
-                            <div className='calculatorElectricity-error calculatorElectricity-error-change'>
-                              Доступно в Pro версии
-                            </div>
-                        )}
-                      </div>
+                          if (readyBusinessAsics.length > 0) {
+                            addAsic(29);
+                          }
+                        }}
+                      >
+                        Добавить оборудование
+                        <span>+</span>
+                      </Button>
+                      {isProError && (
+                        <div className='calculatorElectricity-error calculatorElectricity-error-change'>
+                          Доступно в Pro версии
+                        </div>
+                      )}
+                    </div>
                   )}
 
                   {matches && (
-                      <CalculatorElectricity businessCalculationData={businessCalculationData} profitWithoutElectricity={profitWithoutElectricity} businessTotalPrice={businessTotalPrice} totalConsumption={totalConsumption} electricityCoast={electricityCoast} changeElectricityCoast={changeElectricityCoast} isProError={isProError} />
+                    <CalculatorElectricity
+                      businessCalculationData={businessCalculationData}
+                      profitWithoutElectricity={profitWithoutElectricity}
+                      businessTotalPrice={businessTotalPrice}
+                      totalConsumption={totalConsumption}
+                      electricityCoast={electricityCoast}
+                      changeElectricityCoast={changeElectricityCoast}
+                      isProError={isProError}
+                    />
                   )}
 
                   {matches && (
-                      <CalculatorTotalWrapper
-                          matches={matches}
-                          totalConsumptionDataCenter={totalConsumptionDataCenter}
-                          calculatorType={calculatorType}
-                          businessCalculationData={businessCalculationData}
-                          isEditBusinessDetails={isEditBusinessDetails}
-                          electricityConsumption={electricityConsumption}
-                          totalConsumption={totalConsumption}
-                          profitWithoutElectricity={profitWithoutElectricity}
-                          profitWithElectricity={profitWithElectricity}
-                          paybackWithElectricity={paybackWithElectricity}
-                          paybackWithoutElectricity={paybackWithoutElectricity}
-                      />
+                    <CalculatorTotalWrapper
+                      matches={matches}
+                      totalConsumptionDataCenter={totalConsumptionDataCenter}
+                      calculatorType={calculatorType}
+                      businessCalculationData={businessCalculationData}
+                      isEditBusinessDetails={isEditBusinessDetails}
+                      electricityConsumption={electricityConsumption}
+                      totalConsumption={totalConsumption}
+                      profitWithoutElectricity={profitWithoutElectricity}
+                      profitWithElectricity={profitWithElectricity}
+                      paybackWithElectricity={paybackWithElectricity}
+                      paybackWithoutElectricity={paybackWithoutElectricity}
+                    />
                   )}
-
                 </div>
               )}
             </div>
@@ -499,12 +528,20 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           <div className='calculator-card calculatorFeature'>
             <div className='calculatorFeature-content'>
               {!matches && (
-                <CalculatorHead onClick={() => router.push('/calculator')} isPro={isPro} isProError={isProError} toggleProMode={toggleProMode} />
+                <CalculatorHead
+                  onClick={() => router.push('/calculator')}
+                  isPro={isPro}
+                  isProError={isProError}
+                  toggleProMode={toggleProMode}
+                />
               )}
 
               <div className='calculatorFeature-list'>
                 {!matches && (
-                  <CalculatorTitleFeatureRow calculatorType={calculatorType} isEditBusinessDetails={isEditBusinessDetails} />
+                  <CalculatorTitleFeatureRow
+                    calculatorType={calculatorType}
+                    isEditBusinessDetails={isEditBusinessDetails}
+                  />
                 )}
 
                 {!matches && (
@@ -539,13 +576,13 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   !matches &&
                   !isEditBusinessDetails &&
                   selectedPackageId && (
-                      <CalculatorChangeBusinessPackage
-                        isPro={isPro}
-                        calculatorType={calculatorType}
-                        handleChangeBusinessDetails={handleChangeBusinessDetails}
-                        isProError={isProError}
-                        setIsProError={setIsProError}
-                      />
+                    <CalculatorChangeBusinessPackage
+                      isPro={isPro}
+                      calculatorType={calculatorType}
+                      handleChangeBusinessDetails={handleChangeBusinessDetails}
+                      isProError={isProError}
+                      setIsProError={setIsProError}
+                    />
                   )}
 
                 {calculatorType === 2 && isEditBusinessDetails && (
@@ -558,10 +595,12 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                       onClick={() => {
                         if (readyBusinessAsics.length > 0) {
                           addBusinessPackageAsic();
+                          setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
                         }
                       }}
                     >
                       Добавить оборудование
+                      <span>+</span>
                     </Button>
                   </div>
                 )}
@@ -597,7 +636,15 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
               </div>
 
               {!matches && (
-                <CalculatorElectricity businessCalculationData={businessCalculationData} profitWithoutElectricity={profitWithoutElectricity} businessTotalPrice={businessTotalPrice} totalConsumption={totalConsumption} electricityCoast={electricityCoast} changeElectricityCoast={changeElectricityCoast} isProError={isProError} />
+                <CalculatorElectricity
+                  businessCalculationData={businessCalculationData}
+                  profitWithoutElectricity={profitWithoutElectricity}
+                  businessTotalPrice={businessTotalPrice}
+                  totalConsumption={totalConsumption}
+                  electricityCoast={electricityCoast}
+                  changeElectricityCoast={changeElectricityCoast}
+                  isProError={isProError}
+                />
               )}
               {!matches && (
                 <div className='calculator-description'>
@@ -610,17 +657,17 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         {calculatorType === 4 && !matches && <CalculatorBodyLeasing />}
         {calculatorAsics && !matches && (
           <CalculatorTotalWrapper
-              matches={matches}
-              totalConsumptionDataCenter={totalConsumptionDataCenter}
-              calculatorType={calculatorType}
-              businessCalculationData={businessCalculationData}
-              isEditBusinessDetails={isEditBusinessDetails}
-              electricityConsumption={electricityConsumption}
-              totalConsumption={totalConsumption}
-              profitWithoutElectricity={profitWithoutElectricity}
-              profitWithElectricity={profitWithElectricity}
-              paybackWithElectricity={paybackWithElectricity}
-              paybackWithoutElectricity={paybackWithoutElectricity}
+            matches={matches}
+            totalConsumptionDataCenter={totalConsumptionDataCenter}
+            calculatorType={calculatorType}
+            businessCalculationData={businessCalculationData}
+            isEditBusinessDetails={isEditBusinessDetails}
+            electricityConsumption={electricityConsumption}
+            totalConsumption={totalConsumption}
+            profitWithoutElectricity={profitWithoutElectricity}
+            profitWithElectricity={profitWithElectricity}
+            paybackWithElectricity={paybackWithElectricity}
+            paybackWithoutElectricity={paybackWithoutElectricity}
           />
         )}
       </div>

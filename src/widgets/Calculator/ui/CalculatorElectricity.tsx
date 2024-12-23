@@ -146,16 +146,18 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
                     </div>
                 )}
             </div>
-            <Button
-                  className='calculatorElectricity-btn'
-                  disabled={calculatorType === 2 && !selectedPackageId}
-                  variant='outline'
-                  size='md'
-                  onClick={handleDownload}
+            {calculatorType !== 3 && (
+                <Button
+                    className='calculatorElectricity-btn'
+                    disabled={calculatorType === 2 && !selectedPackageId}
+                    variant='outline'
+                    size='md'
+                    onClick={handleDownload}
                 >
-                  Скачать фин модель
-                  <DownloadIcon />
+                    Скачать фин модель
+                    <DownloadIcon />
                 </Button>
+            )}
         </div>
     )
 }

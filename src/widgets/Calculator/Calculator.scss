@@ -449,10 +449,8 @@
         font-weight: 700;
       }
       &-span {
-        @media (max-width: 620 + 'px') {
-          display: flex;
-          flex-direction: column;
-        }
+        display: flex;
+        flex-direction: column-reverse;
       }
       @media (max-width: 620 + 'px') {
         grid-template-columns: 1.5fr 1fr 1fr;
