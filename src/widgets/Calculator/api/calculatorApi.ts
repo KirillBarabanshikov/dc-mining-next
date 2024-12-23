@@ -51,6 +51,7 @@ class CalculatorApi {
       const products = response.data.products.map((product) => ({
         id: product.id,
         title: product.title,
+        price: product.price,
         productAdd: product.productAdd.map((add) => ({
           id: add.id,
           productAsics: {

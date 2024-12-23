@@ -48,6 +48,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setBusinessPackages,
     setSelectedPackageId,
     selectedPackageId,
+    setDollar,
+      setReadyBusinessTotalPrice
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -223,7 +225,6 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         setSelectedPackageId(null);
       } else if (calculatorType === 2) {
         businessReadyData = await calculatorApi.getBusiness();
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setBusinessPackages(businessReadyData);
@@ -238,12 +239,16 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           setBusinessPackageAsics(businessReadyData);
+          setReadyBusinessTotalPrice(0);
         }
       }
 
       if (!data) return;
 
       const products = data.products;
+
+      console.log(data)
+      setDollar(data.dollar);
 
       setAsics(products);
       setElectricityCoast(data.electricityCoast || 3);
@@ -460,6 +465,10 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                             </div>
                         )}
                       </div>
+                  )}
+
+                  {matches && (
+                      <CalculatorElectricity businessCalculationData={businessCalculationData} profitWithoutElectricity={profitWithoutElectricity} businessTotalPrice={businessTotalPrice} totalConsumption={totalConsumption} electricityCoast={electricityCoast} changeElectricityCoast={changeElectricityCoast} isProError={isProError} />
                   )}
 
                   {matches && (

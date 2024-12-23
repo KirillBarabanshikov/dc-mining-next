@@ -19,6 +19,7 @@ export interface IPackage {
 }
 
 export interface ICalculatorApi {
+  dollar: number;
   electricityCoast: number;
   products: IProduct[];
 }

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
@@ -22,13 +24,17 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
   setAsicsCount,
   businessInitialItems,
 }) => {
-  const { removeBusinessPackageAsic, businessPackageAsics } =
+  const { removeBusinessPackageAsic, businessPackageAsics, setReadyBusinessTotalPrice, readyBusinessTotalPrice } =
     useCalculatorStore();
 
   const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
     const hoursInMonth = 24 * 30;
     return ((asic.watt * hoursInMonth) / 1000).toFixed(0);
   };
+
+  useEffect(() => {
+    console.log(businessPackageAsics)
+  }, [])
 
   return (
     <>
@@ -49,7 +55,8 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
         >
           <div className='calculatorFeature-col'>
             <Dropdown
-              defaultValue={[asic.id ? asic.id.toString() : '29']}
+              defaultValue={[asic ? businessInitialItems.some(item => item.id === asic.id) ? asic.id.toString() : asic.title : '29']}
+              label={asic.title}
               items={businessInitialItems}
               hasIcon={false}
               searchable={true}
@@ -63,8 +70,10 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
             )}
             <div className='calculatorFeature-counts'>
               <IconButton
-                onClick={() =>
+                onClick={() => {
                   setAsicsCount(Math.max(1, asic.count - 1), index)
+                  setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price)
+                  }
                 }
                 icon={<MinusIcon />}
                 variant='outline'
@@ -73,15 +82,20 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
               ></IconButton>
               <Input
                 value={asic.count}
-                onChange={(e) =>
+                onChange={(e) => {
                   setAsicsCount(Math.max(1, +e.target.value), index)
+                  }
                 }
                 className='calculatorFeature-count'
                 sizes='md'
                 type='number'
               />
               <IconButton
-                onClick={() => setAsicsCount(asic.count + 1, index)}
+                onClick={() => {
+                  setAsicsCount(asic.count + 1, index)
+                  setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price)
+                  }
+                }
                 icon={<PlusIcon />}
                 variant='outline'
                 rounded

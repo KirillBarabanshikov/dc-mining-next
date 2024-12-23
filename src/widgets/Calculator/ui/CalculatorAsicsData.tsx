@@ -29,25 +29,28 @@ const CalculatorAsicsData: React.FC<Props> = ({
     asics,
     selectedAsics,
     removeSelectedAsics,
-    businessPackageAsics,
     businessPackages,
     setBusinessPackageAsics,
     setSelectedPackageId,
+      setReadyBusinessTotalPrice,
+      readyBusinessTotalPrice
   } = useCalculatorStore();
+
 
   const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
     const hoursInMonth = 24 * 30;
     return ((asic.watt * asic.count * hoursInMonth) / 1000).toFixed(0);
   };
 
-  const ReadyBusinessTotalPrice = (asics: IAsic[]) => {
-    return asics.reduce((total, asic) => total + asic.price * asic.count, 0);
-  };
+  useEffect(() => {
+    console.log(businessPackages)
+  }, [businessPackages])
 
   const handlePackageChange = (packageId: number) => {
     const selectedPackage = businessPackages.find(
       (pkg) => pkg.id === packageId,
     );
+    console.log(businessPackages)
     setSelectedPackageId(packageId);
     if (selectedPackage) {
       const packageAsics = selectedPackage.productAdd.map((item) => ({
@@ -55,14 +58,23 @@ const CalculatorAsicsData: React.FC<Props> = ({
         count: item.productAsics.count,
         additionalId: item.productAsics.id.toString(),
       }));
+
+      const hasNullPrice = packageAsics.some(asic => asic.price === null)
+
+      if (hasNullPrice) {
+        setReadyBusinessTotalPrice('по запросу');
+      } else {
+        setReadyBusinessTotalPrice(selectedPackage.price)
+      }
+
       setBusinessPackageAsics(packageAsics);
     }
   };
 
   useEffect(() => {
-    console.log(businessPackages);
-    console.log(asics);
-  }, []);
+    console.log(readyBusinessTotalPrice)
+  }, [readyBusinessTotalPrice])
+
 
   return selectedAsics.map((asic, index) => (
     <div key={asic.additionalId}>
@@ -170,11 +182,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
           {calculatorType !== 3 && (
             <div className='calculatorFeature-price'>
               <Input
-                value={formatter.format(
-                  calculatorType === 2
-                    ? ReadyBusinessTotalPrice(businessPackageAsics) ? ReadyBusinessTotalPrice(businessPackageAsics) : 0
-                    : asic.price * asic.count,
-                )}
+                value={calculatorType === 2 ? readyBusinessTotalPrice !== 'по запросу' ? formatter.format(+readyBusinessTotalPrice) : 'По запросу' : formatter.format(asic.price * asic.count)}
                 className='calculatorFeature-price-input'
                 sizes='md'
                 disabled
