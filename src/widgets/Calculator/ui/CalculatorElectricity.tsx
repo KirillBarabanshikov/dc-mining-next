@@ -112,6 +112,10 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
             }));
         }
 
+        if (calculatorType === 2) {
+            pdfData.profitWithoutWatt = parseFloat(pdfData.profitWithoutWatt).toLocaleString('ru-RU');
+        }
+
         console.log(pdfData);
         const result = await calculatorApi.postPDF(pdfData);
         console.log(result);

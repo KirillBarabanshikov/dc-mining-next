@@ -217,6 +217,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     // }
 
     addSelectedAsics(newAsic);
+
+    console.log(selectedAsics)
   };
 
   useEffect(() => {

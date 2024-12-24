@@ -127,12 +127,13 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
                 disabled={asic.count === 1 || isInitialItem ? !(initialAsic && initialAsic.initialCount && asic.count > initialAsic.initialCount) : false }
               ></IconButton>
               <Input
+                disabled
                 value={asic.count}
-                onChange={(e) => {
-                  setAsicsCount(Math.max(1, +e.target.value), index)
-                  }
-                }
-                onBlur={() => setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price * asic.count)}
+                // onChange={(e) => {
+                //   setAsicsCount(Math.max(1, +e.target.value), index)
+                //   }
+                // }
+                // onBlur={() => setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price * asic.count)}
                 className='calculatorFeature-count'
                 sizes='md'
                 type='number'
