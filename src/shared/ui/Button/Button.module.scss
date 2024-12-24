@@ -1,102 +1,122 @@
 .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    border-radius: 16px;
-    padding: 0 16px;
-    font-weight: 700;
-    transition:
-        opacity 300ms ease-out,
-        background-color 300ms ease-out,
-        color 300ms ease-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 16px;
+  padding: 0 16px;
+  font-weight: 700;
+  transition:
+    opacity 300ms ease-out,
+    background-color 300ms ease-out,
+    color 300ms ease-out;
 
-    &.solid {
-        &.blue {
-            background: var(--button-normal);
-            color: var(--text-contrast);
+  svg {
+    flex-shrink: 0;
+  }
 
-            @media (hover: hover) {
-                &:hover {
-                    background: var(--button-hover);
-                }
-            }
+  &.solid {
+    &.blue {
+      background: var(--button-normal);
+      color: var(--text-contrast);
 
-            &:active {
-                background: var(--button-active);
-            }
+      @media (hover: hover) {
+        &:hover {
+          background: var(--button-hover);
         }
+      }
 
-        &.white {
-            background: var(--background-white);
-            color: var(--text-accent-blue);
+      &:active {
+        background: var(--button-active);
+      }
+    }
 
-            @media (hover: hover) {
-                &:hover {
-                    background: var(--button-hover);
-                    color: var(--text-contrast);
-                }
-            }
+    &.white {
+      background: var(--background-white);
+      color: var(--text-accent-blue);
 
-            &:active {
-                background: var(--button-active);
-                color: var(--text-contrast);
-            }
+      @media (hover: hover) {
+        &:hover {
+          background: var(--button-hover);
+          color: var(--text-contrast);
         }
+      }
+
+      &:active {
+        background: var(--button-active);
+        color: var(--text-contrast);
+      }
     }
-
-    &.outline {
-        color: var(--button-normal);
-        border: 1px solid var(--button-normal);
-
-        @media (hover: hover) {
-            &:hover {
-                color: var(--text-contrast);
-                background-color: var(--button-hover);
-            }
-        }
-
-        &:active {
-            color: var(--text-contrast);
-            background: var(--button-active);
-        }
+    &.pink {
+      background: var(--background-bright-accent);
+      color: var(--text-contrast);
     }
-
-    &.lg {
-        height: 64px;
-
-        font-size: 20px;
-        line-height: 24px;
-        letter-spacing: 0.1px;
+    &.gray {
+      background: var(--background-secondary);
+      color: var(--text-secondary);
     }
+  }
 
-    &.md {
-        height: 48px;
-
-        font-size: 16px;
-        line-height: 19.2px;
-    }
-
-    &.sm {
-        height: 32px;
-
-        font-size: 14px;
-        line-height: 16.8px;
-        letter-spacing: 0.2px;
-    }
+  &.outline {
+    color: var(--button-normal);
+    border: 1px solid var(--button-normal);
 
     @media (hover: hover) {
-        &:hover {
-            cursor: pointer;
-        }
+      &:hover {
+        color: var(--text-contrast);
+        background-color: var(--button-hover);
+      }
     }
 
-    &.isWide {
-        width: 100%;
+    &:active {
+      color: var(--text-contrast);
+      background: var(--button-active);
     }
+  }
 
-    &.disabled {
-        cursor: unset;
-        background-color: rgba(190, 200, 245, 1) !important;
+  &.lg {
+    height: 64px;
+
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: 0.1px;
+
+    @media (max-width: (540 + px)) {
+      height: 48px;
+      font-size: 16px;
     }
+  }
+
+  &.md {
+    height: 48px;
+
+    font-size: 16px;
+    line-height: 19.2px;
+    @media (max-width: (540px + px)) {
+      font-size: 14px;
+    }
+  }
+
+  &.sm {
+    height: 32px;
+
+    font-size: 14px;
+    line-height: 16.8px;
+    letter-spacing: 0.2px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &.isWide {
+    width: 100%;
+  }
+
+  &.disabled {
+    cursor: unset;
+    background-color: rgba(190, 200, 245, 1) !important;
+  }
 }

@@ -53,6 +53,18 @@ const nextConfig = {
                 statusCode: 301,
             },
             {
+                source: '/product/elphapex-dg1plus-13,6g',
+                destination: '/product/elphapex-dg1plus-13-6g',
+                permanent: true,
+                statusCode: 301,
+            },
+            {
+                source: '/product/elphapex-dg1plus-14,4g',
+                destination: '/product/elphapex-dg1plus-14-4g',
+                permanent: true,
+                statusCode: 301,
+            },
+            {
                 source: '/product/:id/:slug',
                 destination: '/product/:slug',
                 permanent: true,
