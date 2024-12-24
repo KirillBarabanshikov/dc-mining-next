@@ -6,14 +6,16 @@ import {
 import React from 'react';
 
 import { getContacts } from '@/entities/contacts';
+import { getSeo } from '@/entities/seo';
 
 import { ContactsPage } from './ContactsPage';
 
 export async function generateMetadata() {
+  const data = await getSeo('Контакты');
+
   return {
-    title: 'Контактные данные DC-MINING: адрес, телефон, почта, Telegram',
-    description:
-      'Адреса и контактные данные компании DC-MINING в Москве: номер телефона, почта, Telegram, WhatsApp, реквизиты. Свяжитесь с нами для получения информации или консультаций по интересующим вопросам.',
+    title: data?.title,
+    description: data?.description,
   };
 }
 
