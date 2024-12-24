@@ -72,7 +72,9 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
       const priceDifference = prevAsic.count * prevAsic.price;
       const newPrice = updatedAsic.count * updatedAsic.price;
 
-      setReadyBusinessTotalPrice(+readyBusinessTotalPrice - priceDifference + newPrice);
+      if (readyBusinessTotalPrice !== 'по запросу') {
+        setReadyBusinessTotalPrice(+readyBusinessTotalPrice - priceDifference + newPrice);
+      }
 
       onAsicChange([updatedAsic.id.toString()], index);
     }
@@ -118,7 +120,9 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
                   onClick={() => {
                     if (asic.count > 1 && (!asic.isInitial || (initialAsic && initialAsic.initialCount && asic.count > initialAsic.initialCount))) {
                       setAsicsCount(asic.count - 1, index);
-                      setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price);
+                      if (readyBusinessTotalPrice !== 'по запросу') {
+                        setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price);
+                      }
                     }
                   }}
                 icon={<MinusIcon />}
@@ -141,8 +145,10 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
               <IconButton
                 onClick={() => {
                   setAsicsCount(asic.count + 1, index)
-                  setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price)
+                  if (readyBusinessTotalPrice !== 'по запросу') {
+                    setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price)
                   }
+                }
                 }
                 icon={<PlusIcon />}
                 variant='outline'
@@ -169,7 +175,9 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
                       icon={<TrashIcon />}
                       onClick={() => {
                         removeBusinessPackageAsic(asic.additionalId)
-                        setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price * asic.count)
+                        if (readyBusinessTotalPrice !== 'по запросу') {
+                          setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price * asic.count)
+                        }
                       }}
                       variant='outline'
                       rounded

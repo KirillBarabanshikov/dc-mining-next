@@ -182,7 +182,11 @@ const CalculatorAsicsData: React.FC<Props> = ({
           {calculatorType !== 3 && (
             <div className='calculatorFeature-price'>
               <Input
-                value={calculatorType === 2 ? readyBusinessTotalPrice !== 'по запросу' ? formatter.format(+readyBusinessTotalPrice) : 'По запросу' : formatter.format(asic.price * asic.count)}
+                value={calculatorType === 2 ?
+                    readyBusinessTotalPrice !== 'по запросу' ?
+                        formatter.format(+readyBusinessTotalPrice)
+                        : 'По запросу'
+                    : formatter.format(asic.price * asic.count)}
                 className='calculatorFeature-price-input'
                 sizes='md'
                 disabled
