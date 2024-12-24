@@ -46,6 +46,8 @@ export interface IAsic {
   additionalId: string;
   hashrate: string;
   dimension: string;
+  isInitial?: boolean;
+  initialCount?: number;
 }
 
 export interface IAsicPDF {

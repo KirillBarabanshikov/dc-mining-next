@@ -18,12 +18,14 @@ interface Props {
     profitWithElectricity: number;
     paybackWithElectricity: number;
     paybackWithoutElectricity: number;
+    matches: boolean;
 }
 
-const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, businessCalculationData, calculatorType, electricityConsumption, isEditBusinessDetails, totalConsumption, paybackWithElectricity, paybackWithoutElectricity, profitWithElectricity, profitWithoutElectricity}) => {
+const CalculatorTotalWrapper: React.FC<Props> = ({totalConsumptionDataCenter, businessCalculationData, matches, calculatorType, electricityConsumption, isEditBusinessDetails, totalConsumption, paybackWithElectricity, paybackWithoutElectricity, profitWithElectricity, profitWithoutElectricity}) => {
 
     return (
         <CalculatorTotal
+            matches={matches}
             totalConsumptionDataCenter={totalConsumptionDataCenter.toLocaleString(
                 'ru-RU',
             )}

@@ -19,7 +19,7 @@ import {
   Managers,
   Offers,
 } from '@/widgets';
-// import { Calculator } from '@/widgets/Calculator';
+import { Calculator } from '@/widgets/Calculator';
 import { NewsList } from '@/widgets/NewsList';
 
 import styles from './MainPage.module.scss';
@@ -88,9 +88,9 @@ export const MainPage = () => {
       <div className={styles.managers}>
         <Managers />
       </div>
-      {/*<div className={'container'}>*/}
-      {/*  <Calculator />*/}
-      {/*</div>*/}
+      <div className={'container'}>
+        <Calculator />
+      </div>
       <section className={styles.news}>
         <div className={'container'}>
           <div className={styles.titleWrap}>

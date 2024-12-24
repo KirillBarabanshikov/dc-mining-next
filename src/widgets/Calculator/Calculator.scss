@@ -448,6 +448,10 @@
         color: var(--text-accent);
         font-weight: 700;
       }
+      &-span {
+        display: flex;
+        flex-direction: column-reverse;
+      }
       @media (max-width: 620 + 'px') {
         grid-template-columns: 1.5fr 1fr 1fr;
       }

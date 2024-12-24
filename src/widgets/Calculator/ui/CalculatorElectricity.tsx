@@ -112,6 +112,10 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
             }));
         }
 
+        if (calculatorType === 2) {
+            pdfData.profitWithoutWatt = parseFloat(pdfData.profitWithoutWatt).toLocaleString('ru-RU');
+        }
+
         console.log(pdfData);
         const result = await calculatorApi.postPDF(pdfData);
         console.log(result);
@@ -146,16 +150,18 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
                     </div>
                 )}
             </div>
-            <Button
-                  className='calculatorElectricity-btn'
-                  disabled={calculatorType === 2 && !selectedPackageId}
-                  variant='outline'
-                  size='md'
-                  onClick={handleDownload}
+            {calculatorType !== 3 && (
+                <Button
+                    className='calculatorElectricity-btn'
+                    disabled={calculatorType === 2 && !selectedPackageId}
+                    variant='outline'
+                    size='md'
+                    onClick={handleDownload}
                 >
-                  Скачать фин модель
-                  <DownloadIcon />
+                    Скачать фин модель
+                    <DownloadIcon />
                 </Button>
+            )}
         </div>
     )
 }
