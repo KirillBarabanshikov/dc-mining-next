@@ -1,5 +1,6 @@
 import PencilIcon from '@/shared/assets/icons/pencil.svg';
 import { Button } from '@/shared/ui';
+import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 
 interface Props {
     calculatorType: number;
@@ -11,25 +12,29 @@ interface Props {
 
 
 const CalculatorChangeBusinessPackage: React.FC<Props> = ({isProError, isPro, setIsProError, handleChangeBusinessDetails, calculatorType}) => {
+    const { isNewPackage } = useCalculatorStore()
+
     return (
         <div className='calculatorFeature-change'>
-            <Button
-                className='calculatorFeature-change-btn'
-                variant='solid'
-                size='sm'
-                theme='gray'
-                onClick={() => {
-                    if (!isPro && calculatorType === 2) {
-                        setIsProError(true);
-                        return;
-                    }
+            {!isNewPackage && (
+                <Button
+                    className='calculatorFeature-change-btn'
+                    variant='solid'
+                    size='sm'
+                    theme='gray'
+                    onClick={() => {
+                        if (!isPro && calculatorType === 2) {
+                            setIsProError(true);
+                            return;
+                        }
 
-                    handleChangeBusinessDetails();
-                }}
-            >
-                <PencilIcon />
-                Изменить состав пакета
-            </Button>
+                        handleChangeBusinessDetails();
+                    }}
+                >
+                    <PencilIcon />
+                    Создать новый пакет
+                </Button>
+            )}
             {isProError && (
                 <div className='calculatorElectricity-error calculatorElectricity-error-change'>
                     Доступно в{' '}

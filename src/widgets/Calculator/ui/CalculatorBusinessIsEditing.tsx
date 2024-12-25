@@ -24,7 +24,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
   setAsicsCount,
   businessInitialItems,
 }) => {
-  const { removeBusinessPackageAsic, businessPackageAsics, setReadyBusinessTotalPrice, readyBusinessTotalPrice } =
+  const { removeBusinessPackageAsic, businessPackageAsics, setReadyBusinessTotalPrice, readyBusinessTotalPrice, isNewPackage, selectedPackageId } =
     useCalculatorStore();
 
   const [initialBusinessAsics, setInitialBusinessAsics] = useState<IAsic[]>([])
@@ -43,16 +43,8 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
     setInitialBusinessAsics(initialAsics);
   }, []);
 
-  useEffect(() => {
-    console.log(businessPackageAsics)
-  }, [])
-
-  useEffect(() => {
-    console.log(businessPackageAsics)
-    console.log(initialBusinessAsics)
-  }, [businessPackageAsics])
-
   const handleChange = (prevAsic: IAsic, newValue: string[], index: number) => {
+
     if (prevAsic.isInitial === undefined) {
       return
     }
@@ -94,7 +86,6 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
       </div>
       {businessPackageAsics.map((asic, index) => {
         const isInitialItem = asic.isInitial === undefined;
-        const initialAsic = initialBusinessAsics.find(item => item.id === asic.id);
 
         return (<div
           key={asic.additionalId}
@@ -106,7 +97,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
               label={asic.title}
               items={businessInitialItems}
               hasIcon={false}
-              searchable={!isInitialItem}
+              searchable={true}
               onChange={(value) => handleChange(asic, value, index)}
             />
           </div>
@@ -115,45 +106,49 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
             {matches && (
               <span className='calculatorFeature-description'>Количество</span>
             )}
-            <div className='calculatorFeature-counts'>
-              <IconButton
-                  onClick={() => {
-                    if (asic.count > 1 && (!asic.isInitial || (initialAsic && initialAsic.initialCount && asic.count > initialAsic.initialCount))) {
-                      setAsicsCount(asic.count - 1, index);
-                      if (readyBusinessTotalPrice !== 'по запросу') {
-                        setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price);
-                      }
-                    }
-                  }}
-                icon={<MinusIcon />}
-                variant='outline'
-                rounded
-                disabled={asic.count === 1 || isInitialItem ? !(initialAsic && initialAsic.initialCount && asic.count > initialAsic.initialCount) : false }
-              ></IconButton>
+            <div className={`${isNewPackage && selectedPackageId === 12345 ? 'calculatorFeature-counts' : 'calculatorFeature-counts-none'} `}>
+              {isNewPackage && selectedPackageId === 12345 && (
+                  <IconButton
+                      onClick={() => {
+                        if (asic.count > 1) {
+                          setAsicsCount(asic.count - 1, index);
+                          if (readyBusinessTotalPrice !== 'по запросу') {
+                            setReadyBusinessTotalPrice(+readyBusinessTotalPrice - asic.price);
+                          }
+                        }
+                      }}
+                      icon={<MinusIcon />}
+                      variant='outline'
+                      rounded
+                      disabled={asic.count === 1}
+                  ></IconButton>
+              )}
               <Input
                 disabled
                 value={asic.count}
-                // onChange={(e) => {
-                //   setAsicsCount(Math.max(1, +e.target.value), index)
-                //   }
-                // }
-                // onBlur={() => setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price * asic.count)}
+                onChange={(e) => {
+                  setAsicsCount(Math.max(1, +e.target.value), index)
+                  }
+                }
+                onBlur={() => setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price * asic.count)}
                 className='calculatorFeature-count'
                 sizes='md'
                 type='number'
               />
-              <IconButton
-                onClick={() => {
-                  setAsicsCount(asic.count + 1, index)
-                  if (readyBusinessTotalPrice !== 'по запросу') {
-                    setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price)
-                  }
-                }
-                }
-                icon={<PlusIcon />}
-                variant='outline'
-                rounded
-              ></IconButton>
+              {isNewPackage && selectedPackageId === 12345 && (
+                  <IconButton
+                      onClick={() => {
+                        setAsicsCount(asic.count + 1, index)
+                        if (readyBusinessTotalPrice !== 'по запросу') {
+                          setReadyBusinessTotalPrice(+readyBusinessTotalPrice + asic.price)
+                        }
+                      }
+                      }
+                      icon={<PlusIcon />}
+                      variant='outline'
+                      rounded
+                  ></IconButton>
+              )}
             </div>
           </div>
 
@@ -170,7 +165,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
                   disabled
                 />
               </div>
-              {!isInitialItem && (
+              {!isInitialItem && isNewPackage && (
                   <IconButton
                       icon={<TrashIcon />}
                       onClick={() => {

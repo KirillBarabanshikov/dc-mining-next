@@ -50,7 +50,10 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     selectedPackageId,
     setDollar,
       setReadyBusinessTotalPrice,
-      readyBusinessTotalPrice
+      readyBusinessTotalPrice,
+      businessPackages,
+      setIsNewPackage,
+      isNewPackage
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -88,28 +91,17 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   const changeElectricityCoast = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
 
-    // const numericValue = newValue.trim() === '' ? 0 : parseFloat(newValue);
-
     if (!isPro) {
       e.preventDefault();
       setIsProError(true);
       return;
     }
 
-    // setElectricityCoast(+newValue);
     setElectricityCoast(newValue);
     setIsProError(false);
   };
 
   const path = usePathname()
-
-  // const calculateTotalPrice = () => {
-  //   const totalPrice = businessPackageAsics.reduce((total, asic) => {
-  //     return total + (asic.price * asic.count);
-  //   }, 0)
-  //
-  //   setReadyBusinessTotalPrice(totalPrice)
-  // }
 
   const toggleProMode = () => {
     if (path !== '/calculator') {
@@ -127,7 +119,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   }, [path])
 
   const onAsicChange = (selected: string[], index: number) => {
-    if (isEditBusinessDetails) {
+    if (isNewPackage) {
       const changedAsic = readyBusinessAsics.find(
         (item) => item.value === selected[0],
       );
@@ -161,7 +153,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     if (count <= 0) return;
 
     // businessPackageAsics
-    if (isEditBusinessDetails) {
+    if (isEditBusinessDetails || isNewPackage) {
       const updatedBusinessPackageAsics = businessPackageAsics.map((asic, i) =>
         i === index ? { ...asic, count } : asic,
       );
@@ -192,19 +184,46 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       return;
     }
 
-    setIsEditingTouched(true);
-    if (!isEditBusinessDetails) {
-      if (businessPackageAsics.length === 0) {
-        setBusinessPackageAsics(
-          selectedAsics.map((asic) => ({
-            ...asic,
-            additionalId: uuidv4(),
-          })),
-        );
-      }
-    }
-    setIsEditBusinessDetails((prev) => !prev);
+    const newPackage = {
+      id: 12345,
+      price: selectedAsics[0].price,
+      title: 'Новый пакет',
+      productAdd: [
+        {
+          id: 12345678,
+          productAsics: {
+            ...selectedAsics[0],
+            initialCount: 1,
+            isInitial: true,
+          }
+        }
+      ]
+    };
+
+    setIsNewPackage(true)
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setBusinessPackages([...businessPackages, newPackage])
+
+    console.log(businessPackages)
+
+    // setIsEditingTouched(true);
+    // if (!isEditBusinessDetails) {
+    //   if (businessPackageAsics.length === 0) {
+    //     setBusinessPackageAsics(
+    //       selectedAsics.map((asic) => ({
+    //         ...asic,
+    //         additionalId: uuidv4(),
+    //       })),
+    //     );
+    //   }
+    // }
+    // setIsEditBusinessDetails((prev) => !prev);
     setBusinessTotalPrice(getTotalPrice());
+    setSelectedPackageId(12345);
+    setBusinessPackageAsics([selectedAsics[0]]);
+    setReadyBusinessTotalPrice(selectedAsics[0].price)
   };
 
   const addAsic = (asicId: number) => {
@@ -274,6 +293,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
     fetchData();
     setIsEditBusinessDetails(false);
+    setIsNewPackage(false);
   }, [calculatorType]);
 
   useEffect(() => {
@@ -561,16 +581,16 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                 )}
 
                 <div className='calculatorFeature-data'>
-                  {isEditBusinessDetails && (
-                    <CalculatorBusinessIsEditing
-                      isEditBusinessDetails={isEditBusinessDetails}
-                      matches={matches}
-                      onAsicChange={onAsicChange}
-                      setAsicsCount={setAsicsCount}
-                      isEditingTouched={isEditingTouched}
-                      businessTotalPrice={businessTotalPrice}
-                      businessInitialItems={businessInitialItems}
-                    />
+                  {selectedPackageId && (
+                      <CalculatorBusinessIsEditing
+                          isEditBusinessDetails={isEditBusinessDetails}
+                          matches={matches}
+                          onAsicChange={onAsicChange}
+                          setAsicsCount={setAsicsCount}
+                          isEditingTouched={isEditingTouched}
+                          businessTotalPrice={businessTotalPrice}
+                          businessInitialItems={businessInitialItems}
+                      />
                   )}
                 </div>
 
@@ -587,7 +607,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     />
                   )}
 
-                {calculatorType === 2 && isEditBusinessDetails && (
+                {calculatorType === 2 && isNewPackage && selectedPackageId === 12345 && (
                   <div className='calculatorFeature-row calculatorFeature-change-row'>
                     <Button
                       className='calculatorFeature-add-btn'

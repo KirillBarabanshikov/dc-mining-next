@@ -36,6 +36,8 @@ interface ICalculatorState {
   setReadyBusinessTotalPrice: (price: number | string) => void;
   dollar: number;
   setDollar: (currency: number) => void;
+  isNewPackage: boolean;
+  setIsNewPackage: (bool: boolean) => void;
   // changeBusinessPackages: (packages: IPackage) => void;
 }
 
@@ -81,6 +83,8 @@ export const useCalculatorStore = create<ICalculatorState>()(
     selectedPackageId: null,
     readyBusinessTotalPrice: 0,
     dollar: 0,
+    isNewPackage: false,
+    setIsNewPackage: (bool: boolean) => set({ isNewPackage: bool }),
     setDollar: (currency: number) => set({ dollar: currency }),
     setSelectedPackageId: (id) => set({ selectedPackageId: id }),
     setBusinessPackages: (packages) => set({ businessPackages: packages }),

@@ -1,12 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { formatter } from '@/shared/lib';
-import { Dropdown, IconButton, Input } from '@/shared/ui';
+import { Button, Dropdown, IconButton, Input } from '@/shared/ui';
 import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 import { IAsic } from '@/widgets/Calculator/types';
+import PencilIcon from '@/shared/assets/icons/pencil.svg';
 
 interface Props {
   className?: string;
@@ -32,19 +33,15 @@ const CalculatorAsicsData: React.FC<Props> = ({
     businessPackages,
     setBusinessPackageAsics,
     setSelectedPackageId,
-      setReadyBusinessTotalPrice,
-      readyBusinessTotalPrice
+    setReadyBusinessTotalPrice,
+    readyBusinessTotalPrice,
+      isNewPackage,
   } = useCalculatorStore();
-
 
   const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
     const hoursInMonth = 24 * 30;
     return ((asic.watt * asic.count * hoursInMonth) / 1000).toFixed(0);
   };
-
-  useEffect(() => {
-    console.log(businessPackages)
-  }, [businessPackages])
 
   const handlePackageChange = (packageId: number) => {
     const selectedPackage = businessPackages.find(
@@ -52,6 +49,9 @@ const CalculatorAsicsData: React.FC<Props> = ({
     );
     console.log(businessPackages)
     setSelectedPackageId(packageId);
+    // if (packageId !== 12345) {
+    //   setIsNewPackage(false)
+    // }
     if (selectedPackage) {
       const packageAsics = selectedPackage.productAdd.map((item) => ({
         ...item.productAsics,
@@ -64,10 +64,16 @@ const CalculatorAsicsData: React.FC<Props> = ({
       if (hasNullPrice) {
         setReadyBusinessTotalPrice('по запросу');
       } else {
+        console.log(selectedPackage)
         setReadyBusinessTotalPrice(selectedPackage.price)
       }
 
+      if (selectedPackage.id === 12345) {
+        setReadyBusinessTotalPrice(selectedAsics[0].price)
+      }
+
       setBusinessPackageAsics(packageAsics);
+
     }
   };
 
@@ -85,19 +91,35 @@ const CalculatorAsicsData: React.FC<Props> = ({
               <span className='calculatorFeature-description'>Пакет</span>
             )}
             <div className='calculatorFeature-models'>
-              <Dropdown
-                  searchable={true}
-                items={[
-                  { label: 'Не выбрано', value: '' },
-                  ...businessPackages.map((pkg) => ({
-                    label: pkg.title,
-                    value: pkg.id.toString(),
-                  })),
-                ]}
-                defaultValue={['']}
-                hasIcon={false}
-                onChange={(value) => handlePackageChange(Number(value[0]))}
-              />
+              {!isNewPackage && (
+                  <Dropdown
+                      searchable={true}
+                      items={[
+                        { label: 'Не выбрано', value: '' },
+                        ...businessPackages.map((pkg) => ({
+                          label: pkg.title,
+                          value: pkg.id.toString(),
+                        })),
+                      ]}
+                      defaultValue={['']}
+                      hasIcon={false}
+                      onChange={(value) => handlePackageChange(Number(value[0]))}
+                  />
+              )}
+              {isNewPackage && (
+                  <Dropdown
+                      searchable={true}
+                      items={[
+                        ...businessPackages.map((pkg) => ({
+                          label: pkg.title,
+                          value: pkg.id.toString(),
+                        })),
+                      ]}
+                      defaultValue={['12345']}
+                      hasIcon={false}
+                      onChange={(value) => handlePackageChange(Number(value[0]))}
+                  />
+              )}
             </div>
           </div>
         )}
