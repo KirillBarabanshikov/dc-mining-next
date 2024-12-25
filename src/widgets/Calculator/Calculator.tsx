@@ -452,7 +452,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                         onClick={() => {
                           if (readyBusinessAsics.length > 0) {
                             addBusinessPackageAsic();
-                            setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
+                            readyBusinessTotalPrice === 'по запросу' ? setReadyBusinessTotalPrice('По запросу') : setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
                           }
                         }}
                       >
@@ -597,6 +597,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                       onClick={() => {
                         if (readyBusinessAsics.length > 0) {
                           addBusinessPackageAsic();
+                        }
+                        if (readyBusinessTotalPrice !== 'по запросу') {
                           setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
                         }
                       }}
