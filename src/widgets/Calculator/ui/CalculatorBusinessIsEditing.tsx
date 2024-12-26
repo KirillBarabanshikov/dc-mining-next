@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
@@ -27,25 +25,14 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
   const { removeBusinessPackageAsic, businessPackageAsics, setReadyBusinessTotalPrice, readyBusinessTotalPrice, isNewPackage, selectedPackageId } =
     useCalculatorStore();
 
-  const [initialBusinessAsics, setInitialBusinessAsics] = useState<IAsic[]>([])
-
   const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
     const hoursInMonth = 24 * 30;
     return ((asic.watt * hoursInMonth) / 1000).toFixed(0);
   };
 
-  useEffect(() => {
-    const initialAsics = businessPackageAsics.map((asic) => ({
-      ...asic,
-      isInitial: true,
-      initialCount: asic.count,
-    }));
-    setInitialBusinessAsics(initialAsics);
-  }, []);
-
   const handleChange = (prevAsic: IAsic, newValue: string[], index: number) => {
 
-    if (prevAsic.isInitial === undefined) {
+    if (prevAsic.isInitial === undefined && selectedPackageId !== 12345) {
       return
     }
 
@@ -55,7 +42,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
       const updatedAsic = {
         ...newAsic,
         count: prevAsic.count,
-        isInitial: false,
+        isInitial: true,
       };
 
       const updatedBusinessPackageAsics = [...businessPackageAsics];
@@ -85,7 +72,7 @@ const CalculatorBusinessIsEditing: React.FC<Props> = ({
         )}
       </div>
       {businessPackageAsics.map((asic, index) => {
-        const isInitialItem = asic.isInitial === undefined;
+        const isInitialItem = asic.isInitial === undefined || asic.isInitial;
 
         return (<div
           key={asic.additionalId}

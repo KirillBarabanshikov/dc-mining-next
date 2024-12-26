@@ -46,56 +46,56 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
 
             pdfData = {
                 sumRuble: totalPrice.toLocaleString('ru-RU'),
-                sumDollar: (totalPrice / course).toFixed(2),
+                sumDollar: (totalPrice / course).toFixed(0),
                 curs: course.toString(),
                 sumIn: totalPrice.toLocaleString('ru-RU'),
                 everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
-                profitWithoutWatt: profitWithoutElectricity.toFixed(3),
+                profitWithoutWatt: profitWithoutElectricity.toFixed(0),
                 profitWithMonth: (totalPrice / profitWithoutElectricity).toFixed(0),
                 asics: selectedAsics.map((item) => ({
                     id: item.id,
                     title: item.title,
                     hashrate: `${item.hashrate} ${item.dimension}`,
                     quantity: item.count.toLocaleString('ru-RU'),
-                    priceOnePiece: (item.price / course).toFixed(2),
-                    price: (item.price * item.count / course).toFixed(2),
+                    priceOnePiece: (item.price / course).toFixed(0),
+                    price: (item.price * item.count / course).toFixed(0),
                 })),
             };
         } else if (calculatorType === 2) {
             pdfData = {
                 sumRuble: readyBusinessTotalPrice.toLocaleString('ru-RU'),
-                sumDollar: readyBusinessTotalPrice !== 'по запросу' ? (+readyBusinessTotalPrice / course).toFixed(2) : 'по запросу',
+                sumDollar: readyBusinessTotalPrice !== 'по запросу' ? (+readyBusinessTotalPrice / course).toFixed(0) : 'по запросу',
                 curs: course.toString(),
                 sumIn: readyBusinessTotalPrice.toLocaleString('ru-RU'),
                 everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
-                profitWithoutWatt: profitWithoutElectricity.toFixed(3),
+                profitWithoutWatt: readyBusinessTotalPrice !== 'по запросу' ? profitWithoutElectricity.toFixed(0) : 'по запросу',
                 profitWithMonth: readyBusinessTotalPrice !== 'по запросу' ? (+readyBusinessTotalPrice / profitWithoutElectricity).toFixed(0) : 'по запросу',
                 asics: businessPackageAsics.map((item) => ({
                     id: item.id,
                     title: item.title,
                     hashrate: `${item.hashrate} ${item.dimension}`,
                     quantity: item.count.toLocaleString('ru-RU'),
-                    priceOnePiece: readyBusinessTotalPrice !== 'по запросу' ? (item.price / course).toFixed(2) : 'по запросу',
-                    price: readyBusinessTotalPrice !== 'по запросу' ? (item.price * item.count / course).toFixed(2) : 'по запросу',
+                    priceOnePiece: readyBusinessTotalPrice !== 'по запросу' ? (item.price / course).toFixed(0) : 'по запросу',
+                    price: readyBusinessTotalPrice !== 'по запросу' ? (item.price * item.count / course).toFixed(0) : 'по запросу',
                 })),
             };
         } else {
             const totalPrice = selectedAsics.reduce((total, asic) => total + asic.price * asic.count, 0);
             pdfData = {
                 sumRuble: totalPrice.toLocaleString('ru-RU'),
-                sumDollar: (totalPrice / course).toFixed(2),
+                sumDollar: (totalPrice / course).toFixed(0),
                 curs: course.toString(),
                 sumIn: totalPrice.toLocaleString('ru-RU'),
                 everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
-                profitWithoutWatt: profitWithoutElectricity.toFixed(3),
+                profitWithoutWatt: profitWithoutElectricity.toFixed(0),
                 profitWithMonth: (totalPrice / profitWithoutElectricity).toFixed(0),
                 asics: selectedAsics.map((item) => ({
                     id: item.id,
                     title: item.title,
                     hashrate: `${item.hashrate} ${item.dimension}`,
                     quantity: item.count.toLocaleString('ru-RU'),
-                    priceOnePiece: (item.price / course).toFixed(2),
-                    price: (item.price * item.count / course).toFixed(2),
+                    priceOnePiece: (item.price / course).toFixed(0),
+                    price: (item.price * item.count / course).toFixed(0),
                 })),
             };
         }
@@ -136,21 +136,23 @@ const CalculatorElectricity: React.FC<Props> = ({electricityCoast, changeElectri
 
     return (
         <div className='calculatorElectricity'>
-            <div className='calculatorElectricity-price'>
-                <span>Стоимость э/э, ₽</span>
-                <Input
-                    type='number'
-                    value={electricityCoast}
-                    onChange={(e) => changeElectricityCoast(e)}
-                    sizes='md'
-                    error={isProError || electricityCoast === ''}
-                />
-                {isProError && (
-                    <div className='calculatorElectricity-error'>
-                        Доступно в Pro версии
-                    </div>
-                )}
-            </div>
+            {calculatorType !== 3 && (
+                <div className='calculatorElectricity-price'>
+                    <span>Стоимость э/э, ₽</span>
+                    <Input
+                        type='number'
+                        value={electricityCoast}
+                        onChange={(e) => changeElectricityCoast(e)}
+                        sizes='md'
+                        error={isProError || electricityCoast === ''}
+                    />
+                    {isProError && (
+                        <div className='calculatorElectricity-error'>
+                            Доступно в Pro версии
+                        </div>
+                    )}
+                </div>
+            )}
             {calculatorType !== 3 && (
                 <Button
                     className='calculatorElectricity-btn'

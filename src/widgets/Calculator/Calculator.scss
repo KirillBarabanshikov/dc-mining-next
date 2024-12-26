@@ -300,6 +300,12 @@
     }
     &-none {
       grid-template-columns: repeat(1, 1fr);
+      .calculatorFeature-count {
+        input {
+          padding: 16px;
+          text-align: start;
+        }
+      }
     }
   }
   &-count {

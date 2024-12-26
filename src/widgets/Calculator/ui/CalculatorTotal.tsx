@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { OrderCallModal } from '@/features/call';
 import { OrderProductModal } from '@/features/product';
@@ -57,6 +57,9 @@ export const CalculatorTotal: React.FC<Props> = ({
       // }
 
       if (selectedPackage) {
+        if (readyBusinessTotalPrice === 'по запросу') {
+          selectedPackage.price = 0
+        }
         if (typeof readyBusinessTotalPrice === 'number') {
           selectedPackage.price = readyBusinessTotalPrice;
         }
@@ -79,6 +82,12 @@ export const CalculatorTotal: React.FC<Props> = ({
       setIsOrderModalOpen(true);
     }
   };
+
+  const isNewPackage = selectedPackageId === 12345 && calculatorType === 2
+
+  useEffect(() => {
+    console.log(isNewPackage)
+  }, [isNewPackage])
 
   return (
     <div className='calculator-card calculatorTotal'>

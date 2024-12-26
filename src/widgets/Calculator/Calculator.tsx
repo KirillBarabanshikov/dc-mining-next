@@ -76,7 +76,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   const [businessCalculationAsics, setBusinessCalculationAsics] = useState<
     IAsic[]
   >([]);
-  const [isEditingTouched, setIsEditingTouched] = useState(false);
+  const [isEditingTouched] = useState(false);
   const [businessTotalPrice, setBusinessTotalPrice] = useState(0);
 
   const [businessCalculationData, setBusinessCalculationData] = useState({
@@ -206,20 +206,6 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     // @ts-ignore
     setBusinessPackages([...businessPackages, newPackage])
 
-    console.log(businessPackages)
-
-    // setIsEditingTouched(true);
-    // if (!isEditBusinessDetails) {
-    //   if (businessPackageAsics.length === 0) {
-    //     setBusinessPackageAsics(
-    //       selectedAsics.map((asic) => ({
-    //         ...asic,
-    //         additionalId: uuidv4(),
-    //       })),
-    //     );
-    //   }
-    // }
-    // setIsEditBusinessDetails((prev) => !prev);
     setBusinessTotalPrice(getTotalPrice());
     setSelectedPackageId(12345);
     setBusinessPackageAsics([selectedAsics[0]]);
@@ -230,10 +216,6 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     const newAsic = asics.find((asic) => asic.id === asicId);
 
     if (!newAsic) return;
-
-    // if (calculatorType === 2) {
-    //   calculateTotalPrice(updatedSelectedAsics);
-    // }
 
     addSelectedAsics(newAsic);
 
@@ -265,10 +247,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         // @ts-ignore
         setBusinessPackages(businessReadyData);
 
-        setSelectedAsics([selectedAsics[0]]);
+        // setSelectedAsics([selectedAsics[0]]);
 
         const asicMinersData = await calculatorApi.getAsics();
-        console.log(asicMinersData);
         if (asicMinersData) {
           setReadyBusinessAsics(asicMinersData.products);
           setBusinessInitialItems(asicMinersData.products);
@@ -276,6 +257,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           // @ts-ignore
           setBusinessPackageAsics(businessReadyData);
           setReadyBusinessTotalPrice(0);
+
+          setSelectedAsics([selectedAsics[0]]);
         }
       }
 
@@ -436,9 +419,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   {openAccordionId === 4 && <CalculatorBodyLeasing />}
 
                   {calculatorType === 2 &&
-                    matches &&
-                    !isEditBusinessDetails &&
-                    selectedPackageId && (
+                      matches &&
+                      !isEditBusinessDetails &&
+                      selectedPackageId && (
                       <CalculatorChangeBusinessPackage
                         isPro={isPro}
                         calculatorType={calculatorType}
@@ -450,7 +433,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                       />
                     )}
 
-                  {isEditBusinessDetails && matches && (
+                  {isNewPackage && matches && (
                     <CalculatorBusinessIsEditing
                       isEditBusinessDetails={isEditBusinessDetails}
                       matches={matches}
@@ -462,7 +445,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     />
                   )}
 
-                  {calculatorType === 2 && isEditBusinessDetails && matches && (
+                  {calculatorType === 2 && isNewPackage && selectedPackageId === 12345 && matches && (
                     <div className='calculatorFeature-row calculatorFeature-change-row'>
                       <Button
                         className='calculatorFeature-add-btn'
