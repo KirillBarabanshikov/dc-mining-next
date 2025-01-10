@@ -10,11 +10,11 @@ import { formatter, useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input, NumberInput } from '@/shared/ui';
 import { calculatorApi } from '@/widgets/Calculator/api';
+import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 import { IAsic, IPackage } from '@/widgets/Calculator/types';
 
 import { orderProductFormScheme, TOrderProductFormScheme } from '../../model';
 import styles from './OrderProductForm.module.scss';
-import { useCalculatorStore } from '@/widgets/Calculator/model/store';
 
 interface IOrderProductFormProps {
   onClose: () => void;
