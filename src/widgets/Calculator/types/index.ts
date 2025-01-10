@@ -69,3 +69,12 @@ export interface IPostPDFRequest {
   profitWithMonth: string;
   asics: IAsicPDF[];
 }
+
+export interface IFormRequestData {
+  title: string;
+  name: string;
+  phone: string;
+  entryPoint: string;
+  data: string;
+  pdfId: number;
+}

@@ -34,7 +34,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
     setSelectedPackageId,
     setReadyBusinessTotalPrice,
     readyBusinessTotalPrice,
-      isNewPackage,
+    isNewPackage,
   } = useCalculatorStore();
 
   const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
@@ -46,7 +46,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
     const selectedPackage = businessPackages.find(
       (pkg) => pkg.id === packageId,
     );
-    console.log(businessPackages)
+    console.log(businessPackages);
     setSelectedPackageId(packageId);
     // if (packageId !== 12345) {
     //   setIsNewPackage(false)
@@ -58,28 +58,26 @@ const CalculatorAsicsData: React.FC<Props> = ({
         additionalId: item.productAsics.id.toString(),
       }));
 
-      const hasNullPrice = packageAsics.some(asic => asic.price === null)
+      const hasNullPrice = packageAsics.some((asic) => asic.price === null);
 
       if (hasNullPrice) {
         setReadyBusinessTotalPrice('по запросу');
       } else {
-        console.log(selectedPackage)
-        setReadyBusinessTotalPrice(selectedPackage.price)
+        console.log(selectedPackage);
+        setReadyBusinessTotalPrice(selectedPackage.price);
       }
 
       if (selectedPackage.id === 12345) {
-        setReadyBusinessTotalPrice(selectedAsics[0].price)
+        setReadyBusinessTotalPrice(selectedAsics[0].price);
       }
 
       setBusinessPackageAsics(packageAsics);
-
     }
   };
 
   useEffect(() => {
-    console.log(readyBusinessTotalPrice)
-  }, [readyBusinessTotalPrice])
-
+    console.log(readyBusinessTotalPrice);
+  }, [readyBusinessTotalPrice]);
 
   return selectedAsics.map((asic, index) => (
     <div key={asic.additionalId}>
@@ -91,33 +89,33 @@ const CalculatorAsicsData: React.FC<Props> = ({
             )}
             <div className='calculatorFeature-models'>
               {!isNewPackage && (
-                  <Dropdown
-                      searchable={true}
-                      items={[
-                        { label: 'Не выбрано', value: '' },
-                        ...businessPackages.map((pkg) => ({
-                          label: pkg.title,
-                          value: pkg.id.toString(),
-                        })),
-                      ]}
-                      defaultValue={['']}
-                      hasIcon={false}
-                      onChange={(value) => handlePackageChange(Number(value[0]))}
-                  />
+                <Dropdown
+                  searchable={true}
+                  items={[
+                    { label: 'Не выбрано', value: '' },
+                    ...businessPackages.map((pkg) => ({
+                      label: pkg.title,
+                      value: pkg.id.toString(),
+                    })),
+                  ]}
+                  defaultValue={['']}
+                  hasIcon={false}
+                  onChange={(value) => handlePackageChange(Number(value[0]))}
+                />
               )}
               {isNewPackage && (
-                  <Dropdown
-                      searchable={true}
-                      items={[
-                        ...businessPackages.map((pkg) => ({
-                          label: pkg.title,
-                          value: pkg.id.toString(),
-                        })),
-                      ]}
-                      defaultValue={['12345']}
-                      hasIcon={false}
-                      onChange={(value) => handlePackageChange(Number(value[0]))}
-                  />
+                <Dropdown
+                  searchable={true}
+                  items={[
+                    ...businessPackages.map((pkg) => ({
+                      label: pkg.title,
+                      value: pkg.id.toString(),
+                    })),
+                  ]}
+                  defaultValue={['12345']}
+                  hasIcon={false}
+                  onChange={(value) => handlePackageChange(Number(value[0]))}
+                />
               )}
             </div>
           </div>
@@ -133,7 +131,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
 
             <div className='calculatorFeature-models'>
               <Dropdown
-                  searchable={true}
+                searchable={true}
                 defaultValue={[asic.value]}
                 items={asics}
                 hasIcon={false}
@@ -203,11 +201,13 @@ const CalculatorAsicsData: React.FC<Props> = ({
           {calculatorType !== 3 && (
             <div className='calculatorFeature-price'>
               <Input
-                value={calculatorType === 2 ?
-                    readyBusinessTotalPrice !== 'по запросу' ?
-                        formatter.format(+readyBusinessTotalPrice)
-                        : 'По запросу'
-                    : formatter.format(asic.price * asic.count)}
+                value={
+                  calculatorType === 2
+                    ? readyBusinessTotalPrice !== 'по запросу'
+                      ? formatter.format(+readyBusinessTotalPrice)
+                      : 'По запросу'
+                    : formatter.format(asic.price * asic.count)
+                }
                 className='calculatorFeature-price-input'
                 sizes='md'
                 disabled

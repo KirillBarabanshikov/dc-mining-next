@@ -12,6 +12,8 @@ interface IOrderProductModalProps {
   product: IProduct | IAsic | IPackage;
   isMultiple?: boolean;
   additionalProducts?: IAsic[];
+  variant?: 'product' | 'calculator';
+  generatePdfData?: () => any;
 }
 
 export const OrderProductModal: FC<IOrderProductModalProps> = ({
@@ -20,6 +22,8 @@ export const OrderProductModal: FC<IOrderProductModalProps> = ({
   product,
   isMultiple,
   additionalProducts,
+  variant = 'product',
+  generatePdfData,
 }) => {
   const [isFinally, setIsFinally] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -50,6 +54,8 @@ export const OrderProductModal: FC<IOrderProductModalProps> = ({
           additionalProducts={additionalProducts}
           setIsFinally={(value) => setIsFinally(value)}
           setIsError={(value) => setIsError(value)}
+          variant={variant}
+          generatePdfData={generatePdfData}
         />
       )}
     </Modal>
