@@ -298,6 +298,15 @@
     @media (max-width: (768 + px)) {
       display: flex;
     }
+    &-none {
+      grid-template-columns: repeat(1, 1fr);
+      .calculatorFeature-count {
+        input {
+          padding: 16px;
+          text-align: start;
+        }
+      }
+    }
   }
   &-count {
     input {
@@ -318,6 +327,9 @@
     &-btn {
       font-size: 14px;
       color: var(--text-secondary);
+      &-new {
+        margin-top: 12px;
+      }
     }
     &-row {
       align-items: center;

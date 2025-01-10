@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { OrderCallModal } from '@/features/call';
 import { OrderProductModal } from '@/features/product';
@@ -18,6 +18,7 @@ interface Props {
   totalPriceGuests: string | number;
   totalConsumptionDataCenter: string;
   matches: boolean;
+  generatePdfData: () => any;
 }
 
 export const CalculatorTotal: React.FC<Props> = ({
@@ -28,7 +29,8 @@ export const CalculatorTotal: React.FC<Props> = ({
   paybackWithElectricity,
   paybackWithoutElectricity,
   totalPriceGuests,
-  matches
+  matches,
+  generatePdfData,
 }) => {
   const {
     calculatorType,
@@ -36,7 +38,7 @@ export const CalculatorTotal: React.FC<Props> = ({
     electricityCoast,
     businessPackages,
     selectedPackageId,
-    readyBusinessTotalPrice
+    readyBusinessTotalPrice,
   } = useCalculatorStore();
   const [isOpen, setIsOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
@@ -52,11 +54,14 @@ export const CalculatorTotal: React.FC<Props> = ({
       // let selectedPackageCopy;
 
       // if (businessPackageAsics.slice(1).length > 0) {
-        // selectedPackageCopy = structuredClone(selectedPackage)
-        // selectedPackageCopy?.productAdd[0].productAsics.push(businessPackageAsics[1])
+      // selectedPackageCopy = structuredClone(selectedPackage)
+      // selectedPackageCopy?.productAdd[0].productAsics.push(businessPackageAsics[1])
       // }
 
       if (selectedPackage) {
+        if (readyBusinessTotalPrice === 'по запросу') {
+          selectedPackage.price = 0;
+        }
         if (typeof readyBusinessTotalPrice === 'number') {
           selectedPackage.price = readyBusinessTotalPrice;
         }
@@ -79,6 +84,12 @@ export const CalculatorTotal: React.FC<Props> = ({
       setIsOrderModalOpen(true);
     }
   };
+
+  const isNewPackage = selectedPackageId === 12345 && calculatorType === 2;
+
+  useEffect(() => {
+    console.log(isNewPackage);
+  }, [isNewPackage]);
 
   return (
     <div className='calculator-card calculatorTotal'>
@@ -228,6 +239,8 @@ export const CalculatorTotal: React.FC<Props> = ({
         product={getProductForModal()}
         isMultiple={calculatorType === 3}
         additionalProducts={getAdditionalProducts()}
+        variant={'calculator'}
+        generatePdfData={generatePdfData}
       />
     </div>
   );

@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { instance } from '@/shared/api';
 
-import { ICalculatorApi, IPostPDFRequest } from '../types';
+import { ICalculatorApi, IFormRequestData, IPostPDFRequest } from '../types';
 
 // type QueryTypes = 'asicMiners' | 'readyBusiness';
 
@@ -77,15 +77,32 @@ class CalculatorApi {
 
   public postPDF = async (data: IPostPDFRequest) => {
     try {
-      const response = await instance.post('/product/calculatingExportPdf', data, {
-        responseType: 'blob',
-      });
-      return response.data;
+      const response = await instance.post(
+        '/product/calculatingExportPdf',
+        data,
+        {
+          responseType: 'blob',
+        },
+      );
+      return {
+        file: response.data,
+        pdfId: +response.headers['entity-id'] as number,
+      };
     } catch (error) {
-      console.error("Error posting PDF data:", error);
+      console.error('Error posting PDF data:', error);
       return null;
     }
-  }
+  };
+
+  public sendFormRequest = async (data: IFormRequestData) => {
+    try {
+      const response = await instance.post('/formsPdf', data);
+      return response.data;
+    } catch (error) {
+      console.error('Error send form request', error);
+      throw new Error('Error send form request');
+    }
+  };
 }
 
 export const calculatorApi = new CalculatorApi();

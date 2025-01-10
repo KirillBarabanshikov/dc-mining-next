@@ -49,8 +49,12 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     setSelectedPackageId,
     selectedPackageId,
     setDollar,
-      setReadyBusinessTotalPrice,
-      readyBusinessTotalPrice
+    setReadyBusinessTotalPrice,
+    readyBusinessTotalPrice,
+    businessPackages,
+    setIsNewPackage,
+    isNewPackage,
+    dollar,
   } = useCalculatorStore();
 
   const matches = useMediaQuery(MAX_WIDTH_MD);
@@ -73,7 +77,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   const [businessCalculationAsics, setBusinessCalculationAsics] = useState<
     IAsic[]
   >([]);
-  const [isEditingTouched, setIsEditingTouched] = useState(false);
+  const [isEditingTouched] = useState(false);
   const [businessTotalPrice, setBusinessTotalPrice] = useState(0);
 
   const [businessCalculationData, setBusinessCalculationData] = useState({
@@ -88,46 +92,35 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   const changeElectricityCoast = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
 
-    // const numericValue = newValue.trim() === '' ? 0 : parseFloat(newValue);
-
     if (!isPro) {
       e.preventDefault();
       setIsProError(true);
       return;
     }
 
-    // setElectricityCoast(+newValue);
     setElectricityCoast(newValue);
     setIsProError(false);
   };
 
-  const path = usePathname()
-
-  // const calculateTotalPrice = () => {
-  //   const totalPrice = businessPackageAsics.reduce((total, asic) => {
-  //     return total + (asic.price * asic.count);
-  //   }, 0)
-  //
-  //   setReadyBusinessTotalPrice(totalPrice)
-  // }
+  const path = usePathname();
 
   const toggleProMode = () => {
     if (path !== '/calculator') {
-      router.push('/calculator')
+      router.push('/calculator');
     }
     // setIsPro(true);
   };
 
   useEffect(() => {
     if (path === '/calculator') {
-      setIsPro(true)
+      setIsPro(true);
     } else {
-      setIsPro(false)
+      setIsPro(false);
     }
-  }, [path])
+  }, [path]);
 
   const onAsicChange = (selected: string[], index: number) => {
-    if (isEditBusinessDetails) {
+    if (isNewPackage) {
       const changedAsic = readyBusinessAsics.find(
         (item) => item.value === selected[0],
       );
@@ -161,7 +154,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     if (count <= 0) return;
 
     // businessPackageAsics
-    if (isEditBusinessDetails) {
+    if (isEditBusinessDetails || isNewPackage) {
       const updatedBusinessPackageAsics = businessPackageAsics.map((asic, i) =>
         i === index ? { ...asic, count } : asic,
       );
@@ -192,19 +185,32 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
       return;
     }
 
-    setIsEditingTouched(true);
-    if (!isEditBusinessDetails) {
-      if (businessPackageAsics.length === 0) {
-        setBusinessPackageAsics(
-          selectedAsics.map((asic) => ({
-            ...asic,
-            additionalId: uuidv4(),
-          })),
-        );
-      }
-    }
-    setIsEditBusinessDetails((prev) => !prev);
+    const newPackage = {
+      id: 12345,
+      price: selectedAsics[0].price,
+      title: 'Новый пакет',
+      productAdd: [
+        {
+          id: 12345678,
+          productAsics: {
+            ...selectedAsics[0],
+            initialCount: 1,
+            isInitial: true,
+          },
+        },
+      ],
+    };
+
+    setIsNewPackage(true);
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setBusinessPackages([...businessPackages, newPackage]);
+
     setBusinessTotalPrice(getTotalPrice());
+    setSelectedPackageId(12345);
+    setBusinessPackageAsics([selectedAsics[0]]);
+    setReadyBusinessTotalPrice(selectedAsics[0].price);
   };
 
   const addAsic = (asicId: number) => {
@@ -212,13 +218,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
     if (!newAsic) return;
 
-    // if (calculatorType === 2) {
-    //   calculateTotalPrice(updatedSelectedAsics);
-    // }
-
     addSelectedAsics(newAsic);
 
-    console.log(selectedAsics)
+    console.log(selectedAsics);
   };
 
   useEffect(() => {
@@ -246,10 +248,9 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         // @ts-ignore
         setBusinessPackages(businessReadyData);
 
-        setSelectedAsics([selectedAsics[0]]);
+        // setSelectedAsics([selectedAsics[0]]);
 
         const asicMinersData = await calculatorApi.getAsics();
-        console.log(asicMinersData);
         if (asicMinersData) {
           setReadyBusinessAsics(asicMinersData.products);
           setBusinessInitialItems(asicMinersData.products);
@@ -257,6 +258,8 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
           // @ts-ignore
           setBusinessPackageAsics(businessReadyData);
           setReadyBusinessTotalPrice(0);
+
+          setSelectedAsics([selectedAsics[0]]);
         }
       }
 
@@ -264,7 +267,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
       const products = data.products;
 
-      console.log(data)
+      console.log(data);
       setDollar(data.dollar);
 
       setAsics(products);
@@ -274,6 +277,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
     fetchData();
     setIsEditBusinessDetails(false);
+    setIsNewPackage(false);
   }, [calculatorType]);
 
   useEffect(() => {
@@ -352,7 +356,11 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
 
   const [openAccordionId, setOpenAccordionId] = useState<number | null>(null);
 
-  const toggleAccordion = (item: { id: number; title: string; onClick: () => void }) => {
+  const toggleAccordion = (item: {
+    id: number;
+    title: string;
+    onClick: () => void;
+  }) => {
     if (matches) {
       if (openAccordionId === item.id) {
         setOpenAccordionId(null);
@@ -365,7 +373,116 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
     }
   };
 
-  const router = useRouter()
+  const router = useRouter();
+
+  const generatePdfData = () => {
+    const course = dollar;
+
+    console.log(course);
+
+    let pdfData;
+
+    if (calculatorType === 1) {
+      const selectedAsic = selectedAsics[0];
+      const totalPrice = selectedAsic.price * selectedAsic.count;
+
+      pdfData = {
+        sumRuble: totalPrice.toLocaleString('ru-RU'),
+        sumDollar: (totalPrice / course).toFixed(0),
+        curs: course.toString(),
+        sumIn: totalPrice.toLocaleString('ru-RU'),
+        everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
+        profitWithoutWatt: profitWithoutElectricity.toFixed(0),
+        profitWithMonth: (totalPrice / profitWithoutElectricity).toFixed(0),
+        asics: selectedAsics.map((item) => ({
+          id: item.id,
+          title: item.title,
+          hashrate: `${item.hashrate} ${item.dimension}`,
+          quantity: item.count.toLocaleString('ru-RU'),
+          priceOnePiece: (item.price / course).toFixed(0),
+          price: ((item.price * item.count) / course).toFixed(0),
+        })),
+      };
+    } else if (calculatorType === 2) {
+      pdfData = {
+        sumRuble: readyBusinessTotalPrice.toLocaleString('ru-RU'),
+        sumDollar:
+          readyBusinessTotalPrice !== 'по запросу'
+            ? (+readyBusinessTotalPrice / course).toFixed(0)
+            : 'по запросу',
+        curs: course.toString(),
+        sumIn: readyBusinessTotalPrice.toLocaleString('ru-RU'),
+        everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
+        profitWithoutWatt:
+          readyBusinessTotalPrice !== 'по запросу'
+            ? profitWithoutElectricity.toFixed(0)
+            : 'по запросу',
+        profitWithMonth:
+          readyBusinessTotalPrice !== 'по запросу'
+            ? (+readyBusinessTotalPrice / profitWithoutElectricity).toFixed(0)
+            : 'по запросу',
+        asics: businessPackageAsics.map((item) => ({
+          id: item.id,
+          title: item.title,
+          hashrate: `${item.hashrate} ${item.dimension}`,
+          quantity: item.count.toLocaleString('ru-RU'),
+          priceOnePiece:
+            readyBusinessTotalPrice !== 'по запросу'
+              ? (item.price / course).toFixed(0)
+              : 'по запросу',
+          price:
+            readyBusinessTotalPrice !== 'по запросу'
+              ? ((item.price * item.count) / course).toFixed(0)
+              : 'по запросу',
+        })),
+      };
+    } else {
+      const totalPrice = selectedAsics.reduce(
+        (total, asic) => total + asic.price * asic.count,
+        0,
+      );
+      pdfData = {
+        sumRuble: totalPrice.toLocaleString('ru-RU'),
+        sumDollar: (totalPrice / course).toFixed(0),
+        curs: course.toString(),
+        sumIn: totalPrice.toLocaleString('ru-RU'),
+        everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
+        profitWithoutWatt: profitWithoutElectricity.toFixed(0),
+        profitWithMonth: (totalPrice / profitWithoutElectricity).toFixed(0),
+        asics: selectedAsics.map((item) => ({
+          id: item.id,
+          title: item.title,
+          hashrate: `${item.hashrate} ${item.dimension}`,
+          quantity: item.count.toLocaleString('ru-RU'),
+          priceOnePiece: (item.price / course).toFixed(0),
+          price: ((item.price * item.count) / course).toFixed(0),
+        })),
+      };
+    }
+
+    if (calculatorType !== 2 || readyBusinessTotalPrice !== 'по запросу') {
+      pdfData.sumDollar = parseFloat(pdfData.sumDollar).toLocaleString('ru-RU');
+      pdfData.profitWithoutWatt = parseFloat(
+        pdfData.profitWithoutWatt,
+      ).toLocaleString('ru-RU');
+      pdfData.profitWithMonth = parseFloat(
+        pdfData.profitWithMonth,
+      ).toLocaleString('ru-RU');
+
+      pdfData.asics = pdfData.asics.map((item) => ({
+        ...item,
+        priceOnePiece: parseFloat(item.priceOnePiece).toLocaleString('ru-RU'),
+        price: parseFloat(item.price).toLocaleString('ru-RU'),
+      }));
+    }
+
+    // if (calculatorType === 2) {
+    //     console.log(pdfData.profitWithoutWatt)
+    //     console.log(parseFloat(pdfData.profitWithoutWatt).toLocaleString('ru-RU'))
+    // }
+
+    return pdfData;
+  };
 
   return (
     <div className={clsx('calculator', className)}>
@@ -430,7 +547,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                       />
                     )}
 
-                  {isEditBusinessDetails && matches && (
+                  {isNewPackage && matches && (
                     <CalculatorBusinessIsEditing
                       isEditBusinessDetails={isEditBusinessDetails}
                       matches={matches}
@@ -442,25 +559,33 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     />
                   )}
 
-                  {calculatorType === 2 && isEditBusinessDetails && matches && (
-                    <div className='calculatorFeature-row calculatorFeature-change-row'>
-                      <Button
-                        className='calculatorFeature-add-btn'
-                        variant='solid'
-                        size='sm'
-                        theme='gray'
-                        onClick={() => {
-                          if (readyBusinessAsics.length > 0) {
-                            addBusinessPackageAsic();
-                            readyBusinessTotalPrice === 'по запросу' ? setReadyBusinessTotalPrice('По запросу') : setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
-                          }
-                        }}
-                      >
-                        Добавить оборудование
-                        <span>+</span>
-                      </Button>
-                    </div>
-                  )}
+                  {calculatorType === 2 &&
+                    isNewPackage &&
+                    selectedPackageId === 12345 &&
+                    matches && (
+                      <div className='calculatorFeature-row calculatorFeature-change-row'>
+                        <Button
+                          className='calculatorFeature-add-btn'
+                          variant='solid'
+                          size='sm'
+                          theme='gray'
+                          onClick={() => {
+                            if (readyBusinessAsics.length > 0) {
+                              addBusinessPackageAsic();
+                              readyBusinessTotalPrice === 'по запросу'
+                                ? setReadyBusinessTotalPrice('По запросу')
+                                : setReadyBusinessTotalPrice(
+                                    +readyBusinessTotalPrice +
+                                      readyBusinessAsics[0].price,
+                                  );
+                            }
+                          }}
+                        >
+                          Добавить оборудование
+                          <span>+</span>
+                        </Button>
+                      </div>
+                    )}
 
                   {calculatorType === 3 && matches && (
                     <div className='calculatorFeature-change'>
@@ -500,11 +625,13 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                       electricityCoast={electricityCoast}
                       changeElectricityCoast={changeElectricityCoast}
                       isProError={isProError}
+                      generatePdfData={generatePdfData}
                     />
                   )}
 
                   {matches && (
                     <CalculatorTotalWrapper
+                      generatePdfData={generatePdfData}
                       matches={matches}
                       totalConsumptionDataCenter={totalConsumptionDataCenter}
                       calculatorType={calculatorType}
@@ -561,7 +688,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                 )}
 
                 <div className='calculatorFeature-data'>
-                  {isEditBusinessDetails && (
+                  {selectedPackageId && (
                     <CalculatorBusinessIsEditing
                       isEditBusinessDetails={isEditBusinessDetails}
                       matches={matches}
@@ -587,27 +714,32 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                     />
                   )}
 
-                {calculatorType === 2 && isEditBusinessDetails && (
-                  <div className='calculatorFeature-row calculatorFeature-change-row'>
-                    <Button
-                      className='calculatorFeature-add-btn'
-                      variant='solid'
-                      size='sm'
-                      theme='gray'
-                      onClick={() => {
-                        if (readyBusinessAsics.length > 0) {
-                          addBusinessPackageAsic();
-                        }
-                        if (readyBusinessTotalPrice !== 'по запросу') {
-                          setReadyBusinessTotalPrice(+readyBusinessTotalPrice + readyBusinessAsics[0].price)
-                        }
-                      }}
-                    >
-                      Добавить оборудование
-                      <span>+</span>
-                    </Button>
-                  </div>
-                )}
+                {calculatorType === 2 &&
+                  isNewPackage &&
+                  selectedPackageId === 12345 && (
+                    <div className='calculatorFeature-row calculatorFeature-change-row'>
+                      <Button
+                        className='calculatorFeature-add-btn'
+                        variant='solid'
+                        size='sm'
+                        theme='gray'
+                        onClick={() => {
+                          if (readyBusinessAsics.length > 0) {
+                            addBusinessPackageAsic();
+                          }
+                          if (readyBusinessTotalPrice !== 'по запросу') {
+                            setReadyBusinessTotalPrice(
+                              +readyBusinessTotalPrice +
+                                readyBusinessAsics[0].price,
+                            );
+                          }
+                        }}
+                      >
+                        Добавить оборудование
+                        <span>+</span>
+                      </Button>
+                    </div>
+                  )}
 
                 {calculatorType === 3 && !matches && (
                   <div className='calculatorFeature-change'>
@@ -621,10 +753,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                           setIsProError(true);
                           return;
                         }
-
-                        if (readyBusinessAsics.length > 0) {
-                          addAsic(29);
-                        }
+                        addAsic(29);
                       }}
                     >
                       Добавить оборудование
@@ -648,6 +777,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
                   electricityCoast={electricityCoast}
                   changeElectricityCoast={changeElectricityCoast}
                   isProError={isProError}
+                  generatePdfData={generatePdfData}
                 />
               )}
               {!matches && (
@@ -661,6 +791,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
         {calculatorType === 4 && !matches && <CalculatorBodyLeasing />}
         {calculatorAsics && !matches && (
           <CalculatorTotalWrapper
+            generatePdfData={generatePdfData}
             matches={matches}
             totalConsumptionDataCenter={totalConsumptionDataCenter}
             calculatorType={calculatorType}
