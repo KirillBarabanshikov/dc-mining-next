@@ -1,0 +1,121 @@
+.tariffsWrap {
+  .tariffsContainer {
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .tariffs {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      column-gap: 16px;
+      height: 617px;
+
+      .tariffCard {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        width: 435px;
+        min-height: 456px;
+
+        background-color: var(--background-primary);
+        border-radius: 40px;
+        padding: 0 8px 40px 8px;
+        transition: background-color 0.3s;
+
+        @media (hover: hover) {
+          &:hover {
+            &:nth-child(1) {
+              background-color: var(--background-secondary);
+            }
+
+            &:nth-child(2) {
+              background-color: var(--background-dark);
+
+              .tariffTitle,
+              .tariffDesc {
+                color: var(--text-contrast);
+              }
+            }
+
+            &:nth-child(3) {
+              background-color: var(--background-accent-blue);
+
+              .tariffTitle,
+              .tariffDesc {
+                color: var(--text-contrast);
+              }
+
+              .tariffPrice {
+                color: var(--text-primary);
+              }
+
+              .button {
+                background-color: var(--background-white);
+                color: var(--text-accent-blue);
+              }
+            }
+
+            .tariffImage {
+              opacity: 0;
+            }
+
+            .tariffImageHover {
+              opacity: 1;
+            }
+          }
+        }
+
+        .tariffImage {
+          margin-bottom: 44px;
+          position: absolute;
+          top: -170px;
+          transition: opacity 0.3s;
+        }
+
+        .tariffImageHover {
+          opacity: 0;
+        }
+
+        .tariffTitle {
+          font-family: 'Gilroy', sans-serif;
+          font-weight: 700;
+          font-size: 32px;
+          line-height: 1.2;
+          transition: color 0.3s;
+        }
+        .tariffDescOverlay {
+          .tariffDesc {
+            margin-top: 8px;
+            font-size: 20px;
+            text-align: center;
+            transition: color 0.3s;
+          }
+        }
+
+        .buttonOverlay {
+          width: 100%;
+          max-width: 355px;
+
+          .button {
+            margin-top: 40px;
+            width: 100%;
+          }
+        }
+
+        .tariffPrice {
+          font-family: 'Gilroy', sans-serif;
+          font-weight: 700;
+          font-size: 40px;
+          line-height: 1.2;
+          color: var(--text-accent-blue);
+          margin-top: 20px;
+          transition: color 0.3s;
+        }
+      }
+    }
+  }
+}

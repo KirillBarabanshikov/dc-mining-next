@@ -1,386 +1,137 @@
 .dataCenterBanner {
-    .dataCenterContainer {
-        margin-top: 56px;
-        min-height: 475px;
+  .dataCenterContainer {
+    margin-top: 56px;
+    min-height: 475px;
+  }
+
+  h1 {
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 40px;
+    max-width: 592px;
+
+    span {
+      color: var(--text-accent-blue);
     }
 
+    strong {
+      color: var(--text-accent-blue);
+    }
+  }
+
+  .description {
+    margin-bottom: 40px;
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 700px;
+    z-index: -1;
+
+    background-image: url('../../../shared/assets/images/data-center/data-center-banner.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0 0 40px 40px;
+  }
+
+  @media screen and (max-width: 992px) {
     h1 {
-        font-size: 40px;
-        line-height: 48px;
-        margin-bottom: 40px;
-        max-width: 592px;
-
-        span {
-            color: var(--text-accent-blue);
-        }
-
-        strong {
-            color: var(--text-accent-blue);
-        }
-    }
-
-    .description {
-        margin-bottom: 40px;
+      font-size: 32px;
+      line-height: 38.4px;
     }
 
     .background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 700px;
-        z-index: -1;
+      background-position-x: -275px;
+    }
+  }
 
-        background-image: url('../../../shared/assets/images/data-center/data-center-banner.png');
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 0 0 40px 40px;
+  @media screen and (max-width: 768px) {
+    .dataCenterContainer {
+      margin-top: 328px;
+      margin-bottom: unset;
+      min-height: unset;
     }
 
-    @media screen and (max-width: 992px) {
-        h1 {
-            font-size: 32px;
-            line-height: 38.4px;
-        }
-
-        .background {
-            background-position-x: -275px;
-        }
+    h1 {
+      margin-bottom: 20px;
     }
 
-    @media screen and (max-width: 768px) {
-        .dataCenterContainer {
-            margin-top: 328px;
-            margin-bottom: unset;
-            min-height: unset;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .background {
-            background-image: url('../../../shared/assets/images/data-center/data-center-banner-sm.png');
-            background-size: cover;
-            height: 360px;
-            border-radius: 0 0 20px 20px;
-            background-position-x: unset;
-        }
+    .background {
+      background-image: url('../../../shared/assets/images/data-center/data-center-banner-sm.png');
+      background-size: cover;
+      height: 360px;
+      border-radius: 0 0 20px 20px;
+      background-position-x: unset;
     }
+  }
 }
 
 .content {
-    margin-top: 32px;
+  margin-top: 32px;
 
-    @media screen and (max-width: 992px) {
-        margin-top: 80px;
-    }
+  @media screen and (max-width: 992px) {
+    margin-top: 80px;
+  }
 
-    @media screen and (max-width: 768px) {
-        margin-top: 40px;
-    }
+  @media screen and (max-width: 768px) {
+    margin-top: 40px;
+  }
 }
 
-.benefits {
-    .wrap {
-        display: flex;
-        gap: 32px;
-        padding: 86px 40px;
-        background-color: var(--background-secondary);
-        background-image: url('../../../shared/assets/backgrounds/leasing-bg2.svg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 215%;
-        border-radius: 40px;
-
-        .item {
-            flex: 1;
-
-            .title {
-                font-family: 'Gilroy', sans-serif;
-                font-weight: 700;
-                font-size: 40px;
-                line-height: 48px;
-                text-align: center;
-                color: var(--text-accent-blue);
-                margin-bottom: 20px;
-            }
-
-            .subtitle {
-                font-size: 20px;
-                line-height: 24px;
-                text-align: center;
-                color: rgba(90, 101, 156, 1);
-            }
-        }
-
-        @media screen and (max-width: 992px) {
-            padding: 40px;
-
-            .item {
-                .title {
-                    font-size: 32px;
-                    line-height: 38.4px;
-                }
-
-                .subtitle {
-                    font-size: 16px;
-                    line-height: 20.8px;
-                }
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            flex-direction: column;
-            background-size: 1700px;
-
-            .item {
-                .title {
-                    font-size: 24px;
-                    line-height: 28.8px;
-                }
-
-                .subtitle {
-                    font-family: 'Roboto', sans-serif;
-                    font-size: 14px;
-                    line-height: 18.2px;
-                }
-            }
-        }
-    }
+.advantagesTop {
+  margin-top: -160px;
 }
 
-.containers {
-    .wrap {
-        background-color: var(--background-secondary);
-        background-image: url('/backgrounds/container-bg.svg');
-        border-radius: 40px;
-        padding: 40px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
+.livePhotos {
+  .livePhotosTabs {
+    display: flex;
+    column-gap: 4px;
+    padding: 4px;
+    background-color: var(--background-secondary);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    width: min-content;
 
-        .containersContent {
-            h2 {
-                color: var(--text-accent-blue);
-                max-width: 396px;
-            }
+    .livePhotosTab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 212px;
+      height: 48px;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 16px;
+      transition:
+        color 0.3s,
+        background-color 0.3s;
 
-            .description {
-                font-weight: 500;
-                font-size: 20px;
-                line-height: 24px;
-                margin-bottom: 40px;
-                color: rgba(90, 101, 156, 1);
-                max-width: 396px;
-            }
-
-            .advantages {
-                display: flex;
-                gap: 20px;
-                margin-bottom: 40px;
-            }
-
-            .advantage {
-                div {
-                    font-weight: 500;
-                    font-size: 20px;
-                    line-height: 24px;
-                    margin-bottom: 8px;
-                    color: rgba(90, 101, 156, 1);
-                }
-
-                span {
-                    font-family: 'Gilroy', sans-serif;
-                    font-weight: 700;
-                    font-size: 24px;
-                    line-height: 28.8px;
-                    color: var(--text-accent-blue);
-                }
-            }
-
-            .button {
-                margin-top: 40px;
-            }
-        }
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @media screen and (max-width: 992px) {
-            .containersContent {
-                h2 {
-                    max-width: unset;
-                }
-
-                .description {
-                    font-size: 16px;
-                    line-height: 19.2px;
-                }
-
-                .advantage {
-                    div {
-                        font-size: 16px;
-                        line-height: 19.2px;
-                    }
-
-                    span {
-                        font-size: 20px;
-                        line-height: 24px;
-                    }
-                }
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            padding: 20px;
-
-            .containersContent {
-                h2 {
-                    text-align: start;
-                    margin-bottom: 40px;
-                }
-
-                .description {
-                    margin-bottom: 20px;
-                    max-width: unset;
-                }
-
-                .advantages {
-                    margin-bottom: 20px;
-                }
-            }
-
-            img {
-                margin-bottom: 40px;
-            }
-        }
+      &.active {
+        color: var(--text-contrast);
+        background-color: var(--button-normal);
+      }
     }
+  }
 }
 
-.howItWork {
-    .title {
-        text-align: center;
-        color: var(--text-accent-blue);
+.goodKnow {
+  margin-bottom: 100px;
 
-        @media screen and (max-width: 992px) {
-            margin-bottom: 40px;
-        }
-    }
+  h2 {
+    text-align: center;
+  }
 
-    .wrap {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 64px 32px;
-
-        .item {
-            flex: 1 1 40%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 36px;
-            max-width: 668px;
-            height: 144px;
-
-            .number {
-                font-family: 'Gilroy', sans-serif;
-                font-weight: 700;
-                font-size: 32px;
-                line-height: 38.4px;
-                color: var(--text-accent-blue);
-
-                background-color: var(--background-secondary);
-                border-radius: 1000px;
-                padding: 13px 57.5px;
-                position: relative;
-
-                .dottedLine {
-                    position: absolute;
-                    top: calc(50% - 2px);
-                }
-
-                .dottedLineLarge {
-                    position: absolute;
-                }
-            }
-
-            .description {
-                font-size: 20px;
-                line-height: 20px;
-                text-align: center;
-            }
-        }
-
-        @media screen and (min-width: 0px) {
-            max-width: 328px;
-            margin: 0 auto;
-            gap: 48px 16px;
-
-            .item {
-                gap: 16.5px;
-
-                .description {
-                    font-size: 16px;
-                    line-height: 20.8px;
-                }
-
-                .number {
-                    .dottedLine {
-                        left: 138px;
-                    }
-
-                    .dottedLineLarge {
-                        right: -15px;
-                        top: 30px;
-                    }
-                }
-            }
-        }
-
-        @media screen and (max-width: 959px) {
-            .item {
-                p {
-                    max-width: 156px;
-                }
-            }
-        }
-
-        @media screen and (min-width: 960px) {
-            max-width: 896px;
-
-            .item {
-                .number {
-                    .dottedLine {
-                        left: 150px;
-                    }
-
-                    .dottedLineLarge {
-                        right: -152px;
-                        top: 30px;
-                    }
-                }
-            }
-        }
-
-        @media screen and (min-width: 1439px) {
-            max-width: unset;
-
-            .item {
-                .number {
-                    .dottedLine {
-                        left: 165px;
-                    }
-
-                    .dottedLineLarge {
-                        right: -220px;
-                        top: 25px;
-                    }
-                }
-            }
-        }
-    }
+  .goodKnowList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    max-width: 1216px;
+    margin: 0 auto;
+  }
 }

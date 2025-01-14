@@ -1,119 +1,132 @@
 .advantages {
-    position: relative;
-    z-index: 1;
-
-    .advantagesContainer {
-        display: flex;
-        align-items: flex-start;
-        gap: 32px;
-
-        @media screen and (max-width: 1500px) {
-            gap: 24px;
-        }
-
-        @media screen and (max-width: 1300px) {
-            gap: 16px;
-        }
-
-        @media screen and (max-width: 1150px) {
-            flex-wrap: wrap;
-        }
-    }
-}
-
-.item {
+  .advantagesContainer {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-    padding: 20px;
-    border-radius: 20px;
-    transition: background-color 300ms ease-out;
-    overflow: hidden;
+    column-gap: 16px;
 
-    @media (hover: hover) {
-        &:hover {
-            background-color: var(--background-secondary);
-        }
+    @media screen and (max-width: 1500px) {
+      gap: 24px;
     }
 
-    .image {
-        width: 160px;
-        height: 160px;
-
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-
-    .title {
-        text-align: center;
-        font-family: 'Gilroy', sans-serif;
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 28.8px;
-        margin-top: 20px;
-    }
-
-    .body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 20px;
-
-        .desc {
-            text-align: center;
-            line-height: 20.8px;
-            color: rgba(90, 101, 156, 1);
-        }
-    }
-
-    @media (max-width: 1500px) {
-        .title {
-            font-size: 20px;
-            line-height: 24px;
-        }
-    }
-
-    @media (max-width: 1300px) {
-        .body {
-            .desc {
-                font-weight: 500;
-                font-size: 14px;
-                line-height: 16.8px;
-            }
-        }
+    @media screen and (max-width: 1300px) {
+      gap: 16px;
     }
 
     @media screen and (max-width: 1150px) {
-        flex: 1 1 24%;
+      flex-wrap: wrap;
+    }
+  }
+}
 
-        .desc {
-            max-width: 242px;
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  flex: 1;
+  padding: 30.5px 20px;
+  border-radius: 40px;
+  background-color: var(--background-white);
+  box-shadow: 0 20px 50px 0 rgba(123, 135, 194, 0.2);
+  transition:
+    box-shadow 0.3s,
+    background-color 0.3s;
+  background-image: url('../../shared/assets/backgrounds/card.png');
+  background-repeat: no-repeat;
+  background-position: center;
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: 0 50px 50px 0 rgba(123, 135, 194, 0.05);
+      background-color: var(--background-tonal);
+
+      .image {
+        background-color: var(--background-secondary);
+
+        img {
+          transform: scale(1.4);
         }
+      }
+
+      .title {
+        color: var(--text-accent-blue);
+      }
+    }
+  }
+
+  .image {
+    width: 160px;
+    height: 160px;
+    background-color: var(--background-tonal);
+    border-radius: 40px;
+    transition: background-color 0.3s;
+
+    img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.3s;
+    }
+  }
+
+  .title {
+    text-align: center;
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28.8px;
+    transition: color 0.3s;
+  }
+
+  .desc {
+    text-align: center;
+    line-height: 20.8px;
+    color: rgba(90, 101, 156, 1);
+  }
+
+  @media (max-width: 1500px) {
+    .title {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .body {
+      .desc {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16.8px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1150px) {
+    flex: 1 1 24%;
+
+    .desc {
+      max-width: 242px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .image {
+      width: 120px;
+      height: 120px;
     }
 
-    @media screen and (max-width: 768px) {
-        .image {
-            width: 120px;
-            height: 120px;
-        }
-
-        .title {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 18.2px;
-        }
-
-        .body {
-            display: none;
-        }
+    .title {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 18.2px;
     }
 
-    @media screen and (max-width: 590px) {
-        flex: 1 1 35%;
-        padding: 20px 0;
+    .body {
+      display: none;
     }
+  }
+
+  @media screen and (max-width: 590px) {
+    flex: 1 1 35%;
+    padding: 20px 0;
+  }
 }
