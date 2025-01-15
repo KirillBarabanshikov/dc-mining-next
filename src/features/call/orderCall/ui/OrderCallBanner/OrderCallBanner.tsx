@@ -89,7 +89,7 @@ export const OrderCallBanner = () => {
                 />
               </div>
               <Checkbox
-                theme={'white'}
+                theme={'blue'}
                 label={
                   <>
                     Я согласен на обработку{' '}
