@@ -4,20 +4,37 @@
     top: -100px;
     left: 0;
     width: 100vw;
-    max-height: 800px;
+    height: 800px;
+    object-fit: cover;
+    object-position: left;
     border-radius: 40px;
+
+    @media screen and (max-width: 768px) {
+      height: 360px;
+      object-position: center;
+    }
   }
 
   .dataCenterContainer {
     position: relative;
     z-index: 1;
-    margin-top: 56px;
+    margin-top: 60px;
     min-height: 475px;
+
+    @media screen and (max-width: 992px) {
+      margin-top: 100px;
+    }
+
+    @media screen and (max-width: 768px) {
+      margin-top: 226px;
+      min-height: unset;
+    }
   }
 
   h1 {
-    font-size: 40px;
-    line-height: 48px;
+    font-size: 48px;
+    line-height: 1.2;
+    color: var(--text-primary);
     margin-bottom: 40px;
     max-width: 592px;
 
@@ -28,32 +45,39 @@
     strong {
       color: var(--text-accent-blue);
     }
+
+    @media screen and (max-width: 768px) {
+      font-size: 32px;
+      line-height: 1.2;
+      text-align: center;
+      max-width: unset;
+      margin-bottom: 20px;
+    }
   }
 
   .description {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    max-width: 436px;
     margin-bottom: 40px;
 
     a {
       text-decoration: underline;
-    }
-  }
-
-  @media screen and (max-width: 992px) {
-    h1 {
-      font-size: 32px;
-      line-height: 38.4px;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .dataCenterContainer {
-      margin-top: 328px;
-      margin-bottom: unset;
-      min-height: unset;
+      text-decoration-skip-ink: none;
     }
 
-    h1 {
-      margin-bottom: 20px;
+    @media screen and (max-width: 992px) {
+      a {
+        text-decoration: none;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 14px;
+      line-height: 1.3;
+      text-align: center;
+      max-width: unset;
     }
   }
 }
@@ -74,6 +98,10 @@
   position: relative;
   z-index: 1;
   margin-top: -160px;
+
+  @media screen and (max-width: 768px) {
+    margin-top: unset;
+  }
 }
 
 .livePhotos {
@@ -85,6 +113,10 @@
     border-radius: 16px;
     margin-bottom: 20px;
     width: min-content;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
 
     .livePhotosTab {
       display: flex;
@@ -98,6 +130,15 @@
       transition:
         color 0.3s,
         background-color 0.3s;
+
+      @media screen and (max-width: 768px) {
+        font-size: 14px;
+        line-height: 1.2;
+        letter-spacing: 0.02em;
+        flex: 1;
+        width: 100%;
+        height: 32px;
+      }
 
       &.active {
         color: var(--text-contrast);
@@ -124,16 +165,29 @@
 .whatDataCenter {
   margin-bottom: 100px;
 
+  @media screen and (max-width: 768px) {
+    margin-bottom: unset;
+  }
+
   .whatDataCenterTitle {
     font-size: 32px;
     line-height: 1.2;
     text-align: center;
     margin-bottom: 20px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 24px;
+    }
   }
 
   .whatDataCenterText {
     font-size: 20px;
     line-height: 1.2;
     color: var(--text-secondary);
+
+    @media screen and (max-width: 768px) {
+      font-size: 14px;
+      line-height: 1.3;
+    }
   }
 }

@@ -3,6 +3,15 @@
     display: flex;
     column-gap: 32px;
 
+    @media screen and (max-width: 1440px) {
+      flex-direction: column;
+      row-gap: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+      row-gap: 8px;
+    }
+
     .benefitBlock {
       flex: 1;
     }
@@ -17,6 +26,7 @@
 
       .benefitMainText {
         position: absolute;
+        z-index: 1;
         left: 40px;
         bottom: 40px;
 
@@ -36,6 +46,23 @@
         right: 0;
         bottom: 0;
       }
+
+      @media screen and (max-width: 768px) {
+        border-radius: 14px;
+        height: 184px;
+
+        .benefitMainText {
+          left: 17px;
+          bottom: 17px;
+          font-size: 24px;
+          max-width: 176px;
+        }
+
+        .benefitMainImage {
+          width: 160px;
+          height: 160px;
+        }
+      }
     }
 
     .wrap {
@@ -44,6 +71,12 @@
       background-color: var(--background-primary);
       border-radius: 32px;
       padding: 16px;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        row-gap: 8px;
+        padding: 8px;
+      }
     }
 
     .column {
@@ -89,6 +122,10 @@
           letter-spacing: 0.01em;
           color: var(--text-accent-blue);
           margin-bottom: 12px;
+
+          @media screen and (max-width: 768px) {
+            font-size: 16px;
+          }
         }
 
         .benefitCardSubtitle {
@@ -96,12 +133,22 @@
           font-size: 16px;
           line-height: 1.3;
           color: var(--text-secondary);
+
+          @media screen and (max-width: 768px) {
+            font-size: 14px;
+          }
         }
       }
 
       &.benefitCardLarge {
         column-gap: 40px;
         margin-bottom: 8px;
+
+        @media screen and (max-width: 768px) {
+          flex-direction: column;
+          row-gap: 20px;
+          margin-bottom: unset;
+        }
 
         @media (hover: hover) {
           &:hover {
@@ -126,11 +173,22 @@
           .benefitCardTitle {
             font-size: 48px;
             margin-bottom: 20px;
+
+            @media screen and (max-width: 768px) {
+              font-size: 24px;
+              margin-bottom: 12px;
+              text-align: center;
+            }
           }
 
           .benefitCardSubtitle {
             font-size: 20px;
             line-height: 1.2;
+
+            @media screen and (max-width: 768px) {
+              font-size: 14px;
+              text-align: center;
+            }
           }
         }
       }
@@ -140,11 +198,22 @@
       display: flex;
       column-gap: 8px;
       margin-bottom: 28px;
+
+      @media screen and (max-width: 768px) {
+        flex-direction: column;
+        row-gap: 8px;
+        margin-bottom: 20px;
+      }
     }
 
     .button {
-      height: 128px;
-      font-size: 24px;
+      height: 124px !important;
+      font-size: 24px !important;
+
+      @media screen and (max-width: 768px) {
+        height: 48px !important;
+        font-size: 14px !important;
+      }
     }
   }
 }

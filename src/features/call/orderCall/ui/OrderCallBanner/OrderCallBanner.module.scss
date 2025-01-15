@@ -23,7 +23,7 @@
 
       h2 {
         font-size: 40px;
-        line-height: 48px;
+        line-height: 1.2;
         color: var(--text-accent-blue);
       }
 
@@ -91,11 +91,6 @@
       .form {
         margin-left: unset;
 
-        h2 {
-          font-size: 32px;
-          line-height: 38.4px;
-        }
-
         p {
           font-size: 16px;
           line-height: 20.8px;
@@ -125,6 +120,10 @@
       border-radius: 20px;
 
       .form {
+        h2 {
+          font-size: 32px;
+        }
+
         p {
           font-family: 'Roboto', sans-serif;
           font-size: 14px;

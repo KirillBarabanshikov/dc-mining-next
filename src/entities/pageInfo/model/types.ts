@@ -71,6 +71,7 @@ export interface IDataCenterInfo {
     sequence: number;
   }[];
   countDevices: number;
+  info: string;
 }
 
 export interface ITariff {
