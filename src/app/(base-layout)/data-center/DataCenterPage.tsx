@@ -28,6 +28,10 @@ export const DataCenterPage: FC = () => {
   return (
     <>
       <section className={styles.dataCenterBanner}>
+        <video autoPlay loop muted playsInline className={styles.animation}>
+          <source src={'/animations/data_center-animation.webm'} />
+          Ваш браузер не поддерживает тег video.
+        </video>
         <div className={clsx(styles.dataCenterContainer, 'container')}>
           <h1 dangerouslySetInnerHTML={{ __html: info?.title ?? '' }} />
           <div
