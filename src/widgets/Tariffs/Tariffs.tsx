@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 
@@ -63,41 +63,29 @@ export const TariffCard: FC<ITariffCardProps> = ({ tariff }) => {
           className={clsx(styles.tariffImage, styles.tariffImageHover)}
         />
         <div className={styles.tariffTitle}>{tariff.title}</div>
-        <AnimatePresence initial={false}>
-          {isHovered && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className={styles.tariffDescOverlay}
-            >
-              <div
-                className={styles.tariffDesc}
-                dangerouslySetInnerHTML={{ __html: tariff.description }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          animate={isHovered ? { opacity: 1 } : { height: 0, opacity: 0 }}
+          className={styles.tariffDescOverlay}
+        >
+          <div
+            className={styles.tariffDesc}
+            dangerouslySetInnerHTML={{ __html: tariff.description }}
+          />
+        </motion.div>
         <motion.div
           className={styles.tariffPrice}
           animate={{ fontSize: isHovered ? '32px' : '40px' }}
         >
           {tariff.price}
         </motion.div>
-        <AnimatePresence initial={false}>
-          {isHovered && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className={styles.buttonOverlay}
-            >
-              <Button onClick={() => setIsOpen(true)} className={styles.button}>
-                Оставить заявку
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          animate={isHovered ? { opacity: 1 } : { height: 0, opacity: 0 }}
+          className={styles.buttonOverlay}
+        >
+          <Button onClick={() => setIsOpen(true)} className={styles.button}>
+            Оставить заявку
+          </Button>
+        </motion.div>
       </motion.div>
       <OrderCallModal
         isOpen={isOpen}
