@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { OrderCallModal } from '@/features/call';
 import benefit from '@/shared/assets/images/benefits/benefit.png';
@@ -15,7 +15,11 @@ import { Button } from '@/shared/ui';
 
 import styles from './Benefits.module.scss';
 
-export const Benefits = () => {
+interface IBenefitsProps {
+  countDevices: number;
+}
+
+export const Benefits: FC<IBenefitsProps> = ({ countDevices }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -85,7 +89,7 @@ export const Benefits = () => {
                 <div className={styles.benefitCardBody}>
                   <div className={styles.benefitCardTitle}>Нам доверяют</div>
                   <div className={styles.benefitCardSubtitle}>
-                    2500 устройств в обслуживании
+                    {countDevices} устройств в обслуживании
                   </div>
                 </div>
               </div>

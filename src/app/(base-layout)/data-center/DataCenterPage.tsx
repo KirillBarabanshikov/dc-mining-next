@@ -89,7 +89,7 @@ export const DataCenterPage: FC = () => {
             >
               <Calculator />
             </div>
-            <Benefits />
+            <Benefits countDevices={info.countDevices} />
             <div className={styles.goodKnow}>
               <h2 className={'section-title-primary'}>Полезно знать</h2>
               <div className={styles.goodKnowList}>
