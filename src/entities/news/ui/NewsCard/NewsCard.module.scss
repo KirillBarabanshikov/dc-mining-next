@@ -11,6 +11,8 @@
     background-color 300ms ease-out,
     box-shadow 300ms ease-out;
 
+  height: 100%;
+
   @media (hover: hover) {
     &:hover {
       box-shadow: 0 0 0 transparent;
@@ -63,6 +65,7 @@
       font-size: 20px;
       line-height: 24px;
       margin-bottom: 32px;
+      color: var(--text-accent-blue);
     }
 
     .subtitle {

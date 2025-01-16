@@ -10,26 +10,38 @@ import styles from './Catalog.module.scss';
 import { CatalogPagination, CustomFilters, Filters, Sorting } from './ui';
 
 interface ICatalogProps {
-    category: ICategory;
-    catalogData: ICatalogData;
+  category: ICategory;
+  catalogData: ICatalogData;
 }
 
 export const Catalog: FC<ICatalogProps> = ({ category, catalogData }) => {
-    const { viewMode, setViewMode } = useCatalogStore();
+  const { viewMode, setViewMode } = useCatalogStore();
 
-    return (
-        <div className={styles.catalog}>
-            <CustomFilters category={category} className={styles.customFilter} />
-            <Filters category={category} catalogData={catalogData} className={styles.filters} />
-            <Sorting
-                category={category}
-                viewMode={viewMode}
-                setViewMode={setViewMode}
-                catalogData={catalogData}
-                className={styles.sorting}
-            />
-            <ProductsList products={catalogData.products} viewMode={viewMode} className={styles.productList} />
-            <CatalogPagination countProducts={catalogData.count} category={category} />
-        </div>
-    );
+  return (
+    <div className={styles.catalog}>
+      <CustomFilters category={category} className={styles.customFilter} />
+      <Filters
+        category={category}
+        catalogData={catalogData}
+        className={styles.filters}
+      />
+      <Sorting
+        category={category}
+        viewMode={viewMode}
+        setViewMode={setViewMode}
+        catalogData={catalogData}
+        className={styles.sorting}
+      />
+      <ProductsList
+        products={catalogData.products}
+        viewMode={viewMode}
+        className={styles.productList}
+      />
+      <CatalogPagination
+        countProducts={catalogData.count}
+        category={category}
+        className={styles.pagination}
+      />
+    </div>
+  );
 };

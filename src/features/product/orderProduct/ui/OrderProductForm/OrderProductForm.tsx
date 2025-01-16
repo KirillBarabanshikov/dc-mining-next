@@ -172,7 +172,9 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
           <span className={styles.label}>Количество</span>
           <NumberInput
             min={1}
-            defaultValue={product.count ? product.count : 1}
+            defaultValue={
+              variant === 'product' ? 1 : product.count ? product.count : 1
+            }
             onChange={onChangeProductCount}
           />
         </div>
