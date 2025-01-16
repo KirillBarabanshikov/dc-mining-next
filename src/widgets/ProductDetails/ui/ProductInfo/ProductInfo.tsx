@@ -60,14 +60,21 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
           )}
           {product.price ? (
             <>
-              <span itemProp='price' className={styles.price}>
+              <span className={styles.price}>
+                {formatter.format(product.price)}
+              </span>
+              <span
+                itemProp='price'
+                className={styles.price}
+                style={{ display: 'none' }}
+              >
                 {product.price}
               </span>
-              <span> </span>
               <span
                 itemProp='priceCurrency'
                 content='RUB'
                 className={styles.price}
+                style={{ display: 'none' }}
               >
                 ₽
               </span>
