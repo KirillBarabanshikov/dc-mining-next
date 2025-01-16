@@ -61,7 +61,7 @@ export const Calculator: FC<Props> = ({
     isNewPackage,
     dollar,
   } = useCalculatorStore();
-
+  console.log(isManager);
   const matches = useMediaQuery(MAX_WIDTH_MD);
 
   const [isPro, setIsPro] = useState(type === 'pro');
