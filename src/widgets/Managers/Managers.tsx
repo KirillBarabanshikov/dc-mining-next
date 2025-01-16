@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { OrderCallModal } from '@/features/call';
@@ -19,7 +19,7 @@ interface IManagersProps {
 }
 
 export const Managers: FC<IManagersProps> = ({ className }) => {
-  // const router = useRouter();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const matches = useMediaQuery(MAX_WIDTH_LG);
@@ -43,11 +43,10 @@ export const Managers: FC<IManagersProps> = ({ className }) => {
         <Button
           theme={'white'}
           size={!matches ? 'lg' : 'md'}
-          // onClick={() => router.push('/calculator')}
+          onClick={() => router.push('/calculator')}
           className={styles.button}
         >
-          {/*Открыть калькулятор*/}
-          Скоро
+          Открыть калькулятор
         </Button>
         <Image src={calculator} alt={'Calculator'} />
       </section>
