@@ -105,18 +105,7 @@ export const DataCenterPage: FC = () => {
                 </div>
               </div>
             </section>
-            <section className={styles.whatDataCenter}>
-              <div className={'container'}>
-                <h3 className={styles.whatDataCenterTitle}>
-                  Что такое дата центр?
-                </h3>
-                <div
-                  dangerouslySetInnerHTML={{ __html: info.info }}
-                  style={{}}
-                  className={clsx(styles.whatDataCenterText, 'list')}
-                />
-              </div>
-            </section>
+            <WhatDataCenter info={info.info} />
             <OrderCallBanner />
           </>
         )}
@@ -128,5 +117,28 @@ export const DataCenterPage: FC = () => {
         subtitle={'Оставьте свои контакты и мы вам перезвоним'}
       />
     </>
+  );
+};
+
+const WhatDataCenter = ({ info }: { info: string }) => {
+  const [showMore, setShowMore] = useState(false);
+
+  return (
+    <section className={styles.whatDataCenter}>
+      <div className={'container'}>
+        <h3 className={styles.whatDataCenterTitle}>Что такое дата центр?</h3>
+        <div
+          dangerouslySetInnerHTML={{ __html: info }}
+          className={clsx(styles.whatDataCenterText, 'list')}
+          style={showMore ? { maxHeight: 'unset' } : {}}
+        />
+        <div
+          onClick={() => setShowMore((prev) => !prev)}
+          className={styles.whatDataCenterMore}
+        >
+          {showMore ? 'Меньше' : 'Подробнее'}
+        </div>
+      </div>
+    </section>
   );
 };

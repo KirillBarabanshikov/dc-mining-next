@@ -43,7 +43,7 @@
     filter: grayscale(1);
     transition: filter 300ms ease-out;
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1024px) {
       filter: unset;
     }
   }
