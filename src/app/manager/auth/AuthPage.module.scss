@@ -1,0 +1,49 @@
+.authPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../../shared/assets/backgrounds/auth-bg.png');
+  background-size: cover;
+  padding: 14px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-radius: 40px;
+    padding: 40px;
+    background: var(--background-white);
+
+    h1 {
+      font-size: 40px;
+      line-height: 1.2;
+      text-align: center;
+      color: var(--text-accent-blue);
+    }
+
+    .error {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.3;
+      text-align: center;
+      color: var(--text-accent);
+      margin-top: 8px;
+    }
+
+    .inputsWrap {
+      display: flex;
+      flex-direction: column;
+      row-gap: 20px;
+      width: 280px;
+      margin-top: 40px;
+    }
+
+    .button {
+      width: 280px;
+      margin-top: 40px;
+    }
+  }
+}

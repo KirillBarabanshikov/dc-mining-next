@@ -3,7 +3,7 @@ import './Calculator.scss';
 
 import clsx from 'clsx';
 import { usePathname, useRouter } from 'next/navigation';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import ArrowDown from '@/shared/assets/icons/arrow-down2.svg';
@@ -27,9 +27,14 @@ import { useCalculatorStore } from './model/store';
 interface Props {
   className?: string;
   type?: 'lite' | 'pro';
+  isManager?: boolean;
 }
 
-export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
+export const Calculator: FC<Props> = ({
+  className,
+  type = 'lite',
+  isManager = false,
+}) => {
   const {
     calculatorType,
     calculatorTypes,
@@ -112,7 +117,7 @@ export const Calculator: React.FC<Props> = ({ className, type = 'lite' }) => {
   };
 
   useEffect(() => {
-    if (path === '/calculator') {
+    if (path === '/calculator' || type === 'pro') {
       setIsPro(true);
     } else {
       setIsPro(false);
