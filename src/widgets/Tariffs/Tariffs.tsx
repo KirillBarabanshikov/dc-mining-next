@@ -20,7 +20,11 @@ interface ITariffsProps {
 
 export const Tariffs: FC<ITariffsProps> = ({ tariffs, className }) => {
   return (
-    <section className={clsx(styles.tariffsWrap, className)}>
+    <section
+      className={clsx(styles.tariffsWrap, className)}
+      id={'tariffs'}
+      style={{ scrollMarginTop: '200px' }}
+    >
       <div className={clsx(styles.tariffsContainer, 'container')}>
         <h2 className={'section-title-primary'}>Тарифные планы</h2>
         <div className={clsx(styles.tariffs, 'scrollbar-hide')}>

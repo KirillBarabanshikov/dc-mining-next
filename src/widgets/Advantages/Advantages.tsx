@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 
 import { BASE_URL } from '@/shared/consts';
@@ -26,6 +27,7 @@ export const Advantages: FC<IAdvantagesProps> = ({ advantages, className }) => {
                 description={advantage.description}
                 image={advantage.image}
                 title={advantage.title}
+                link={advantage.link}
               />
             );
           })}
@@ -39,11 +41,12 @@ interface IAdvantageItem {
   description: string;
   image: string;
   title: string;
+  link?: string;
 }
 
 const AdvantageItem: FC<IAdvantageItem> = (advantage) => {
   return (
-    <div className={styles.item}>
+    <Link href={advantage.link || ''} className={styles.item}>
       <div className={styles.image}>
         <Image
           src={BASE_URL + advantage.image}
@@ -57,6 +60,6 @@ const AdvantageItem: FC<IAdvantageItem> = (advantage) => {
         className={styles.desc}
         dangerouslySetInnerHTML={{ __html: advantage.description }}
       />
-    </div>
+    </Link>
   );
 };

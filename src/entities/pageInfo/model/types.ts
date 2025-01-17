@@ -53,6 +53,7 @@ export interface IDataCenterInfo {
     title: string;
     description: string;
     sequence: number;
+    link?: string;
   }[];
   tariffPlans: ITariff[];
   goodKnow: {
