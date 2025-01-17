@@ -82,6 +82,8 @@
   }
 
   .specifications {
+    max-width: 312px;
+
     .specification {
       padding: 8.5px 24px;
 
@@ -92,7 +94,6 @@
       .title,
       .value {
         font-size: 14px;
-        white-space: nowrap;
         color: rgba(90, 101, 156, 1);
       }
 
@@ -187,6 +188,8 @@
     }
 
     .specifications {
+      max-width: 168px;
+
       .specification {
         padding: 8px 24px;
 
