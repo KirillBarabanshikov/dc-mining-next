@@ -1,4 +1,10 @@
 .benefits {
+  h2 {
+    @media screen and (max-width: 768px) {
+      text-align: center;
+    }
+  }
+
   .benefitsWrap {
     display: flex;
     column-gap: 32px;

@@ -54,32 +54,34 @@ export const DataCenterPage: FC = () => {
               advantages={info.top}
               className={styles.advantagesTop}
             />
-            <div className={styles.livePhotos}>
-              <div className={'container'}>
-                <div className={clsx(styles.livePhotosTabs)}>
-                  {info.slider.map((slider, index) => {
-                    return (
-                      <div
-                        key={slider.id}
-                        className={clsx(
-                          styles.livePhotosTab,
-                          activeTab === index && styles.active,
-                        )}
-                        onClick={() => setActiveTab(index)}
-                      >
-                        {slider.title}
-                      </div>
-                    );
-                  })}
+            {!!info.slider.length && (
+              <div className={styles.livePhotos}>
+                <div className={'container'}>
+                  <div className={clsx(styles.livePhotosTabs)}>
+                    {info.slider.map((slider, index) => {
+                      return (
+                        <div
+                          key={slider.id}
+                          className={clsx(
+                            styles.livePhotosTab,
+                            activeTab === index && styles.active,
+                          )}
+                          onClick={() => setActiveTab(index)}
+                        >
+                          {slider.title}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
 
-              <LivePhotos
-                images={info.slider[activeTab]?.images.map(
-                  (image) => image.image,
-                )}
-              />
-            </div>
+                <LivePhotos
+                  images={info.slider[activeTab]?.images.map(
+                    (image) => image.image,
+                  )}
+                />
+              </div>
+            )}
             <Tariffs tariffs={info.tariffPlans} />
             <div
               id='calculator'
