@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
@@ -17,12 +17,14 @@ interface Props {
   setAsicsCount: (count: number, index: number) => void;
   isEditingTouched: boolean;
   businessTotalPrice: number;
+  isManager: boolean;
 }
 
 const CalculatorAsicsData: React.FC<Props> = ({
   matches,
   onAsicChange,
   setAsicsCount,
+  isManager,
 }) => {
   const {
     calculatorType,
@@ -35,7 +37,9 @@ const CalculatorAsicsData: React.FC<Props> = ({
     setReadyBusinessTotalPrice,
     readyBusinessTotalPrice,
     isNewPackage,
+    setSelectedAsics,
   } = useCalculatorStore();
+  const [isFocus, setIsFocus] = useState(false);
 
   const getTotalPowerConsumptionPerMonth = (asic: IAsic) => {
     const hoursInMonth = 24 * 30;
@@ -73,6 +77,15 @@ const CalculatorAsicsData: React.FC<Props> = ({
 
       setBusinessPackageAsics(packageAsics);
     }
+  };
+
+  const onAsicPriceChange = (price: string, index: number) => {
+    const changedAsic = selectedAsics[index];
+    const updatedAsic = { ...changedAsic, price: +price };
+    const newSelectedAsics = selectedAsics.map((asic, i) =>
+      i === index ? updatedAsic : asic,
+    );
+    setSelectedAsics(newSelectedAsics);
   };
 
   useEffect(() => {
@@ -153,7 +166,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
                 variant='outline'
                 rounded
                 disabled={asic.count === 1}
-              ></IconButton>
+              />
               <Input
                 value={asic.count}
                 onChange={(e) => setAsicsCount(+e.target.value, index)}
@@ -166,7 +179,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
                 icon={<PlusIcon />}
                 variant='outline'
                 rounded
-              ></IconButton>
+              />
             </div>
           </div>
         )}
@@ -206,11 +219,16 @@ const CalculatorAsicsData: React.FC<Props> = ({
                     ? readyBusinessTotalPrice !== 'по запросу'
                       ? formatter.format(+readyBusinessTotalPrice)
                       : 'По запросу'
-                    : formatter.format(asic.price * asic.count)
+                    : isFocus
+                      ? asic.price * asic.count
+                      : formatter.format(asic.price * asic.count)
                 }
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
                 className='calculatorFeature-price-input'
                 sizes='md'
-                disabled
+                disabled={!isManager}
+                onChange={(e) => onAsicPriceChange(e.target.value, index)}
               />
             </div>
           )}

@@ -19,6 +19,7 @@ interface Props {
   totalConsumptionDataCenter: string;
   matches: boolean;
   generatePdfData: () => any;
+  isManager: boolean;
 }
 
 export const CalculatorTotal: React.FC<Props> = ({
@@ -31,6 +32,7 @@ export const CalculatorTotal: React.FC<Props> = ({
   totalPriceGuests,
   matches,
   generatePdfData,
+  isManager,
 }) => {
   const {
     calculatorType,
@@ -125,16 +127,18 @@ export const CalculatorTotal: React.FC<Props> = ({
               <span>{paybackWithElectricity}</span>
             </div>
           </div>
-          <div className='calculatorTotal-btns'>
-            <Button
-              disabled={calculatorType === 2 && !selectedPackageId}
-              theme='pink'
-              isWide
-              onClick={handleOpenOrderModal}
-            >
-              Оставить заявку
-            </Button>
-          </div>
+          {!isManager && (
+            <div className='calculatorTotal-btns'>
+              <Button
+                disabled={calculatorType === 2 && !selectedPackageId}
+                theme='pink'
+                isWide
+                onClick={handleOpenOrderModal}
+              >
+                Оставить заявку
+              </Button>
+            </div>
+          )}
         </>
       )}
       {calculatorType === 4 && (
@@ -220,11 +224,13 @@ export const CalculatorTotal: React.FC<Props> = ({
               )}
             </div>
           </div>
-          <div className='calculatorTotal-btns'>
-            <Button theme='pink' isWide onClick={handleOpenOrderModal}>
-              Получить скидку
-            </Button>
-          </div>
+          {!isManager && (
+            <div className='calculatorTotal-btns'>
+              <Button theme='pink' isWide onClick={handleOpenOrderModal}>
+                Получить скидку
+              </Button>
+            </div>
+          )}
         </>
       )}
       <OrderCallModal

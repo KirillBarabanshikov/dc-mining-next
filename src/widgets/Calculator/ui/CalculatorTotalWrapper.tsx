@@ -20,6 +20,7 @@ interface Props {
   paybackWithoutElectricity: number;
   matches: boolean;
   generatePdfData: () => any;
+  isManager: boolean;
 }
 
 const CalculatorTotalWrapper: React.FC<Props> = ({
@@ -35,9 +36,11 @@ const CalculatorTotalWrapper: React.FC<Props> = ({
   profitWithElectricity,
   profitWithoutElectricity,
   generatePdfData,
+  isManager,
 }) => {
   return (
     <CalculatorTotal
+      isManager={isManager}
       generatePdfData={generatePdfData}
       matches={matches}
       totalConsumptionDataCenter={totalConsumptionDataCenter.toLocaleString(
