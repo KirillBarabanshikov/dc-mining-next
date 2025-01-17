@@ -11,28 +11,44 @@ import { SwiperButton } from '@/shared/ui';
 import styles from './LivePhotos.module.scss';
 
 interface ILivePhotosProps {
-    images: string[];
-    className?: string;
+  images: string[];
+  className?: string;
 }
 
 export const LivePhotos: FC<ILivePhotosProps> = ({ images, className }) => {
-    if (!images.length) return <></>;
+  if (!images?.length) return <></>;
 
-    return (
-        <div className={clsx(styles.container, className)}>
-            <Swiper slidesPerView={'auto'} spaceBetween={16} className={styles.slider}>
-                <SwiperButton variant={'prev'} className={clsx(styles.swiperButton, styles.prev)} />
-                {images.map((image, index) => {
-                    return (
-                        <SwiperSlide key={index} className={styles.slide}>
-                            <div className={styles.photo}>
-                                <Image src={BASE_URL + image} alt={'Photo'} width={280} height={280} loading={'lazy'} />
-                            </div>
-                        </SwiperSlide>
-                    );
-                })}
-                <SwiperButton variant={'next'} className={clsx(styles.swiperButton, styles.next)} />
-            </Swiper>
-        </div>
-    );
+  return (
+    <div className={clsx(styles.container, className)}>
+      <Swiper
+        slidesPerView={'auto'}
+        spaceBetween={16}
+        className={styles.slider}
+      >
+        <SwiperButton
+          variant={'prev'}
+          className={clsx(styles.swiperButton, styles.prev)}
+        />
+        {images.map((image, index) => {
+          return (
+            <SwiperSlide key={index} className={styles.slide}>
+              <div className={styles.photo}>
+                <Image
+                  src={BASE_URL + image}
+                  alt={'Photo'}
+                  width={280}
+                  height={280}
+                  loading={'lazy'}
+                />
+              </div>
+            </SwiperSlide>
+          );
+        })}
+        <SwiperButton
+          variant={'next'}
+          className={clsx(styles.swiperButton, styles.next)}
+        />
+      </Swiper>
+    </div>
+  );
 };
