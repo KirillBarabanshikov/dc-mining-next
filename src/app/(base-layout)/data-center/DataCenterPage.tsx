@@ -75,7 +75,7 @@ export const DataCenterPage: FC = () => {
               </div>
 
               <LivePhotos
-                images={info.slider[activeTab].images.map(
+                images={info.slider[activeTab]?.images.map(
                   (image) => image.image,
                 )}
               />
