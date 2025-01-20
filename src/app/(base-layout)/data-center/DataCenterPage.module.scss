@@ -91,7 +91,7 @@
 .content {
   margin-top: 32px;
 
-  @media screen and (max-width: 1440px) {
+  @media screen and (max-width: 1440px) and (min-width: 993px) {
     gap: 106px !important;
   }
 

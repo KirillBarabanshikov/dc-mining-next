@@ -489,7 +489,10 @@ export const Calculator: FC<Props> = ({
     //     console.log(parseFloat(pdfData.profitWithoutWatt).toLocaleString('ru-RU'))
     // }
 
-    return pdfData;
+    return {
+      ...pdfData,
+      type: calculatorTypes.find((type) => type.id === calculatorType)?.title,
+    };
   };
 
   return (
