@@ -91,7 +91,7 @@ export const DataCenterPage: FC = () => {
                 className={clsx(styles.container, 'container')}
                 style={{ scrollMarginTop: '200px' }}
               >
-                <Calculator />
+                <Calculator singleType={3} />
               </div>
             </div>
             <Benefits countDevices={info.countDevices} />
