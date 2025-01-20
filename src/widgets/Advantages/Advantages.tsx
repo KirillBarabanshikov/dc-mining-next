@@ -55,11 +55,13 @@ const AdvantageItem: FC<IAdvantageItem> = (advantage) => {
           height={160}
         />
       </div>
-      <p className={styles.title}>{advantage.title}</p>
-      <div
-        className={styles.desc}
-        dangerouslySetInnerHTML={{ __html: advantage.description }}
-      />
+      <div className={styles.body}>
+        <p className={styles.title}>{advantage.title}</p>
+        <div
+          className={styles.desc}
+          dangerouslySetInnerHTML={{ __html: advantage.description }}
+        />
+      </div>
     </Link>
   );
 };

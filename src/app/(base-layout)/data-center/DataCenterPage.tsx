@@ -45,7 +45,6 @@ export const DataCenterPage: FC = () => {
             Оставить заявку
           </Button>
         </div>
-        <div className={styles.background}></div>
       </section>
       <div className={clsx(styles.content, 'sections')}>
         {info && (
