@@ -1,3 +1,9 @@
+.container {
+  @media screen and (max-width: 1440px) {
+    max-width: 1168px;
+  }
+}
+
 .dataCenterBanner {
   .animation {
     position: absolute;
@@ -59,7 +65,7 @@
     font-weight: 400;
     font-size: 20px;
     line-height: 1.2;
-    max-width: 436px;
+    max-width: 592px;
     margin-bottom: 40px;
 
     a {
@@ -85,6 +91,10 @@
 .content {
   margin-top: 32px;
 
+  @media screen and (max-width: 1440px) {
+    gap: 106px !important;
+  }
+
   @media screen and (max-width: 992px) {
     margin-top: 80px;
   }
@@ -98,6 +108,7 @@
   position: relative;
   z-index: 1;
   margin-top: -160px;
+  margin-bottom: 80px;
 
   @media screen and (max-width: 768px) {
     margin-top: unset;
@@ -149,6 +160,8 @@
 }
 
 .goodKnow {
+  margin-bottom: 40px;
+
   h2 {
     text-align: center;
   }
@@ -164,6 +177,12 @@
 
 .whatDataCenter {
   margin-bottom: 100px;
+
+  .container {
+    @media screen and (max-width: 1440px) {
+      max-width: 1216px;
+    }
+  }
 
   @media screen and (max-width: 768px) {
     margin-bottom: unset;

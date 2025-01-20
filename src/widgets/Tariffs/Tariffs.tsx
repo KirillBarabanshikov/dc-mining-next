@@ -52,50 +52,53 @@ export const TariffCard: FC<ITariffCardProps> = ({ tariff }) => {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         className={styles.tariffCard}
-        animate={{ height: isHovered || matches ? '560px' : '435px' }}
       >
-        <Image
-          src={BASE_URL + tariff.image}
-          alt={tariff.title}
-          width={435}
-          height={435}
-          className={styles.tariffImage}
-        />
-        <Image
-          src={BASE_URL + tariff.imageHover}
-          alt={tariff.title}
-          width={435}
-          height={435}
-          className={clsx(styles.tariffImage, styles.tariffImageHover)}
-        />
-        <div className={styles.tariffTitle}>{tariff.title}</div>
-        <motion.div
-          animate={
-            isHovered || matches ? { opacity: 1 } : { height: 0, opacity: 0 }
-          }
-          className={styles.tariffDescOverlay}
-        >
-          <div
-            className={styles.tariffDesc}
-            dangerouslySetInnerHTML={{ __html: tariff.description }}
+        <div className={styles.imageWrap}>
+          <Image
+            src={BASE_URL + tariff.image}
+            alt={tariff.title}
+            width={280}
+            height={280}
+            className={styles.tariffImage}
           />
-        </motion.div>
-        <motion.div
-          animate={{ fontSize: isHovered || matches ? '32px' : '40px' }}
-          className={styles.tariffPrice}
-        >
-          {tariff.price}
-        </motion.div>
-        <motion.div
-          animate={
-            isHovered || matches ? { opacity: 1 } : { height: 0, opacity: 0 }
-          }
-          className={styles.buttonOverlay}
-        >
-          <Button onClick={() => setIsOpen(true)} className={styles.button}>
-            Оставить заявку
-          </Button>
-        </motion.div>
+          <Image
+            src={BASE_URL + tariff.imageHover}
+            alt={tariff.title}
+            width={280}
+            height={280}
+            className={clsx(styles.tariffImage, styles.tariffImageHover)}
+          />
+        </div>
+        <div className={styles.body}>
+          <motion.div
+            animate={{ fontSize: isHovered || matches ? '32px' : '24px' }}
+            className={styles.tariffTitle}
+          >
+            {tariff.title}
+          </motion.div>
+          <motion.div
+            className={styles.tariffDescOverlay}
+            animate={
+              isHovered || matches ? { opacity: 1 } : { height: 0, opacity: 0 }
+            }
+          >
+            <div
+              className={styles.tariffDesc}
+              dangerouslySetInnerHTML={{ __html: tariff.description }}
+            />
+          </motion.div>
+          <motion.div className={styles.tariffPrice}>{tariff.price}</motion.div>
+          <motion.div
+            className={styles.buttonOverlay}
+            animate={
+              isHovered || matches ? { opacity: 1 } : { height: 0, opacity: 0 }
+            }
+          >
+            <Button onClick={() => setIsOpen(true)} className={styles.button}>
+              Оставить заявку
+            </Button>
+          </motion.div>
+        </div>
       </motion.div>
       <OrderCallModal
         isOpen={isOpen}

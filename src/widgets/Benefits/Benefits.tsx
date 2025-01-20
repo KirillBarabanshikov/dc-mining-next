@@ -24,7 +24,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices }) => {
 
   return (
     <section className={styles.benefits}>
-      <div className={'container'}>
+      <div className={clsx(styles.container, 'container')}>
         <h2 className={'section-title-primary'}>Приемущества</h2>
         <div className={styles.benefitsWrap}>
           <div className={styles.benefitBlock}>

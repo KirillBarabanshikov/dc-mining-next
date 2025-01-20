@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 // import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -63,7 +64,7 @@ export const OrderCallBanner = () => {
   return (
     <>
       <section className={styles.banner}>
-        <div className={'container'}>
+        <div className={clsx(styles.container, 'container')}>
           <div className={styles.wrap}>
             <img src={miner.src} alt={'Miner'} />
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>

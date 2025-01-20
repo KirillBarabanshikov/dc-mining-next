@@ -50,64 +50,70 @@ export const DataCenterPage: FC = () => {
       <div className={clsx(styles.content, 'sections')}>
         {info && (
           <>
-            <Advantages
-              advantages={info.top}
-              className={styles.advantagesTop}
-            />
-            {!!info.slider.length && (
-              <div className={styles.livePhotos}>
+            <div>
+              <Advantages
+                advantages={info.top}
+                className={styles.advantagesTop}
+              />
+              {!!info.slider.length && (
+                <div className={styles.livePhotos}>
+                  <div className={'container'}>
+                    <div className={clsx(styles.livePhotosTabs)}>
+                      {info.slider.map((slider, index) => {
+                        return (
+                          <div
+                            key={slider.id}
+                            className={clsx(
+                              styles.livePhotosTab,
+                              activeTab === index && styles.active,
+                            )}
+                            onClick={() => setActiveTab(index)}
+                          >
+                            {slider.title}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <LivePhotos
+                    images={info.slider[activeTab]?.images.map(
+                      (image) => image.image,
+                    )}
+                  />
+                </div>
+              )}
+            </div>
+            <div>
+              <Tariffs tariffs={info.tariffPlans} />
+              <div
+                id='calculator'
+                className={clsx(styles.container, 'container')}
+                style={{ scrollMarginTop: '200px' }}
+              >
+                <Calculator />
+              </div>
+            </div>
+            <Benefits countDevices={info.countDevices} />
+            <div>
+              <section className={styles.goodKnow}>
                 <div className={'container'}>
-                  <div className={clsx(styles.livePhotosTabs)}>
-                    {info.slider.map((slider, index) => {
+                  <h2 className={'section-title-primary'}>Полезно знать</h2>
+                  <div className={styles.goodKnowList}>
+                    {info.goodKnow.map((know) => {
                       return (
-                        <div
-                          key={slider.id}
-                          className={clsx(
-                            styles.livePhotosTab,
-                            activeTab === index && styles.active,
-                          )}
-                          onClick={() => setActiveTab(index)}
-                        >
-                          {slider.title}
-                        </div>
+                        <Accordion
+                          key={know.id}
+                          title={know.title}
+                          body={know.description}
+                        />
                       );
                     })}
                   </div>
                 </div>
-
-                <LivePhotos
-                  images={info.slider[activeTab]?.images.map(
-                    (image) => image.image,
-                  )}
-                />
-              </div>
-            )}
-            <Tariffs tariffs={info.tariffPlans} />
-            <div
-              id='calculator'
-              className={'container'}
-              style={{ scrollMarginTop: '200px' }}
-            >
-              <Calculator />
+              </section>
+              <WhatDataCenter info={info.info} />
             </div>
-            <Benefits countDevices={info.countDevices} />
-            <section className={styles.goodKnow}>
-              <div className={'container'}>
-                <h2 className={'section-title-primary'}>Полезно знать</h2>
-                <div className={styles.goodKnowList}>
-                  {info.goodKnow.map((know) => {
-                    return (
-                      <Accordion
-                        key={know.id}
-                        title={know.title}
-                        body={know.description}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </section>
-            <WhatDataCenter info={info.info} />
             <OrderCallBanner />
           </>
         )}
@@ -127,7 +133,7 @@ const WhatDataCenter = ({ info }: { info: string }) => {
 
   return (
     <section className={styles.whatDataCenter}>
-      <div className={'container'}>
+      <div className={clsx(styles.container, 'container')}>
         <h3 className={styles.whatDataCenterTitle}>Что такое дата центр?</h3>
         <div
           dangerouslySetInnerHTML={{ __html: info }}

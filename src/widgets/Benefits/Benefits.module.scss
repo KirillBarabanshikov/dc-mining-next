@@ -1,3 +1,9 @@
+.container {
+  @media screen and (max-width: 1440px) {
+    max-width: 1168px;
+  }
+}
+
 .benefits {
   h2 {
     @media screen and (max-width: 768px) {
@@ -9,7 +15,7 @@
     display: flex;
     column-gap: 32px;
 
-    @media screen and (max-width: 1440px) {
+    @media screen and (max-width: 1024px) {
       flex-direction: column;
       row-gap: 20px;
     }
@@ -53,6 +59,24 @@
         bottom: 0;
       }
 
+      @media screen and (max-width: 1440px) and (min-width: 993px) {
+        border-radius: 28px;
+        height: 328px;
+        margin-bottom: 8px;
+
+        .benefitMainText {
+          left: 24px;
+          bottom: 20px;
+          font-size: 40px;
+          max-width: 280px;
+        }
+
+        .benefitMainImage {
+          max-width: 328px;
+          max-height: 328px;
+        }
+      }
+
       @media screen and (max-width: 768px) {
         border-radius: 14px;
         height: 184px;
@@ -78,10 +102,13 @@
       border-radius: 32px;
       padding: 16px;
 
+      @media screen and (max-width: 1440px) and (min-width: 993px) {
+        padding: 8px;
+      }
+
       @media screen and (max-width: 768px) {
         flex-direction: column;
         row-gap: 8px;
-        padding: 8px;
       }
     }
 
@@ -95,7 +122,6 @@
       column-gap: 20px;
       border-radius: 20px;
       padding: 12px;
-      height: 102px;
       background: var(--background-white);
       flex: 1;
 
@@ -197,6 +223,23 @@
             }
           }
         }
+
+        @media screen and (max-width: 1440px) {
+          .benefitCardImage {
+            border-radius: 21px;
+            width: 196px;
+            height: 196px;
+
+            img {
+              width: 196px;
+              height: 196px;
+            }
+          }
+        }
+      }
+
+      @media screen and (max-width: 1440px) and (min-width: 993px) {
+        padding: 8px;
       }
     }
 
@@ -215,6 +258,13 @@
     .button {
       height: 124px !important;
       font-size: 24px !important;
+
+      @media screen and (max-width: 1440px) and (min-width: 993px) {
+        height: 68px !important;
+        font-size: 16px !important;
+        color: var(--text-contrast);
+        border-radius: 16px;
+      }
 
       @media screen and (max-width: 768px) {
         height: 48px !important;
