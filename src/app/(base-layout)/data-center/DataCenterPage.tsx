@@ -137,15 +137,21 @@ const WhatDataCenter = ({ info }: { info: string }) => {
         <h3 className={styles.whatDataCenterTitle}>Что такое дата центр?</h3>
         <div
           dangerouslySetInnerHTML={{ __html: info }}
-          className={clsx(styles.whatDataCenterText, 'list')}
+          className={clsx(
+            styles.whatDataCenterText,
+            'list',
+            showMore && styles.more,
+          )}
           style={showMore ? { maxHeight: 'unset' } : {}}
         />
-        <div
-          onClick={() => setShowMore((prev) => !prev)}
-          className={styles.whatDataCenterMore}
-        >
-          {showMore ? 'Меньше' : 'Подробнее'}
-        </div>
+        {info.length > 1000 && (
+          <div
+            onClick={() => setShowMore((prev) => !prev)}
+            className={styles.whatDataCenterMore}
+          >
+            {showMore ? 'Меньше' : 'Подробнее'}
+          </div>
+        )}
       </div>
     </section>
   );

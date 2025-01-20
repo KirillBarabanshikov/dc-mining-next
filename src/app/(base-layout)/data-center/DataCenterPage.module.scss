@@ -209,6 +209,18 @@
       line-height: 1.3;
       max-height: 200px;
       overflow: hidden;
+
+      br {
+        display: none;
+      }
+
+      &.more {
+        max-width: unset;
+
+        br {
+          display: initial;
+        }
+      }
     }
   }
 
@@ -221,7 +233,7 @@
     display: none;
 
     @media screen and (max-width: 768px) {
-      display: block;
+      display: inline-block;
     }
   }
 }
