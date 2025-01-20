@@ -633,6 +633,8 @@ export const Calculator: FC<Props> = ({
 
   useEffect(() => {
     if (singleType) setCalculatorType(singleType);
+
+    return () => setCalculatorType(1);
   }, [singleType]);
 
   return (
@@ -644,7 +646,7 @@ export const Calculator: FC<Props> = ({
         {matches && (
           <>
             <CalculatorHead
-              onClick={() => {}}
+              onClick={() => router.push('/calculator')}
               isProError={isProError}
               isPro={isPro}
               toggleProMode={toggleProMode}
