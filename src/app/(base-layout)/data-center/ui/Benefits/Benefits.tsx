@@ -17,13 +17,14 @@ import styles from './Benefits.module.scss';
 
 interface IBenefitsProps {
   countDevices: number;
+  className?: string;
 }
 
-export const Benefits: FC<IBenefitsProps> = ({ countDevices }) => {
+export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className={styles.benefits}>
+    <section className={clsx(styles.benefits, className)}>
       <div className={clsx(styles.container, 'container')}>
         <h2 className={'section-title-primary'}>Приемущества</h2>
         <div className={styles.benefitsWrap}>

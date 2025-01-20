@@ -1,0 +1,291 @@
+.tariffs {
+  scroll-margin-top: 200px;
+
+  .tariffsContainer {
+    @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      max-width: 1168px;
+    }
+
+    h2 {
+      text-align: center;
+
+      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+        text-align: start;
+        margin-bottom: 20px;
+      }
+
+      @media screen and (max-width: 1024px) {
+        margin-bottom: 72px;
+      }
+
+      @media screen and (max-width: 768px) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .tariffsList {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    column-gap: 16px;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 8px;
+    }
+  }
+}
+
+.tariffCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 280px;
+  border-radius: 40px;
+  padding: 0 20px 20px 20px;
+  background: var(--background-primary);
+  transition: background-color 0.3s;
+
+  @media screen and (max-width: 1440px) and (min-width: 1025px) {
+    max-width: unset;
+    flex: 1;
+  }
+
+  @media screen and (max-width: 1024px) {
+    &:nth-child(1) {
+      background-color: var(--background-secondary);
+    }
+
+    &:nth-child(2) {
+      background-color: var(--background-dark);
+
+      .title,
+      .desc {
+        color: var(--text-contrast);
+      }
+    }
+
+    &:nth-child(3) {
+      background-color: var(--background-accent-blue);
+
+      .title,
+      .desc {
+        color: var(--text-contrast);
+      }
+
+      .price {
+        color: var(--text-primary);
+      }
+
+      .button {
+        background-color: var(--background-white);
+        color: var(--text-accent-blue);
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    position: relative;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    column-gap: 16px;
+    max-width: unset;
+    width: 100%;
+    flex: 1;
+    padding: 8px;
+    border-radius: 20px;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      .imageWrap {
+        .image {
+          transform: scale(0.75);
+          opacity: 0;
+        }
+
+        .imageHover {
+          opacity: 1 !important;
+        }
+      }
+
+      &:nth-child(1) {
+        background-color: var(--background-secondary);
+      }
+
+      &:nth-child(2) {
+        background-color: var(--background-dark);
+
+        .title,
+        .desc {
+          color: var(--text-contrast);
+        }
+      }
+
+      &:nth-child(3) {
+        background-color: var(--background-accent-blue);
+
+        .title,
+        .desc {
+          color: var(--text-contrast);
+        }
+
+        .price {
+          color: var(--text-primary);
+        }
+
+        .button {
+          background-color: var(--background-white);
+          color: var(--text-accent-blue);
+        }
+      }
+    }
+  }
+
+  .imageWrap {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 8px;
+
+    @media screen and (max-width: 1024px) {
+      width: 280px;
+      height: 280px;
+      margin-bottom: -100px;
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 100px;
+      height: 100px;
+      min-width: 100px;
+      margin-bottom: unset;
+    }
+
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: absolute;
+      transition:
+        transform 0.3s,
+        opacity 0.3s;
+
+      @media screen and (max-width: 1024px) {
+        top: -94px;
+      }
+
+      @media screen and (max-width: 768px) {
+        top: 0;
+        opacity: 0;
+      }
+    }
+
+    .imageHover {
+      opacity: 0;
+
+      @media screen and (max-width: 768px) {
+        opacity: 1;
+      }
+    }
+  }
+
+  .overlay {
+    width: 100%;
+    display: contents;
+    max-width: 590px;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+
+  .title {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    text-align: center;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+
+    @media screen and (max-width: 1024px) {
+      font-size: 24px !important;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 20px;
+      text-align: start;
+      margin-top: 10px;
+    }
+  }
+
+  .descOverlay {
+    @media screen and (max-width: 1024px) {
+      height: auto !important;
+      opacity: 1 !important;
+    }
+  }
+
+  .desc {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    padding-bottom: 20px;
+    transition: color 0.3s;
+
+    ul,
+    ol {
+      list-style: inside;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+    }
+  }
+
+  .price {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    text-align: center;
+    color: var(--text-accent-blue);
+    transition: color 0.3s;
+
+    @media screen and (max-width: 768px) {
+      position: absolute;
+      left: 16px;
+      bottom: 22px;
+      font-size: 16px;
+    }
+  }
+
+  .buttonOverlay {
+    width: 100%;
+
+    @media screen and (max-width: 1024px) {
+      height: auto !important;
+      opacity: 1 !important;
+    }
+
+    .button {
+      width: 100%;
+      margin-top: 20px;
+
+      @media screen and (max-width: 1024px) {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1.2;
+        text-align: center;
+        border-radius: 16px;
+        height: 48px;
+      }
+    }
+  }
+}
