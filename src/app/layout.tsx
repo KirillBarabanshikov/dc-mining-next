@@ -42,6 +42,7 @@ export const metadata: Metadata = {
   other: {
     'yandex-verification': 'a930c94ae40ba145',
     'google-site-verification': '4Lq2UOlHmWA-VvtRjoszSPO46tQZksDQpljLY2r-vEU',
+    'mailru-domain': 'mSupiPZza7ZVWW82',
   },
 };
 
