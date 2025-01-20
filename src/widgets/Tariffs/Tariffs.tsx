@@ -3,10 +3,11 @@
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import { ITariff } from '@/entities/pageInfo';
 import { OrderCallModal } from '@/features/call';
+import ArrowIcon from '@/shared/assets/icons/arrow-right2.svg';
 import { BASE_URL, MAX_WIDTH_LG } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
@@ -19,6 +20,25 @@ interface ITariffsProps {
 }
 
 export const Tariffs: FC<ITariffsProps> = ({ tariffs, className }) => {
+  const tariffsContainerRef = useRef<HTMLDivElement>(null);
+  const [isArrowVisible, setIsArrowVisible] = useState(true);
+
+  const handleScroll = () => {
+    const container = tariffsContainerRef.current;
+    if (container) {
+      const { scrollLeft } = container;
+      setIsArrowVisible(scrollLeft <= 1);
+    }
+  };
+
+  useEffect(() => {
+    const container = tariffsContainerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      return () => container.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
   return (
     <section
       className={clsx(styles.tariffsWrap, className)}
@@ -27,10 +47,29 @@ export const Tariffs: FC<ITariffsProps> = ({ tariffs, className }) => {
     >
       <div className={clsx(styles.tariffsContainer, 'container')}>
         <h2 className={'section-title-primary'}>Тарифные планы</h2>
-        <div className={clsx(styles.tariffs, 'scrollbar-hide')}>
+        <div
+          className={clsx(styles.tariffs, 'scrollbar-hide')}
+          ref={tariffsContainerRef}
+        >
           {tariffs.map((tariff) => {
             return <TariffCard key={tariff.id} tariff={tariff} />;
           })}
+          {isArrowVisible && (
+            <div
+              className={styles.arrow}
+              onClick={() => {
+                const container = tariffsContainerRef.current;
+                if (container) {
+                  container.scrollBy({
+                    left: 500,
+                    behavior: 'smooth',
+                  });
+                }
+              }}
+            >
+              <ArrowIcon />
+            </div>
+          )}
         </div>
       </div>
     </section>
