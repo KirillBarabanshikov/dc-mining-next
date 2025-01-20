@@ -1,15 +1,15 @@
 'use client';
 
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { FC, useState } from 'react';
 
 import { ITariff } from '@/entities/pageInfo';
+import { BASE_URL } from '@/shared/consts';
+import { Button } from '@/shared/ui';
 
 import styles from './Tariffs.module.scss';
-import Image from 'next/image';
-import { Button } from '@/shared/ui';
-import { BASE_URL } from '@/shared/consts';
-import { motion } from 'framer-motion';
 
 interface ITariffsProps {
   tariffs: ITariff[];
