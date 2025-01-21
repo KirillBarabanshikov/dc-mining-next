@@ -1,11 +1,12 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import styles from './DataCenterInfo.module.scss';
+import { OrderCallModal } from '@/features/call';
 
 interface IDataCenterInfoProps {
   title: string;
@@ -18,6 +19,7 @@ export const DataCenterInfo: FC<IDataCenterInfoProps> = ({
   description,
   className,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const match = useMediaQuery(MAX_WIDTH_MD);
 
   return (
@@ -38,6 +40,7 @@ export const DataCenterInfo: FC<IDataCenterInfoProps> = ({
               className={styles.desc}
             />
             <Button
+              onClick={() => setIsOpen(true)}
               size={match ? 'md' : 'lg'}
               isWide={match}
               className={styles.button}
@@ -47,6 +50,12 @@ export const DataCenterInfo: FC<IDataCenterInfoProps> = ({
           </div>
         </div>
       </section>
+      <OrderCallModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+      />
     </div>
   );
 };

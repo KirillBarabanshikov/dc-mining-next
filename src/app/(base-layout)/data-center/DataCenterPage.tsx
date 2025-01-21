@@ -35,7 +35,11 @@ export const DataCenterPage = () => {
       <Advantages advantages={dataCenterInfo.top} className={styles.margin} />
       <Photos photos={dataCenterInfo.slider} className={styles.margin} />
       <Tariffs tariffs={dataCenterInfo.tariffPlans} className={styles.margin} />
-      <div className={clsx('container', styles.container, styles.margin)}>
+      <div
+        id={'calculator'}
+        style={{ scrollMarginTop: '200px' }}
+        className={clsx('container', styles.container, styles.margin)}
+      >
         <Calculator singleType={3} />
       </div>
       <Benefits

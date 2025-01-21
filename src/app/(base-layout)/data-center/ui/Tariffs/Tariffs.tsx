@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { FC, useState } from 'react';
 
 import { ITariff } from '@/entities/pageInfo';
+import { OrderCallModal } from '@/features/call';
 import { BASE_URL } from '@/shared/consts';
 import { Button } from '@/shared/ui';
 
@@ -36,6 +37,7 @@ interface ITariffCardProps {
 }
 
 export const TariffCard: FC<ITariffCardProps> = ({ tariff }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -81,9 +83,17 @@ export const TariffCard: FC<ITariffCardProps> = ({ tariff }) => {
           animate={isHover ? {} : { height: 0, opacity: 0 }}
           className={styles.buttonOverlay}
         >
-          <Button className={styles.button}>Оставить заявку</Button>
+          <Button onClick={() => setIsOpen(true)} className={styles.button}>
+            Оставить заявку
+          </Button>
         </motion.div>
       </div>
+      <OrderCallModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+      />
     </motion.div>
   );
 };
