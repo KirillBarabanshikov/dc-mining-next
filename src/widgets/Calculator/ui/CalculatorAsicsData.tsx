@@ -227,7 +227,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
                 onBlur={() => setIsFocus(false)}
                 className='calculatorFeature-price-input'
                 sizes='md'
-                disabled={!isManager}
+                disabled={!isManager || calculatorType === 2}
                 onChange={(e) => onAsicPriceChange(e.target.value, index)}
               />
             </div>

@@ -637,6 +637,11 @@ export const Calculator: FC<Props> = ({
     );
   };
 
+  const handleNavigate = () => {
+    if (isManager) return;
+    router.push('/calculator');
+  };
+
   useEffect(() => {
     if (singleType) setCalculatorType(singleType);
 
@@ -652,7 +657,7 @@ export const Calculator: FC<Props> = ({
         {matches && (
           <>
             <CalculatorHead
-              onClick={() => router.push('/calculator')}
+              onClick={handleNavigate}
               isProError={isProError}
               isPro={isPro}
               toggleProMode={toggleProMode}
@@ -705,7 +710,7 @@ export const Calculator: FC<Props> = ({
             <div className='calculatorFeature-content'>
               {!matches && (
                 <CalculatorHead
-                  onClick={() => router.push('/calculator')}
+                  onClick={handleNavigate}
                   isPro={isPro}
                   isProError={isProError}
                   toggleProMode={toggleProMode}

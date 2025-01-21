@@ -137,6 +137,16 @@
     }
   }
 
+  @media screen and (max-width: 1440px) {
+    background-position: 100% 147%;
+    background-size: 176px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    background-position: right;
+    background-size: 283px;
+  }
+
   @media (min-width: (1201 + px)) {
     flex: 0 1 904px;
   }
@@ -284,7 +294,7 @@
   }
   &-row {
     display: grid;
-    grid-template-columns: auto 152px 128px;
+    grid-template-columns: 252px 152px 128px;
     gap: 4px;
 
     @media (max-width: (768 + px)) {
