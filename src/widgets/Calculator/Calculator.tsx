@@ -2,6 +2,7 @@
 import './Calculator.scss';
 
 import clsx from 'clsx';
+import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/navigation';
 import { ChangeEvent, FC, Fragment, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -175,7 +176,6 @@ export const Calculator: FC<Props> = ({
       const updatedAsic = {
         ...changedAsic,
         count,
-        price: count * changedAsic.price,
       };
       const newSelectedAsics = selectedAsics.map((asic, i) =>
         i === index ? updatedAsic : asic,
@@ -391,7 +391,7 @@ export const Calculator: FC<Props> = ({
 
     console.log(course);
 
-    let pdfData;
+    let pdfData: any;
 
     if (calculatorType === 1) {
       const selectedAsic = selectedAsics[0];
@@ -480,7 +480,7 @@ export const Calculator: FC<Props> = ({
         pdfData.profitWithMonth,
       ).toLocaleString('ru-RU');
 
-      pdfData.asics = pdfData.asics.map((item) => ({
+      pdfData.asics = pdfData.asics.map((item: any) => ({
         ...item,
         priceOnePiece: parseFloat(item.priceOnePiece).toLocaleString('ru-RU'),
         price: parseFloat(item.price).toLocaleString('ru-RU'),
@@ -491,6 +491,12 @@ export const Calculator: FC<Props> = ({
     //     console.log(pdfData.profitWithoutWatt)
     //     console.log(parseFloat(pdfData.profitWithoutWatt).toLocaleString('ru-RU'))
     // }
+
+    const managerId = Cookies.get('manager');
+
+    if (managerId) {
+      pdfData.id = +managerId;
+    }
 
     return {
       ...pdfData,
