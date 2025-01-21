@@ -63,7 +63,7 @@ export const CompareList = () => {
                   )}
                   onClick={() => setActiveTab(index)}
                 >
-                  {item.category}
+                  {item.category} ({item.count})
                 </div>
               );
             })}
