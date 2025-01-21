@@ -2,6 +2,7 @@
 import './Calculator.scss';
 
 import clsx from 'clsx';
+import Cookies from 'js-cookie';
 import { usePathname, useRouter } from 'next/navigation';
 import { ChangeEvent, FC, Fragment, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -28,12 +29,14 @@ interface Props {
   className?: string;
   type?: 'lite' | 'pro';
   isManager?: boolean;
+  singleType?: number;
 }
 
 export const Calculator: FC<Props> = ({
   className,
   type = 'lite',
   isManager = false,
+  singleType,
 }) => {
   const {
     calculatorType,
@@ -60,6 +63,7 @@ export const Calculator: FC<Props> = ({
     setIsNewPackage,
     isNewPackage,
     dollar,
+    setCalculatorType,
   } = useCalculatorStore();
   const matches = useMediaQuery(MAX_WIDTH_MD);
 
@@ -172,7 +176,6 @@ export const Calculator: FC<Props> = ({
       const updatedAsic = {
         ...changedAsic,
         count,
-        price: count * changedAsic.price,
       };
       const newSelectedAsics = selectedAsics.map((asic, i) =>
         i === index ? updatedAsic : asic,
@@ -388,7 +391,7 @@ export const Calculator: FC<Props> = ({
 
     console.log(course);
 
-    let pdfData;
+    let pdfData: any;
 
     if (calculatorType === 1) {
       const selectedAsic = selectedAsics[0];
@@ -477,7 +480,7 @@ export const Calculator: FC<Props> = ({
         pdfData.profitWithMonth,
       ).toLocaleString('ru-RU');
 
-      pdfData.asics = pdfData.asics.map((item) => ({
+      pdfData.asics = pdfData.asics.map((item: any) => ({
         ...item,
         priceOnePiece: parseFloat(item.priceOnePiece).toLocaleString('ru-RU'),
         price: parseFloat(item.price).toLocaleString('ru-RU'),
@@ -489,8 +492,161 @@ export const Calculator: FC<Props> = ({
     //     console.log(parseFloat(pdfData.profitWithoutWatt).toLocaleString('ru-RU'))
     // }
 
-    return pdfData;
+    const managerId = Cookies.get('manager');
+
+    if (managerId) {
+      pdfData.id = +managerId;
+    }
+
+    return {
+      ...pdfData,
+      type: calculatorTypes.find((type) => type.id === calculatorType)?.title,
+    };
   };
+
+  const renderCalculator = () => {
+    return (
+      <Fragment>
+        {openAccordionId !== 4 && (
+          <CalculatorAsicsData
+            asics={asics}
+            businessTotalPrice={businessTotalPrice}
+            isEditBusinessDetails={isEditBusinessDetails}
+            isEditingTouched={isEditingTouched}
+            matches={matches}
+            onAsicChange={onAsicChange}
+            setAsicsCount={setAsicsCount}
+            isManager={isManager}
+          />
+        )}
+        {openAccordionId === 4 && <CalculatorBodyLeasing />}
+
+        {calculatorType === 2 &&
+          matches &&
+          !isEditBusinessDetails &&
+          selectedPackageId && (
+            <CalculatorChangeBusinessPackage
+              isPro={isPro}
+              calculatorType={calculatorType}
+              handleChangeBusinessDetails={handleChangeBusinessDetails}
+              isProError={isProError}
+              setIsProError={setIsProError}
+            />
+          )}
+
+        {isNewPackage && matches && (
+          <CalculatorBusinessIsEditing
+            isEditBusinessDetails={isEditBusinessDetails}
+            matches={matches}
+            onAsicChange={onAsicChange}
+            setAsicsCount={setAsicsCount}
+            isEditingTouched={isEditingTouched}
+            businessTotalPrice={businessTotalPrice}
+            businessInitialItems={businessInitialItems}
+          />
+        )}
+
+        {calculatorType === 2 &&
+          isNewPackage &&
+          selectedPackageId === 12345 &&
+          matches && (
+            <div className='calculatorFeature-row calculatorFeature-change-row'>
+              <Button
+                className='calculatorFeature-add-btn'
+                variant='solid'
+                size='sm'
+                theme='gray'
+                onClick={() => {
+                  if (readyBusinessAsics.length > 0) {
+                    addBusinessPackageAsic();
+                    readyBusinessTotalPrice === 'по запросу'
+                      ? setReadyBusinessTotalPrice('По запросу')
+                      : setReadyBusinessTotalPrice(
+                          +readyBusinessTotalPrice +
+                            readyBusinessAsics[0].price,
+                        );
+                  }
+                }}
+              >
+                Добавить оборудование
+                <span>+</span>
+              </Button>
+            </div>
+          )}
+
+        {calculatorType === 3 && matches && (
+          <div className='calculatorFeature-change'>
+            <Button
+              className='calculatorFeature-change-btn'
+              variant='solid'
+              size='sm'
+              theme='gray'
+              onClick={() => {
+                if (!isPro && calculatorType === 3) {
+                  setIsProError(true);
+                  return;
+                }
+
+                if (readyBusinessAsics.length > 0) {
+                  addAsic(29);
+                }
+              }}
+            >
+              Добавить оборудование
+              <span>+</span>
+            </Button>
+            {isProError && (
+              <div className='calculatorElectricity-error calculatorElectricity-error-change'>
+                Доступно в Pro версии
+              </div>
+            )}
+          </div>
+        )}
+
+        {matches && (
+          <CalculatorElectricity
+            businessCalculationData={businessCalculationData}
+            profitWithoutElectricity={profitWithoutElectricity}
+            businessTotalPrice={businessTotalPrice}
+            totalConsumption={totalConsumption}
+            electricityCoast={electricityCoast}
+            changeElectricityCoast={changeElectricityCoast}
+            isProError={isProError}
+            generatePdfData={generatePdfData}
+          />
+        )}
+
+        {matches && (
+          <CalculatorTotalWrapper
+            generatePdfData={generatePdfData}
+            matches={matches}
+            totalConsumptionDataCenter={totalConsumptionDataCenter}
+            calculatorType={calculatorType}
+            businessCalculationData={businessCalculationData}
+            isEditBusinessDetails={isEditBusinessDetails}
+            electricityConsumption={electricityConsumption}
+            totalConsumption={totalConsumption}
+            profitWithoutElectricity={profitWithoutElectricity}
+            profitWithElectricity={profitWithElectricity}
+            paybackWithElectricity={paybackWithElectricity}
+            paybackWithoutElectricity={paybackWithoutElectricity}
+            isManager={isManager}
+          />
+        )}
+      </Fragment>
+    );
+  };
+
+  const handleNavigate = () => {
+    if (isManager) return;
+    router.push('/calculator');
+  };
+
+  useEffect(() => {
+    if (singleType) setCalculatorType(singleType);
+
+    return () => setCalculatorType(1);
+  }, [singleType]);
 
   return (
     <div className={clsx('calculator', className)}>
@@ -499,173 +655,53 @@ export const Calculator: FC<Props> = ({
           Рассчитайте <span>выгоду</span>
         </h2>
         {matches && (
-          <CalculatorHead
-            onClick={() => {}}
-            isProError={isProError}
-            isPro={isPro}
-            toggleProMode={toggleProMode}
-          />
+          <>
+            <CalculatorHead
+              onClick={handleNavigate}
+              isProError={isProError}
+              isPro={isPro}
+              toggleProMode={toggleProMode}
+            />
+            {singleType && (
+              <div className={'calculator-wrap'}>{renderCalculator()}</div>
+            )}
+          </>
         )}
-        <div className='calculator-types'>
-          {calculatorTypes.map((item) => {
-            if (isManager && item.title === 'Лизинг') {
-              return <Fragment key={item.id} />;
-            }
+        {!singleType && (
+          <div className='calculator-types'>
+            {calculatorTypes.map((item) => {
+              if (isManager && item.title === 'Лизинг') {
+                return <Fragment key={item.id} />;
+              }
 
-            return (
-              <div
-                key={item.id}
-                className={clsx('calculator-type-accordion', {
-                  active: item.id === calculatorType,
-                  open: matches && openAccordionId === item.id,
-                })}
-              >
+              return (
                 <div
-                  onClick={() => toggleAccordion(item)}
-                  className={clsx('calculator-type-accordion-header', {
+                  key={item.id}
+                  className={clsx('calculator-type-accordion', {
                     active: item.id === calculatorType,
+                    open: matches && openAccordionId === item.id,
                   })}
                 >
-                  {item.title}
-                  {matches && <ArrowDown className='accordion-arrow' />}
-                </div>
-
-                {matches && openAccordionId === item.id && (
-                  <div className='calculator-type-accordion-content'>
-                    {openAccordionId !== 4 && (
-                      <CalculatorAsicsData
-                        asics={asics}
-                        businessTotalPrice={businessTotalPrice}
-                        isEditBusinessDetails={isEditBusinessDetails}
-                        isEditingTouched={isEditingTouched}
-                        matches={matches}
-                        onAsicChange={onAsicChange}
-                        setAsicsCount={setAsicsCount}
-                        isManager={isManager}
-                      />
-                    )}
-                    {openAccordionId === 4 && <CalculatorBodyLeasing />}
-
-                    {calculatorType === 2 &&
-                      matches &&
-                      !isEditBusinessDetails &&
-                      selectedPackageId && (
-                        <CalculatorChangeBusinessPackage
-                          isPro={isPro}
-                          calculatorType={calculatorType}
-                          handleChangeBusinessDetails={
-                            handleChangeBusinessDetails
-                          }
-                          isProError={isProError}
-                          setIsProError={setIsProError}
-                        />
-                      )}
-
-                    {isNewPackage && matches && (
-                      <CalculatorBusinessIsEditing
-                        isEditBusinessDetails={isEditBusinessDetails}
-                        matches={matches}
-                        onAsicChange={onAsicChange}
-                        setAsicsCount={setAsicsCount}
-                        isEditingTouched={isEditingTouched}
-                        businessTotalPrice={businessTotalPrice}
-                        businessInitialItems={businessInitialItems}
-                      />
-                    )}
-
-                    {calculatorType === 2 &&
-                      isNewPackage &&
-                      selectedPackageId === 12345 &&
-                      matches && (
-                        <div className='calculatorFeature-row calculatorFeature-change-row'>
-                          <Button
-                            className='calculatorFeature-add-btn'
-                            variant='solid'
-                            size='sm'
-                            theme='gray'
-                            onClick={() => {
-                              if (readyBusinessAsics.length > 0) {
-                                addBusinessPackageAsic();
-                                readyBusinessTotalPrice === 'по запросу'
-                                  ? setReadyBusinessTotalPrice('По запросу')
-                                  : setReadyBusinessTotalPrice(
-                                      +readyBusinessTotalPrice +
-                                        readyBusinessAsics[0].price,
-                                    );
-                              }
-                            }}
-                          >
-                            Добавить оборудование
-                            <span>+</span>
-                          </Button>
-                        </div>
-                      )}
-
-                    {calculatorType === 3 && matches && (
-                      <div className='calculatorFeature-change'>
-                        <Button
-                          className='calculatorFeature-change-btn'
-                          variant='solid'
-                          size='sm'
-                          theme='gray'
-                          onClick={() => {
-                            if (!isPro && calculatorType === 3) {
-                              setIsProError(true);
-                              return;
-                            }
-
-                            if (readyBusinessAsics.length > 0) {
-                              addAsic(29);
-                            }
-                          }}
-                        >
-                          Добавить оборудование
-                          <span>+</span>
-                        </Button>
-                        {isProError && (
-                          <div className='calculatorElectricity-error calculatorElectricity-error-change'>
-                            Доступно в Pro версии
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {matches && (
-                      <CalculatorElectricity
-                        businessCalculationData={businessCalculationData}
-                        profitWithoutElectricity={profitWithoutElectricity}
-                        businessTotalPrice={businessTotalPrice}
-                        totalConsumption={totalConsumption}
-                        electricityCoast={electricityCoast}
-                        changeElectricityCoast={changeElectricityCoast}
-                        isProError={isProError}
-                        generatePdfData={generatePdfData}
-                      />
-                    )}
-
-                    {matches && (
-                      <CalculatorTotalWrapper
-                        generatePdfData={generatePdfData}
-                        matches={matches}
-                        totalConsumptionDataCenter={totalConsumptionDataCenter}
-                        calculatorType={calculatorType}
-                        businessCalculationData={businessCalculationData}
-                        isEditBusinessDetails={isEditBusinessDetails}
-                        electricityConsumption={electricityConsumption}
-                        totalConsumption={totalConsumption}
-                        profitWithoutElectricity={profitWithoutElectricity}
-                        profitWithElectricity={profitWithElectricity}
-                        paybackWithElectricity={paybackWithElectricity}
-                        paybackWithoutElectricity={paybackWithoutElectricity}
-                        isManager={isManager}
-                      />
-                    )}
+                  <div
+                    onClick={() => toggleAccordion(item)}
+                    className={clsx('calculator-type-accordion-header', {
+                      active: item.id === calculatorType,
+                    })}
+                  >
+                    {item.title}
+                    {matches && <ArrowDown className='accordion-arrow' />}
                   </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+
+                  {matches && openAccordionId === item.id && (
+                    <div className='calculator-type-accordion-content'>
+                      {renderCalculator()}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div className='calculator-row'>
@@ -674,7 +710,7 @@ export const Calculator: FC<Props> = ({
             <div className='calculatorFeature-content'>
               {!matches && (
                 <CalculatorHead
-                  onClick={() => router.push('/calculator')}
+                  onClick={handleNavigate}
                   isPro={isPro}
                   isProError={isProError}
                   toggleProMode={toggleProMode}

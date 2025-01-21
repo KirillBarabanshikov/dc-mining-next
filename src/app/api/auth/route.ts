@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   const manager = await res.json();
 
   const cookieStore = cookies();
-  cookieStore.set('manager', manager, {
+  cookieStore.set('manager', manager.id, {
     secure: true,
     sameSite: 'strict',
     path: '/',

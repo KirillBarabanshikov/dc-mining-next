@@ -1,4 +1,10 @@
 .banner {
+  .container {
+    @media screen and (max-width: 1440px) {
+      max-width: 1168px;
+    }
+  }
+
   .wrap {
     position: relative;
     background-color: var(--background-primary);
@@ -13,13 +19,19 @@
       top: -161px;
       left: -40px;
       width: 665px;
+
+      @media screen and (max-width: 1440px) {
+        width: 592px;
+        top: -63px;
+        left: 0;
+      }
     }
 
     .form {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      margin-left: 590px;
+      margin-left: 560px;
 
       h2 {
         font-size: 40px;
@@ -37,6 +49,11 @@
         display: flex;
         gap: 16px;
         max-width: 592px;
+
+        @media screen and (max-width: 1440px) {
+          flex-direction: column;
+          max-width: 280px;
+        }
 
         .input {
           width: 100%;
@@ -68,12 +85,12 @@
 
     @media screen and (max-width: 1266px) {
       img {
-        top: -48px;
+        top: 0;
         width: 450px;
       }
 
       .form {
-        margin-left: 380px;
+        margin-left: 400px;
       }
     }
 

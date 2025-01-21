@@ -57,35 +57,31 @@ const CalculatorElectricity: React.FC<Props> = ({
 
   return (
     <div className='calculatorElectricity'>
-      {calculatorType !== 3 && (
-        <div className='calculatorElectricity-price'>
-          <span>Стоимость э/э, ₽</span>
-          <Input
-            type='number'
-            value={electricityCoast}
-            onChange={(e) => changeElectricityCoast(e)}
-            sizes='md'
-            error={isProError || electricityCoast === ''}
-          />
-          {isProError && (
-            <div className='calculatorElectricity-error'>
-              Доступно в Pro версии
-            </div>
-          )}
-        </div>
-      )}
-      {calculatorType !== 3 && (
-        <Button
-          className='calculatorElectricity-btn'
-          disabled={calculatorType === 2 && !selectedPackageId}
-          variant='outline'
-          size='md'
-          onClick={handleDownload}
-        >
-          Скачать фин модель
-          <DownloadIcon />
-        </Button>
-      )}
+      <div className='calculatorElectricity-price'>
+        <span>Стоимость э/э, ₽</span>
+        <Input
+          type='number'
+          value={electricityCoast}
+          onChange={(e) => changeElectricityCoast(e)}
+          sizes='md'
+          error={isProError || electricityCoast === ''}
+        />
+        {isProError && (
+          <div className='calculatorElectricity-error'>
+            Доступно в Pro версии
+          </div>
+        )}
+      </div>
+      <Button
+        className='calculatorElectricity-btn'
+        disabled={calculatorType === 2 && !selectedPackageId}
+        variant='outline'
+        size='md'
+        onClick={handleDownload}
+      >
+        Скачать фин модель
+        <DownloadIcon />
+      </Button>
     </div>
   );
 };

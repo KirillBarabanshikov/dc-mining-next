@@ -81,7 +81,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
 
   const onAsicPriceChange = (price: string, index: number) => {
     const changedAsic = selectedAsics[index];
-    const updatedAsic = { ...changedAsic, price: +price };
+    const updatedAsic = { ...changedAsic, count: 1, price: +price };
     const newSelectedAsics = selectedAsics.map((asic, i) =>
       i === index ? updatedAsic : asic,
     );
@@ -227,7 +227,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
                 onBlur={() => setIsFocus(false)}
                 className='calculatorFeature-price-input'
                 sizes='md'
-                disabled={!isManager}
+                disabled={!isManager || calculatorType === 2}
                 onChange={(e) => onAsicPriceChange(e.target.value, index)}
               />
             </div>

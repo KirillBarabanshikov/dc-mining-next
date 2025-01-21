@@ -68,6 +68,8 @@ export interface IPostPDFRequest {
   profitWithoutWatt: string;
   profitWithMonth: string;
   asics: IAsicPDF[];
+  id?: number;
+  type: string;
 }
 
 export interface IFormRequestData {

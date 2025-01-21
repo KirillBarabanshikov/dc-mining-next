@@ -62,17 +62,19 @@ export interface IDataCenterInfo {
     description: string;
     sequence: number;
   }[];
-  slider: {
-    id: number;
-    title: string;
-    images: {
-      id: number;
-      image: string;
-    }[];
-    sequence: number;
-  }[];
+  slider: IDataCenterPhotos[];
   countDevices: number;
   info: string;
+}
+
+export interface IDataCenterPhotos {
+  id: number;
+  title: string;
+  images: {
+    id: number;
+    image: string;
+  }[];
+  sequence: number;
 }
 
 export interface ITariff {

@@ -1,6 +1,4 @@
-export { Advantages } from './Advantages';
 export { AdvantagesDCMining } from './AdvantagesDCMinig';
-export { Benefits } from './Benefits';
 export { Bestsellers } from './Bestsellers';
 export { BottomLinks } from './BottomLinks';
 export { Catalog } from './Catalog';
@@ -17,4 +15,3 @@ export { Map } from './Map';
 export { Offers } from './Offers';
 export { ProductsList } from './ProductsList';
 export { RecentProductsList } from './RecentProductsList';
-export { Tariffs } from './Tariffs';

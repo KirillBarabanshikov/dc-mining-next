@@ -19,6 +19,26 @@
       gap: 24px;
     }
   }
+  &-wrap {
+    background: var(--background-secondary);
+    padding: 16px;
+    border-radius: 16px;
+    width: 100%;
+
+    .calculatorFeature-count {
+      min-width: 48px;
+    }
+
+    .calculatorFeature-change-btn {
+      width: 100%;
+      background: var(--background-primary) !important;
+      margin-bottom: 16px;
+    }
+
+    .calculatorTotal {
+      padding: unset;
+    }
+  }
   &-types {
     display: flex;
     padding: 4px;
@@ -71,6 +91,11 @@
     margin: 40px 0 0;
     display: flex;
     gap: 32px;
+
+    @media screen and (max-width: 1440px) {
+      gap: 16px;
+    }
+
     @media (max-width: (1200 + px)) {
       flex-direction: column;
       gap: 20px;
@@ -101,10 +126,25 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+
+    @media screen and (max-width: 1440px) and (min-width: 1201px) {
+      max-width: unset;
+    }
+
     @media (max-width: (768 + px)) {
       max-width: 100%;
       gap: 32px;
     }
+  }
+
+  @media screen and (max-width: 1440px) {
+    background-position: 100% 147%;
+    background-size: 176px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    background-position: right;
+    background-size: 283px;
   }
 
   @media (min-width: (1201 + px)) {
@@ -279,9 +319,9 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-     //max-height: 250px;
-     //overflow-y: auto;
-     //overflow-x: hidden;
+    //max-height: 250px;
+    //overflow-y: auto;
+    //overflow-x: hidden;
     @media (max-width: (768 + px)) {
       gap: 12px;
       //max-height: 100%;
@@ -395,7 +435,7 @@
 }
 
 .calculatorTotal {
-  min-width: 490px;
+  min-width: 540px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -407,6 +447,9 @@
     font-size: 20px;
     font-weight: 700;
     color: var(--text-accent-blue);
+    @media (max-width: 520 + 'px') {
+      font-size: 16px;
+    }
     &-dataCenter {
       position: relative;
       font-size: 20px;
@@ -415,7 +458,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       @media (max-width: 520 + 'px') {
-        font-size: 16px;
+        font-size: 12px;
       }
     }
   }
@@ -446,7 +489,7 @@
       max-height: 78px;
       grid-template-columns: 1fr 1fr 1fr;
       position: relative;
-      padding: 30px 10px;
+      align-items: center;
       img {
         position: absolute;
         right: 10px;
@@ -580,7 +623,6 @@
     top: 0;
     right: 0;
     height: 100%;
-
   }
 }
 
@@ -598,7 +640,7 @@
     transform: translateX(0);
   }
   50% {
-    transform: translateX(44px)
+    transform: translateX(44px);
   }
   100% {
     transform: translateX(0);
@@ -607,25 +649,25 @@
 
 @keyframes changeColor {
   0% {
-    color: var(--text-accent-blue)
+    color: var(--text-accent-blue);
   }
   45% {
-    color: var(--text-contrast-alpha-20)
+    color: var(--text-contrast-alpha-20);
   }
   100% {
-    color: var(--text-accent-blue)
+    color: var(--text-accent-blue);
   }
 }
 
 @keyframes changeColorReverse {
   0% {
-    color: var(--text-contrast)
+    color: var(--text-contrast);
   }
   45% {
-    color: var(--text-accent)
+    color: var(--text-accent);
   }
   100% {
-    color: var(--text-contrast)
+    color: var(--text-contrast);
   }
 }
 
@@ -712,7 +754,3 @@
     background: var(--background-primary);
   }
 }
-
-
-
-
