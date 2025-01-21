@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { FC, useState } from 'react';
 
+import { OrderCallModal } from '@/features/call';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import styles from './DataCenterInfo.module.scss';
-import { OrderCallModal } from '@/features/call';
 
 interface IDataCenterInfoProps {
   title: string;
