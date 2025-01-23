@@ -24,7 +24,8 @@
     min-width: 48px;
   }
 
-  .calculatorFeature-change-btn {
+  .calculatorFeature-change-btn,
+  .calculatorFeature-add-btn {
     @media screen and (max-width: 768px) {
       width: 100%;
       background: var(--background-primary) !important;
@@ -326,6 +327,10 @@
       &:nth-child(3) {
         max-width: calc(50% - 8px);
         width: 100%;
+
+        &.readyBusiness {
+          max-width: unset;
+        }
       }
     }
   }

@@ -2,14 +2,14 @@
   scroll-margin-top: 200px;
 
   .tariffsContainer {
-    @media screen and (max-width: 1440px) and (min-width: 1025px) {
+    @media screen and (max-width: 1900px) and (min-width: 1025px) {
       max-width: 1168px;
     }
 
     h2 {
       text-align: center;
 
-      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      @media screen and (max-width: 1900px) and (min-width: 1025px) {
         text-align: start;
         margin-bottom: 20px;
       }
@@ -31,7 +31,7 @@
     column-gap: 16px;
     height: 420px;
 
-    @media screen and (max-width: 1440px) {
+    @media screen and (max-width: 1900px) {
       height: 340px;
     }
 
@@ -60,7 +60,7 @@
   transition: background-color 0.3s;
   min-width: 280px;
 
-  @media screen and (max-width: 1440px) and (min-width: 1025px) {
+  @media screen and (max-width: 1900px) and (min-width: 1025px) {
     max-width: unset;
     flex: 1;
   }

@@ -20,33 +20,35 @@ const CalculatorChangeBusinessPackage: React.FC<Props> = ({
   const { isNewPackage } = useCalculatorStore();
 
   return (
-    <div className='calculatorFeature-change'>
-      {!isNewPackage && (
-        <Button
-          className='calculatorFeature-change-btn'
-          variant='solid'
-          size='sm'
-          theme='gray'
-          onClick={() => {
-            if (!isPro && calculatorType === 2) {
-              setIsProError(true);
-              return;
-            }
+    !isNewPackage && (
+      <div className='calculatorFeature-change'>
+        {!isNewPackage && (
+          <Button
+            className='calculatorFeature-change-btn'
+            variant='solid'
+            size='sm'
+            theme='gray'
+            onClick={() => {
+              if (!isPro && calculatorType === 2) {
+                setIsProError(true);
+                return;
+              }
 
-            handleChangeBusinessDetails();
-          }}
-        >
-          <PencilIcon />
-          Создать новый пакет
-        </Button>
-      )}
-      {isProError && (
-        <div className='calculatorElectricity-error calculatorElectricity-error-change'>
-          Доступно в <span style={{ textDecoration: 'underline' }}>PRO</span>{' '}
-          версии
-        </div>
-      )}
-    </div>
+              handleChangeBusinessDetails();
+            }}
+          >
+            <PencilIcon />
+            Создать новый пакет
+          </Button>
+        )}
+        {isProError && (
+          <div className='calculatorElectricity-error calculatorElectricity-error-change'>
+            Доступно в <span style={{ textDecoration: 'underline' }}>PRO</span>{' '}
+            версии
+          </div>
+        )}
+      </div>
+    )
   );
 };
 

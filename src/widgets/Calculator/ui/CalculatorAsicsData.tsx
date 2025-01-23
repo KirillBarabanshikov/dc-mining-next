@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import MinusIcon from '@/shared/assets/icons/minus.svg';
@@ -203,7 +204,12 @@ const CalculatorAsicsData: React.FC<Props> = ({
           </div>
         )}
 
-        <div className='calculatorFeature-col'>
+        <div
+          className={clsx(
+            'calculatorFeature-col',
+            calculatorType === 2 && 'readyBusiness',
+          )}
+        >
           {matches && (
             <>
               {calculatorType !== 3 && (

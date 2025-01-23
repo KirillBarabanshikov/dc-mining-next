@@ -1,6 +1,6 @@
 .banner {
   .container {
-    @media screen and (max-width: 1440px) {
+    @media screen and (max-width: 1900px) {
       max-width: 1168px;
     }
   }
@@ -20,7 +20,7 @@
       left: -40px;
       width: 665px;
 
-      @media screen and (max-width: 1440px) {
+      @media screen and (max-width: 1900px) {
         width: 592px;
         top: -63px;
         left: 0;
@@ -50,7 +50,7 @@
         gap: 16px;
         max-width: 592px;
 
-        @media screen and (max-width: 1440px) {
+        @media screen and (max-width: 1900px) {
           flex-direction: column;
           max-width: 280px;
         }
