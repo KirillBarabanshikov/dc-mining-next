@@ -2,7 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  padding: 50px 30px;
 
-  width: 100vw;
-  height: 100vh;
+  @media screen and (max-width: 1200px) {
+    height: initial;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 30px 0 0 0;
+  }
 }
