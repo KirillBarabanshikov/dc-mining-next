@@ -28,7 +28,7 @@
     @media screen and (max-width: 768px) {
       width: 100%;
       background: var(--background-primary) !important;
-      margin-bottom: unset !important;
+      margin-bottom: 16px !important;
       margin-top: -20px;
     }
   }
@@ -457,7 +457,7 @@
       margin-top: 10px;
 
       @media screen and (max-width: 768px) {
-        margin-top: 6px;
+        margin-top: -12px;
         margin-bottom: 10px;
         margin-left: unset;
         text-align: center;
