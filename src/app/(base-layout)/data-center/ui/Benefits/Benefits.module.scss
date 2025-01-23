@@ -15,7 +15,7 @@
     display: flex;
     column-gap: 32px;
 
-    @media screen and (max-width: 1440px) {
+    @media screen and (max-width: 1575px) {
       column-gap: 16px;
     }
 
@@ -97,7 +97,7 @@
         bottom: 0;
       }
 
-      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      @media screen and (max-width: 1575px) and (min-width: 1025px) {
         border-radius: 28px;
         height: 212px;
         margin-bottom: 8px;
@@ -149,7 +149,7 @@
       border-radius: 32px;
       padding: 16px;
 
-      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      @media screen and (max-width: 1575px) and (min-width: 1025px) {
         padding: 8px;
       }
 
@@ -173,7 +173,7 @@
       background: var(--background-white);
       flex: 1;
 
-      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      @media screen and (max-width: 1575px) and (min-width: 1025px) {
         column-gap: 16px;
       }
 
@@ -197,7 +197,7 @@
           transition: transform 0.3s;
         }
 
-        @media screen and (max-width: 1440px) and (min-width: 1025px) {
+        @media screen and (max-width: 1575px) and (min-width: 1025px) {
           width: 94px;
           min-width: 94px;
           height: 94px;
@@ -219,7 +219,7 @@
           color: var(--text-accent-blue);
           margin-bottom: 12px;
 
-          @media screen and (max-width: 1440px) {
+          @media screen and (max-width: 1575px) {
             margin-bottom: 4px;
           }
 
@@ -286,7 +286,7 @@
           }
         }
 
-        @media screen and (max-width: 1440px) {
+        @media screen and (max-width: 1575px) {
           column-gap: 16px;
 
           .benefitCardImage {
@@ -342,7 +342,7 @@
         }
       }
 
-      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      @media screen and (max-width: 1575px) and (min-width: 1025px) {
         padding: 8px;
       }
     }
@@ -363,7 +363,7 @@
       height: 124px !important;
       font-size: 24px !important;
 
-      @media screen and (max-width: 1440px) and (min-width: 1025px) {
+      @media screen and (max-width: 1575px) and (min-width: 1025px) {
         height: 78px !important;
         font-size: 16px !important;
         color: var(--text-contrast);

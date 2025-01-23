@@ -39,6 +39,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
                 className={styles.benefitMainImage}
                 width={420}
                 height={420}
+                quality={100}
               />
             </div>
             <div className={styles.wrap}>
@@ -49,6 +50,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
                     alt={'benefit'}
                     width={78}
                     height={78}
+                    quality={100}
                   />
                 </div>
                 <div className={styles.benefitCardBody}>
@@ -63,6 +65,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
                     alt={'benefit'}
                     width={78}
                     height={78}
+                    quality={100}
                   />
                 </div>
                 <div className={styles.benefitCardBody}>
@@ -85,6 +88,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
                     alt={'benefit'}
                     width={220}
                     height={220}
+                    quality={100}
                   />
                 </div>
                 <div className={styles.benefitCardBody}>
@@ -102,6 +106,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
                       alt={'benefit'}
                       width={78}
                       height={78}
+                      quality={100}
                     />
                   </div>
                   <div className={styles.benefitCardBody}>
@@ -120,6 +125,7 @@ export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
                       alt={'benefit'}
                       width={78}
                       height={78}
+                      quality={100}
                     />
                   </div>
                   <div className={styles.benefitCardBody}>
