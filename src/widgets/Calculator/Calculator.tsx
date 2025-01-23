@@ -597,13 +597,20 @@ export const Calculator: FC<Props> = ({
             </Button>
             {isProError && (
               <div className='calculatorElectricity-error calculatorElectricity-error-change'>
-                Доступно в Pro версии
+                Доступно в{' '}
+                <span
+                  style={{ textDecoration: 'underline' }}
+                  onClick={() => router.push('/calculator')}
+                >
+                  PRO
+                </span>{' '}
+                версии
               </div>
             )}
           </div>
         )}
 
-        {matches && (
+        {matches && calculatorType !== 4 && (
           <CalculatorElectricity
             businessCalculationData={businessCalculationData}
             profitWithoutElectricity={profitWithoutElectricity}
@@ -814,7 +821,14 @@ export const Calculator: FC<Props> = ({
                     </Button>
                     {isProError && (
                       <div className='calculatorElectricity-error calculatorElectricity-error-change'>
-                        Доступно в Pro версии
+                        Доступно в{' '}
+                        <span
+                          onClick={() => router.push('/calculator')}
+                          style={{ textDecoration: 'underline' }}
+                        >
+                          PRO
+                        </span>{' '}
+                        версии
                       </div>
                     )}
                   </div>

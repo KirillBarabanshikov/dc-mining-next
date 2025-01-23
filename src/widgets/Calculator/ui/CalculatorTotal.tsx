@@ -128,16 +128,23 @@ export const CalculatorTotal: React.FC<Props> = ({
             </div>
           </div>
           {!isManager && (
-            <div className='calculatorTotal-btns'>
-              <Button
-                disabled={calculatorType === 2 && !selectedPackageId}
-                theme='pink'
-                isWide
-                onClick={handleOpenOrderModal}
-              >
-                Оставить заявку
-              </Button>
-            </div>
+            <>
+              <div className='calculatorTotal-btns'>
+                <Button
+                  disabled={calculatorType === 2 && !selectedPackageId}
+                  theme='pink'
+                  isWide
+                  onClick={handleOpenOrderModal}
+                >
+                  Оставить заявку
+                </Button>
+              </div>
+              {matches && (
+                <div className='calculator-description'>
+                  Не является публичной офертой
+                </div>
+              )}
+            </>
           )}
         </>
       )}
@@ -178,22 +185,22 @@ export const CalculatorTotal: React.FC<Props> = ({
                 {(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}
               </span>
               <span className='calculatorTotal-item-dataCenter-span'>
-                <span className='calculatorTotal-item-dataCenter-old'>
-                  {(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}
-                </span>{' '}
-                <span className='calculatorTotal-item-dataCenter-new'>
-                  {electricityCoast}
+                <span>
+                  <span className='calculatorTotal-item-dataCenter-old'>
+                    {(+electricityCoast + +electricityCoast * 0.1).toFixed(2)}
+                  </span>{' '}
+                  <span className='calculatorTotal-item-dataCenter-new'>
+                    {electricityCoast}
+                  </span>
                 </span>
               </span>
-              {!matches && (
-                <div className='sale-image'>
-                  <span className='sale-badge'>
-                    <span className='sale-badge-discount'>Скидка</span> <br />{' '}
-                    <span className='sale-badge-percent'>-10%</span>
-                  </span>
-                  <Image src={sale} alt='sale image' />
-                </div>
-              )}
+              <div className='sale-image'>
+                <span className='sale-badge'>
+                  <span className='sale-badge-discount'>Скидка</span> <br />{' '}
+                  <span className='sale-badge-percent'>-10%</span>
+                </span>
+                <Image src={sale} alt='sale image' />
+              </div>
             </div>
             <div className='calculatorTotal-item calculatorTotal-item-dataCenter'>
               <span>
@@ -206,30 +213,37 @@ export const CalculatorTotal: React.FC<Props> = ({
               <span>Ежемесячные расходы, ₽</span>
               <span>{totalPriceGuests}</span>
               <span className='calculatorTotal-item-dataCenter-span'>
-                <span className='calculatorTotal-item-dataCenter-old'>
-                  {totalPriceGuests}
-                </span>{' '}
-                <span className='calculatorTotal-item-dataCenter-new'>
-                  {electricityConsumption}
+                <span>
+                  <span className='calculatorTotal-item-dataCenter-old'>
+                    {totalPriceGuests}
+                  </span>{' '}
+                  <span className='calculatorTotal-item-dataCenter-new'>
+                    {electricityConsumption}
+                  </span>
                 </span>
               </span>
-              {!matches && (
-                <div className='sale-image'>
-                  <span className='sale-badge'>
-                    <span className='sale-badge-discount'>Скидка</span> <br />{' '}
-                    <span className='sale-badge-percent'>-10%</span>
-                  </span>
-                  <Image src={sale} alt='sale image' />
-                </div>
-              )}
+              <div className='sale-image'>
+                <span className='sale-badge'>
+                  <span className='sale-badge-discount'>Скидка</span> <br />{' '}
+                  <span className='sale-badge-percent'>-10%</span>
+                </span>
+                <Image src={sale} alt='sale image' />
+              </div>
             </div>
           </div>
           {!isManager && (
-            <div className='calculatorTotal-btns'>
-              <Button theme='pink' isWide onClick={handleOpenOrderModal}>
-                Получить скидку
-              </Button>
-            </div>
+            <>
+              <div className='calculatorTotal-btns'>
+                <Button theme='pink' isWide onClick={handleOpenOrderModal}>
+                  Получить скидку
+                </Button>
+              </div>
+              {matches && (
+                <div className='calculator-description'>
+                  Не является публичной офертой
+                </div>
+              )}
+            </>
           )}
         </>
       )}
