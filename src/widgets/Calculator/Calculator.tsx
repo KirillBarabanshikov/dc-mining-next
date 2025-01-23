@@ -494,7 +494,7 @@ export const Calculator: FC<Props> = ({
 
     const managerId = Cookies.get('manager');
 
-    if (managerId) {
+    if (managerId && isManager) {
       pdfData.id = +managerId;
     }
 
