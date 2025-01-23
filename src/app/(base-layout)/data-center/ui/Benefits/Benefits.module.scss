@@ -247,8 +247,10 @@
         @media (hover: hover) {
           &:hover {
             .benefitCardImage {
-              img {
-                transform: unset;
+              @media screen and (min-width: 1441px) {
+                img {
+                  transform: unset;
+                }
               }
             }
           }

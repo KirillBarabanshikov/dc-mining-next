@@ -5,6 +5,12 @@
     }
   }
 
+  .tariffs {
+    @media screen and (min-width: 1025px) {
+      margin-bottom: unset;
+    }
+  }
+
   .useful {
     margin-bottom: 200px;
 
