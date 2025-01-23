@@ -603,7 +603,7 @@ export const Calculator: FC<Props> = ({
           </div>
         )}
 
-        {matches && (
+        {matches && calculatorType !== 4 && (
           <CalculatorElectricity
             businessCalculationData={businessCalculationData}
             profitWithoutElectricity={profitWithoutElectricity}
