@@ -128,16 +128,23 @@ export const CalculatorTotal: React.FC<Props> = ({
             </div>
           </div>
           {!isManager && (
-            <div className='calculatorTotal-btns'>
-              <Button
-                disabled={calculatorType === 2 && !selectedPackageId}
-                theme='pink'
-                isWide
-                onClick={handleOpenOrderModal}
-              >
-                Оставить заявку
-              </Button>
-            </div>
+            <>
+              <div className='calculatorTotal-btns'>
+                <Button
+                  disabled={calculatorType === 2 && !selectedPackageId}
+                  theme='pink'
+                  isWide
+                  onClick={handleOpenOrderModal}
+                >
+                  Оставить заявку
+                </Button>
+              </div>
+              {matches && (
+                <div className='calculator-description'>
+                  Не является публичной офертой
+                </div>
+              )}
+            </>
           )}
         </>
       )}

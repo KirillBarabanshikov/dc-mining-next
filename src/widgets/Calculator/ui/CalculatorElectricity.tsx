@@ -68,7 +68,8 @@ const CalculatorElectricity: React.FC<Props> = ({
         />
         {isProError && (
           <div className='calculatorElectricity-error'>
-            Доступно в Pro версии
+            Доступно в <span style={{ textDecoration: 'underline' }}>PRO</span>{' '}
+            версии
           </div>
         )}
       </div>
