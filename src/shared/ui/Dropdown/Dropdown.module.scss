@@ -5,6 +5,15 @@
   width: 100%;
   height: 100%;
 
+  &.disabled {
+    pointer-events: none;
+    color: var(--text-tertiary);
+
+    .icon {
+      display: none;
+    }
+  }
+
   &.isOpen {
     border-radius: 8px 8px 0 0;
   }

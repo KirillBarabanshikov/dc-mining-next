@@ -543,6 +543,7 @@ export const Calculator: FC<Props> = ({
             isEditingTouched={isEditingTouched}
             businessTotalPrice={businessTotalPrice}
             businessInitialItems={businessInitialItems}
+            isManager={isManager}
           />
         )}
 
@@ -757,6 +758,7 @@ export const Calculator: FC<Props> = ({
                       isEditingTouched={isEditingTouched}
                       businessTotalPrice={businessTotalPrice}
                       businessInitialItems={businessInitialItems}
+                      isManager={isManager}
                     />
                   )}
                 </div>

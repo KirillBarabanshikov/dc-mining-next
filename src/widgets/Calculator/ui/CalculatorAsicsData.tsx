@@ -81,6 +81,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
   };
 
   const onAsicPriceChange = (price: string, index: number) => {
+    if (isNaN(+price)) return;
     const changedAsic = selectedAsics[index];
     const updatedAsic = { ...changedAsic, count: 1, price: +price };
     const newSelectedAsics = selectedAsics.map((asic, i) =>

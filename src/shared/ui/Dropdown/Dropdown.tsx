@@ -28,6 +28,7 @@ interface IDropdownProps extends PropsWithChildren {
   className?: string;
   hasIcon?: boolean;
   searchable?: boolean;
+  disabled?: boolean;
 }
 
 export const Dropdown: FC<IDropdownProps> = ({
@@ -44,6 +45,7 @@ export const Dropdown: FC<IDropdownProps> = ({
   className,
   hasIcon = true,
   searchable = false,
+  disabled,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedValue, setSelectedValue] = useState<string[]>(defaultValue);
@@ -52,7 +54,7 @@ export const Dropdown: FC<IDropdownProps> = ({
     physical ? {} : setIsOpen(false),
   );
   const filteredItems = items.filter((item) =>
-      item.label.toLowerCase().includes(searchTerm.toLowerCase())
+    item.label.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   useEffect(() => {
@@ -85,6 +87,7 @@ export const Dropdown: FC<IDropdownProps> = ({
         styles.dropdown,
         isOpen && styles.isOpen,
         physical && styles.physical,
+        disabled && styles.disabled,
         className,
       )}
     >
@@ -106,29 +109,28 @@ export const Dropdown: FC<IDropdownProps> = ({
       {variant === 'dropdown' && (
         <AnimatePresence initial={false}>
           {isOpen && (
-              <>
-
-                <ItemsList
-                    items={searchable ? filteredItems : items}
-                    handleSelect={handleSelect}
-                    multiply={multiply}
-                    selectedValue={selectedValue}
-                    hasIcon={hasIcon}
-                >
-                  {searchable && (
-                      <div className={styles.search}>
-                        <input
-                            type="text"
-                            placeholder="Поиск..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className={styles.searchInput}
-                        />
-                      </div>
-                  )}
-                  {children}
-                </ItemsList>
-              </>
+            <>
+              <ItemsList
+                items={searchable ? filteredItems : items}
+                handleSelect={handleSelect}
+                multiply={multiply}
+                selectedValue={selectedValue}
+                hasIcon={hasIcon}
+              >
+                {searchable && (
+                  <div className={styles.search}>
+                    <input
+                      type='text'
+                      placeholder='Поиск...'
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className={styles.searchInput}
+                    />
+                  </div>
+                )}
+                {children}
+              </ItemsList>
+            </>
           )}
         </AnimatePresence>
       )}
