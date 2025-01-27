@@ -17,10 +17,14 @@ export interface IProduct {
   seoDescription: string;
   seoHOne: string;
   productSubCategory: {
-      id: number;
-      title: string;
-      slug: string;
+    id: number;
+    title: string;
+    slug: string;
   };
+  watt?: number;
+  hashrate?: number;
+  algorithm?: string;
+  coins?: string;
 }
 
 interface IProductValue {
