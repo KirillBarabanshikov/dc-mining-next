@@ -44,6 +44,27 @@
   }
 }
 
+.tariffCardWrap {
+  height: 303px;
+  display: flex;
+  align-items: flex-end;
+
+  @media screen and (max-width: 1900px) and (min-width: 1025px) {
+    max-width: unset;
+    flex: 1;
+  }
+
+  @media screen and (max-width: 1024px) {
+    height: unset;
+    align-items: stretch;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex: 1;
+    width: 100%;
+  }
+}
+
 .tariffCard {
   position: relative;
   z-index: 3;
