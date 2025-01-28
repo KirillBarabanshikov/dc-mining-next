@@ -1,43 +1,145 @@
 .container {
-    max-width: 1528px;
-    margin: 0 auto;
-    width: 100%;
+  max-width: 1528px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .slider {
-    @media screen and (max-width: 768px) {
-        padding: 0 16px !important;
-    }
+  @media screen and (max-width: 768px) {
+    padding: 0 16px !important;
+  }
 }
 
 .swiperButton {
-    opacity: 1;
+  opacity: 1;
 
-    &.prev {
-        left: 20px;
-    }
+  &.prev {
+    left: 20px;
+  }
 
-    &.next {
-        right: 20px;
-    }
+  &.next {
+    right: 20px;
+  }
 
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 }
 
 .slide {
-    max-width: min-content;
+  max-width: min-content;
 }
 
 .photo {
-    width: 280px;
-    height: 280px;
+  width: 280px;
+  height: 280px;
 
-    img {
-        border-radius: 20px;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
     }
+  }
+
+  img {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.previewContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(22, 32, 53, 0.6);
+  padding: 16px;
+
+  .btn {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 90px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s;
+
+    svg {
+      color: var(--stroke-white);
+      transition: color 0.3s;
+    }
+
+    &.prev {
+      left: 40px;
+    }
+
+    &.next {
+      right: 40px;
+    }
+
+    &.close {
+      background: var(--background-white);
+      bottom: 92px;
+
+      @media screen and (max-width: 1900px) {
+        bottom: 50px;
+      }
+
+      svg {
+        color: #2c2b7c;
+      }
+    }
+
+    @media screen and (max-width: 1024px) {
+      width: 32px;
+      height: 32px;
+      background-color: var(--background-white);
+
+      svg {
+        color: var(--text-accent-blue);
+        width: 16px;
+        height: 16px;
+      }
+
+      &.prev {
+        left: 4px;
+      }
+
+      &.next {
+        right: 4px;
+      }
+    }
+
+    &:active {
+      background-color: var(--button-active);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--button-hover);
+        cursor: pointer;
+
+        svg {
+          color: var(--text-contrast);
+        }
+      }
+    }
+  }
+
+  .image {
+    border-radius: 16px;
+    object-fit: contain;
+    max-height: 67vh;
+    height: auto;
+    width: 100%;
+    max-width: max-content;
+  }
 }

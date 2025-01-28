@@ -26,16 +26,16 @@
 
   .tariffsList {
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: center;
     column-gap: 16px;
-    height: 420px;
 
     @media screen and (max-width: 1900px) {
       height: 340px;
     }
 
     @media screen and (max-width: 1024px) {
+      align-items: stretch;
       height: unset;
     }
 
@@ -59,6 +59,9 @@
   background: var(--background-primary);
   transition: background-color 0.3s;
   min-width: 280px;
+  overflow: hidden;
+  min-height: 294px;
+  justify-content: space-between;
 
   @media screen and (max-width: 1900px) and (min-width: 1025px) {
     max-width: unset;
@@ -66,6 +69,9 @@
   }
 
   @media screen and (max-width: 1024px) {
+    overflow: initial;
+    min-height: unset;
+
     &:nth-child(1) {
       background-color: var(--background-secondary);
     }
@@ -236,6 +242,8 @@
   }
 
   .descOverlay {
+    width: 100%;
+
     @media screen and (max-width: 1024px) {
       height: auto !important;
       opacity: 1 !important;
@@ -249,6 +257,7 @@
     letter-spacing: 0.02em;
     padding-bottom: 20px;
     transition: color 0.3s;
+    width: 100%;
 
     ul,
     ol {
@@ -285,6 +294,7 @@
 
   .buttonOverlay {
     width: 100%;
+    overflow: hidden;
 
     @media screen and (max-width: 1024px) {
       height: auto !important;
