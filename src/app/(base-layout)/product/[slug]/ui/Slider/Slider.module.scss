@@ -1,0 +1,14 @@
+.sliderWrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  max-width: 592px;
+
+  .mainSlider {
+    .currentImage {
+      background-color: var(--background-white);
+      border-radius: 20px;
+      object-fit: contain;
+    }
+  }
+}
