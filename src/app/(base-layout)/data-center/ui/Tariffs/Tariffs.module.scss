@@ -29,10 +29,7 @@
     align-items: flex-end;
     justify-content: center;
     column-gap: 16px;
-
-    @media screen and (max-width: 1900px) {
-      height: 340px;
-    }
+    height: 303px;
 
     @media screen and (max-width: 1024px) {
       align-items: stretch;
