@@ -92,7 +92,7 @@ class CalculatorApi {
 
   public sendFormRequest = async (data: IFormRequestData) => {
     try {
-      const response = await instance.post('/form_pdfs', data);
+      const response = await instance.post('/formsPdf', data);
       return response.data;
     } catch (error) {
       console.error('Error send form request', error);

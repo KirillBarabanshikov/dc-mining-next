@@ -30,7 +30,7 @@ export const getLeasingInfo = async (): Promise<ILeasingInfo | null> => {
 
 export const getDataCenterInfo = async (): Promise<IDataCenterInfo | null> => {
   try {
-    const response = await instance.get<IDataCenterInfo>('/data_centers');
+    const response = await instance.get<IDataCenterInfo>('/dataCenters');
     return response.data;
   } catch (error) {
     console.error(error);
