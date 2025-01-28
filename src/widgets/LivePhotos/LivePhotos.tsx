@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import ArrowPrev from '@/shared/assets/icons/arrow-left.svg';
-import ArrowNext from '@/shared/assets/icons/arrow-right2.svg';
+import ArrowPrev from '@/shared/assets/icons/arrow-left24.svg';
+import ArrowNext from '@/shared/assets/icons/arrow-right24.svg';
 import Close from '@/shared/assets/icons/close.svg';
 import { BASE_URL } from '@/shared/consts';
 import { useBodyScrollLock } from '@/shared/lib';

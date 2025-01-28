@@ -73,7 +73,6 @@
     transition: background-color 0.3s;
 
     svg {
-      transform: scale(1.2);
       color: var(--stroke-white);
       transition: color 0.3s;
     }
@@ -102,9 +101,12 @@
     @media screen and (max-width: 1024px) {
       width: 32px;
       height: 32px;
+      background-color: var(--background-white);
 
       svg {
-        transform: unset;
+        color: var(--text-accent-blue);
+        width: 16px;
+        height: 16px;
       }
 
       &.prev {
@@ -114,6 +116,10 @@
       &.next {
         right: 4px;
       }
+    }
+
+    &:active {
+      background-color: var(--button-active);
     }
 
     @media (hover: hover) {
@@ -131,7 +137,8 @@
   .image {
     border-radius: 16px;
     object-fit: contain;
-    height: 67vh;
+    max-height: 67vh;
+    height: auto;
     width: 100%;
     max-width: max-content;
   }
