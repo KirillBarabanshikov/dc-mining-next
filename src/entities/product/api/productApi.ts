@@ -56,7 +56,7 @@ export const compareProducts = async (productId: number[]) => {
 
 export const orderProduct = async (body: IOrderProductBody) => {
   try {
-    await instance.post('/buy', body);
+    await instance.post('/buys', body);
   } catch (e) {
     console.error(e);
     throw new Error(`${e}`);
@@ -65,7 +65,7 @@ export const orderProduct = async (body: IOrderProductBody) => {
 
 export const getProductsByIds = async (ids: number[]) => {
   try {
-    const response = await instance.get<IProductDto[]>('/productsByIds', {
+    const response = await instance.get<IProductDto[]>('/product_by_ids', {
       params: { ids },
     });
     return response.data.map(mapProduct);
