@@ -49,6 +49,58 @@
   display: flex;
   align-items: flex-end;
 
+  @media (hover: hover) {
+    &:hover {
+      .imageWrap {
+        .image {
+          transform: scale(0.75);
+          opacity: 0;
+        }
+
+        .imageHover {
+          opacity: 1 !important;
+        }
+      }
+
+      &:nth-child(1) {
+        .tariffCard {
+          background-color: var(--background-secondary);
+        }
+      }
+
+      &:nth-child(2) {
+        .tariffCard {
+          background-color: var(--background-dark);
+
+          .title,
+          .desc {
+            color: var(--text-contrast);
+          }
+        }
+      }
+
+      &:nth-child(3) {
+        .tariffCard {
+          background-color: var(--background-accent-blue);
+
+          .title,
+          .desc {
+            color: var(--text-contrast);
+          }
+
+          .price {
+            color: var(--text-primary);
+          }
+
+          .button {
+            background-color: var(--background-white);
+            color: var(--text-accent-blue);
+          }
+        }
+      }
+    }
+  }
+
   @media screen and (max-width: 1900px) and (min-width: 1025px) {
     max-width: unset;
     flex: 1;
@@ -57,6 +109,43 @@
   @media screen and (max-width: 1024px) {
     height: unset;
     align-items: stretch;
+
+    &:nth-child(1) {
+      .tariffCard {
+        background-color: var(--background-secondary);
+      }
+    }
+
+    &:nth-child(2) {
+      .tariffCard {
+        background-color: var(--background-dark);
+
+        .title,
+        .desc {
+          color: var(--text-contrast);
+        }
+      }
+    }
+
+    &:nth-child(3) {
+      .tariffCard {
+        background-color: var(--background-accent-blue);
+
+        .title,
+        .desc {
+          color: var(--text-contrast);
+        }
+
+        .price {
+          color: var(--text-primary);
+        }
+
+        .button {
+          background-color: var(--background-white);
+          color: var(--text-accent-blue);
+        }
+      }
+    }
   }
 
   @media screen and (max-width: 768px) {
@@ -89,37 +178,6 @@
   @media screen and (max-width: 1024px) {
     overflow: initial;
     min-height: unset;
-
-    &:nth-child(1) {
-      background-color: var(--background-secondary);
-    }
-
-    &:nth-child(2) {
-      background-color: var(--background-dark);
-
-      .title,
-      .desc {
-        color: var(--text-contrast);
-      }
-    }
-
-    &:nth-child(3) {
-      background-color: var(--background-accent-blue);
-
-      .title,
-      .desc {
-        color: var(--text-contrast);
-      }
-
-      .price {
-        color: var(--text-primary);
-      }
-
-      .button {
-        background-color: var(--background-white);
-        color: var(--text-accent-blue);
-      }
-    }
   }
 
   @media screen and (max-width: 768px) {
@@ -133,52 +191,6 @@
     flex: 1;
     padding: 8px;
     border-radius: 20px;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      .imageWrap {
-        .image {
-          transform: scale(0.75);
-          opacity: 0;
-        }
-
-        .imageHover {
-          opacity: 1 !important;
-        }
-      }
-
-      &:nth-child(1) {
-        background-color: var(--background-secondary);
-      }
-
-      &:nth-child(2) {
-        background-color: var(--background-dark);
-
-        .title,
-        .desc {
-          color: var(--text-contrast);
-        }
-      }
-
-      &:nth-child(3) {
-        background-color: var(--background-accent-blue);
-
-        .title,
-        .desc {
-          color: var(--text-contrast);
-        }
-
-        .price {
-          color: var(--text-primary);
-        }
-
-        .button {
-          background-color: var(--background-white);
-          color: var(--text-accent-blue);
-        }
-      }
-    }
   }
 
   .imageWrap {
