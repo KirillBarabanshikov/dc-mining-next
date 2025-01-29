@@ -11,15 +11,34 @@ interface IProductTabsProps {
   className?: string;
 }
 
-const tabs = ['Описание', 'Характеристики', 'Доставка', 'Оплата'];
+const tabs = ['Характеристики', 'Доставка', 'Оплата'];
 
 export const ProductsTabs: FC<IProductTabsProps> = ({ product, className }) => {
   const [currentTab, setCurrentTab] = useState(0);
+  const isAsic = product.category?.title === 'asicMiners';
+  const currentTabs = isAsic ? ['Описание', ...tabs] : tabs;
+
+  const renderTabs = () => {
+    let tabs = [
+      <ProductSpecifications key={'specifications'} product={product} />,
+      <Delivery key={'delivery'} variant={'productInfo'} />,
+      <Payments key={'payments'} variant={'productInfo'} />,
+    ];
+
+    if (isAsic) {
+      tabs = [
+        <ProductDescription key={'description'} product={product} />,
+        ...tabs,
+      ];
+    }
+
+    return tabs;
+  };
 
   return (
     <div className={clsx(styles.productTabs, className)}>
       <div className={clsx(styles.tabs, 'scrollbar-hide')}>
-        {tabs.map((tab, index) => {
+        {currentTabs.map((tab, index) => {
           return (
             <div
               key={index}
@@ -34,16 +53,7 @@ export const ProductsTabs: FC<IProductTabsProps> = ({ product, className }) => {
           );
         })}
       </div>
-      <div>
-        {
-          [
-            <ProductDescription key={'description'} product={product} />,
-            <ProductSpecifications key={'specifications'} product={product} />,
-            <Delivery key={'delivery'} variant={'productInfo'} />,
-            <Payments key={'payments'} variant={'productInfo'} />,
-          ][currentTab]
-        }
-      </div>
+      <div>{renderTabs()[currentTab]}</div>
     </div>
   );
 };
