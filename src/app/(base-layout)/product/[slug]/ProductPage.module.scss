@@ -1,3 +1,366 @@
 .breadcrumbs {
-    margin: 24px 0 32px 0;
+  margin: 24px 0 32px 0;
+}
+
+.asicBreadcrumbs {
+  margin: 16px 0 !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+
+  @media screen and (max-width: 1900px) {
+    max-width: 1168px;
+  }
+}
+
+.productInfoTop {
+  display: grid;
+  grid-template: min-content min-content 1fr / 608px auto auto;
+  grid-gap: 16px;
+
+  .slider {
+    grid-row: 1 / 4;
+  }
+
+  .productTitle {
+    grid-column: 2 / 4;
+  }
+
+  @media screen and (max-width: 1900px) {
+    grid-template: min-content min-content 1fr / 464px auto auto;
+
+    .slider {
+      grid-row: 2 / 4;
+    }
+
+    .productTitle {
+      grid-column: 1 / 4;
+    }
+  }
+
+  @media screen and (max-width: 1170px) {
+    grid-template: min-content 1fr 1fr 1fr / 1fr 1fr;
+    align-items: flex-start;
+
+    .slider {
+      grid-row: 2 / 4;
+    }
+
+    .productTitle {
+      grid-column: 1 / 3;
+    }
+
+    .indicatorsWrap {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+  }
+
+  @media screen and (max-width: 992px) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    align-items: stretch;
+
+    .productTitle {
+      order: -1;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .productTitle {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .slider {
+      margin-bottom: 20px;
+      order: 1;
+    }
+
+    .priceWrap {
+      order: 2;
+    }
+
+    .indicatorsWrap {
+      order: 3;
+    }
+
+    .characteristics {
+      order: 4;
+    }
+
+    .leasingWrap {
+      order: 5;
+    }
+  }
+}
+
+.tabs {
+  margin: unset !important;
+}
+
+.banner {
+  margin-top: 80px !important;
+
+  @media screen and (max-width: 992px) {
+    margin-top: unset !important;
+  }
+}
+
+.characteristics {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--background-primary);
+
+  @media screen and (max-width: 1900px) {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 1170px) {
+    row-gap: 20px;
+  }
+
+  .characteristicsWrapTitle {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+    h2 {
+      font-family: 'MADE Evolve Sans', sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    span {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.2;
+      color: var(--text-accent-blue);
+      cursor: pointer;
+    }
+  }
+
+  .characteristicsList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    @media screen and (max-width: 1170px) {
+      row-gap: 8px;
+    }
+
+    .characteristicItem {
+      display: flex;
+      column-gap: 16px;
+      align-items: center;
+
+      @media screen and (max-width: 1900px) {
+        column-gap: 8px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      span {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.3;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .brandImage {
+    object-fit: contain;
+  }
+}
+
+.priceWrap {
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--background-primary);
+  height: 239px;
+
+  @media screen and (max-width: 1900px) {
+    padding: 20px;
+    height: unset;
+  }
+
+  .oldPrice {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.3;
+    text-decoration: line-through;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .price {
+    font-family: 'Gilroy', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .priceHint {
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    color: var(--text-tertiary);
+  }
+
+  .priceButton {
+    margin-top: 24px;
+
+    @media screen and (max-width: 1170px) {
+      margin-top: 20px;
+    }
+  }
+}
+
+.indicatorsWrap {
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  border-radius: 20px;
+  padding: 24px;
+  background: var(--background-secondary);
+
+  @media screen and (max-width: 1900px) {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 1170px) {
+    row-gap: 20px;
+  }
+
+  .indicatorsTitle {
+    font-family: 'MADE Evolve Sans', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .indicatorsList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    @media screen and (max-width: 1170px) {
+      row-gap: 8px;
+    }
+
+    .indicatorItem {
+      display: flex;
+      align-items: center;
+      column-gap: 16px;
+
+      @media screen and (max-width: 1900px) {
+        column-gap: 8px;
+      }
+
+      .indicatorTitle {
+        font-size: 16px;
+        line-height: 1.3;
+        white-space: nowrap;
+
+        &.bold {
+          font-weight: 700;
+        }
+      }
+
+      .indicatorValue {
+        font-size: 16px;
+        line-height: 1.3;
+        white-space: nowrap;
+
+        &.accent {
+          font-weight: 700;
+          color: var(--text-accent);
+        }
+      }
+    }
+  }
+
+  .indicatorButton {
+    max-width: 203px;
+  }
+}
+
+.leasingWrap {
+  position: relative;
+  border-radius: 20px;
+  padding: 24px;
+  background-color: var(--background-secondary);
+  background-image: url('/backgrounds/leasing-bg2.svg');
+  background-size: cover;
+  height: 239px;
+
+  @media screen and (max-width: 1900px) {
+    padding: 45px 20px 20px 20px;
+    height: unset;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 1170px) {
+    padding: 20px;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--text-accent-blue);
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.3;
+    margin-bottom: 34px;
+    max-width: 237px;
+
+    @media screen and (max-width: 1170px) {
+      margin-bottom: 28px;
+    }
+
+    span {
+      color: var(--text-accent-blue);
+    }
+
+    @media screen and (max-width: 1900px) {
+      max-width: 154px;
+
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: rotate(7deg);
+    width: 250px;
+    height: 250px;
+
+    @media screen and (max-width: 1900px) {
+      bottom: 23px;
+      right: -41px;
+    }
+  }
 }

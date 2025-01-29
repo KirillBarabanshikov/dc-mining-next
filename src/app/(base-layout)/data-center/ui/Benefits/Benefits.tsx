@@ -16,16 +16,22 @@ import { Button } from '@/shared/ui';
 import styles from './Benefits.module.scss';
 
 interface IBenefitsProps {
-  countDevices: number;
+  countDevices?: number;
+  page?: 'data-center' | 'product';
+  withContainer?: boolean;
   className?: string;
 }
 
-export const Benefits: FC<IBenefitsProps> = ({ countDevices, className }) => {
+export const Benefits: FC<IBenefitsProps> = ({
+  countDevices = 2500,
+  withContainer = true,
+  className,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <section className={clsx(styles.benefits, className)}>
-      <div className={clsx(styles.container, 'container')}>
+      <div className={clsx(styles.container, withContainer && 'container')}>
         <h2 className={'section-title-primary'}>Приемущества</h2>
         <div className={styles.benefitsWrap}>
           <div className={clsx(styles.benefitBlock, styles.main)}>

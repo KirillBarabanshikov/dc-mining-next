@@ -4,11 +4,144 @@
   row-gap: 16px;
   max-width: 592px;
 
+  @media screen and (max-width: 1900px) {
+    max-width: 448px;
+  }
+
+  @media screen and (max-width: 1170px) {
+    max-width: 530px;
+    row-gap: 8px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    max-width: 464px;
+  }
+
+  @media screen and (max-width: 992px) {
+    max-width: unset;
+    width: 100%;
+  }
+
   .mainSlider {
+    position: relative;
+
+    .tags {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 3;
+
+      display: flex;
+      gap: 8px;
+    }
+
     .currentImage {
       background-color: var(--background-white);
       border-radius: 20px;
       object-fit: contain;
+
+      @media screen and (max-width: 1900px) {
+        max-width: 448px;
+        max-height: 411px;
+      }
+
+      @media screen and (max-width: 1170px) {
+        max-width: 100%;
+        max-height: 436px;
+      }
+
+      @media screen and (max-width: 992px) {
+        max-width: unset;
+        width: 100%;
+      }
+
+      @media screen and (max-width: 768px) {
+        max-height: 360px;
+      }
+    }
+  }
+
+  .thumbs {
+    .thumbSlide {
+      width: 100px;
+
+      @media screen and (max-width: 992px) {
+        width: 80px;
+      }
+
+      .thumb {
+        background-color: var(--background-white);
+        border-radius: 12px;
+        object-fit: contain;
+        outline: 2px solid transparent;
+        outline-offset: -2px;
+        transition: outline-color 0.3s;
+
+        @media screen and (max-width: 992px) {
+          width: 80px;
+          height: 80px;
+        }
+
+        &.active {
+          pointer-events: none;
+          outline-color: var(--background-accent-blue-alpha-20);
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            cursor: pointer;
+            outline-color: var(--background-secondary);
+          }
+        }
+      }
+    }
+  }
+
+  .btn {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 120px;
+    width: 32px;
+    height: 32px;
+    background-color: var(--background-white);
+    transition: background-color 0.3s;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &.prev {
+      left: 16px;
+    }
+
+    &.next {
+      right: 16px;
+    }
+
+    svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      color: var(--text-ultramarin);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+        background-color: var(--button-hover);
+
+        svg {
+          color: var(--text-contrast);
+        }
+      }
+    }
+
+    &:active {
+      background-color: var(--button-active);
+      svg {
+        color: var(--text-contrast);
+      }
     }
   }
 }

@@ -29,6 +29,7 @@ export interface IProductDto {
     id: number;
     title: string;
     slug: string;
+    image?: string;
   };
   count?: number;
   profitable?: number;
@@ -41,6 +42,9 @@ export interface IProductDto {
   hashrate?: number;
   algorithm?: string;
   coins?: string;
+  profit?: number;
+  paybackPerMonth?: number;
+  profitDayAll?: number;
 }
 
 export interface IOrderProductBody {
