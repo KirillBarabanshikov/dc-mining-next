@@ -298,7 +298,7 @@ export const AsicPage = () => {
           ref={targetRef}
           className={styles.tabs}
         />
-        <Benefits withContainer={false} />
+        <Benefits withContainer={false} page={'product'} />
         <RecentProductsList withContainer={false} />
         <CallMeBanner className={styles.banner} />
       </div>

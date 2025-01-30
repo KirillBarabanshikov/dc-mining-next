@@ -24,10 +24,183 @@ interface IBenefitsProps {
 
 export const Benefits: FC<IBenefitsProps> = ({
   countDevices = 2500,
+  page = 'data-center',
   withContainer = true,
   className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  if (page === 'product') {
+    return (
+      <section className={clsx(styles.benefits, styles.product, className)}>
+        <div className={clsx(styles.container, withContainer && 'container')}>
+          <h2 className={'section-title-primary'}>Приемущества</h2>
+          <div className={styles.benefitsWrap}>
+            <div
+              style={{
+                width: 748,
+                height: 513,
+                overflow: 'hidden',
+                position: 'relative',
+              }}
+            >
+              <iframe
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: '1px solid #e6e6e6',
+                  borderRadius: '8px',
+                  boxSizing: 'border-box',
+                }}
+                src='https://yandex.ru/maps-reviews-widget/6232622173?comments'
+                title='Yandex Maps Reviews'
+              ></iframe>
+              <a
+                href='https://yandex.ru/maps/org/dc_mining/6232622173/'
+                target='_blank'
+                rel='noopener noreferrer'
+                style={{
+                  boxSizing: 'border-box',
+                  textDecoration: 'none',
+                  color: '#b3b3b3',
+                  fontSize: '10px',
+                  fontFamily: 'YS Text, sans-serif',
+                  padding: '0 16px',
+                  position: 'absolute',
+                  bottom: 8,
+                  width: '100%',
+                  textAlign: 'center',
+                  left: 0,
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  display: 'block',
+                  maxHeight: '14px',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                Dc Mining на карте Москвы — Яндекс Карты
+              </a>
+            </div>
+            <div className={styles.benefitBlock}>
+              <div className={clsx(styles.wrap, styles.column)}>
+                <div
+                  className={clsx(styles.benefitCard, styles.benefitCardLarge)}
+                >
+                  <div className={styles.benefitCardImage}>
+                    <Image
+                      src={benefit2}
+                      alt={'benefit'}
+                      width={220}
+                      height={220}
+                      quality={100}
+                    />
+                  </div>
+                  <div className={styles.benefitCardBody}>
+                    <div className={styles.benefitCardTitle}>Нам доверяют</div>
+                    <div className={styles.benefitCardSubtitle}>
+                      {countDevices} устройств в обслуживании
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.row}>
+                  <div className={styles.benefitCard}>
+                    <div className={styles.benefitCardImage}>
+                      <Image
+                        src={benefit4}
+                        alt={'benefit'}
+                        width={78}
+                        height={78}
+                        quality={100}
+                      />
+                    </div>
+                    <div className={styles.benefitCardBody}>
+                      <div className={styles.benefitCardTitle}>
+                        Вооруженная охрана
+                      </div>
+                      <div className={styles.benefitCardSubtitle}>
+                        Охраняет наши объекты 24/7
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.benefitCard}>
+                    <div className={styles.benefitCardImage}>
+                      <Image
+                        src={benefit5}
+                        alt={'benefit'}
+                        width={78}
+                        height={78}
+                        quality={100}
+                      />
+                    </div>
+                    <div className={styles.benefitCardBody}>
+                      <div className={styles.benefitCardTitle}>
+                        Юридическая чистота
+                      </div>
+                      <div className={styles.benefitCardSubtitle}>
+                        Только официальные платежи
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.row}>
+                  <div className={styles.benefitCard}>
+                    <div className={styles.benefitCardImage}>
+                      <Image
+                        src={benefit1}
+                        alt={'benefit'}
+                        width={78}
+                        height={78}
+                        quality={100}
+                      />
+                    </div>
+                    <div className={styles.benefitCardBody}>
+                      <div className={styles.benefitCardTitle}>
+                        UPTIME до 99%
+                      </div>
+                      <div className={styles.benefitCardSubtitle}>
+                        Держим марку
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.benefitCard}>
+                    <div className={styles.benefitCardImage}>
+                      <Image
+                        src={benefit3}
+                        alt={'benefit'}
+                        width={78}
+                        height={78}
+                        quality={100}
+                      />
+                    </div>
+                    <div className={styles.benefitCardBody}>
+                      <div className={styles.benefitCardTitle}>
+                        Онлайн камеры
+                      </div>
+                      <div className={styles.benefitCardSubtitle}>
+                        Для вашего спокойствия
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => setIsOpen(true)}
+                  className={styles.button}
+                >
+                  Оставить заявку
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <OrderCallModal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          title={'Заказать звонок'}
+          subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+        />
+      </section>
+    );
+  }
 
   return (
     <section className={clsx(styles.benefits, className)}>
