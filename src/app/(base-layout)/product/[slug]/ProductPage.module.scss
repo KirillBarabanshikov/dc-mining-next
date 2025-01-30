@@ -18,7 +18,7 @@
 
 .productInfoTop {
   display: grid;
-  grid-template: min-content min-content 1fr / 608px auto auto;
+  grid-template: min-content min-content 1fr / 608px 1fr 1fr;
   grid-gap: 16px;
 
   .slider {
@@ -224,7 +224,7 @@
   }
 
   .priceButton {
-    margin-top: 24px;
+    margin-top: 27px;
 
     @media screen and (max-width: 1170px) {
       margin-top: 20px;

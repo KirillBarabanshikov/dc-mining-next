@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { FC, useState } from 'react';
+import { FC, forwardRef, useState } from 'react';
 
 import { IProduct } from '@/entities/product';
 import { Delivery, Payments } from '@/widgets';
@@ -13,50 +13,54 @@ interface IProductTabsProps {
 
 const tabs = ['Характеристики', 'Доставка', 'Оплата'];
 
-export const ProductsTabs: FC<IProductTabsProps> = ({ product, className }) => {
-  const [currentTab, setCurrentTab] = useState(0);
-  const isAsic = product.category?.title === 'asicMiners';
-  const currentTabs = isAsic ? ['Описание', ...tabs] : tabs;
+export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
+  ({ product, className }, ref) => {
+    const [currentTab, setCurrentTab] = useState(0);
+    const isAsic = product.category?.title === 'asicMiners';
+    const currentTabs = isAsic ? ['Описание', ...tabs] : tabs;
 
-  const renderTabs = () => {
-    let tabs = [
-      <ProductSpecifications key={'specifications'} product={product} />,
-      <Delivery key={'delivery'} variant={'productInfo'} />,
-      <Payments key={'payments'} variant={'productInfo'} />,
-    ];
-
-    if (isAsic) {
-      tabs = [
-        <ProductDescription key={'description'} product={product} />,
-        ...tabs,
+    const renderTabs = () => {
+      let tabs = [
+        <ProductSpecifications key={'specifications'} product={product} />,
+        <Delivery key={'delivery'} variant={'productInfo'} />,
+        <Payments key={'payments'} variant={'productInfo'} />,
       ];
-    }
 
-    return tabs;
-  };
+      if (isAsic) {
+        tabs = [
+          <ProductDescription key={'description'} product={product} />,
+          ...tabs,
+        ];
+      }
 
-  return (
-    <div className={clsx(styles.productTabs, className)}>
-      <div className={clsx(styles.tabs, 'scrollbar-hide')}>
-        {currentTabs.map((tab, index) => {
-          return (
-            <div
-              key={index}
-              onClick={() => setCurrentTab(index)}
-              className={clsx(
-                styles.tab,
-                currentTab === index && styles.active,
-              )}
-            >
-              {tab}
-            </div>
-          );
-        })}
+      return tabs;
+    };
+
+    return (
+      <div ref={ref} className={clsx(styles.productTabs, className)}>
+        <div className={clsx(styles.tabs, 'scrollbar-hide')}>
+          {currentTabs.map((tab, index) => {
+            return (
+              <div
+                key={index}
+                onClick={() => setCurrentTab(index)}
+                className={clsx(
+                  styles.tab,
+                  currentTab === index && styles.active,
+                )}
+              >
+                {tab}
+              </div>
+            );
+          })}
+        </div>
+        <div>{renderTabs()[currentTab]}</div>
       </div>
-      <div>{renderTabs()[currentTab]}</div>
-    </div>
-  );
-};
+    );
+  },
+);
+
+ProductsTabs.displayName = 'ProductsTabs';
 
 const ProductDescription: FC<{ product: IProduct }> = ({ product }) => {
   return (

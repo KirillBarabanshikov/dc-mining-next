@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Benefits } from '@/app/(base-layout)/data-center/ui';
 import { getProductBySlug } from '@/entities/product';
@@ -20,6 +20,7 @@ import { formatter } from '@/shared/lib';
 import { Breadcrumbs, Button } from '@/shared/ui';
 import { RecentProductsList } from '@/widgets';
 import { Calculator } from '@/widgets/Calculator';
+import { calculatorApi } from '@/widgets/Calculator/api';
 import { CallMeBanner } from '@/widgets/CallMeBanner';
 import { ProductsTabs } from '@/widgets/ProductDetails/ui';
 
@@ -34,13 +35,89 @@ const paths = [
 ];
 
 export const AsicPage = () => {
+  const [dollar, setDollar] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { slug } = useParams<{ slug: string }>();
+  const targetRef = useRef<HTMLDivElement>(null);
 
   const { data: product } = useQuery({
     queryKey: ['product', slug],
     queryFn: () => getProductBySlug(slug),
   });
+
+  const scrollTo = () => {
+    if (targetRef.current) {
+      const offset = 250;
+      const elementPosition =
+        targetRef.current.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await calculatorApi.getAsics();
+      if (data) {
+        setDollar(data.dollar);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const downloadPdf = async () => {
+    if (!product) return;
+
+    const totalPrice = product.price || 0;
+    const course = dollar;
+
+    const profitWithoutElectricity = (product.profitDayAll ?? 0) * 30;
+    const totalConsumption = ((product.watt ?? 0) * 24 * 30) / 1000;
+
+    const pdfData = {
+      sumRuble: totalPrice.toLocaleString('ru-RU'),
+      sumDollar: (totalPrice / course).toFixed(0),
+      curs: course.toString(),
+      sumIn: totalPrice.toLocaleString('ru-RU'),
+      everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
+      profitWithoutWatt: profitWithoutElectricity.toFixed(0),
+      profitWithMonth: (totalPrice / profitWithoutElectricity).toFixed(0),
+      asics: [
+        {
+          id: product.id,
+          title: product.title,
+          hashrate: `${product.hashrate} TH/s`,
+          quantity: '1',
+          priceOnePiece: product.price
+            ? (product.price / course).toFixed(0)
+            : '0',
+          price: product.price ? (product.price / course).toFixed(0) : '0',
+        },
+      ],
+      type: 'По моделям',
+    };
+
+    try {
+      setIsLoading(true);
+      const result = await calculatorApi.postPDF(pdfData);
+      if (result) {
+        const blob = new Blob([result.file], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'фин_модель.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (!product) return;
 
@@ -70,7 +147,7 @@ export const AsicPage = () => {
           <div className={styles.characteristics}>
             <div className={styles.characteristicsWrapTitle}>
               <h2>Характеристики</h2>
-              <span>(Подробнее)</span>
+              <span onClick={scrollTo}>(Подробнее)</span>
             </div>
             <div className={styles.characteristicsList}>
               <div className={styles.characteristicItem}>
@@ -81,7 +158,7 @@ export const AsicPage = () => {
               <div className={styles.characteristicItem}>
                 <ZapIcon />
                 <span>Хешрейт</span>
-                <span>{product.hashrate}</span>
+                <span>{product.hashrate} TH/S</span>
               </div>
               <div className={styles.characteristicItem}>
                 <CodeIcon />
@@ -112,7 +189,9 @@ export const AsicPage = () => {
                   Доход без учета э/э, руб.:
                 </span>
                 <span className={clsx(styles.indicatorValue, styles.accent)}>
-                  {product?.profit}
+                  {((product.profitDayAll ?? 0) * 30).toLocaleString('ru-RU', {
+                    maximumFractionDigits: 0,
+                  })}
                 </span>
               </div>
               <div className={styles.indicatorItem}>
@@ -128,7 +207,10 @@ export const AsicPage = () => {
                   Ежемесячное потребление э/э, кВт.:
                 </span>
                 <span className={styles.indicatorValue}>
-                  {product?.profitDayAll?.toFixed(0)}
+                  {(((product.watt ?? 0) * 24 * 30) / 1000).toLocaleString(
+                    'ru-RU',
+                    { maximumFractionDigits: 0 },
+                  )}
                 </span>
               </div>
               <div className={styles.indicatorItem}>
@@ -137,8 +219,10 @@ export const AsicPage = () => {
               </div>
             </div>
             <Button
+              disabled={isLoading}
               variant={'outline'}
               size={'md'}
+              onClick={downloadPdf}
               className={styles.indicatorButton}
             >
               Скачать фин модель
@@ -209,7 +293,11 @@ export const AsicPage = () => {
           </div>
         </div>
         <Calculator />
-        <ProductsTabs product={product} className={styles.tabs} />
+        <ProductsTabs
+          product={product}
+          ref={targetRef}
+          className={styles.tabs}
+        />
         <Benefits withContainer={false} />
         <RecentProductsList withContainer={false} />
         <CallMeBanner className={styles.banner} />
