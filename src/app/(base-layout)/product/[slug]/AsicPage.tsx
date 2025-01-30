@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Benefits } from '@/app/(base-layout)/data-center/ui';
 import { getProductBySlug } from '@/entities/product';
+import { OrderCallModal } from '@/features/call';
 import { OrderProductModal } from '@/features/product';
 import CodeIcon from '@/shared/assets/icons/code.svg';
 import CoinsIcon from '@/shared/assets/icons/coins.svg';
@@ -37,6 +38,7 @@ const paths = [
 export const AsicPage = () => {
   const [dollar, setDollar] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenCall, setIsOpenCall] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const targetRef = useRef<HTMLDivElement>(null);
@@ -152,23 +154,36 @@ export const AsicPage = () => {
             <div className={styles.characteristicsList}>
               <div className={styles.characteristicItem}>
                 <PowerIcon />
-                <span>Потребление</span>
-                <span>{product.watt} ± 10% Вт/ч</span>
+                <span className={styles.characteristicTitle}>Потребление</span>
+                <span className={styles.characteristicValue}>
+                  {product.watt} ± 10% Вт/ч
+                </span>
               </div>
               <div className={styles.characteristicItem}>
                 <ZapIcon />
-                <span>Хешрейт</span>
-                <span>{product.hashrate} TH/S</span>
+                <span className={styles.characteristicTitle}>Хешрейт</span>
+                <span className={styles.characteristicValue}>
+                  {product.hashrate} TH/S
+                </span>
               </div>
               <div className={styles.characteristicItem}>
                 <CodeIcon />
-                <span>Алгоритм</span>
-                <span>{product.algorithm}</span>
+                <span className={styles.characteristicTitle}>Алгоритм</span>
+                <span className={styles.characteristicValue}>
+                  {product.algorithm}
+                </span>
               </div>
               <div className={styles.characteristicItem}>
                 <CoinsIcon />
-                <span>Монета</span>
-                <span>{product.coins}</span>
+                <span className={styles.characteristicTitle}>Монета</span>
+                <span
+                  className={clsx(
+                    styles.characteristicValue,
+                    styles.characteristicValueCoins,
+                  )}
+                >
+                  {product.coins}
+                </span>
               </div>
             </div>
             {!!product.productSubCategory?.image && (
@@ -215,7 +230,14 @@ export const AsicPage = () => {
               </div>
               <div className={styles.indicatorItem}>
                 <span className={styles.indicatorTitle}>Монета</span>
-                <span className={styles.indicatorValue}>{product?.coins}</span>
+                <span
+                  className={clsx(
+                    styles.indicatorValue,
+                    styles.indicatorValueCoins,
+                  )}
+                >
+                  {product?.coins}
+                </span>
               </div>
             </div>
             <Button
@@ -286,7 +308,11 @@ export const AsicPage = () => {
               Начните зарабатывать на майнинге <span>сейчас</span> — и выкупите
               оборудование <span>позже</span>
             </p>
-            <Button variant={'outline'} size={'md'}>
+            <Button
+              variant={'outline'}
+              size={'md'}
+              onClick={() => setIsOpenCall(true)}
+            >
               Сделать расчет
             </Button>
             <Image src={LeasingImage} alt={'Изображение для баннера'} />
@@ -306,6 +332,12 @@ export const AsicPage = () => {
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         product={product}
+      />
+      <OrderCallModal
+        isOpen={isOpenCall}
+        onClose={() => setIsOpenCall(false)}
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
       />
     </div>
   );

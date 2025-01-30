@@ -11,6 +11,8 @@ import benefit2 from '@/shared/assets/images/benefits/benefit2.png';
 import benefit3 from '@/shared/assets/images/benefits/benefit3.png';
 import benefit4 from '@/shared/assets/images/benefits/benefit4.png';
 import benefit5 from '@/shared/assets/images/benefits/benefit5.png';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 
 import styles from './Benefits.module.scss';
@@ -29,8 +31,9 @@ export const Benefits: FC<IBenefitsProps> = ({
   className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const matches = useMediaQuery(MAX_WIDTH_MD);
 
-  if (page === 'product') {
+  if (page === 'product' && !matches) {
     return (
       <section className={clsx(styles.benefits, styles.product, className)}>
         <div className={clsx(styles.container, withContainer && 'container')}>
@@ -38,11 +41,10 @@ export const Benefits: FC<IBenefitsProps> = ({
           <div className={styles.benefitsWrap}>
             <div
               style={{
-                width: 748,
-                height: 513,
                 overflow: 'hidden',
                 position: 'relative',
               }}
+              className={styles.reviews}
             >
               <iframe
                 style={{
@@ -206,6 +208,52 @@ export const Benefits: FC<IBenefitsProps> = ({
     <section className={clsx(styles.benefits, className)}>
       <div className={clsx(styles.container, withContainer && 'container')}>
         <h2 className={'section-title-primary'}>Приемущества</h2>
+        {page === 'product' && (
+          <div
+            style={{
+              overflow: 'hidden',
+              position: 'relative',
+            }}
+            className={styles.reviews}
+          >
+            <iframe
+              style={{
+                width: '100%',
+                height: '100%',
+                border: '1px solid #e6e6e6',
+                borderRadius: '8px',
+                boxSizing: 'border-box',
+              }}
+              src='https://yandex.ru/maps-reviews-widget/6232622173?comments'
+              title='Yandex Maps Reviews'
+            ></iframe>
+            <a
+              href='https://yandex.ru/maps/org/dc_mining/6232622173/'
+              target='_blank'
+              rel='noopener noreferrer'
+              style={{
+                boxSizing: 'border-box',
+                textDecoration: 'none',
+                color: '#b3b3b3',
+                fontSize: '10px',
+                fontFamily: 'YS Text, sans-serif',
+                padding: '0 16px',
+                position: 'absolute',
+                bottom: 8,
+                width: '100%',
+                textAlign: 'center',
+                left: 0,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: 'block',
+                maxHeight: '14px',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Dc Mining на карте Москвы — Яндекс Карты
+            </a>
+          </div>
+        )}
         <div className={styles.benefitsWrap}>
           <div className={clsx(styles.benefitBlock, styles.main)}>
             <div className={styles.benefitMainCard}>
