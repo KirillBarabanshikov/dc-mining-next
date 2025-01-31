@@ -47,10 +47,19 @@
         color: var(--text-contrast);
       }
     }
+
     &.pink {
       background: var(--background-bright-accent);
       color: var(--text-contrast);
+
+      @media (hover: hover) {
+        &:hover {
+          background: var(--button-hover);
+          color: var(--text-contrast);
+        }
+      }
     }
+
     &.gray {
       background: var(--background-secondary);
       color: var(--text-secondary);
@@ -116,6 +125,7 @@
   }
 
   &.disabled {
+    pointer-events: none;
     cursor: unset;
     background-color: rgba(190, 200, 245, 1) !important;
   }

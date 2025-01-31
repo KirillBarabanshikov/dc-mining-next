@@ -34,6 +34,12 @@ export const CompareList = () => {
     setProducts();
   }, [compare]);
 
+  useEffect(() => {
+    if (!compareList[activeTab]) {
+      setActiveTab(0);
+    }
+  }, [compareList]);
+
   const setProducts = async () => {
     if (compare.length) {
       await compareMutate(compare).then((data) =>

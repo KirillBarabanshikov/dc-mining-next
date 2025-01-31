@@ -47,12 +47,16 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
             })}
         </div>
         <div
-          itemProp='description'
+          itemProp={'description'}
           className={styles.description}
           dangerouslySetInnerHTML={{ __html: product.shortDescription }}
         />
 
-        <div itemProp='offers' itemScope itemType='https://schema.org/Offer'>
+        <div
+          itemProp={'offers'}
+          itemScope
+          itemType={'https://schema.org/Offer'}
+        >
           {!!product.oldPrice && (
             <span className={styles.oldPrice}>
               {formatter.format(product.oldPrice)}

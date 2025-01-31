@@ -20,7 +20,15 @@ export interface IProduct {
     id: number;
     title: string;
     slug: string;
+    image?: string;
   };
+  watt?: number;
+  hashrate?: number;
+  algorithm?: string;
+  coins?: string;
+  profit?: number;
+  paybackPerMonth?: number;
+  profitDayAll?: number;
 }
 
 interface IProductValue {

@@ -78,7 +78,7 @@ class CalculatorApi {
   public postPDF = async (data: IPostPDFRequest) => {
     try {
       const response = await instance.post(
-        '/product/calculatingExportPdf',
+        '/product/calculating_export_pdfs',
         data,
         {
           responseType: 'blob',
@@ -96,7 +96,7 @@ class CalculatorApi {
 
   public sendFormRequest = async (data: IFormRequestData) => {
     try {
-      const response = await instance.post('/formsPdf', data);
+      const response = await instance.post('/form_pdfs', data);
       return response.data;
     } catch (error) {
       console.error('Error send form request', error);

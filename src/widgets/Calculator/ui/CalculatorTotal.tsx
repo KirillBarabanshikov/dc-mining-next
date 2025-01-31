@@ -136,7 +136,7 @@ export const CalculatorTotal: React.FC<Props> = ({
                   isWide
                   onClick={handleOpenOrderModal}
                 >
-                  Оставить заявку
+                  Получить скидку
                 </Button>
               </div>
               {matches && (

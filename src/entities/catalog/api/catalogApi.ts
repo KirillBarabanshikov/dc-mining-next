@@ -63,7 +63,7 @@ export const getCatalogData = async (
       items: IProductDto[];
       min_price?: number;
       max_price?: number;
-    }>('/filtersItems', {
+    }>('/filters_items', {
       params: {
         ...params,
         page: params.page || 1,
