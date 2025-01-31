@@ -95,7 +95,9 @@ const ProductSpecifications: FC<{ product: IProduct }> = ({ product }) => {
       {product.coins && (
         <div className={styles.specification}>
           <div className={styles.name}>Монета</div>
-          <div className={styles.value}>{product.coins}</div>
+          <div className={styles.value}>
+            {product.coins.replace(/\//g, '/\u200B')}
+          </div>
         </div>
       )}
       {product.value.map((value) => {

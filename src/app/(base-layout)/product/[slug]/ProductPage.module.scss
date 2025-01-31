@@ -178,12 +178,6 @@
         font-size: 16px;
         line-height: 1.3;
       }
-
-      .characteristicValue {
-        &.characteristicValueCoins {
-          word-break: break-all;
-        }
-      }
     }
   }
 
@@ -290,10 +284,6 @@
       .indicatorValue {
         font-size: 16px;
         line-height: 1.3;
-
-        &.indicatorValueCoins {
-          word-break: break-all;
-        }
 
         &.accent {
           font-weight: 700;

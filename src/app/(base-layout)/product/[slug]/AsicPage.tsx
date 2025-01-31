@@ -182,7 +182,7 @@ export const AsicPage = () => {
                     styles.characteristicValueCoins,
                   )}
                 >
-                  {product.coins}
+                  {product?.coins?.replace(/\//g, '/\u200B')}
                 </span>
               </div>
             </div>
@@ -236,7 +236,7 @@ export const AsicPage = () => {
                     styles.indicatorValueCoins,
                   )}
                 >
-                  {product?.coins}
+                  {product?.coins?.replace(/\//g, '/\u200B')}
                 </span>
               </div>
             </div>
