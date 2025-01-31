@@ -38,7 +38,7 @@
     .currentImage {
       background-color: var(--background-white);
       border-radius: 20px;
-      object-fit: contain;
+      object-fit: cover;
 
       @media screen and (max-width: 1900px) {
         max-width: 448px;
@@ -72,7 +72,7 @@
       .thumb {
         background-color: var(--background-white);
         border-radius: 12px;
-        object-fit: contain;
+        object-fit: cover;
         outline: 2px solid transparent;
         outline-offset: -2px;
         transition: outline-color 0.3s;

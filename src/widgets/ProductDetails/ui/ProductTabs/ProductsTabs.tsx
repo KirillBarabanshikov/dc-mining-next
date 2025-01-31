@@ -11,7 +11,7 @@ interface IProductTabsProps {
   className?: string;
 }
 
-const tabs = ['Характеристики', 'Доставка', 'Оплата'];
+const tabs = ['Характеристики', 'Доставка и Оплата'];
 
 export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
   ({ product, className }, ref) => {
@@ -22,8 +22,10 @@ export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
     const renderTabs = () => {
       let tabs = [
         <ProductSpecifications key={'specifications'} product={product} />,
-        <Delivery key={'delivery'} variant={'productInfo'} />,
-        <Payments key={'payments'} variant={'productInfo'} />,
+        <div key={'deliveryAndPayments'} className={styles.deliveryAndPayments}>
+          <Payments variant={'productInfo'} />
+          <Delivery variant={'productInfo'} />
+        </div>,
       ];
 
       if (isAsic) {

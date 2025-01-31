@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Benefits } from '@/app/(base-layout)/data-center/ui';
 import { getProductBySlug } from '@/entities/product';
+import { useRecentStore } from '@/entities/product/model';
 import { OrderCallModal } from '@/features/call';
 import { OrderProductModal } from '@/features/product';
 import CodeIcon from '@/shared/assets/icons/code.svg';
@@ -42,6 +43,7 @@ export const AsicPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const targetRef = useRef<HTMLDivElement>(null);
+  const { addToRecent } = useRecentStore();
 
   const { data: product } = useQuery({
     queryKey: ['product', slug],
@@ -66,6 +68,11 @@ export const AsicPage = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!product) return;
+    addToRecent(product.id);
+  }, [addToRecent, product]);
 
   const downloadPdf = async () => {
     if (!product) return;
