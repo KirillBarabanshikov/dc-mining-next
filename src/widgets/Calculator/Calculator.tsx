@@ -30,6 +30,7 @@ interface Props {
   type?: 'lite' | 'pro';
   isManager?: boolean;
   singleType?: number;
+  variant?: 'default' | 'product';
 }
 
 export const Calculator: FC<Props> = ({
@@ -37,6 +38,7 @@ export const Calculator: FC<Props> = ({
   type = 'lite',
   isManager = false,
   singleType,
+  variant = 'default',
 }) => {
   const {
     calculatorType,
@@ -678,6 +680,13 @@ export const Calculator: FC<Props> = ({
         {!singleType && (
           <div className='calculator-types'>
             {calculatorTypes.map((item) => {
+              if (
+                variant === 'product' &&
+                (item.title === 'Готовый бизнес' || item.title === 'Лизинг')
+              ) {
+                return <Fragment key={item.id} />;
+              }
+
               if (isManager && item.title === 'Лизинг') {
                 return <Fragment key={item.id} />;
               }

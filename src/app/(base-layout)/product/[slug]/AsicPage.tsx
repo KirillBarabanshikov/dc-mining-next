@@ -325,7 +325,7 @@ export const AsicPage = () => {
             <Image src={LeasingImage} alt={'Изображение для баннера'} />
           </div>
         </div>
-        <Calculator />
+        <Calculator variant={'product'} />
         <ProductsTabs
           product={product}
           ref={targetRef}
