@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Benefits } from '@/app/(base-layout)/data-center/ui';
 import { getProductBySlug } from '@/entities/product';
@@ -262,7 +262,12 @@ export const AsicPage = () => {
               <DownloadIcon />
             </Button>
           </div>
-          <div className={styles.priceWrap}>
+          <div
+            itemProp={'offers'}
+            itemScope
+            itemType={'https://schema.org/Offer'}
+            className={styles.priceWrap}
+          >
             {!!product.oldPrice && (
               <div className={styles.oldPrice}>
                 {formatter.format(product.oldPrice)}
@@ -298,6 +303,31 @@ export const AsicPage = () => {
                 </div>
               </>
             )}
+            {product.tags.map((tag) => {
+              const tagTitle = tag.title.toLowerCase();
+
+              if (tagTitle === 'в наличии') {
+                return (
+                  <link
+                    key={tag.id}
+                    itemProp={'availability'}
+                    href={'https://schema.org/InStock'}
+                  />
+                );
+              }
+
+              if (tagTitle === 'новинка') {
+                return (
+                  <link
+                    key={tag.id}
+                    itemProp={'itemCondition'}
+                    href={'https://schema.org/NewCondition'}
+                  />
+                );
+              }
+
+              return <Fragment key={tag.id} />;
+            })}
             <p className={styles.priceHint}>
               Цена является предварительной и может быть изменена
             </p>
