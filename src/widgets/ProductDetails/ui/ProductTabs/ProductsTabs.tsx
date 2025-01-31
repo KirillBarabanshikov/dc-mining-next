@@ -67,6 +67,7 @@ ProductsTabs.displayName = 'ProductsTabs';
 const ProductDescription: FC<{ product: IProduct }> = ({ product }) => {
   return (
     <div
+      itemProp={'description'}
       className={styles.productDescription}
       dangerouslySetInnerHTML={{ __html: product.shortDescription }}
     />

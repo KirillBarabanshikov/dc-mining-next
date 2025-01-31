@@ -147,10 +147,14 @@ export const AsicPage = () => {
           className={styles.asicBreadcrumbs}
         />
       </div>
-      <div className={clsx('container', styles.container)}>
+      <div
+        className={clsx('container', styles.container)}
+        itemScope
+        itemType={'https://schema.org/Product'}
+      >
         <div className={styles.productInfoTop}>
           <Slider product={product} className={styles.slider} />
-          <h1 className={styles.productTitle}>
+          <h1 itemProp={'name'} className={styles.productTitle}>
             {product.seoHOne ? product.seoHOne : product.title}
           </h1>
           <div className={styles.characteristics}>
@@ -270,15 +274,15 @@ export const AsicPage = () => {
                   {formatter.format(product.price)}
                 </div>
                 <span
-                  itemProp='price'
+                  itemProp={'price'}
                   className={styles.price}
                   style={{ display: 'none' }}
                 >
                   {product.price}
                 </span>
                 <span
-                  itemProp='priceCurrency'
-                  content='RUB'
+                  itemProp={'priceCurrency'}
+                  content={'RUB'}
                   className={styles.price}
                   style={{ display: 'none' }}
                 >
@@ -287,9 +291,9 @@ export const AsicPage = () => {
               </>
             ) : (
               <>
-                <meta itemProp='priceCurrency' content='RUB' />
-                <meta itemProp='price' content='0' />
-                <div itemProp='description' className={styles.price}>
+                <meta itemProp={'priceCurrency'} content={'RUB'} />
+                <meta itemProp={'price'} content={'0'} />
+                <div itemProp={'description'} className={styles.price}>
                   Цена по запросу
                 </div>
               </>
@@ -324,6 +328,12 @@ export const AsicPage = () => {
             </Button>
             <Image src={LeasingImage} alt={'Изображение для баннера'} />
           </div>
+          {!!product.productSubCategory?.title && (
+            <meta
+              itemProp='brand'
+              content={product.productSubCategory?.title}
+            />
+          )}
         </div>
         <Calculator variant={'product'} />
         <ProductsTabs
