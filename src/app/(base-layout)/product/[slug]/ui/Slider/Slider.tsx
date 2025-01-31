@@ -42,7 +42,7 @@ export const Slider: FC<ISliderProps> = ({ product, className }) => {
           <SwipeButton variant={'prev'} />
 
           {product.images.map((image, index) => (
-            <SwiperSlide key={image.id}>
+            <SwiperSlide key={image.id} className={styles.slide}>
               <Image
                 src={image.image || ''}
                 alt={`Изображение продукта ${index}`}

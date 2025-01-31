@@ -35,6 +35,12 @@
       gap: 8px;
     }
 
+    .slide {
+      @media screen and (max-width: 1170px) {
+        display: flex;
+      }
+    }
+
     .currentImage {
       background-color: var(--background-white);
       border-radius: 20px;
@@ -48,10 +54,11 @@
       @media screen and (max-width: 1170px) {
         max-width: 100%;
         max-height: 436px;
+        margin: 0 auto;
       }
 
       @media screen and (max-width: 992px) {
-        max-width: unset;
+        max-width: 436px;
         width: 100%;
       }
 
