@@ -659,7 +659,13 @@ export const Calculator: FC<Props> = ({
   }, [singleType]);
 
   return (
-    <div className={clsx('calculator', className)}>
+    <div
+      className={clsx(
+        'calculator',
+        variant === 'product' && 'calculator-product',
+        className,
+      )}
+    >
       <div className={clsx('calculator-head', className)}>
         <h2 className={clsx('calculator-title', 'section-title-primary')}>
           Рассчитайте <span>выгоду</span>

@@ -20,6 +20,34 @@
     }
   }
 
+  &.calculator-product {
+    .calculator-head {
+      @media (max-width: (1200 + px)) {
+        flex-direction: row;
+      }
+      @media (max-width: (768 + px)) {
+        flex-direction: column;
+      }
+    }
+
+    .calculator-types {
+      @media screen and (max-width: 768px) {
+        background-color: unset;
+        gap: 4px;
+        overflow-x: unset;
+
+        .calculator-type-accordion {
+          margin: unset;
+          box-shadow: 0 20px 20px 0 rgba(22, 32, 53, 0.1);
+
+          svg {
+            color: var(--text-accent-blue);
+          }
+        }
+      }
+    }
+  }
+
   .calculatorFeature-count {
     min-width: 48px;
   }
