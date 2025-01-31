@@ -77,13 +77,9 @@ class CalculatorApi {
 
   public postPDF = async (data: IPostPDFRequest) => {
     try {
-      const response = await instance.post(
-        '/product/calculating_export_pdfs',
-        data,
-        {
-          responseType: 'blob',
-        },
-      );
+      const response = await instance.post('/calculating_export_pdfs', data, {
+        responseType: 'blob',
+      });
       return {
         file: response.data,
         pdfId: +response.headers['entity-id'] as number,
