@@ -1,16 +1,11 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-import { getContacts } from '@/entities/contacts';
+import { OrderCallModal } from '@/features/call';
 import minerImage from '@/shared/assets/images/data-center/miner.png';
-import {
-  formatPhoneNumber,
-  intFormatPhoneNumber,
-  useIsSafari,
-  useMangoStore,
-} from '@/shared/lib';
+import { useIsSafari } from '@/shared/lib';
+import { Button } from '@/shared/ui';
 
 import styles from './CallMeBanner.module.scss';
 
@@ -19,29 +14,26 @@ interface ICallMeBannerProps {
 }
 
 export const CallMeBanner: FC<ICallMeBannerProps> = ({ className }) => {
-  const { number } = useMangoStore();
   const { isSafari } = useIsSafari();
-  const { data: contacts } = useSuspenseQuery({
-    queryKey: ['contacts'],
-    queryFn: getContacts,
-  });
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <section className={clsx(styles.banner, className)}>
       <div className={styles.content}>
         <h3>Проблемы с выбором оборудования?</h3>
         <p>Свяжитесь с нами, мы поможем подобрать оптимальное решение</p>
-        {contacts && (
-          <div className={styles.links}>
-            <a
-              href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}
-              className='mgo-number'
-            >
-              {formatPhoneNumber(number ? number : contacts.phone)}
-            </a>
-            <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
-          </div>
-        )}
+        <Button onClick={() => setIsOpen(true)}>Оставить запрос</Button>
+        {/*{contacts && (*/}
+        {/*  <div className={styles.links}>*/}
+        {/*    <a*/}
+        {/*      href={`tel:${intFormatPhoneNumber(number ? number : contacts.phone)}`}*/}
+        {/*      className='mgo-number'*/}
+        {/*    >*/}
+        {/*      {formatPhoneNumber(number ? number : contacts.phone)}*/}
+        {/*    </a>*/}
+        {/*    <a href={`mailto:${contacts.email}`}>{contacts.email}</a>*/}
+        {/*  </div>*/}
+        {/*)}*/}
       </div>
       {isSafari ? (
         <Image
@@ -64,6 +56,12 @@ export const CallMeBanner: FC<ICallMeBannerProps> = ({ className }) => {
           <source src={'/animations/bitmain-antminer.webm'} />
         </video>
       )}
+      <OrderCallModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+      />
     </section>
   );
 };
