@@ -29,6 +29,7 @@ export interface IProduct {
   profit?: number;
   paybackPerMonth?: number;
   profitDayAll?: number;
+  firstCoinsTime?: Date;
 }
 
 interface IProductValue {

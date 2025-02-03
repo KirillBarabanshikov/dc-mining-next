@@ -66,7 +66,7 @@
     }
   }
 
-  img {
+  .image {
     position: absolute;
     bottom: -50px;
     right: 104px;
@@ -88,6 +88,32 @@
       height: auto;
       bottom: -24px;
       right: 0;
+    }
+  }
+
+  .video {
+    object-fit: cover;
+    position: absolute;
+    bottom: -50px;
+    right: 104px;
+
+    @media screen and (max-width: 1200px) {
+      right: 0;
+    }
+
+    @media screen and (max-width: 1024px) {
+      height: 380px;
+      width: 380px;
+    }
+
+    @media screen and (max-width: 992px) {
+      height: 340px;
+      width: 340px;
+    }
+
+    @media screen and (max-width: 768px) {
+      right: 50%;
+      transform: translateX(45%);
     }
   }
 
@@ -148,7 +174,7 @@
       }
     }
 
-    img {
+    .image {
       width: 100%;
       max-width: 328px;
       left: calc(50% - 164px);

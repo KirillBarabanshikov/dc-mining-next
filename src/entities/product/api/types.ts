@@ -45,6 +45,7 @@ export interface IProductDto {
   profit?: number;
   paybackPerMonth?: number;
   profitDayAll?: number;
+  firstCoinsTime?: Date;
 }
 
 export interface IOrderProductBody {

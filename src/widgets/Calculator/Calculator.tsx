@@ -31,6 +31,7 @@ interface Props {
   isManager?: boolean;
   singleType?: number;
   variant?: 'default' | 'product';
+  defaultAsicId?: number;
 }
 
 export const Calculator: FC<Props> = ({
@@ -39,6 +40,7 @@ export const Calculator: FC<Props> = ({
   isManager = false,
   singleType,
   variant = 'default',
+  defaultAsicId,
 }) => {
   const {
     calculatorType,
@@ -366,6 +368,12 @@ export const Calculator: FC<Props> = ({
     isEditBusinessDetails,
     electricityCoast,
   ]);
+
+  useEffect(() => {
+    if (!defaultAsicId || !asics.length) return;
+    const asic = asics.find((asic) => asic.id === defaultAsicId);
+    asic && setSelectedAsics([asic]);
+  }, [defaultAsicId, asics]);
 
   const [openAccordionId, setOpenAccordionId] = useState<number | null>(null);
 

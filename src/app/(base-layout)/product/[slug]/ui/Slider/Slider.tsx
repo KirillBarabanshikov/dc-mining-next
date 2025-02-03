@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import { FC, useState } from 'react';
-import { Mousewheel, Pagination, Thumbs } from 'swiper/modules';
+import { Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
 import { IProduct } from '@/entities/product';
@@ -59,7 +59,7 @@ export const Slider: FC<ISliderProps> = ({ product, className }) => {
       <div className={styles.thumbs}>
         <Swiper
           onSwiper={setThumbsSwiper}
-          modules={[Thumbs, Mousewheel]}
+          modules={[Thumbs]}
           mousewheel
           slidesPerView={'auto'}
           spaceBetween={8}

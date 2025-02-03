@@ -222,7 +222,7 @@ export const AsicPage = () => {
               </div>
               <div className={styles.indicatorItem}>
                 <span className={clsx(styles.indicatorTitle, styles.bold)}>
-                  Окупаемость, мес.:
+                  Окупаемость без учета э/э, мес.:
                 </span>
                 <span className={clsx(styles.indicatorValue, styles.accent)}>
                   {product?.paybackPerMonth}
@@ -240,14 +240,13 @@ export const AsicPage = () => {
                 </span>
               </div>
               <div className={styles.indicatorItem}>
-                <span className={styles.indicatorTitle}>Монета</span>
-                <span
-                  className={clsx(
-                    styles.indicatorValue,
-                    styles.indicatorValueCoins,
+                <span className={styles.indicatorTitle}>
+                  Дата актуализации:
+                </span>
+                <span className={styles.indicatorValue}>
+                  {new Date(product?.firstCoinsTime || '').toLocaleDateString(
+                    'ru-RU',
                   )}
-                >
-                  {product?.coins?.replace(/\//g, '/\u200B')}
                 </span>
               </div>
             </div>
@@ -365,7 +364,7 @@ export const AsicPage = () => {
             />
           )}
         </div>
-        <Calculator variant={'product'} />
+        <Calculator variant={'product'} defaultAsicId={product.id} />
         <ProductsTabs
           product={product}
           ref={targetRef}

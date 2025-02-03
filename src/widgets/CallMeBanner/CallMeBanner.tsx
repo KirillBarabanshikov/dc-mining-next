@@ -8,6 +8,7 @@ import minerImage from '@/shared/assets/images/data-center/miner.png';
 import {
   formatPhoneNumber,
   intFormatPhoneNumber,
+  useIsSafari,
   useMangoStore,
 } from '@/shared/lib';
 
@@ -19,6 +20,7 @@ interface ICallMeBannerProps {
 
 export const CallMeBanner: FC<ICallMeBannerProps> = ({ className }) => {
   const { number } = useMangoStore();
+  const { isSafari } = useIsSafari();
   const { data: contacts } = useSuspenseQuery({
     queryKey: ['contacts'],
     queryFn: getContacts,
@@ -41,12 +43,27 @@ export const CallMeBanner: FC<ICallMeBannerProps> = ({ className }) => {
           </div>
         )}
       </div>
-      <Image
-        src={minerImage}
-        alt={'Изображение майнера'}
-        width={500}
-        height={500}
-      />
+      {isSafari ? (
+        <Image
+          src={minerImage}
+          alt={'Изображение майнера'}
+          width={500}
+          height={500}
+          className={styles.image}
+        />
+      ) : (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          width={500}
+          height={500}
+          className={styles.video}
+        >
+          <source src={'/animations/bitmain-antminer.webm'} />
+        </video>
+      )}
     </section>
   );
 };
