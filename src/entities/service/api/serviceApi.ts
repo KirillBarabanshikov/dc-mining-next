@@ -4,7 +4,7 @@ import { IServiceFormBody } from './types';
 
 export const sendServiceForm = async (body: IServiceFormBody) => {
   try {
-    const response = await instance.post('/repair_and_service', body, {
+    const response = await instance.post('/repair_and_services', body, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
