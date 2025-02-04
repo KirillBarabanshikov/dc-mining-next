@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   if (!product) return notFound();
 
-  if (product.category?.title === 'asicMiners') {
+  if (product.category?.title === 'ASIC майнеры') {
     return (
       <HydrationBoundary state={dehydrate(queryClient)}>
         <AsicPage />

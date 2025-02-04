@@ -16,7 +16,7 @@ const tabs = ['Характеристики', 'Доставка и Оплата'
 export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
   ({ product, className }, ref) => {
     const [currentTab, setCurrentTab] = useState(0);
-    const isAsic = product.category?.title === 'asicMiners';
+    const isAsic = product.category?.title === 'ASIC майнеры';
     const currentTabs = isAsic ? ['Описание', ...tabs] : tabs;
 
     const renderTabs = () => {

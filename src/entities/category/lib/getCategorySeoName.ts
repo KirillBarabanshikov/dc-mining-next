@@ -1,11 +1,12 @@
 const names: Record<string, string> = {
-    asicMiners: 'Асик майнеры',
-    containersMining: 'Контейнеры для майнинга',
-    firmware: 'Прошивки для оборудования',
-    accessories: 'Комплектующие',
-    readyBusiness: 'Готовый бизнес для майнинга криптовалют',
+  ['ASIC майнеры']: 'Асик майнеры',
+  ['Контейнеры для майнинг ферм']: 'Контейнеры для майнинга',
+  ['Прошивки для оборудования']: 'Прошивки для оборудования',
+  ['Комплектующие']: 'Комплектующие',
+  ['Готовый бизнес для майнинга криптовалют']:
+    'Готовый бизнес для майнинга криптовалют',
 };
 
 export function getCategorySeoName(categoryTitle: string): string {
-    return names[categoryTitle] ?? '';
+  return names[categoryTitle] ?? '';
 }
