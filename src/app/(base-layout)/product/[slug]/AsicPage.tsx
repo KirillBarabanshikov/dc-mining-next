@@ -133,7 +133,7 @@ export const AsicPage = () => {
   const breadcrumbsPaths = [
     ...paths,
     {
-      name: product?.category?.name ?? '',
+      name: product?.category?.title ?? '',
       path: product ? `/catalog/${product?.category?.slug}` : '',
     },
     { name: product?.title ?? '', path: `/product/${product?.slug}` },
