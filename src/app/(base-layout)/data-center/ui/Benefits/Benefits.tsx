@@ -37,7 +37,7 @@ export const Benefits: FC<IBenefitsProps> = ({
     return (
       <section className={clsx(styles.benefits, styles.product, className)}>
         <div className={clsx(styles.container, withContainer && 'container')}>
-          <h2 className={'section-title-primary'}>Приемущества</h2>
+          <h2 className={'section-title-primary'}>Преимущества</h2>
           <div className={styles.benefitsWrap}>
             <div
               style={{
@@ -207,7 +207,7 @@ export const Benefits: FC<IBenefitsProps> = ({
   return (
     <section className={clsx(styles.benefits, className)}>
       <div className={clsx(styles.container, withContainer && 'container')}>
-        <h2 className={'section-title-primary'}>Приемущества</h2>
+        <h2 className={'section-title-primary'}>Преимущества</h2>
         {page === 'product' && (
           <div
             style={{
