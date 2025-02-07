@@ -44,7 +44,7 @@ export const ProductBodySimple: FC<IProductBodySimpleProps> = ({
             )}
           >
             {product.watt && <div>Потребление — {product.watt} ± 10% Вт/ч</div>}
-            {product.hashrate && <div>Хешрейт — {product.hashrate} TH/S</div>}
+            {product.hashrate && <div>Хешрейт — {product.hashrate}</div>}
             {product.algorithm && <div>Алгоритм — {product.algorithm}</div>}
             {product.coins && <div>Монета — {product.coins}</div>}
             {product.value

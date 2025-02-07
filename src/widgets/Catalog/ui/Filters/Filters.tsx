@@ -115,7 +115,7 @@ export const Filters: FC<IFiltersProps> = ({
       </Dropdown>
       {offers &&
         offers
-          .filter((offer) => offer.category === category?.name)
+          .filter((offer) => offer.category === category?.title)
           .map((tag) => {
             return (
               <Dropdown
@@ -138,7 +138,7 @@ export const Filters: FC<IFiltersProps> = ({
           })}
       {filters &&
         filters
-          .filter((item) => item.category.value === category?.title)
+          .filter((item) => item.category.name === category?.title)
           .map((filter) => {
             return (
               <Dropdown
@@ -190,7 +190,7 @@ export const Filters: FC<IFiltersProps> = ({
               </Dropdown>
             );
           })}
-      {category?.title === 'asicMiners' && (
+      {category?.title === 'ASIC майнеры' && (
         <div className={styles.switchWrap}>
           <div className={styles.switch}>
             <span>Самый прибыльный</span>

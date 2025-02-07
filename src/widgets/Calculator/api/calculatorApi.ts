@@ -13,7 +13,7 @@ class CalculatorApi {
         '/product/calculating',
         {
           params: {
-            type: 'asicMiners',
+            type: 'ASIC майнеры',
           },
         },
       );
@@ -43,7 +43,7 @@ class CalculatorApi {
         '/product/calculating',
         {
           params: {
-            type: 'readyBusiness',
+            type: 'Готовый бизнес для майнинга криптовалют',
           },
         },
       );

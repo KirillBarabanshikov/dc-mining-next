@@ -16,7 +16,7 @@ const tabs = ['Характеристики', 'Доставка и Оплата'
 export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
   ({ product, className }, ref) => {
     const [currentTab, setCurrentTab] = useState(0);
-    const isAsic = product.category?.title === 'asicMiners';
+    const isAsic = product.category?.title === 'ASIC майнеры';
     const currentTabs = isAsic ? ['Описание', ...tabs] : tabs;
 
     const renderTabs = () => {
@@ -86,7 +86,7 @@ const ProductSpecifications: FC<{ product: IProduct }> = ({ product }) => {
       {product.hashrate && (
         <div className={styles.specification}>
           <div className={styles.name}>Хешрейт</div>
-          <div className={styles.value}>{product.hashrate} TH/S</div>
+          <div className={styles.value}>{product.hashrate}</div>
         </div>
       )}
       {product.algorithm && (

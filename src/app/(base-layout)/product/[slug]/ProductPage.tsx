@@ -19,45 +19,45 @@ import styles from './ProductPage.module.scss';
 const paths = [{ name: 'Главная', path: '/' }];
 
 const ProductPage = () => {
-    const { slug } = useParams<{ slug: string }>();
-    const matches = useMediaQuery(MAX_WIDTH_MD);
-    const { addToRecent } = useRecentStore();
+  const { slug } = useParams<{ slug: string }>();
+  const matches = useMediaQuery(MAX_WIDTH_MD);
+  const { addToRecent } = useRecentStore();
 
-    const { data: product } = useSuspenseQuery({
-        queryKey: ['product', slug],
-        queryFn: () => getProductBySlug(slug),
-    });
-    const { data: info } = useQuery({
-        queryKey: ['about'],
-        queryFn: getAboutInfo,
-        staleTime: Infinity,
-    });
+  const { data: product } = useSuspenseQuery({
+    queryKey: ['product', slug],
+    queryFn: () => getProductBySlug(slug),
+  });
+  const { data: info } = useQuery({
+    queryKey: ['about'],
+    queryFn: getAboutInfo,
+    staleTime: Infinity,
+  });
 
-    useEffect(() => {
-        if (!product) return;
-        addToRecent(product.id);
-    }, [addToRecent, product]);
+  useEffect(() => {
+    if (!product) return;
+    addToRecent(product.id);
+  }, [addToRecent, product]);
 
-    const breadcrumbsPaths = [
-        ...paths,
-        {
-            name: product?.category?.name ?? '',
-            path: product ? `/catalog/${product?.category?.slug}` : '',
-        },
-        { name: product?.title ?? '', path: `/product/${product?.slug}` },
-    ];
+  const breadcrumbsPaths = [
+    ...paths,
+    {
+      name: product?.category?.title ?? '',
+      path: product ? `/catalog/${product?.category?.slug}` : '',
+    },
+    { name: product?.title ?? '', path: `/product/${product?.slug}` },
+  ];
 
-    return (
-        <div className={'container'}>
-            {<Breadcrumbs paths={breadcrumbsPaths} className={styles.breadcrumbs} />}
-            <div className={'sections'}>
-                <ProductDetails product={product} />
-                {info && <AdvantagesDCMining advantages={info.advantages} />}
-                {!matches && <RecentProductsList />}
-                <CallMeBanner />
-            </div>
-        </div>
-    );
+  return (
+    <div className={'container'}>
+      {<Breadcrumbs paths={breadcrumbsPaths} className={styles.breadcrumbs} />}
+      <div className={'sections'}>
+        <ProductDetails product={product} />
+        {info && <AdvantagesDCMining advantages={info.advantages} />}
+        {!matches && <RecentProductsList />}
+        <CallMeBanner />
+      </div>
+    </div>
+  );
 };
 
 export default ProductPage;

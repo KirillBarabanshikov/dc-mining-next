@@ -95,7 +95,7 @@ export const AsicPage = () => {
         {
           id: product.id,
           title: product.title,
-          hashrate: `${product.hashrate} TH/s`,
+          hashrate: `${product.hashrate}`,
           quantity: '1',
           priceOnePiece: product.price
             ? (product.price / course).toFixed(0)
@@ -133,7 +133,7 @@ export const AsicPage = () => {
   const breadcrumbsPaths = [
     ...paths,
     {
-      name: product?.category?.name ?? '',
+      name: product?.category?.title ?? '',
       path: product ? `/catalog/${product?.category?.slug}` : '',
     },
     { name: product?.title ?? '', path: `/product/${product?.slug}` },
@@ -174,7 +174,7 @@ export const AsicPage = () => {
                 <ZapIcon />
                 <span className={styles.characteristicTitle}>Хешрейт</span>
                 <span className={styles.characteristicValue}>
-                  {product.hashrate} TH/S
+                  {product.hashrate}
                 </span>
               </div>
               <div className={styles.characteristicItem}>
