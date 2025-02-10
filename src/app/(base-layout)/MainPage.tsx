@@ -3,6 +3,7 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { getCategories } from '@/entities/category';
 import { getSlider } from '@/entities/mainSlider';
@@ -14,6 +15,7 @@ import { useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
 import {
   Bestsellers,
+  CalculatorToast,
   MainBanner,
   MainBannersList,
   Managers,
@@ -25,6 +27,7 @@ import { NewsList } from '@/widgets/NewsList';
 import styles from './MainPage.module.scss';
 
 export const MainPage = () => {
+  const [isOpen, setIsOpen] = useState(true);
   const matches = useMediaQuery(MAX_WIDTH_MD);
   const router = useRouter();
 
@@ -114,6 +117,7 @@ export const MainPage = () => {
           )}
         </div>
       </section>
+      <CalculatorToast isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 };

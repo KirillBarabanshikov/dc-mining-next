@@ -1,0 +1,125 @@
+.calculatorToastOverlay {
+  position: fixed;
+  left: 40px;
+  bottom: 40px;
+  z-index: 110;
+
+  @media screen and (max-width: 992px) {
+    left: 32px;
+    bottom: 32px;
+  }
+
+  @media screen and (max-width: 768px) {
+    left: 16px;
+    bottom: 16px;
+  }
+}
+
+.calculatorToast {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+
+  border-radius: 8px;
+  padding: 5px 16px 5px 8px;
+  width: 100%;
+  max-width: 436px;
+  height: 100px;
+
+  box-shadow: 0 20px 20px 0 rgba(22, 32, 53, 0.1);
+  background: var(--background-dark);
+
+  @media screen and (hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 328px;
+  }
+
+  .calculatorToastBody {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    .calculatorToastTitle {
+      font-family: 'Gilroy', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      color: var(--text-contrast);
+
+      span {
+        color: var(--text-accent-blue);
+      }
+
+      @media screen and (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+
+    .calculatorToastSubtitle {
+      display: flex;
+      column-gap: 8px;
+
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      color: var(--text-contrast);
+
+      @media screen and (max-width: 768px) {
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .calculatorToastCloseOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: absolute;
+    top: -13px;
+    right: -13px;
+    width: 36px;
+    height: 36px;
+
+    @media screen and (hover: hover) {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .calculatorToastClose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+    padding: 4px;
+    width: 18px;
+    height: 18px;
+    box-shadow:
+      0 1px 3px 1px rgba(0, 0, 0, 0.15),
+      0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    background: var(--text-contrast);
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    @media screen and (hover: hover) {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

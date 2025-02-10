@@ -1,6 +1,7 @@
 export { AdvantagesDCMining } from './AdvantagesDCMinig';
 export { Bestsellers } from './Bestsellers';
 export { BottomLinks } from './BottomLinks';
+export { CalculatorToast } from './CalculatorToast';
 export { Catalog } from './Catalog';
 export { CompareList } from './CompareList';
 export { Delivery, Payments } from './DeliveryAndPayment';
