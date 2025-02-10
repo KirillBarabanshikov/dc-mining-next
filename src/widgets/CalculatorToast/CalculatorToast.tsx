@@ -32,7 +32,13 @@ export const CalculatorToast: FC<ICalculatorToastProps> = ({
         className={styles.calculatorToast}
       >
         {isSafari ? (
-          <Image src={calculatorMini} alt={''} width={90} height={90} />
+          <Image
+            src={calculatorMini}
+            alt={''}
+            width={90}
+            height={90}
+            quality={100}
+          />
         ) : (
           <video autoPlay loop muted playsInline width={90} height={90}>
             <source src={'/animations/calculator.webm'} />
