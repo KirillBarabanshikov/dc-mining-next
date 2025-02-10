@@ -28,7 +28,9 @@
   height: 100px;
 
   box-shadow: 0 20px 20px 0 rgba(22, 32, 53, 0.1);
-  background: var(--background-dark);
+  background-color: var(--background-dark);
+  background-image: url('/backgrounds/calculator-toast-bg.svg');
+  background-position: center;
 
   @media screen and (hover: hover) {
     &:hover {
