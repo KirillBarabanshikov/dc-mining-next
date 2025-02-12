@@ -364,7 +364,11 @@ export const AsicPage = () => {
             />
           )}
         </div>
-        <Calculator variant={'product'} defaultAsicId={product.id} />
+        <Calculator
+          variant={'product'}
+          defaultAsicId={product.id}
+          title={`Калькулятор доходности ${product.title}`}
+        />
         <ProductsTabs
           product={product}
           ref={targetRef}

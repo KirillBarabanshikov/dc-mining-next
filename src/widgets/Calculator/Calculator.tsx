@@ -32,6 +32,7 @@ interface Props {
   singleType?: number;
   variant?: 'default' | 'product';
   defaultAsicId?: number;
+  title?: string;
 }
 
 export const Calculator: FC<Props> = ({
@@ -41,6 +42,7 @@ export const Calculator: FC<Props> = ({
   singleType,
   variant = 'default',
   defaultAsicId,
+  title,
 }) => {
   const {
     calculatorType,
@@ -675,9 +677,16 @@ export const Calculator: FC<Props> = ({
       )}
     >
       <div className={clsx('calculator-head', className)}>
-        <h2 className={clsx('calculator-title', 'section-title-primary')}>
-          Рассчитайте <span>выгоду</span>
-        </h2>
+        {title ? (
+          <h2 className={clsx('calculator-title', 'section-title-primary')}>
+            {title}
+          </h2>
+        ) : (
+          <h2 className={clsx('calculator-title', 'section-title-primary')}>
+            Рассчитайте <span>выгоду</span>
+          </h2>
+        )}
+
         {matches && (
           <>
             <CalculatorHead

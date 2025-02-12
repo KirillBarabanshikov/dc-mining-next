@@ -867,6 +867,7 @@
     font-weight: 700;
     position: relative;
     z-index: 2;
+    white-space: nowrap;
 
     @media (max-width: 768 + 'px') {
       padding: 16px;
