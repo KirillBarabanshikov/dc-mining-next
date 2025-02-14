@@ -65,6 +65,12 @@ const nextConfig = {
                 statusCode: 301,
             },
             {
+                source: '/product/elphapex-dg1-home',
+                destination: '/product/elphapex-dg-home-1',
+                permanent: true,
+                statusCode: 301,
+            },
+            {
                 source: '/product/:id/:slug',
                 destination: '/product/:slug',
                 permanent: true,
