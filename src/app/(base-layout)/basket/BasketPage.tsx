@@ -8,7 +8,7 @@ import {
   ProductBasketCard,
   useBasketStore,
 } from '@/entities/product';
-import { OrderProductModal } from '@/features/product';
+import { OrderBasketModal } from '@/features/product';
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { formatter, useMediaQuery } from '@/shared/lib';
 import { Button } from '@/shared/ui';
@@ -101,10 +101,10 @@ const BasketPage = () => {
           )}
         </div>
       </section>
-      <OrderProductModal
+      <OrderBasketModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        product={products![0]}
+        products={products || []}
       />
     </div>
   );
