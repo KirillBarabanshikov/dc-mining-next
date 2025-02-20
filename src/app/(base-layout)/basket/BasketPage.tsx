@@ -1,0 +1,113 @@
+'use client';
+
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
+
+import {
+  getProductsByIds,
+  ProductBasketCard,
+  useBasketStore,
+} from '@/entities/product';
+import { OrderProductModal } from '@/features/product';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { formatter, useMediaQuery } from '@/shared/lib';
+import { Button } from '@/shared/ui';
+
+import styles from './BasketPage.module.scss';
+import { Placeholder } from './Placeholder';
+
+const BasketPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { basket, clearBasket } = useBasketStore((state) => state);
+  const matches = useMediaQuery(MAX_WIDTH_MD);
+  const basketIds = basket.map((item) => item.productId);
+
+  const { data: products = [] } = useQuery({
+    queryKey: ['basket', basketIds],
+    queryFn: () => getProductsByIds(basketIds),
+    placeholderData: keepPreviousData,
+    enabled: basketIds.length > 0,
+  });
+
+  const { totalQuantity, totalPrice, productMap } = useMemo(() => {
+    const map = new Map(products?.map((p) => [p.id, p]));
+
+    const total = basket.reduce(
+      (acc, item) => {
+        const product = map.get(item.productId);
+        acc.totalQuantity += item.count;
+        acc.totalPrice += (product?.price || 0) * item.count;
+        return acc;
+      },
+      { totalQuantity: 0, totalPrice: 0 },
+    );
+
+    return { ...total, productMap: map };
+  }, [basket, products]);
+
+  return (
+    <div className='sections'>
+      <section className={styles.basket}>
+        <div className='container'>
+          <div className={styles.head}>
+            <h1 className='section-title-secondary'>Корзина</h1>
+            <Button
+              variant='outline'
+              size={matches ? 'sm' : 'md'}
+              disabled={basket.length === 0}
+              onClick={clearBasket}
+            >
+              Очистить
+            </Button>
+          </div>
+
+          {basket.length > 0 && products ? (
+            <div className={styles.basketInner}>
+              <div className={styles.basketList}>
+                {basket.map((item) => {
+                  const product = productMap.get(item.productId);
+                  return (
+                    product && (
+                      <ProductBasketCard
+                        key={product.id}
+                        product={product}
+                        count={item.count}
+                      />
+                    )
+                  );
+                })}
+              </div>
+
+              <div className={styles.orderWrap}>
+                <div className={styles.orderInfo}>
+                  <div className={styles.orderItem}>
+                    <div className={styles.orderLabel}>Количество:</div>
+                    <div className={styles.orderValue}>{totalQuantity} шт.</div>
+                  </div>
+                  <div className={styles.orderItem}>
+                    <div className={styles.orderLabel}>Сумма:</div>
+                    <div className={styles.orderValue}>
+                      {formatter.format(totalPrice)}
+                    </div>
+                  </div>
+                </div>
+                <Button size='md' isWide onClick={() => setIsOpen(true)}>
+                  Оформить заказ
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Placeholder />
+          )}
+        </div>
+      </section>
+      <OrderProductModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        product={products![0]}
+      />
+    </div>
+  );
+};
+
+export default BasketPage;

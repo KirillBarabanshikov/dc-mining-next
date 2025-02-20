@@ -1,0 +1,129 @@
+.basket {
+  margin-top: 24px;
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: unset;
+    }
+  }
+
+  .basketInner {
+    display: flex;
+    flex-direction: column;
+
+    .basketList {
+      display: flex;
+      flex-direction: column;
+      row-gap: 4px;
+      max-height: 612px;
+      overflow-y: auto;
+      scrollbar-color: var(--stroke-fourthiary) var(--background-tonal);
+      scrollbar-width: thin;
+      margin-bottom: 20px;
+    }
+
+    .orderWrap {
+      border-radius: 16px;
+      padding: 12px;
+      background: var(--background-secondary);
+      align-self: flex-end;
+      min-width: 280px;
+
+      .orderInfo {
+        display: flex;
+        margin-bottom: 24px;
+
+        .orderItem {
+          flex: 1;
+          white-space: nowrap;
+
+          .orderLabel {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+            margin-bottom: 8px;
+          }
+
+          .orderValue {
+            font-family: 'Gilroy', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .head {
+      h1 {
+        font-size: 24px;
+        line-height: 28.8px;
+      }
+    }
+  }
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+
+  .placeholderBody {
+    max-width: 280px;
+
+    h4 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.3;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+  }
+
+  .button {
+    width: 280px;
+  }
+
+  @media screen and (max-width: 768px) {
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .placeholderBody {
+      max-width: unset;
+
+      h4 {
+        font-size: 20px;
+      }
+
+      p {
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+      }
+    }
+
+    .button {
+      width: unset;
+    }
+  }
+}
