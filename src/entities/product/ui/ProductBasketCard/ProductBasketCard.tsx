@@ -61,7 +61,7 @@ export const ProductBasketCard: FC<IProductBasketCardProps> = ({
           <div>
             <div className={styles.countLabel}>Количество</div>
             <NumberInput
-              variant={'small'}
+              variant={'sm-full-width'}
               min={1}
               defaultValue={count}
               onChange={(count) =>

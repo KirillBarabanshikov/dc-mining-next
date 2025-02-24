@@ -11,7 +11,7 @@
     padding: unset;
   }
 
-  &.small {
+  &.small, &.sm-full-width {
     border-radius: 8px;
     padding: 4px;
     height: 40px;
@@ -63,6 +63,15 @@
           padding: unset;
         }
       }
+    }
+  }
+
+  &.sm-full-width {
+    width: fit-content;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: space-between;
     }
   }
 }

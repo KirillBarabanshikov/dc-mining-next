@@ -25,6 +25,12 @@
       scrollbar-color: var(--stroke-fourthiary) var(--background-tonal);
       scrollbar-width: thin;
       margin-bottom: 20px;
+
+      @media (max-width: 768px) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
     }
 
     .orderWrap {
@@ -58,6 +64,11 @@
             letter-spacing: 0.01em;
           }
         }
+      }
+
+      @media (max-width: 768px) {
+        width: 100%;
+        min-width: auto;
       }
     }
   }

@@ -14,7 +14,7 @@ interface INumberInputProps {
   max?: number;
   defaultValue?: number;
   onChange?: (count: number) => void;
-  variant?: 'default' | 'small';
+  variant?: 'default' | 'small' | 'sm-full-width';
 }
 
 export const NumberInput: FC<INumberInputProps> = ({
