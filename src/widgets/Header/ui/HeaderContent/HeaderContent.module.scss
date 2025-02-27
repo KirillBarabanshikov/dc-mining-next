@@ -280,3 +280,24 @@
     }
   }
 }
+
+.cart {
+  position: relative;
+}
+
+.basketHeader {
+  position: absolute;
+  width: 320px;
+  height: 456px;
+  background-color: #fff;
+  top: 95px;
+  right: 315px;
+  z-index: 10;
+  border-radius: 16px;
+  padding: 8px;
+
+  @media (max-width: 900px) {
+    right: 0;
+    top: 75px;
+  }
+}

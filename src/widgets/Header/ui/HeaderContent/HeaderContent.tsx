@@ -2,10 +2,12 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Fragment, useEffect, useState } from 'react';
 
+import BasketPage from '@/app/(base-layout)/basket/BasketPage';
 import { getCategories } from '@/entities/category';
 import { getContacts } from '@/entities/contacts';
 import {
@@ -29,6 +31,7 @@ import {
   useBodyScrollLock,
   useMangoStore,
   useMediaQuery,
+  useOutsideClick,
   useStore,
 } from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
@@ -205,20 +208,57 @@ const CompareOption = () => {
 const BasketOption = () => {
   const store = useStore(useBasketStore, (state) => state);
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
+  const router = useRouter();
+  const matches = useMediaQuery(MAX_WIDTH_MD);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
   return (
-    <Link
-      href={'/basket'}
-      className={clsx(styles.option, pathname === '/basket' && styles.active)}
-    >
-      <div className={styles.icon}>
-        <BasketIcon />
-        {!!store?.basket.length && (
-          <div className={styles.count}>{store?.basket.length}</div>
+    <Fragment>
+      <div
+        className={clsx(
+          styles.option,
+          pathname === '/basket' && styles.active,
+          styles.cart,
         )}
+        onClick={() => {
+          if (matches) {
+            router.push('/basket');
+          } else {
+            setIsOpen((prev) => !prev);
+          }
+        }}
+      >
+        <div className={styles.icon}>
+          <BasketIcon />
+          {!!store?.basket.length && (
+            <div className={styles.count}>{store?.basket.length}</div>
+          )}
+        </div>
+        <span>Корзина</span>
       </div>
-      <span>Корзина</span>
-    </Link>
+      {isOpen && pathname !== '/basket' && !matches && (
+        <AnimatePresence>
+          {isOpen && pathname !== '/basket' && !matches && (
+            <motion.div
+              ref={ref}
+              className={styles.basketHeader}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+            >
+              <div className={styles.basketHeaderContent}>
+                <BasketPage isHeader />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </Fragment>
   );
 };
 

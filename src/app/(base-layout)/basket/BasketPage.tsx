@@ -1,6 +1,7 @@
 'use client';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import {
@@ -16,11 +17,16 @@ import { Button } from '@/shared/ui';
 import styles from './BasketPage.module.scss';
 import { Placeholder } from './Placeholder';
 
-const BasketPage = () => {
+interface BasketPageProps {
+  isHeader?: boolean;
+}
+
+const BasketPage: React.FC<BasketPageProps> = ({ isHeader }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { basket, clearBasket } = useBasketStore((state) => state);
   const matches = useMediaQuery(MAX_WIDTH_MD);
   const basketIds = basket.map((item) => item.productId);
+  const router = useRouter();
 
   const { data: products = [] } = useQuery({
     queryKey: ['basket', basketIds],
@@ -47,19 +53,21 @@ const BasketPage = () => {
 
   return (
     <div className='sections'>
-      <section className={styles.basket}>
+      <section className={isHeader ? styles.basketHeader : styles.basket}>
         <div className='container'>
-          <div className={styles.head}>
-            <h1 className='section-title-secondary'>Корзина</h1>
-            <Button
-              variant='outline'
-              size={matches ? 'sm' : 'md'}
-              disabled={basket.length === 0}
-              onClick={clearBasket}
-            >
-              Очистить
-            </Button>
-          </div>
+          {!isHeader && (
+            <div className={styles.head}>
+              <h1 className='section-title-secondary'>Корзина</h1>
+              <Button
+                variant='outline'
+                size={matches ? 'sm' : 'md'}
+                disabled={basket.length === 0}
+                onClick={clearBasket}
+              >
+                Очистить
+              </Button>
+            </div>
+          )}
 
           {basket.length > 0 && products ? (
             <div className={styles.basketInner}>
@@ -72,13 +80,16 @@ const BasketPage = () => {
                         key={product.id}
                         product={product}
                         count={item.count}
+                        isHeader={isHeader}
                       />
                     )
                   );
                 })}
               </div>
 
-              <div className={styles.orderWrap}>
+              <div
+                className={isHeader ? styles.orderWrapHeader : styles.orderWrap}
+              >
                 <div className={styles.orderInfo}>
                   <div className={styles.orderItem}>
                     <div className={styles.orderLabel}>Количество:</div>
@@ -91,6 +102,17 @@ const BasketPage = () => {
                     </div>
                   </div>
                 </div>
+                {isHeader && (
+                  <Button
+                    variant='outline'
+                    size='md'
+                    isWide
+                    onClick={() => router.push('/basket')}
+                    style={{ marginBottom: '8px' }}
+                  >
+                    В корзину
+                  </Button>
+                )}
                 <Button size='md' isWide onClick={() => setIsOpen(true)}>
                   Оформить заказ
                 </Button>
