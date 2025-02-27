@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 
 import { useBasketStore } from '@/entities/product';
 import BasketIcon from '@/shared/assets/icons/basket.svg';
+import PlusIcon from '@/shared/assets/icons/plus.svg';
 import { useStore } from '@/shared/lib';
 import { IconButton } from '@/shared/ui';
 
@@ -32,9 +33,11 @@ export const AddToBasketButton: FC<IAddToBasketButton> = ({
   return (
     <IconButton
       icon={<BasketIcon />}
+      additionalIcon={<PlusIcon style={{width: '10px', height: '10px'}} />}
       onClick={onClick}
       aria-label={'Add To Compare'}
       className={clsx(isBasket && styles.isBasket, className)}
+      isBasket={isBasket}
     />
   );
 };
