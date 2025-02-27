@@ -2,6 +2,7 @@ import { FC, Fragment, useState } from 'react';
 
 import { IProduct } from '@/entities/product';
 import {
+  AddToBasketButton,
   AddToCompareButton,
   AddToFavoritesButton,
   OrderProductModal,
@@ -126,6 +127,10 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
           >
             Заказать
           </Button>
+          <AddToBasketButton
+            productId={product.id}
+            className={styles.iconButton}
+          />
           <AddToFavoritesButton
             product={product}
             className={styles.iconButton}

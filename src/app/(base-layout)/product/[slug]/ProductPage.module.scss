@@ -222,7 +222,10 @@
     color: var(--text-tertiary);
   }
 
-  .priceButton {
+  .buyButtonWrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
     margin-top: 27px;
 
     @media screen and (max-width: 1170px) {

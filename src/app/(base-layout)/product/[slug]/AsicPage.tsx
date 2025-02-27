@@ -10,7 +10,7 @@ import { Benefits } from '@/app/(base-layout)/data-center/ui';
 import { getProductBySlug } from '@/entities/product';
 import { useRecentStore } from '@/entities/product/model';
 import { OrderCallModal } from '@/features/call';
-import { OrderProductModal } from '@/features/product';
+import { AddToBasketButton, OrderProductModal } from '@/features/product';
 import CodeIcon from '@/shared/assets/icons/code.svg';
 import CoinsIcon from '@/shared/assets/icons/coins.svg';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
@@ -333,14 +333,20 @@ export const AsicPage = () => {
             <p className={styles.priceHint}>
               Возможна оплата от юридического лица с НДС
             </p>
-            <Button
-              size={'md'}
-              isWide
-              onClick={() => setIsOpen(true)}
-              className={styles.priceButton}
-            >
-              Оставить запрос
-            </Button>
+            <div className={styles.buyButtonWrapper}>
+              <Button
+                size={'md'}
+                isWide
+                onClick={() => setIsOpen(true)}
+                className={styles.priceButton}
+              >
+                Оставить запрос
+              </Button>
+              <AddToBasketButton
+                productId={product.id}
+                className={clsx(styles.iconButton)}
+              />
+            </div>
           </div>
           <div className={styles.leasingWrap}>
             <h2>Лизинг</h2>
