@@ -5,8 +5,6 @@ import React, { FC } from 'react';
 import { IProduct } from '@/entities/product';
 import {
   AddToBasketButton,
-  AddToCompareButton,
-  AddToFavoritesButton,
 } from '@/features/product';
 import { formatter } from '@/shared/lib';
 import { Badge, Button } from '@/shared/ui';
