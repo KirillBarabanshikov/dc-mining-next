@@ -83,14 +83,14 @@ export const ProductBodyTile: FC<IProductBodyTileProps> = ({
         >
           Заказать
         </Button>
-        <AddToFavoritesButton
-          product={product}
-          className={clsx(cardStyles.iconButton, styles.iconButton)}
-        />
-        <AddToCompareButton
-          productId={product.id}
-          className={clsx(cardStyles.iconButton, styles.iconButton)}
-        />
+        {/*<AddToFavoritesButton*/}
+        {/*  product={product}*/}
+        {/*  className={clsx(cardStyles.iconButton, styles.iconButton)}*/}
+        {/*/>*/}
+        {/*<AddToCompareButton*/}
+        {/*  productId={product.id}*/}
+        {/*  className={clsx(cardStyles.iconButton, styles.iconButton)}*/}
+        {/*/>*/}
         <AddToBasketButton
           productId={product.id}
           className={clsx(cardStyles.iconButton, styles.iconButton)}
