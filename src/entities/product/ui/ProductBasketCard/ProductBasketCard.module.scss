@@ -47,12 +47,13 @@
         font-weight: 500;
         font-size: 20px;
         line-height: 1.2;
-        margin-top: 8px;
+        //margin-top: 8px;
         margin-bottom: 16px;
         display: inline-flex;
 
         @media (max-width: 768px) {
           font-size: 16px;
+          margin-top: 8px;
         }
       }
 

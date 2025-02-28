@@ -68,7 +68,7 @@ export const ProductBasketCard: FC<IProductBasketCardProps> = ({
           <div>
             {!isHeader && <div className={styles.countLabel}>Количество</div>}
             <NumberInput
-              variant={'header'}
+              variant={isHeader ? 'header' : 'sm-full-width'}
               min={1}
               defaultValue={count}
               onChange={(count) =>
