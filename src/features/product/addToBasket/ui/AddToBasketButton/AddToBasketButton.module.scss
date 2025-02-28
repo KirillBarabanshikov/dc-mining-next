@@ -1,0 +1,13 @@
+.isBasket {
+  background-color: var(--background-secondary) !important;
+
+  svg {
+    color: var(--text-accent-blue);
+    fill: var(--text-accent-blue);
+    stroke: var(--text-accent-blue);
+  }
+
+  .iconButton {
+    color: #fff;
+  }
+}

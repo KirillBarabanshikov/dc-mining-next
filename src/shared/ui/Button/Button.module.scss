@@ -128,5 +128,11 @@
     pointer-events: none;
     cursor: unset;
     background-color: rgba(190, 200, 245, 1) !important;
+
+    &.outline {
+      background-color: unset !important;
+      color: var(--text-fourthiary);
+      border-color: var(--text-fourthiary);
+    }
   }
 }

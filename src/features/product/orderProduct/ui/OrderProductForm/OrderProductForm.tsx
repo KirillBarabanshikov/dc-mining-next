@@ -31,7 +31,7 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
   onClose,
   product,
   isMultiple,
-  additionalProducts = [],
+  additionalProducts,
   setIsFinally,
   setIsError,
   variant = 'product',
@@ -47,7 +47,7 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
   const { calculatorType, calculatorTypes } = useCalculatorStore();
 
   useEffect(() => {
-    console.log(additionalProducts);
+    if (!additionalProducts) return;
 
     setAdditionalCounts(additionalProducts.map((asic) => asic.count));
   }, [additionalProducts]);
@@ -108,7 +108,7 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
 
           let requestData = `Продукт: ${product.title}<br/>Цена: ${price ? formatter.format(price) : 'Цена по запросу'}<br/>Кол-во: ${count}`;
 
-          if (additionalProducts.length) {
+          if (additionalProducts?.length) {
             requestData += '<br/>';
             additionalProducts.forEach((asic, index) => {
               requestData += `Продукт: ${asic.title}<br/>Цена: ${asic.price ? formatter.format(asic.price) : 'Цена по запросу'}<br/>Кол-во: ${additionalCounts[index]}${additionalProducts.length - 1 !== index ? '<br />' : ''}`;
@@ -179,7 +179,7 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
           />
         </div>
       </div>
-      {isMultiple && additionalProducts.length > 0 && (
+      {isMultiple && !!additionalProducts?.length && (
         <div className={styles.additionalProducts}>
           {additionalProducts.map((additionalProduct, index) => (
             <div key={index} className={styles.additionalProductItem}>

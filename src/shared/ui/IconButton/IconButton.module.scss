@@ -1,4 +1,4 @@
-.iconButton {
+.iconButton, .iconButtonBasket {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -10,6 +10,7 @@
     background-color 300ms ease-out,
     color 300ms ease-out;
   flex-shrink: 0;
+  position: relative;
 
   &.outline {
     background: var(--background-white);
@@ -17,6 +18,17 @@
   }
   &:disabled {
     border: none;
+  }
+
+  .additionalIcon {
+    position: absolute;
+    background-color: var(--text-accent-blue);
+    color: #fff !important;
+    border-radius: 4px;
+    top: 6px;
+    right: 8px;
+    width: 14px;
+    height: 15px;
   }
 
   @media (min-width: (992 + px)) {
@@ -29,4 +41,30 @@
 
 .rounded {
   border-radius: 16px;
+}
+
+.isBasket {
+  .additionalIcon {
+    svg {
+      color: #fff;
+      fill: #fff;
+      stroke: var(--text-accent-blue);
+    }
+  }
+}
+
+.iconButtonBasket {
+  border: 1px solid var(--text-accent-blue);
+  svg {
+    color: var(--text-accent-blue);
+    margin-right: 2px;
+  }
+  .additionalIcon {
+    svg {
+      color: #fff;
+      fill: #fff;
+      stroke: var(--text-accent-blue);
+      margin-right: 0;
+    }
+  }
 }

@@ -1,0 +1,76 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .inputs {
+    display: flex;
+    column-gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .checkbox {
+    margin: 0 auto;
+  }
+
+  .wrap {
+    display: flex;
+    justify-content: center;
+    column-gap: 20px;
+    margin-top: 40px;
+  }
+
+  .productsList {
+    display: flex;
+    flex-direction: column;
+    max-height: 197px;
+    overflow-y: auto;
+    margin-bottom: 40px;
+    gap: 4px;
+    scrollbar-color: var(--stroke-fourthiary) var(--background-tonal);
+    scrollbar-width: thin;
+
+    .productCard {
+      display: flex;
+      background-color: var(--background-tonal);
+      border-radius: 8px;
+      min-height: 63px;
+      align-items: center;
+      gap: 4px;
+
+      .productCardDescription {
+        flex-wrap: wrap;
+        font-family: "MADE Evolve Sans", serif;
+        font-size: 12px;
+        line-height: 120%;
+        color: var(--text-primary);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .productCardDescriptionTitle {
+          font-weight: 500;
+
+          @media (max-width: 768px) {
+            font-weight: 700;
+          }
+        }
+
+        .productCardDescriptionPrice {
+          font-weight: 700;
+          font-size: 14px;
+          letter-spacing: 0.02em;
+
+          @media (max-width: 768px) {
+            font-size: 12px;
+          }
+        }
+      }
+
+      img {
+        border-radius: 4px;
+      }
+    }
+  }
+}
+

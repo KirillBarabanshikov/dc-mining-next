@@ -26,6 +26,13 @@ export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   // useEffect(() => {
+  //   const currentUrl = `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
+  //   if (!sessionStorage.getItem('entryPoint')) {
+  //   sessionStorage.setItem('entryPoint', currentUrl);
+  //   }
+  // }, [pathname]);
+
+  // useEffect(() => {
   //     const turnstileContainers = document.querySelectorAll('.cf-turnstile');
   //
   //     turnstileContainers.forEach((turnstileContainer) => {
