@@ -17,7 +17,7 @@ import {
 } from '@/features/product/orderBasket/ui/OrderBasketForm/api/basketFormApi';
 import { generatePDF } from '@/features/product/orderBasket/ui/OrderBasketForm/lib/generatePDF';
 import { MAX_WIDTH_MD } from '@/shared/consts';
-import { formatter, useMediaQuery, useMetrikaGoal } from '@/shared/lib';
+import { formatter, useMediaQuery } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input } from '@/shared/ui';
 import { IPostPDFRequest } from '@/widgets/Calculator/types';
@@ -46,7 +46,6 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
     resolver: yupResolver(orderBasketFormScheme),
   });
 
-  const { sendMetrikaGoal } = useMetrikaGoal();
 
   const { data: personalData } = useQuery({
     queryKey: ['personal-data'],
@@ -94,8 +93,6 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
           .join('<br/><br/>');
 
         const title = 'basket';
-
-        sendMetrikaGoal()
 
         await sendRequest({
           ...data,
