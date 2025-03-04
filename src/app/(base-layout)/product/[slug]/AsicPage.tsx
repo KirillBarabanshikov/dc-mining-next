@@ -340,7 +340,7 @@ export const AsicPage = () => {
                 onClick={() => setIsOpen(true)}
                 className={styles.priceButton}
               >
-                Оставить запрос
+                Заказать
               </Button>
               <AddToBasketButton
                 productId={product.id}
