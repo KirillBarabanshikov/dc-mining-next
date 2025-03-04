@@ -104,6 +104,19 @@ export default async function RootLayout({
           strategy={'beforeInteractive'}
         />
 
+        <Script
+          id="metrika-id"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.METRIKA_ID = 98130237;`,
+          }}
+        />
+
+        <Script
+          src="https://pub.make.st/digital/antifraud.js"
+          strategy="lazyOnload"
+        />
+
         {/*<Script src={'https://challenges.cloudflare.com/turnstile/v0/api.js'} async defer />*/}
 
         {/*  <Script*/}
