@@ -15,7 +15,6 @@ import { IAsic, IPackage } from '@/widgets/Calculator/types';
 
 import { orderProductFormScheme, TOrderProductFormScheme } from '../../model';
 import styles from './OrderProductForm.module.scss';
-import { usePathname } from 'next/navigation';
 
 interface IOrderProductFormProps {
   onClose: () => void;
@@ -44,7 +43,6 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { sendMetrikaGoal } = useMetrikaGoal();
   const matches = useMediaQuery(MAX_WIDTH_MD);
-  const pathname = usePathname();
 
   const { calculatorType, calculatorTypes } = useCalculatorStore();
 
