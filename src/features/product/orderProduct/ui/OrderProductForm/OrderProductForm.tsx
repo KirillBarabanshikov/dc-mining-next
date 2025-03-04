@@ -15,6 +15,7 @@ import { IAsic, IPackage } from '@/widgets/Calculator/types';
 
 import { orderProductFormScheme, TOrderProductFormScheme } from '../../model';
 import styles from './OrderProductForm.module.scss';
+import { usePathname } from 'next/navigation';
 
 interface IOrderProductFormProps {
   onClose: () => void;
@@ -43,6 +44,7 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const { sendMetrikaGoal } = useMetrikaGoal();
   const matches = useMediaQuery(MAX_WIDTH_MD);
+  const pathname = usePathname();
 
   const { calculatorType, calculatorTypes } = useCalculatorStore();
 
@@ -159,27 +161,31 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
           })}
         />
       </div>
-      <Input disabled value={product.title} className={styles.inputProduct} />
-      <div className={styles.wrap}>
-        <div className={styles.item}>
-          <span className={styles.label}>Цена</span>
-          <Input
-            disabled
-            value={price ? formatter.format(price) : 'Цена по запросу'}
-          />
-        </div>
-        <div className={styles.item}>
-          <span className={styles.label}>Количество</span>
-          <NumberInput
-            min={1}
-            defaultValue={
-              variant === 'product' ? 1 : product.count ? product.count : 1
-            }
-            onChange={onChangeProductCount}
-          />
-        </div>
-      </div>
-      {isMultiple && !!additionalProducts?.length && (
+      {!matches && (
+        <>
+          <Input disabled value={product.title} className={styles.inputProduct} />
+          <div className={styles.wrap}>
+            <div className={styles.item}>
+              <span className={styles.label}>Цена</span>
+              <Input
+                disabled
+                value={price ? formatter.format(price) : 'Цена по запросу'}
+              />
+            </div>
+            <div className={styles.item}>
+              <span className={styles.label}>Количество</span>
+              <NumberInput
+                min={1}
+                defaultValue={
+                  variant === 'product' ? 1 : product.count ? product.count : 1
+                }
+                onChange={onChangeProductCount}
+              />
+            </div>
+          </div>
+        </>
+      )}
+      {isMultiple && !!additionalProducts?.length && !matches && (
         <div className={styles.additionalProducts}>
           {additionalProducts.map((additionalProduct, index) => (
             <div key={index} className={styles.additionalProductItem}>
