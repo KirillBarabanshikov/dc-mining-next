@@ -1,9 +1,15 @@
-.pagination {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+.paginationWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
+  @media screen and (max-width: 768px) {
+    padding: 0 16px;
+  }
+
+  .pagination {
     @media screen and (max-width: 768px) {
-        padding: 0 16px;
+      display: none;
     }
+  }
 }

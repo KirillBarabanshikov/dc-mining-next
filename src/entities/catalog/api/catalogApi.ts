@@ -81,3 +81,28 @@ export const getCatalogData = async (
     return null;
   }
 };
+
+export const getCatalog = async (params: ICatalogParams) => {
+  try {
+    const response = await instance.get<{
+      total_items: number;
+      items: IProductDto[];
+      min_price?: number;
+      max_price?: number;
+    }>('/filters_items', {
+      params: {
+        ...params,
+        page: params.page || 1,
+        limit: params.limit || 12,
+      },
+    });
+    return {
+      count: response.data.total_items,
+      products: response.data.items.map(mapProduct),
+      minPrice: response.data.min_price ?? 0,
+      maxPrice: response.data.max_price ?? 0,
+    };
+  } catch (error) {
+    throw error;
+  }
+};

@@ -1,97 +1,97 @@
 'use client';
 
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useQueries, useSuspenseQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useParams } from 'next/navigation';
+import React, { useMemo } from 'react';
 
-import {
-  getCatalogData,
-  getCustomFilterBySlug,
-  useCatalogFilters,
-} from '@/entities/catalog';
+import { getCustomFilterBySlug } from '@/entities/catalog';
+import { getCatalog } from '@/entities/catalog/api';
 import { getCategoryBySlug, getSubCategoryBySlug } from '@/entities/category';
 import { getSeos } from '@/entities/seo';
 import { OrderCallHelpBanner } from '@/features/call';
-import { useMediaQuery } from '@/shared/lib';
 import { Breadcrumbs } from '@/shared/ui';
 import { Catalog, LivePhotos, Managers } from '@/widgets';
 
 import styles from './CatalogPage.module.scss';
 
-const paths = [{ name: 'Главная', path: '/' }];
-
 const CatalogPage = () => {
   const { slug } = useParams<{ slug: string[] }>();
-  const matches = useMediaQuery('(max-width: 855px)');
-  const { getFilterBody } = useCatalogFilters();
 
-  const { data: category } = useQuery({
-    queryKey: ['category', slug[0]],
-    queryFn: () => getCategoryBySlug(slug[0]),
+  const [categoryQuery, subCategoryQuery, customFilterQuery, seosQuery] =
+    useQueries({
+      queries: [
+        {
+          queryKey: ['category', slug[0]],
+          queryFn: () => getCategoryBySlug(slug[0]),
+        },
+        {
+          queryKey: ['subCategory', slug[1]],
+          queryFn: () => getSubCategoryBySlug(slug[1]),
+          enabled: !!slug[1],
+        },
+        {
+          queryKey: ['customFilter', slug[1]],
+          queryFn: () => getCustomFilterBySlug(slug[1]),
+          enabled: !!slug[1],
+        },
+        {
+          queryKey: ['seos'],
+          queryFn: getSeos,
+          staleTime: Infinity,
+        },
+      ],
+    });
+
+  const category = categoryQuery.data;
+  const subCategory = subCategoryQuery.data;
+  const customFilter = customFilterQuery.data;
+  const seos = seosQuery.data;
+
+  const { data: catalog } = useSuspenseQuery({
+    queryKey: ['catalog', category?.title],
+    queryFn: () => getCatalog({ type: category?.title || '' }),
   });
 
-  const { data: subCategory } = useQuery({
-    queryKey: ['subCategory', slug[1]],
-    queryFn: () => getSubCategoryBySlug(slug[1]),
-    enabled: !!slug[1],
-  });
+  const currentSeo = useMemo(() => {
+    return seos?.find(
+      (seo) => seo.choose === (slug.length === 1 ? category?.seoName : slug[1]),
+    );
+  }, [seos, slug, category]);
 
-  const { data: customFilter } = useQuery({
-    queryKey: ['customFilter', slug[1]],
-    queryFn: () => getCustomFilterBySlug(slug[1]),
-    enabled: !!slug[1],
-  });
+  const title = currentSeo?.hOne || customFilter?.hOne || category?.title;
 
-  const { data: seos } = useQuery({
-    queryKey: ['seos'],
-    queryFn: getSeos,
-    staleTime: Infinity,
-  });
-
-  const { data: catalogData } = useSuspenseQuery({
-    queryKey: ['catalog', category?.title, subCategory, slug[1], customFilter],
-    queryFn: () =>
-      getCatalogData({
-        ...getFilterBody({
-          type: category?.title ?? '',
-          subCategory: subCategory ? slug[1] : undefined,
-          customFilter: customFilter ? slug[1] : undefined,
-        }),
-      }),
-    staleTime: 0,
-  });
-
-  const choose = slug.length === 1 ? category?.seoName : slug[1];
-  const currentSeo = seos?.find((seo) => seo.choose === choose);
-  const title = currentSeo?.hOne || customFilter?.hOne;
+  const breadcrumbs = useMemo(() => {
+    const basePaths = [{ name: 'Главная', path: '/' }];
+    if (category) {
+      basePaths.push({
+        name: category.title,
+        path: `/catalog/${category.slug}`,
+      });
+      if (subCategory || customFilter) {
+        basePaths.push({
+          name: subCategory?.title || customFilter?.title || '',
+          path: '',
+        });
+      }
+    }
+    return basePaths;
+  }, [category, subCategory, customFilter]);
 
   return (
     <div className={styles.catalog}>
       <div className={'container'}>
-        <Breadcrumbs
-          paths={[
-            ...paths,
-            ...(category
-              ? [{ name: category.title, path: `/catalog/${category.slug}` }]
-              : []),
-            ...(category && (subCategory || customFilter)
-              ? [
-                  {
-                    name: subCategory?.title || customFilter?.title || '',
-                    path: '',
-                  },
-                ]
-              : []),
-          ]}
-        />
-        <div className={styles.catalogTitle}>
-          <h1>{title || category?.title}</h1>
-          <span>{`${catalogData?.count} товаров`}</span>
+        <Breadcrumbs paths={breadcrumbs} />
+        <div className={styles.titleWrap}>
+          {title && <h1 className={styles.title}>{title}</h1>}
+          {catalog && (
+            <span className={styles.count}>{catalog.count} товаров</span>
+          )}
         </div>
       </div>
-      {category && catalogData && (
+      {category && (
         <>
-          <Catalog catalogData={catalogData} category={category} />
+          <Catalog category={category} catalogData={catalog} />
           <LivePhotos
             images={category.images.map(({ image }) => image ?? '')}
             className={styles.livePhotos}
@@ -99,7 +99,7 @@ const CatalogPage = () => {
         </>
       )}
       <div className={clsx(styles.banners, 'container')}>
-        {matches && <OrderCallHelpBanner />}
+        <OrderCallHelpBanner className={styles.banner} />
         <Managers />
       </div>
     </div>

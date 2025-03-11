@@ -4,34 +4,21 @@ import { FC } from 'react';
 
 import { ICatalogData, useCatalogStore } from '@/entities/catalog';
 import { ICategory } from '@/entities/category';
+import { ProductsList } from '@/widgets';
 
-import { ProductsList } from '../ProductsList';
 import styles from './Catalog.module.scss';
-import { CatalogPagination, CustomFilters, Filters, Sorting } from './ui';
+import { CatalogPagination } from './ui';
 
 interface ICatalogProps {
   category: ICategory;
   catalogData: ICatalogData;
 }
 
-export const Catalog: FC<ICatalogProps> = ({ category, catalogData }) => {
-  const { viewMode, setViewMode } = useCatalogStore();
+export const Catalog: FC<ICatalogProps> = ({ catalogData }) => {
+  const { viewMode } = useCatalogStore();
 
   return (
     <div className={styles.catalog}>
-      <CustomFilters category={category} className={styles.customFilter} />
-      <Filters
-        category={category}
-        catalogData={catalogData}
-        className={styles.filters}
-      />
-      <Sorting
-        category={category}
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        catalogData={catalogData}
-        className={styles.sorting}
-      />
       <ProductsList
         products={catalogData.products}
         viewMode={viewMode}
@@ -39,7 +26,6 @@ export const Catalog: FC<ICatalogProps> = ({ category, catalogData }) => {
       />
       <CatalogPagination
         countProducts={catalogData.count}
-        category={category}
         className={styles.pagination}
       />
     </div>

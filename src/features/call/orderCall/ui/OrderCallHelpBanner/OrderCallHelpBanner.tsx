@@ -2,6 +2,8 @@
 // import ReCAPTCHA from 'react-google-recaptcha';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { orderCall } from '@/entities/call';
@@ -23,7 +25,13 @@ import {
 
 import styles from './OrderCallHelpBanner.module.scss';
 
-export const OrderCallHelpBanner = () => {
+interface IOrderCallHelpBannerProps {
+  className?: string;
+}
+
+export const OrderCallHelpBanner: FC<IOrderCallHelpBannerProps> = ({
+  className,
+}) => {
   // const [captchaVerified, setCaptchaVerified] = useState(false);
   // const recaptchaRef = useRef<ReCAPTCHA | null>(null);
   const { sendMetrikaGoal } = useMetrikaGoal();
@@ -68,7 +76,7 @@ export const OrderCallHelpBanner = () => {
   };
 
   return (
-    <div className={styles.banner}>
+    <div className={clsx(styles.banner, className)}>
       <h3>Помочь с выбором?</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
