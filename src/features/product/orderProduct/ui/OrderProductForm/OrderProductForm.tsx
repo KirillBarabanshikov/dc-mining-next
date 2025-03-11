@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { getPersonalData } from '@/entities/personalData';
 import { IProduct, orderProduct } from '@/entities/product';
-import { MAX_WIDTH_MD } from '@/shared/consts';
+import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
 import { formatter, useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input, NumberInput } from '@/shared/ui';
@@ -115,6 +116,21 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
             });
           }
 
+          await axios.post(
+            `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+            {
+              subject: 'Заказать продукт',
+              fio: data.name,
+              phoneNumber: data.phone,
+              requestUrl: window.location.href,
+            },
+            {
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            },
+          );
+
           await sendRequest({
             ...data,
             data: requestData,
@@ -161,7 +177,11 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
       </div>
       {!matches && (
         <>
-          <Input disabled value={product.title} className={styles.inputProduct} />
+          <Input
+            disabled
+            value={product.title}
+            className={styles.inputProduct}
+          />
           <div className={styles.wrap}>
             <div className={styles.item}>
               <span className={styles.label}>Цена</span>

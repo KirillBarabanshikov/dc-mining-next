@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import Image from 'next/image';
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -16,7 +17,7 @@ import {
   sendBasketPDF,
 } from '@/features/product/orderBasket/ui/OrderBasketForm/api/basketFormApi';
 import { generatePDF } from '@/features/product/orderBasket/ui/OrderBasketForm/lib/generatePDF';
-import { MAX_WIDTH_MD } from '@/shared/consts';
+import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
 import { formatter, useMediaQuery } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input } from '@/shared/ui';
@@ -31,9 +32,14 @@ interface IOrderBasketFormProps {
   setIsError: (value: boolean) => void;
 }
 
-export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, setIsError, setIsFinally }) => {
+export const OrderBasketForm: FC<IOrderBasketFormProps> = ({
+  onClose,
+  products,
+  setIsError,
+  setIsFinally,
+}) => {
   const matches = useMediaQuery(MAX_WIDTH_MD);
-  const { basket } = useBasketStore((state) => state)
+  const { basket } = useBasketStore((state) => state);
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -45,7 +51,6 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
   } = useForm<TOrderBasketFormScheme>({
     resolver: yupResolver(orderBasketFormScheme),
   });
-
 
   const { data: personalData } = useQuery({
     queryKey: ['personal-data'],
@@ -69,27 +74,27 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
     const entryPoint = sessionStorage.getItem('entryPoint') || '/';
 
     try {
-      setIsLoading(true)
+      setIsLoading(true);
 
-      const dollarCourse = await getCourse()
+      const dollarCourse = await getCourse();
 
-      const course = dollarCourse.dollar
+      const course = dollarCourse.dollar;
 
-      const pdfData = generatePDF(basket, products, 5.5, course)
+      const pdfData = generatePDF(basket, products, 5.5, course);
 
-      const result = await basketPDF(pdfData as IPostPDFRequest)
+      const result = await basketPDF(pdfData as IPostPDFRequest);
 
       if (result) {
         const requestData = products
           .map((item) => {
-              const productCount = basket.find((b) => b.productId === item.id)?.count || item.count;
-              return (
-                `Продукт: ${item.title}<br/>` +
-                `Цена: ${item.price ? formatter.format(item.price) : 'Цена по запросу'}<br/>` +
-                `Кол-во: ${productCount}`
-              )
-            }
-          )
+            const productCount =
+              basket.find((b) => b.productId === item.id)?.count || item.count;
+            return (
+              `Продукт: ${item.title}<br/>` +
+              `Цена: ${item.price ? formatter.format(item.price) : 'Цена по запросу'}<br/>` +
+              `Кол-во: ${productCount}`
+            );
+          })
           .join('<br/><br/>');
 
         const title = 'basket';
@@ -101,10 +106,24 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
           entryPoint,
           pdfId: result!.pdfId,
         });
+        await axios.post(
+          `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+          {
+            subject: 'Оформление заказа',
+            fio: data.name,
+            phoneNumber: data.phone,
+            requestUrl: window.location.href,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+          },
+        );
       }
     } catch (error) {
-      console.error(error)
-      setIsError(true)
+      console.error(error);
+      setIsError(true);
     } finally {
       setIsFinally(true);
       setIsLoading(false);
@@ -120,8 +139,8 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
 
   const price = (item: IProduct) => {
     // return item.price?.toLocaleString('ru-RU')
-    return item.price ? formatter.format(item.price) : ''
-  }
+    return item.price ? formatter.format(item.price) : '';
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -153,8 +172,12 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
               className={styles.image}
             />
             <div className={styles.productCardDescription}>
-              <div className={styles.productCardDescriptionTitle}>{item.title}</div>
-              <div className={styles.productCardDescriptionPrice}>{price(item)}</div>
+              <div className={styles.productCardDescriptionTitle}>
+                {item.title}
+              </div>
+              <div className={styles.productCardDescriptionPrice}>
+                {price(item)}
+              </div>
             </div>
           </div>
         ))}
@@ -180,7 +203,11 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({ onClose, products, 
         >
           Отмена
         </Button>
-        <Button type={'submit'} size={matches ? 'md' : 'lg'} disabled={isLoading}>
+        <Button
+          type={'submit'}
+          size={matches ? 'md' : 'lg'}
+          disabled={isLoading}
+        >
           Отправить
         </Button>
       </div>

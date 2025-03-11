@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import {
   FC,
   // useRef,
@@ -13,7 +14,7 @@ import {
   orderCallFormScheme,
   TOrderCallFormScheme,
 } from '@/features/call/orderCall';
-import { MAX_WIDTH_MD } from '@/shared/consts';
+import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 // import ReCAPTCHA from 'react-google-recaptcha';
@@ -76,6 +77,20 @@ export const OrderCallModal: FC<IOrderCallModalProps> = ({
     try {
       // if (!captchaVerified) return;
       await order({ ...data, title, entryPoint });
+      await axios.post(
+        `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+        {
+          subject: title,
+          fio: data.name,
+          phoneNumber: data.phone,
+          requestUrl: window.location.href,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      );
       sendMetrikaGoal();
       // setCaptchaVerified(false);
     } catch (error) {

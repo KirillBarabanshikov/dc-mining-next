@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import clsx from 'clsx';
 import {
   // useRef,
@@ -8,7 +9,7 @@ import {
 import { useForm } from 'react-hook-form';
 
 import { sendServiceForm } from '@/entities/service';
-import { MAX_WIDTH_MD } from '@/shared/consts';
+import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import {
@@ -63,6 +64,21 @@ export const SendRequestForm = () => {
         mediaFile: data.mediaFile?.[0],
         entryPoint,
       });
+      await axios.post(
+        `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+        {
+          subject: 'Ремонт и сервис',
+          fio: data.name,
+          phoneNumber: data.phone,
+          email: data.email,
+          requestUrl: window.location.href,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      );
       sendMetrikaGoal();
       reset();
       setResetFile(true);

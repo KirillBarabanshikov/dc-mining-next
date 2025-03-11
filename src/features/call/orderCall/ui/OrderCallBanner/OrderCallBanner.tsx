@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import clsx from 'clsx';
 // import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -11,7 +12,7 @@ import {
   TOrderCallFormScheme,
 } from '@/features/call/orderCall';
 import miner from '@/shared/assets/images/data-center/miner.png';
-import { MAX_WIDTH_MD } from '@/shared/consts';
+import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input, Modal, StateModal } from '@/shared/ui';
@@ -53,6 +54,20 @@ export const OrderCallBanner = () => {
     try {
       // await axios.post('/api/turnstile', { token });
       await order({ ...data, title: 'Заказать обратный звонок', entryPoint });
+      await axios.post(
+        `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+        {
+          subject: 'Заказать обратный звонок',
+          fio: data.name,
+          phoneNumber: data.phone,
+          requestUrl: window.location.href,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      );
       sendMetrikaGoal();
       reset();
       // window.turnstile.reset();

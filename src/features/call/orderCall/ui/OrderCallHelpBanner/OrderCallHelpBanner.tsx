@@ -2,6 +2,7 @@
 // import ReCAPTCHA from 'react-google-recaptcha';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 import { orderCall } from '@/entities/call';
@@ -10,6 +11,7 @@ import {
   orderCallFormScheme,
   TOrderCallFormScheme,
 } from '@/features/call/orderCall';
+import { CALLTOUCH_SITE_ID } from '@/shared/consts';
 import { useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import {
@@ -58,6 +60,20 @@ export const OrderCallHelpBanner = () => {
     try {
       // if (!captchaVerified) return;
       await order({ ...data, title: 'Помочь с выбором', entryPoint });
+      await axios.post(
+        `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+        {
+          subject: 'Помочь с выбором',
+          fio: data.name,
+          phoneNumber: data.phone,
+          requestUrl: window.location.href,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        },
+      );
       sendMetrikaGoal();
       reset();
       // setCaptchaVerified(false);
