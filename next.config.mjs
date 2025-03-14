@@ -77,6 +77,18 @@ const nextConfig = {
                 statusCode: 301,
             },
             {
+                source: '/product/bitmain-antminer-l9-15000',
+                destination: '/product/bitmain-antminer-l9-15-ghs',
+                permanent: true,
+                statusCode: 301,
+            },
+            {
+                source: '/product/bitmain-antminer-l9-17000',
+                destination: '/product/bitmain-antminer-l9-17-ghs',
+                permanent: true,
+                statusCode: 301,
+            },
+            {
                 source: '/product/:id/:slug',
                 destination: '/product/:slug',
                 permanent: true,
