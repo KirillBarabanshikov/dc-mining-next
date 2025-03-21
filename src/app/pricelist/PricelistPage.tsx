@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { instance } from '@/shared/api';
+import { BASE_URL } from '@/shared/consts';
 
 const PricelistPage = () => {
   const { data } = useQuery({
@@ -33,19 +34,12 @@ const PricelistPage = () => {
     <>
       {data && (
         <object
-          data={
-            'https://admindc.ru/media/pdf/prais-21-03-2025-67dd458c6b3f2086910501.pdf'
-          }
+          data={BASE_URL + data.media}
           type='application/pdf'
           width='100%'
           height='100%'
         >
-          <a
-            href={
-              'https://admindc.ru/media/pdf/prais-21-03-2025-67dd458c6b3f2086910501.pdf'
-            }
-            target='_blank'
-          >
+          <a href={BASE_URL + data.media} target='_blank'>
             ПРАЙС-ЛИСТ
           </a>
         </object>
