@@ -4,7 +4,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
 import { instance } from '@/shared/api';
-import { BASE_URL } from '@/shared/consts';
 
 const PricelistPage = () => {
   const { data } = useQuery({
@@ -34,7 +33,7 @@ const PricelistPage = () => {
     <>
       {data && (
         <iframe
-          src={`${BASE_URL + data.media}?t=${Date.now()}`}
+          src={`https://admindc.ru/media/pdf/prais-21-03-2025-67dd458c6b3f2086910501.pdf?t=${Date.now()}`}
           width='100%'
           height='100%'
         />
