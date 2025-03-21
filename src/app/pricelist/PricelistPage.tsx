@@ -33,16 +33,17 @@ const PricelistPage = () => {
   return (
     <>
       {data && (
-        <object
-          data={BASE_URL + data.media}
-          type='application/pdf'
-          width='100%'
-          height='100%'
-        >
-          <a href={BASE_URL + data.media} target='_blank'>
-            ПРАЙС-ЛИСТ
-          </a>
-        </object>
+        // <object
+        //   data={BASE_URL + data.media}
+        //   type='application/pdf'
+        //   width='100%'
+        //   height='100%'
+        // >
+        //   <a href={BASE_URL + data.media} target='_blank'>
+        //     ПРАЙС-ЛИСТ
+        //   </a>
+        // </object>
+        <iframe src={BASE_URL + data.media} width={300} height={600} />
       )}
     </>
   );
