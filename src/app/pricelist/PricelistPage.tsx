@@ -32,11 +32,23 @@ const PricelistPage = () => {
   return (
     <>
       {data && (
-        <iframe
-          src={`https://admindc.ru/media/pdf/prais-21-03-2025-67dd458c6b3f2086910501.pdf?t=${Date.now()}`}
+        <object
+          data={
+            'https://admindc.ru/media/pdf/prais-21-03-2025-67dd458c6b3f2086910501.pdf'
+          }
+          type='application/pdf'
           width='100%'
           height='100%'
-        />
+        >
+          <a
+            href={
+              'https://admindc.ru/media/pdf/prais-21-03-2025-67dd458c6b3f2086910501.pdf'
+            }
+            target='_blank'
+          >
+            ПРАЙС-ЛИСТ
+          </a>
+        </object>
       )}
     </>
   );
