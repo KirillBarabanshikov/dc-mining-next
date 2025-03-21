@@ -15,4 +15,5 @@ export interface ICategoryDto {
   }[];
   displayHeader: boolean;
   slug: string;
+  displaySidebar: boolean;
 }

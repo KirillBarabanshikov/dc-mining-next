@@ -33,7 +33,12 @@ const PricelistPage = () => {
   return (
     <>
       {data && (
-        <iframe src={BASE_URL + data.media} width='100%' height='100%' />
+        <embed
+          src={BASE_URL + data.media}
+          width='100%'
+          height='100%'
+          type='application/pdf'
+        />
       )}
     </>
   );
