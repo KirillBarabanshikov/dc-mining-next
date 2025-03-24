@@ -1,12 +1,15 @@
 'use client';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { instance } from '@/shared/api';
 import { BASE_URL } from '@/shared/consts';
 
 const PricelistPage = () => {
+  const router = useRouter();
+
   const { data } = useQuery({
     queryKey: ['pdfs'],
     queryFn: async () => {
@@ -27,16 +30,18 @@ const PricelistPage = () => {
   });
 
   useEffect(() => {
-    mutateAsync();
-  }, []);
+    const sendStatistic = async () => {
+      await mutateAsync();
 
-  return (
-    <>
-      {data && (
-        <iframe src={BASE_URL + data.media} width='100%' height='100%' />
-      )}
-    </>
-  );
+      if (data?.media) {
+        router.replace(BASE_URL + data.media);
+      }
+    };
+
+    sendStatistic();
+  }, [data, router]);
+
+  return <p>Перенаправление</p>;
 };
 
 export default PricelistPage;
