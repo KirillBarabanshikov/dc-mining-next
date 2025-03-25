@@ -9,6 +9,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import ArrowPrev from '@/shared/assets/icons/arrow-left24.svg';
 import ArrowNext from '@/shared/assets/icons/arrow-right24.svg';
 import Close from '@/shared/assets/icons/close.svg';
+import EyeIcon from '@/shared/assets/icons/eye.svg';
+import PlayIcon from '@/shared/assets/icons/play.svg';
 import { BASE_URL } from '@/shared/consts';
 import { useBodyScrollLock } from '@/shared/lib';
 import { SwiperButton } from '@/shared/ui';
@@ -16,12 +18,12 @@ import { SwiperButton } from '@/shared/ui';
 import styles from './LivePhotos.module.scss';
 
 interface ILivePhotosProps {
-  images: string[];
+  media: string[]; // Массив путей к файлам
   className?: string;
 }
 
-export const LivePhotos: FC<ILivePhotosProps> = ({ images, className }) => {
-  const [selectedImage, setSelectedImage] = useState(0);
+export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
   const { setIsLocked } = useBodyScrollLock();
@@ -30,7 +32,14 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ images, className }) => {
     setIsLocked(isOpen);
   }, [isOpen]);
 
-  if (!images?.length) return <></>;
+  if (!media?.length) return null;
+
+  const getMediaType = (src: string): 'image' | 'video' => {
+    return /\.(jpg|jpeg|png|gif|webp)$/i.test(src) ? 'image' : 'video';
+  };
+
+  const selectedMedia = media[selectedIndex];
+  const selectedType = getMediaType(selectedMedia);
 
   return (
     <div className={clsx(styles.container, className)}>
@@ -43,21 +52,47 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ images, className }) => {
           variant={'prev'}
           className={clsx(styles.swiperButton, styles.prev)}
         />
-        {images.map((image, index) => {
+        {media.map((src, index) => {
+          const type = getMediaType(src);
           return (
             <SwiperSlide key={index} className={styles.slide}>
               <div className={styles.photo}>
-                <Image
-                  src={BASE_URL + image}
-                  alt={'Photo'}
-                  width={280}
-                  height={280}
-                  loading={'lazy'}
-                  onClick={() => {
-                    setSelectedImage(index);
-                    setIsOpen(true);
-                  }}
-                />
+                {type === 'image' ? (
+                  <>
+                    <Image
+                      src={BASE_URL + src}
+                      alt={'Photo'}
+                      width={280}
+                      height={280}
+                      loading={'lazy'}
+                      onClick={() => {
+                        setSelectedIndex(index);
+                        setIsOpen(true);
+                      }}
+                    />
+                    <div className={styles.eyeIcon}>
+                      <EyeIcon />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <video
+                      src={BASE_URL + src}
+                      width={280}
+                      height={280}
+                      controls={false}
+                      autoPlay={false}
+                      playsInline
+                      onClick={() => {
+                        setSelectedIndex(index);
+                        setIsOpen(true);
+                      }}
+                    />
+                    <div className={styles.videoIcon}>
+                      <PlayIcon />
+                    </div>
+                  </>
+                )}
               </div>
             </SwiperSlide>
           );
@@ -74,32 +109,49 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ images, className }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={styles.previewContainer}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setIsOpen(false);
+              }
+            }}
           >
             <button
-              title={'Предыдущее фото'}
-              aria-label={'Предыдущее фото'}
-              onClick={() => {
-                if (selectedImage <= 0) return;
-                setSelectedImage((prev) => prev - 1);
-              }}
+              title={'Предыдущее'}
+              aria-label={'Предыдущее'}
+              onClick={() =>
+                selectedIndex > 0 && setSelectedIndex((prev) => prev - 1)
+              }
               className={clsx(styles.btn, styles.prev)}
             >
               <ArrowPrev />
             </button>
-            <Image
-              src={BASE_URL + images[selectedImage]}
-              alt={'Preview Photo'}
-              width={1280}
-              height={720}
-              className={styles.image}
-            />
+            {selectedType === 'image' ? (
+              <Image
+                src={BASE_URL + selectedMedia}
+                alt={'Preview'}
+                width={1280}
+                height={720}
+                className={styles.image}
+              />
+            ) : (
+              <video
+                src={BASE_URL + selectedMedia}
+                controls
+                autoPlay
+                playsInline
+                controlsList='nodownload'
+                width={1280}
+                height={720}
+                className={styles.video}
+              />
+            )}
             <button
-              title={'Следующее фото'}
-              aria-label={'Следующее фото'}
-              onClick={() => {
-                if (selectedImage >= images.length - 1) return;
-                setSelectedImage((prev) => prev + 1);
-              }}
+              title={'Следующее'}
+              aria-label={'Следующее'}
+              onClick={() =>
+                selectedIndex < media.length - 1 &&
+                setSelectedIndex((prev) => prev + 1)
+              }
               className={clsx(styles.btn, styles.next)}
             >
               <ArrowNext />

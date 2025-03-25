@@ -38,7 +38,7 @@ export const Photos: FC<IPhotosProps> = ({ photos, className }) => {
       </div>
 
       <LivePhotos
-        images={photos[activeTab]?.images.map((image) => image.image)}
+        media={photos[activeTab]?.images.map((image) => image.image)}
       />
     </div>
   );

@@ -33,18 +33,74 @@
 .photo {
   width: 280px;
   height: 280px;
+  border-radius: 20px;
+  position: relative;
 
-  @media (hover: hover) {
-    &:hover {
-      cursor: pointer;
-    }
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    pointer-events: none;
   }
 
-  img {
+  .videoIcon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--background-white);
+    padding: 32px;
+    border-radius: 100%;
+    background-color: rgba(73, 70, 255, 0.5);
+    z-index: 2;
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+  }
+
+  .eyeIcon {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--background-white);
+    z-index: 2;
+    transition:
+      color 0.3s,
+      opacity 0.3s;
+    opacity: 0;
+  }
+
+  img,
+  video {
     border-radius: 20px;
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+
+      &:after {
+        background-color: rgba(22, 32, 53, 0.5);
+      }
+
+      .videoIcon {
+        color: var(--background-accent-blue);
+        background-color: var(--background-white);
+      }
+
+      .eyeIcon {
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -137,7 +193,16 @@
   .image {
     border-radius: 16px;
     object-fit: contain;
-    max-height: 67vh;
+    max-height: 70vh;
+    height: auto;
+    width: 100%;
+    max-width: max-content;
+  }
+
+  .video {
+    border-radius: 16px;
+    object-fit: contain;
+    max-height: 70vh;
     height: auto;
     width: 100%;
     max-width: max-content;

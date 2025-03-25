@@ -93,7 +93,7 @@ const CatalogPage = () => {
         <>
           <Catalog catalogData={catalogData} category={category} />
           <LivePhotos
-            images={category.images.map(({ image }) => image ?? '')}
+            media={category.images.map(({ image }) => image ?? '')}
             className={styles.livePhotos}
           />
         </>
