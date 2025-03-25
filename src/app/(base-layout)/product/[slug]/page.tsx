@@ -10,6 +10,21 @@ import { getProductBySlug, IProduct } from '@/entities/product';
 
 import ProductPage from './ProductPage';
 
+const noindexSlugs = [
+  'blok-pitaniia-dlia-bitmain-antminer-l7',
+  'blok-pitaniia-dlia-bitmain-antminer-s21',
+  'blok-pitaniia-dlia-bitmain-antminer-s21-hydro',
+  'blok-pitaniia-dlia-bitmain-antminer-t21',
+  'kabel-pitaniia-antwire-bitmain-antminer-s19j-xps21',
+  'kabel-pitaniia-antwire-bitmain-antminer-t21',
+  'kuler-dlia-bitmain-antminer-s19',
+  'kuler-dlia-bitmain-antminer-s21-t21-ks5',
+  'plata-upravleniia-amlogic-v10010',
+  'plata-upravleniia-bitmain-antminer-e9-pro',
+  'signalnyi-kabel-18pin-120mm2mm',
+  'signalnyi-kabel-18pin-170mm2mm',
+];
+
 export async function generateMetadata({
   params,
 }: {
@@ -20,6 +35,7 @@ export async function generateMetadata({
   return {
     title: product?.seoTitle ? product?.seoTitle : product?.title,
     description: product?.seoDescription || '',
+    robots: noindexSlugs.includes(params.slug) ? 'noindex' : 'index, follow',
   };
 }
 
