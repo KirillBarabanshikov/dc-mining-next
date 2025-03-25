@@ -176,61 +176,65 @@ const CollapseItemsList = ({
   return (
     <div className={styles.collapseItems}>
       {categories &&
-        categories.map((item, index) => {
-          if (
-            item.link ||
-            item.title === 'Готовый бизнес для майнинга криптовалют'
-          )
-            return <Fragment key={item.id} />;
+        categories
+          .filter((category) => category.displaySidebar)
+          .map((item, index) => {
+            if (
+              item.link ||
+              item.title === 'Готовый бизнес для майнинга криптовалют'
+            )
+              return <Fragment key={item.id} />;
 
-          return (
-            <div key={item.id}>
-              <div
-                onClick={() => handleClick(index)}
-                className={styles.collapseItem}
-              >
-                <span>{item.title}</span>
-                <motion.span
-                  animate={{ rotate: selectedItems.includes(index) ? 180 : 0 }}
-                  transition={{ damping: 0 }}
-                  className={styles.icon}
+            return (
+              <div key={item.id}>
+                <div
+                  onClick={() => handleClick(index)}
+                  className={styles.collapseItem}
                 >
-                  <ArrowDown />
-                </motion.span>
-              </div>
-              <AnimatePresence initial={false}>
-                {selectedItems.includes(index) && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className={styles.collapseWrap}
+                  <span>{item.title}</span>
+                  <motion.span
+                    animate={{
+                      rotate: selectedItems.includes(index) ? 180 : 0,
+                    }}
+                    transition={{ damping: 0 }}
+                    className={styles.icon}
                   >
-                    <div className={styles.collapseBody}>
-                      {item.subCategory.map((child) => {
-                        let href = `/catalog/${item.slug}/${child.slug}`;
+                    <ArrowDown />
+                  </motion.span>
+                </div>
+                <AnimatePresence initial={false}>
+                  {selectedItems.includes(index) && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className={styles.collapseWrap}
+                    >
+                      <div className={styles.collapseBody}>
+                        {item.subCategory.map((child) => {
+                          let href = `/catalog/${item.slug}/${child.slug}`;
 
-                        if (item.title === 'Прошивки для оборудования') {
-                          href = `/catalog/${item.slug}/?brand=${child.title}`;
-                        }
+                          if (item.title === 'Прошивки для оборудования') {
+                            href = `/catalog/${item.slug}/?brand=${child.title}`;
+                          }
 
-                        return (
-                          <Link
-                            key={child.id}
-                            href={href}
-                            className={styles.link}
-                          >
-                            {child.title}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
+                          return (
+                            <Link
+                              key={child.id}
+                              href={href}
+                              className={styles.link}
+                            >
+                              {child.title}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
     </div>
   );
 };
