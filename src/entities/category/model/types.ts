@@ -15,7 +15,7 @@ export interface ICategory {
   }[];
   displayHeader: boolean;
   slug: string;
-  displaySidebar: boolean;
   link?: string;
   seoName: string;
+  displaySidebar: boolean;
 }
