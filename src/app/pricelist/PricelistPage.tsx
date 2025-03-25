@@ -35,6 +35,9 @@ const PricelistPage = () => {
 
       if (data?.media) {
         router.replace(BASE_URL + data.media);
+        router.replace(
+          `https://docs.google.com/viewer?url=${BASE_URL + data.media}`,
+        );
       }
     };
 
