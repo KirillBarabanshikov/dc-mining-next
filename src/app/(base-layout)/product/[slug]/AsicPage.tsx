@@ -374,6 +374,7 @@ export const AsicPage = () => {
           variant={'product'}
           defaultAsicId={product.id}
           title={`Калькулятор доходности ${product.title}`}
+          defaultOpenAccordionId={1}
         />
         <ProductsTabs
           product={product}

@@ -33,6 +33,7 @@ interface Props {
   variant?: 'default' | 'product';
   defaultAsicId?: number;
   title?: string;
+  defaultOpenAccordionId?: number;
 }
 
 export const Calculator: FC<Props> = ({
@@ -43,6 +44,7 @@ export const Calculator: FC<Props> = ({
   variant = 'default',
   defaultAsicId,
   title,
+  defaultOpenAccordionId,
 }) => {
   const {
     calculatorType,
@@ -377,7 +379,9 @@ export const Calculator: FC<Props> = ({
     asic && setSelectedAsics([asic]);
   }, [defaultAsicId, asics]);
 
-  const [openAccordionId, setOpenAccordionId] = useState<number | null>(null);
+  const [openAccordionId, setOpenAccordionId] = useState(
+    defaultOpenAccordionId,
+  );
 
   const toggleAccordion = (item: {
     id: number;
@@ -386,7 +390,7 @@ export const Calculator: FC<Props> = ({
   }) => {
     if (matches) {
       if (openAccordionId === item.id) {
-        setOpenAccordionId(null);
+        setOpenAccordionId(undefined);
       } else {
         setOpenAccordionId(item.id);
         item.onClick();
