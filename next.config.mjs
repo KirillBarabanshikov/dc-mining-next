@@ -116,7 +116,7 @@ const nextConfig = {
             ///
             {
                 source: '/product/jasminer-x16-q-1950mhs',
-                destination: '/product/jasminer-x16-q-1950-mh-s',
+                destination: '/product/jasminer-x16-q-1950-mhs',
                 permanent: true,
                 statusCode: 301,
             },
