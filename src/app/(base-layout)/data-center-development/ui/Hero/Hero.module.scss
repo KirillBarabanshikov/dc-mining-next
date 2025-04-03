@@ -1,0 +1,114 @@
+.hero {
+  .heroBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 700px;
+    object-fit: cover;
+    object-position: left;
+    border-radius: 0 0 40px 40px;
+    z-index: -1;
+
+    @media screen and (max-width: 768px) {
+      top: 0;
+      height: 360px;
+      object-position: center;
+    }
+  }
+
+  .heroSection {
+    padding-top: 40px;
+  }
+
+  .heroSectionInner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 20px;
+
+    .heroBody {
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+      max-width: 808px;
+
+      .heroExtra {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 1.2;
+        letter-spacing: 0.01em;
+        color: var(--text-accent-blue);
+      }
+
+      .heroTitle {
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 120%;
+        color: var(--text-contrast);
+
+        span {
+          color: var(--text-accent-blue);
+        }
+      }
+
+      .heroSubtitle {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.3;
+        color: var(--text-contrast);
+      }
+    }
+
+    .heroList {
+      display: flex;
+      column-gap: 16px;
+
+      .heroItem {
+        border-radius: 16px;
+        padding: 8px 16px;
+        background: var(--background-secondary);
+
+        .heroItemKey {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 1.3;
+          letter-spacing: 0.02em;
+          color: var(--text-primary);
+        }
+
+        .heroItemValue {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 1.2;
+          letter-spacing: 0.01em;
+          color: var(--text-accent-blue);
+        }
+      }
+    }
+
+    .heroResource {
+      display: inline-flex;
+      align-items: center;
+      column-gap: 20px;
+      border: 1px solid var(--stroke-white);
+      border-radius: 20px;
+      padding: 20px;
+    }
+
+    .heroResourceTitle {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.2;
+      color: var(--text-contrast);
+      margin-bottom: 4px;
+    }
+
+    .heroResourceSubtitle {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.3;
+      color: var(--text-contrast);
+    }
+  }
+}

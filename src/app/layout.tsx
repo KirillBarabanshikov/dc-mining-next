@@ -2,6 +2,7 @@ import '@/shared/styles/index.css';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
+import '@/shared/styles/main.scss';
 
 import type { Metadata } from 'next';
 import Script from 'next/script';

@@ -1,0 +1,67 @@
+@use 'helpers' as *;
+
+:root {
+  --text-primary: #162035;
+  --text-secondary: #5a659c;
+  --text-tertiary: #7b87c2;
+  --text-contrast: #fff;
+  --background-tonal: #f8fbff;
+  --background-white: #fff;
+  --background-dark: #162035;
+  --background-ultramarin: #2c2b7c;
+  --background-ultramarin-lite: #7b87c2;
+  --text-fourthiary: #bec8f5;
+  --text-contrast-alpha-20: rgba(255, 255, 255, 0.2);
+  --text-accent: #ee3e88;
+  --text-positive: #3cc78d;
+  --background-primary: #f2f6ff;
+  --background-secondary: #e7eeff;
+  --background-accent: #ffe1ee;
+  --background-positive: #e9fff6;
+  --stroke-primary: #162035;
+  --stroke-secondary: #2c2b7c;
+  --stroke-tertiary: #7b87c2;
+  --stroke-fourthiary: #bec8f5;
+  --stroke-accent-blue: #4946ff;
+  --stroke-positive: #3cc78d;
+  --buttons-normal: #4946ff;
+  --buttons-hover: #5f5cff;
+  --buttons-active: #4947c6;
+  --buttons-disabled: #e9e9f3;
+  --stroke-disabled: #e9e9f3;
+  --text-ultramarin: #2c2b7c;
+  --background-bright-accent: #ee3e88;
+  --stroke-white: #fff;
+  --text-accent-blue: #4946ff;
+  --background-accent-blue: #4946ff;
+  --stroke-accent: #ee3e88;
+  --background-accent-bacground: rgba(73, 70, 255, 0.2);
+  --buttons-disabled-dark: rgba(233, 233, 243, 0.1);
+  --buttons-primary: #162035;
+  --stroke-disabled-dark: rgba(233, 233, 243, 0.2);
+  --text-disabled-dark: rgba(233, 233, 243, 0.2);
+
+  --font-family: 'MADE Evolve Sans', sans-serif;
+  --second-family: 'Roboto', sans-serif;
+  --third-family: 'Gilroy', sans-serif;
+
+  --container-width: #{rem(1216)};
+  --second-container-width: #{rem(1528)};
+  --container-padding-x: #{rem(40)};
+
+  --transition-duration: 0.2s;
+
+  @include laptop {
+    --container-width: #{rem(1168)};
+    --second-container-width: #{rem(1408)};
+    --container-padding-x: #{rem(16)};
+  }
+
+  @include tablet {
+    --container-padding-x: #{rem(32)};
+  }
+
+  @include mobile {
+    --container-padding-x: #{rem(16)};
+  }
+}
