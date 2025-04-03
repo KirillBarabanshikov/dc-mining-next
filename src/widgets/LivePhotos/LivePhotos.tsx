@@ -18,7 +18,7 @@ import { SwiperButton } from '@/shared/ui';
 import styles from './LivePhotos.module.scss';
 
 interface ILivePhotosProps {
-  media: string[]; // Массив путей к файлам
+  media: string[];
   className?: string;
 }
 

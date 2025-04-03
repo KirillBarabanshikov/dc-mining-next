@@ -1,5 +1,5 @@
-import { DataCenterDevelopment } from './DataCenterDevelopment';
+import { DataCenterDevelopmentPage } from './DataCenterDevelopmentPage';
 
 export default async function Page() {
-  return <DataCenterDevelopment />;
+  return <DataCenterDevelopmentPage />;
 }
