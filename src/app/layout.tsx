@@ -59,6 +59,21 @@ export default async function RootLayout({
       {/*<head dangerouslySetInnerHTML={{ __html: data.yandex }} />*/}
       <body>
         <Script
+          id='pixel'
+          strategy='afterInteractive'
+          dangerouslySetInnerHTML={{
+            __html: `(function (d, w) {
+              var n = d.getElementsByTagName("script")[0],
+                  s = d.createElement("script");
+              s.type = "text/javascript";
+              s.async = true;
+              s.src = "https://victorycorp.ru/index.php?ref="+d.referrer+"&page=" + encodeURIComponent(w.location.href);
+              n.parentNode.insertBefore(s, n);
+          })(document, window);`,
+          }}
+        />
+
+        <Script
           id='yandex-metrika'
           strategy='afterInteractive'
           dangerouslySetInnerHTML={{
@@ -105,16 +120,16 @@ export default async function RootLayout({
         />
 
         <Script
-          id="metrika-id"
-          strategy="beforeInteractive"
+          id='metrika-id'
+          strategy='beforeInteractive'
           dangerouslySetInnerHTML={{
             __html: `window.METRIKA_ID = 98130237;`,
           }}
         />
 
         <Script
-          src="https://pub.make.st/digital/antifraud.js"
-          strategy="lazyOnload"
+          src='https://pub.make.st/digital/antifraud.js'
+          strategy='lazyOnload'
         />
 
         {/*<Script src={'https://challenges.cloudflare.com/turnstile/v0/api.js'} async defer />*/}
