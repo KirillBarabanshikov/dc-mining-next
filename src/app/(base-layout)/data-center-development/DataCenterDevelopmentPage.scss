@@ -1,6 +1,14 @@
 @use '@/shared/styles/helpers' as *;
 
 .data-center-development {
+  display: flex;
+  flex-direction: column;
+  row-gap: 64px;
+
+  @include tablet {
+    row-gap: 40px;
+  }
+
   &__hero {
     height: 535px;
 
@@ -155,7 +163,7 @@
 }
 
 .for-whom {
-  margin-top: -24px;
+  margin-top: -95px;
 
   @include mobile {
     margin-top: unset;
@@ -227,7 +235,7 @@
 
     &-title {
       font-weight: 700;
-      font-size: 20px;
+      font-size: fluid(20, 16);
       line-height: 1.2;
       letter-spacing: 0.01em;
       color: var(--text-primary);
@@ -240,5 +248,18 @@
         text-align: start;
       }
     }
+  }
+}
+
+.stages {
+  &__title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
   }
 }

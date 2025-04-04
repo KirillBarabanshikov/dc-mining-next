@@ -8,7 +8,9 @@ import fromWhomSrc1 from '@/shared/assets/images/for-whom/1.png';
 import fromWhomSrc2 from '@/shared/assets/images/for-whom/2.png';
 import fromWhomSrc3 from '@/shared/assets/images/for-whom/3.png';
 import fromWhomSrc4 from '@/shared/assets/images/for-whom/4.png';
-import { Button } from '@/shared/ui';
+import { Accordion, Button } from '@/shared/ui';
+
+import { Infrastructure, Variants } from './ui';
 
 export const DataCenterDevelopmentPage = () => {
   return (
@@ -71,11 +73,7 @@ export const DataCenterDevelopmentPage = () => {
                   Оператор майнинговой инфраструктуры
                 </div>
               </div>
-              <Button
-                theme={'white'}
-                size={'md'}
-                className={'development__button'}
-              >
+              <Button theme={'white'} size={'md'}>
                 Rusprofile
               </Button>
             </div>
@@ -132,6 +130,32 @@ export const DataCenterDevelopmentPage = () => {
               />
               <div className={'for-whom__item-title'}>Майнерам</div>
             </div>
+          </div>
+        </div>
+      </section>
+      <Infrastructure />
+      <Variants />
+      <section className={'stages'}>
+        <div className={'stages__inner _container'}>
+          <h3 className={'stages__title h3'}>
+            <span className={'mark'}>Стадии реализации</span> проекта
+            строительства дата-центров DC Mining
+          </h3>
+          <div className={'stages__list'}>
+            {Array.from({ length: 6 }).map((_, index) => {
+              return (
+                <Accordion
+                  key={index}
+                  title={
+                    'Консультация и анализ потребностей – определяем масштаб и цели проекта'
+                  }
+                  body={
+                    'Консультация и анализ потребностей – определяем масштаб и цели проекта'
+                  }
+                  number={index + 1}
+                />
+              );
+            })}
           </div>
         </div>
       </section>
