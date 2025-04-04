@@ -3,9 +3,8 @@ import './Variants.scss';
 import clsx from 'clsx';
 import { FC } from 'react';
 
+import Bg from '@/shared/assets/backgrounds/variant-card-bg.svg';
 import { Button } from '@/shared/ui';
-
-import Bg from './bg.svg?react';
 
 interface IVariantsProps {
   className?: string;
