@@ -50,7 +50,7 @@
     align-items: flex-start;
     row-gap: 20px;
 
-    @include tablet {
+    @include mobile {
       align-items: stretch;
     }
   }
@@ -138,6 +138,18 @@
       row-gap: 12px;
     }
 
+    &-body {
+      @include mobile {
+        flex: 1;
+      }
+    }
+
+    button {
+      @include mobile {
+        width: 100%;
+      }
+    }
+
     &-title {
       font-weight: 700;
       font-size: 16px;
@@ -145,7 +157,6 @@
       color: var(--text-contrast);
 
       @include mobile {
-        flex: 1;
         color: var(--text-primary);
       }
     }

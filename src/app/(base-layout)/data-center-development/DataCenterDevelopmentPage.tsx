@@ -14,7 +14,7 @@ import { Accordion, Button } from '@/shared/ui';
 import { LivePhotos } from '@/widgets';
 import { CallMeBanner } from '@/widgets/CallMeBanner';
 
-import { Infrastructure, Variants } from './ui';
+import { About, Infrastructure, Variants } from './ui';
 
 export const DataCenterDevelopmentPage = () => {
   const { data: contacts } = useQuery({
@@ -168,6 +168,7 @@ export const DataCenterDevelopmentPage = () => {
           </div>
         </div>
       </section>
+      <About />
       <section className={'gallery'}>
         <div className={'gallery__inner _container'}>
           <h3 className={'gallery__title h3'}>Галлерея</h3>
