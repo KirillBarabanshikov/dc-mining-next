@@ -263,3 +263,34 @@
     row-gap: 8px;
   }
 }
+
+.questions {
+  &__title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+}
+
+.call-me {
+  width: 100%;
+}
+
+.gallery {
+  &__title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    max-width: 1568px !important;
+    padding: unset !important;
+    margin: unset !important;
+    margin-left: auto !important;
+  }
+}

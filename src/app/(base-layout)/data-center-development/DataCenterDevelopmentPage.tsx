@@ -2,17 +2,26 @@
 
 import './DataCenterDevelopmentPage.scss';
 
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
+import { getContacts } from '@/entities/contacts';
 import fromWhomSrc1 from '@/shared/assets/images/for-whom/1.png';
 import fromWhomSrc2 from '@/shared/assets/images/for-whom/2.png';
 import fromWhomSrc3 from '@/shared/assets/images/for-whom/3.png';
 import fromWhomSrc4 from '@/shared/assets/images/for-whom/4.png';
 import { Accordion, Button } from '@/shared/ui';
+import { LivePhotos } from '@/widgets';
+import { CallMeBanner } from '@/widgets/CallMeBanner';
 
 import { Infrastructure, Variants } from './ui';
 
 export const DataCenterDevelopmentPage = () => {
+  const { data: contacts } = useQuery({
+    queryKey: ['contacts'],
+    queryFn: getContacts,
+  });
+
   return (
     <div className={'data-center-development'}>
       <div className={'data-center-development__hero'}>
@@ -159,6 +168,50 @@ export const DataCenterDevelopmentPage = () => {
           </div>
         </div>
       </section>
+      <section className={'gallery'}>
+        <div className={'gallery__inner _container'}>
+          <h3 className={'gallery__title h3'}>Галлерея</h3>
+        </div>
+        <LivePhotos
+          media={[
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            '/images/data_center_top/11-678a5f46262ff441270328.png',
+          ]}
+          className={'gallery__list'}
+        />
+      </section>
+      <section className={'questions'}>
+        <div className={'questions__inner _container'}>
+          <h3 className={'questions__title h3'}>Вопросы и ответы</h3>
+          <div className={'questions__list'}>
+            {Array.from({ length: 6 }).map((_, index) => {
+              return (
+                <Accordion
+                  key={index}
+                  title={'Как подключить асик-майнер?'}
+                  body={'Как подключить асик-майнер?'}
+                />
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      <div className={'call-me _container'}>
+        <CallMeBanner
+          title={'Получите персональный план строительства дата-центра'}
+          subtitle={
+            'Свяжитесь с нами, мы поможем подобрать оптимальное решение'
+          }
+          variant={'contacts'}
+          contacts={contacts}
+        />
+      </div>
     </div>
   );
 };

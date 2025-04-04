@@ -1,3 +1,5 @@
+@use '@/shared/styles/helpers' as *;
+
 .banner {
   position: relative;
   background-color: var(--background-secondary);
@@ -6,13 +8,23 @@
   background-size: cover;
   background-position: center;
   border-radius: 40px;
-  padding: 68px 40px;
+  padding: 23px 40px;
 
-  @media screen and (max-width: 1024px) {
+  @include tablet {
+    padding: 32px;
+  }
+
+  @include mobile {
     padding: 20px;
   }
 
   .content {
+    max-width: 528px;
+
+    @include mobile {
+      margin: 0 auto;
+    }
+
     h3 {
       font-size: 40px;
       line-height: 48px;
@@ -92,28 +104,15 @@
   }
 
   .video {
+    @include abs-y;
+    right: 0;
     object-fit: cover;
-    position: absolute;
-    bottom: -50px;
-    right: 104px;
-
-    @media screen and (max-width: 1200px) {
-      right: 0;
-    }
-
-    @media screen and (max-width: 1024px) {
-      height: 380px;
-      width: 380px;
-    }
-
-    @media screen and (max-width: 992px) {
-      height: 340px;
-      width: 340px;
-    }
 
     @media screen and (max-width: 768px) {
-      right: 50%;
-      transform: translateX(45%);
+      position: static;
+      transform: none;
+      translate: none;
+      margin: 0 auto;
     }
   }
 

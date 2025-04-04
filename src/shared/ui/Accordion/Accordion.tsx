@@ -24,7 +24,7 @@ export const Accordion: FC<IAccordionProps> = ({ title, body, number }) => {
     <div className={styles.accordion}>
       <div onClick={handleClick} className={styles.head}>
         <h3>
-          <div className={styles.accordionNum}>{number}</div>
+          {number && <div className={styles.accordionNum}>{number}</div>}
           {title}
         </h3>
         <motion.span
