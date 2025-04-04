@@ -23,12 +23,25 @@
   border-radius: 16px;
   padding: 12px;
   background-color: var(--background-secondary);
+  position: relative;
+
+  &__bg {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    pointer-events: none;
+    color: rgba(73, 70, 255, 0.05);
+  }
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
   }
 
   &__body {

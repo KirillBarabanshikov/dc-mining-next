@@ -5,6 +5,8 @@ import { FC } from 'react';
 
 import { Button } from '@/shared/ui';
 
+import Bg from './bg.svg?react';
+
 interface IVariantsProps {
   className?: string;
 }
@@ -28,6 +30,7 @@ export const Variants: FC<IVariantsProps> = ({ className }) => {
 const VariantCard = () => {
   return (
     <div className={'variant-card'}>
+      <Bg className={'variant-card__bg'} />
       <div className={'variant-card__header'}>
         <div className={'variant-card__type'}>Хостинг</div>
         <Button theme={'white'} size={'sm'}>
