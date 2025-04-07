@@ -40,13 +40,17 @@
       row-gap: 20px;
     }
 
-    &-list {
+    h3 {
+      font-size: fluid(32, 20);
+    }
+
+    ul {
       display: flex;
       flex-direction: column;
       row-gap: 16px;
     }
 
-    &-item {
+    li {
       position: relative;
       font-size: fluid(16, 12);
       line-height: 1.2;

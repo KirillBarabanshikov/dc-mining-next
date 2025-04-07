@@ -4,10 +4,12 @@ import './DataCenterDevelopmentPage.scss';
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useState } from 'react';
 
 import { getContacts } from '@/entities/contacts';
 import { getFaq } from '@/entities/faq';
 import { getDataCenterDevelopmentInfo } from '@/entities/pageInfo';
+import { OrderCallModal } from '@/features/call';
 import fromWhomSrc1 from '@/shared/assets/images/for-whom/1.png';
 import fromWhomSrc2 from '@/shared/assets/images/for-whom/2.png';
 import fromWhomSrc3 from '@/shared/assets/images/for-whom/3.png';
@@ -19,6 +21,8 @@ import { CallMeBanner } from '@/widgets/CallMeBanner';
 import { About, Infrastructure, Variants } from './ui';
 
 export const DataCenterDevelopmentPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const { data: contacts } = useQuery({
     queryKey: ['contacts'],
     queryFn: getContacts,
@@ -52,31 +56,42 @@ export const DataCenterDevelopmentPage = () => {
         <section className={'development'}>
           <div className={'development__inner _container-second'}>
             <div className={'development__body'}>
-              <p className={'development__extra'}>Инвестиции в майнинг</p>
-              <h1 className={'development__title h1'}>
-                Строительство дата-центров для майнинга <span>под ключ</span>
-              </h1>
-              <div className={'development__subtitle'}>
-                DC Mining — ведущая компания в области строительства и
-                эксплуатации майнинг центров. Мы разрабатываем энергоэффективные
-                решения для размещения оборудования и обеспечиваем бесперебойную
-                работу дата-центров
-              </div>
+              <p className={'development__extra'}>{info.section}</p>
+              <h1 className={'development__title h1'}>{info.title}</h1>
+              <div
+                className={'development__subtitle'}
+                dangerouslySetInnerHTML={{ __html: info.description }}
+              />
             </div>
             <div className={'development__list'}>
               <div className={'development__item'}>
                 <div className={'development__item-title'}>
-                  окупаемость проекта
+                  {info.titleBlockFirst}
                 </div>
-                <div className={'development__item-value'}>от 20 месяцев</div>
+                <div
+                  className={'development__item-value'}
+                  dangerouslySetInnerHTML={{
+                    __html: info.descriptionBlockFirst,
+                  }}
+                />
               </div>
               <div className={'development__item'}>
                 <div className={'development__item-title'}>
-                  размер инвестиций
+                  {info.titleBlockSecond}
                 </div>
-                <div className={'development__item-value'}>от 15 млн ₽</div>
+                <div
+                  className={'development__item-value'}
+                  dangerouslySetInnerHTML={{
+                    __html: info.descriptionBlockSecond,
+                  }}
+                />
               </div>
-              <Button className={'development__button'}>Оставить заявку</Button>
+              <Button
+                onClick={() => setIsOpen(true)}
+                className={'development__button'}
+              >
+                Оставить заявку
+              </Button>
             </div>
             <div className={'development__resource'}>
               <Image
@@ -96,9 +111,11 @@ export const DataCenterDevelopmentPage = () => {
                   Оператор майнинговой инфраструктуры
                 </div>
               </div>
-              <Button theme={'white'} size={'md'}>
-                Rusprofile
-              </Button>
+              <a href={info.link} target={'_blank'}>
+                <Button theme={'white'} size={'md'}>
+                  Rusprofile
+                </Button>
+              </a>
             </div>
           </div>
         </section>
@@ -156,7 +173,11 @@ export const DataCenterDevelopmentPage = () => {
           </div>
         </div>
       </section>
-      <Infrastructure />
+      <Infrastructure
+        title={info.centerTitle}
+        subtitle={info.centerDescription}
+        offers={info.centerProposal}
+      />
       <Variants variants={info.variables} />
       <section className={'stages'}>
         <div className={'stages__inner _container'}>
@@ -223,6 +244,12 @@ export const DataCenterDevelopmentPage = () => {
           contacts={contacts}
         />
       </div>
+      <OrderCallModal
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     </div>
   );
 };

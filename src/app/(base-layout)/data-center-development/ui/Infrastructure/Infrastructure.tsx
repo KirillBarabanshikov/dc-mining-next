@@ -8,24 +8,29 @@ import exampleSrc from '@/shared/assets/images/infrastructure/example.png';
 import offerSrc from '@/shared/assets/images/infrastructure/image.png';
 
 interface IInfrastructureProps {
+  title: string;
+  subtitle: string;
+  offers: string;
   className?: string;
 }
 
-export const Infrastructure: FC<IInfrastructureProps> = ({ className }) => {
+export const Infrastructure: FC<IInfrastructureProps> = ({
+  title,
+  subtitle,
+  offers,
+  className,
+}) => {
   return (
     <section className={clsx('infrastructure', className)}>
       <div className={'infrastructure__inner _container'}>
-        <h3 className={'infrastructure__title h3'}>
-          <span className={'mark'}>Профессиональное строительство</span>{' '}
-          майнинг-ферм
-        </h3>
-        <div className={'infrastructure__subtitle'}>
-          Строительство майнинг-центров – это сложный технологический процесс,
-          который включает в себя разработку инженерной инфраструктуры,
-          обеспечение бесперебойного энергоснабжения и создание эффективной
-          системы охлаждения. <br /> Наши майнинг-фермы соответствуют мировым
-          стандартам и работают на основе передовых технологий.
-        </div>
+        <h3
+          className={'infrastructure__title h3'}
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
+        <div
+          className={'infrastructure__subtitle'}
+          dangerouslySetInnerHTML={{ __html: subtitle }}
+        />
         <div className={'infrastructure__offers'}>
           <Image
             src={offerSrc}
@@ -34,25 +39,10 @@ export const Infrastructure: FC<IInfrastructureProps> = ({ className }) => {
             height={296}
             className={'infrastructure__offers-image'}
           />
-          <div className={'infrastructure__offers-body'}>
-            <div className={'infrastructure__offers-title h3'}>
-              Мы предлагаем:
-            </div>
-            <ul className={'infrastructure__offers-list'}>
-              <li className={'infrastructure__offers-item'}>
-                Полный цикл строительства – от проекта до ввода в эксплуатацию;
-              </li>
-              <li className={'infrastructure__offers-item'}>
-                Энергоэффективные решения для снижения затрат;
-              </li>
-              <li className={'infrastructure__offers-item'}>
-                Интеграцию с возобновляемыми источниками энергии;
-              </li>
-              <li className={'infrastructure__offers-item'}>
-                Надежную защиту оборудования от перегрева и сбоев.
-              </li>
-            </ul>
-          </div>
+          <div
+            className={'infrastructure__offers-body'}
+            dangerouslySetInnerHTML={{ __html: offers }}
+          ></div>
         </div>
         <div className={'infrastructure__example'}>
           <h3 className={'infrastructure__example-title h3'}>
