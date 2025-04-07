@@ -14,7 +14,6 @@
 
     @include mobile {
       height: unset;
-      margin-bottom: 20px;
     }
   }
 
@@ -168,6 +167,12 @@
 
       @include mobile {
         color: var(--text-primary);
+      }
+    }
+
+    &-link {
+      @include mobile {
+        width: 100%;
       }
     }
   }

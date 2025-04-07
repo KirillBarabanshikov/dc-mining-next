@@ -10,6 +10,7 @@ import { getContacts } from '@/entities/contacts';
 import { getFaq } from '@/entities/faq';
 import { getDataCenterDevelopmentInfo } from '@/entities/pageInfo';
 import { OrderCallModal } from '@/features/call';
+import operatorSrc from '@/shared/assets/images/data-center/operator.png';
 import fromWhomSrc1 from '@/shared/assets/images/for-whom/1.png';
 import fromWhomSrc2 from '@/shared/assets/images/for-whom/2.png';
 import fromWhomSrc3 from '@/shared/assets/images/for-whom/3.png';
@@ -95,9 +96,7 @@ export const DataCenterDevelopmentPage = () => {
             </div>
             <div className={'development__resource'}>
               <Image
-                src={
-                  'https://s3-alpha-sig.figma.com/img/0330/5abc/ab868053e4021072cc0d8b23323064d0?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=s~Fw6zuh5zr3LbjrgtKZ8XzvIePbQIEr1Iy~NiCVnhmMcj~VAMHW4KeBdtGIwz5jbv5qGiMY9zdGzP27fTf~dlsQ3LCwIf4qED9NnBFf-v005ISmOmItIJu7ti2PUbSmbuHKvI5KpO8MbfxWCui1PgBoWSAbMggxWWzuaUMtFxXUbJA5xOo5GT5kq~4XIsLnS8KJq4TdgL2b7gkU-5t5ZGbwWVvXzwqRHE38IRtlpVKlO5TV60Zaj~hXbFGK5e6AKnLwlbd~8t6NFqlOZyJrSsQnSJt5pv9MqlOtMBiHf81xEXHBqgBaANcVnbYSUbb9s7McngxhFevmGCXN1JKHBg__'
-                }
+                src={operatorSrc}
                 alt={'Resource'}
                 width={'72'}
                 height={'72'}
@@ -111,7 +110,11 @@ export const DataCenterDevelopmentPage = () => {
                   Оператор майнинговой инфраструктуры
                 </div>
               </div>
-              <a href={info.link} target={'_blank'}>
+              <a
+                href={info.link}
+                target={'_blank'}
+                className={'development__resource-link'}
+              >
                 <Button theme={'white'} size={'md'}>
                   Rusprofile
                 </Button>
@@ -199,21 +202,21 @@ export const DataCenterDevelopmentPage = () => {
           </div>
         </div>
       </section>
-      <About />
+      <About info={info} />
       <section className={'gallery'}>
         <div className={'gallery__inner _container'}>
-          <h3 className={'gallery__title h3'}>Галлерея</h3>
+          <h3 className={'gallery__title h3'}>Галерея</h3>
         </div>
         <LivePhotos
           media={[
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
-            '/images/data_center_top/11-678a5f46262ff441270328.png',
+            info.image || '',
+            info.image || '',
+            info.image || '',
+            info.image || '',
+            info.image || '',
+            info.image || '',
+            info.image || '',
+            info.image || '',
           ]}
           className={'gallery__list'}
         />
