@@ -1,16 +1,25 @@
 .banner {
-    min-height: 580px;
+  min-height: 580px;
+  padding-inline: 40px;
+
+  @media screen and (max-width: 992px) {
+    padding-inline: 32px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-inline: 16px;
+  }
 }
 
 .bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    z-index: -1;
-    border-radius: 0 0 40px 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: -1;
+  border-radius: 0 0 40px 40px;
 
-    @media screen and (max-width: 768px) {
-        height: 360px;
-    }
+  @media screen and (max-width: 768px) {
+    height: 360px;
+  }
 }

@@ -91,14 +91,36 @@ a {
 }
 
 .container-wide {
-  max-width: 1840px;
+  max-width: 1920px;
   margin: 0 auto;
+  padding: 0 40px;
 }
 
 .container {
-  max-width: 1528px;
+  max-width: 1608px;
   margin: 0 auto;
   width: 100%;
+  padding: 0 40px;
+}
+
+@media screen and (max-width: 992px) {
+  .container-wide {
+    padding: 0 32px;
+  }
+
+  .container {
+    padding: 0 32px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container-wide {
+    padding: 0 16px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
 }
 
 .section-title,

@@ -44,16 +44,6 @@ export const Sorting: FC<ISortingProps> = ({
   const queryClient = useQueryClient();
   const { slug } = useParams<{ slug: string[] }>();
 
-  // const { data: filters } = useQuery({
-  //     queryKey: ['filters'],
-  //     queryFn: getFilters,
-  //     staleTime: Infinity,
-  // });
-  // const { data: offers } = useQuery({
-  //     queryKey: ['offers'],
-  //     queryFn: getOffers,
-  //     staleTime: Infinity,
-  // });
   const { data: subCategory } = useQuery({
     queryKey: ['subCategory', slug[1]],
     queryFn: () => getSubCategoryBySlug(slug[1]),

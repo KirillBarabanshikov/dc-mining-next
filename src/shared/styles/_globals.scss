@@ -1,0 +1,59 @@
+@use 'helpers' as *;
+
+body {
+  font-family: var(--font-family);
+  font-size: fluid(16, 12);
+  font-weight: 400;
+  color: var(--text-primary);
+  background-color: var(--background-tonal);
+  line-height: 1.3;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: var(--third-family);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.h1 {
+  font-size: fluid(48, 32);
+}
+
+.h2 {
+  font-size: fluid(40, 24);
+}
+
+.h3 {
+  font-size: fluid(32, 20);
+}
+
+.mark {
+  color: var(--text-accent-blue);
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
+
+a {
+  color: inherit;
+
+  @include hover {
+    color: var(--text-accent-blue);
+  }
+
+  &[class] {
+    text-decoration: none;
+  }
+}

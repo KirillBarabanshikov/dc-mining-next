@@ -1,26 +1,17 @@
 .layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 
-    &.withoutFooter {
-        padding-bottom: 120px;
+  &.withoutFooter {
+    padding-bottom: 120px;
 
-        @media screen and (max-width: 1024px) {
-            padding-bottom: 80px;
-        }
+    @media screen and (max-width: 1024px) {
+      padding-bottom: 80px;
     }
+  }
 
-    main {
-        flex: 1;
-        padding: 0 40px;
-
-        @media screen and (max-width: 992px) {
-            padding: 0 32px;
-        }
-
-        @media screen and (max-width: 768px) {
-            padding: 0;
-        }
-    }
+  main {
+    flex: 1;
+  }
 }

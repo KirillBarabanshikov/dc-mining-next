@@ -88,7 +88,7 @@ export const MainPage = () => {
           <Background className={styles.backgroundIcon} />
         </div>
       </div>
-      <div className={styles.managers}>
+      <div className={clsx(styles.managers, 'container')}>
         <Managers />
       </div>
       <div className={'container'}>
