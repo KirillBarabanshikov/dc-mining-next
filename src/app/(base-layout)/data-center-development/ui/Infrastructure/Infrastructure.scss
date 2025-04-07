@@ -107,8 +107,66 @@
 
   &__point-wrap {
     position: absolute;
-    top: 50%;
-    left: 50%;
+
+    &-0 {
+      top: 63%;
+      left: 30%;
+
+      @include mobile {
+        top: 78%;
+        left: 10%;
+      }
+    }
+
+    &-1 {
+      top: 41%;
+      left: 34%;
+
+      @include mobile {
+        top: 37%;
+        left: 19%;
+      }
+    }
+
+    &-2 {
+      top: 32%;
+      left: 46%;
+
+      @include mobile {
+        top: 37%;
+        left: 19%;
+      }
+    }
+
+    &-3 {
+      top: 48%;
+      left: 50%;
+
+      @include mobile {
+        top: 23%;
+        left: 42%;
+      }
+    }
+
+    &-4 {
+      top: 48%;
+      left: 61%;
+
+      @include mobile {
+        top: 48%;
+        left: 69%;
+      }
+    }
+
+    &-5 {
+      top: 43%;
+      left: 70%;
+
+      @include mobile {
+        top: 39%;
+        left: 87%;
+      }
+    }
   }
 
   &__point {
@@ -119,16 +177,25 @@
       background-color: var(--background-white);
       @include square(24px);
       @include flex-center();
+
+      @include mobile {
+        @include square(12px);
+      }
     }
 
     &-ellipse {
       border-radius: 100%;
       background-color: var(--background-accent-blue);
       @include square(8px);
+
+      @include mobile {
+        @include square(4px);
+      }
     }
 
     &-text {
       @include abs-y();
+      z-index: 2;
       left: 30px;
       border-radius: 8px;
       padding: 8px;

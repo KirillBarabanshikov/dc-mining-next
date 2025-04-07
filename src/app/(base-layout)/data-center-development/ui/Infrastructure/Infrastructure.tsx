@@ -7,6 +7,7 @@ import { FC, useState } from 'react';
 
 import exampleSrc from '@/shared/assets/images/infrastructure/example.png';
 import offerSrc from '@/shared/assets/images/infrastructure/image.png';
+import { useOutsideClick } from '@/shared/lib';
 
 interface IInfrastructureProps {
   title: string;
@@ -57,7 +58,18 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
               height={684}
               className={'infrastructure__example-image'}
             />
-            <Point className={'infrastructure__point-wrap'} />
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Point
+                key={index}
+                className={clsx(
+                  'infrastructure__point-wrap',
+                  `infrastructure__point-wrap-${index}`,
+                )}
+                text={
+                  'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ratione!'
+                }
+              />
+            ))}
           </div>
         </div>
       </div>
@@ -65,15 +77,20 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
   );
 };
 
-const Point: FC<{ className?: string }> = ({ className }) => {
+const Point: FC<{ text: string; className?: string }> = ({
+  text,
+  className,
+}) => {
   const [isHover, setIsHover] = useState(false);
+  const ref = useOutsideClick<HTMLDivElement>(() => setIsHover(false));
 
   return (
     <div className={className}>
-      <div className={'infrastructure__point'}>
+      <div ref={ref} className={'infrastructure__point'}>
         <motion.div
           onHoverStart={() => setIsHover(true)}
           onHoverEnd={() => setIsHover(false)}
+          onClick={() => setIsHover((prev) => !prev)}
           animate={{ scale: isHover ? 1 : [1, 1.1, 1] }}
           transition={{
             duration: isHover ? 0.2 : 1.5,
@@ -99,8 +116,7 @@ const Point: FC<{ className?: string }> = ({ className }) => {
               exit={{ opacity: 0, y: 5 }}
               className={'infrastructure__point-text'}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus,
-              quae?
+              {text}
             </motion.div>
           )}
         </AnimatePresence>

@@ -132,6 +132,12 @@ export interface IDataCenterDevelopmentVariable {
     count: number;
     sequence: number;
   }[];
+  alternatives: {
+    id: number;
+    title: string;
+    description: string;
+    sequence: number;
+  }[];
   sequence: number;
 }
 
