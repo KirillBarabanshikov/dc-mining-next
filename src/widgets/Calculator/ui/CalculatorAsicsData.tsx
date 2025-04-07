@@ -51,7 +51,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
     const selectedPackage = businessPackages.find(
       (pkg) => pkg.id === packageId,
     );
-    console.log(businessPackages);
+    // console.log(businessPackages);
     setSelectedPackageId(packageId);
     // if (packageId !== 12345) {
     //   setIsNewPackage(false)
@@ -68,7 +68,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
       if (hasNullPrice) {
         setReadyBusinessTotalPrice('по запросу');
       } else {
-        console.log(selectedPackage);
+        // console.log(selectedPackage);
         setReadyBusinessTotalPrice(selectedPackage.price);
       }
 
@@ -91,7 +91,7 @@ const CalculatorAsicsData: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log(readyBusinessTotalPrice);
+    // console.log(readyBusinessTotalPrice);
   }, [readyBusinessTotalPrice]);
 
   return selectedAsics.map((asic, index) => (

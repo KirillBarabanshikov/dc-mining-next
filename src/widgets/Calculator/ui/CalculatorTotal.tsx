@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { OrderCallModal } from '@/features/call';
 import { OrderProductModal } from '@/features/product';
@@ -87,11 +87,7 @@ export const CalculatorTotal: React.FC<Props> = ({
     }
   };
 
-  const isNewPackage = selectedPackageId === 12345 && calculatorType === 2;
-
-  useEffect(() => {
-    console.log(isNewPackage);
-  }, [isNewPackage]);
+  // const isNewPackage = selectedPackageId === 12345 && calculatorType === 2;
 
   return (
     <div className='calculator-card calculatorTotal'>

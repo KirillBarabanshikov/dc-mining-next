@@ -39,7 +39,7 @@ const CalculatorElectricity: React.FC<Props> = ({
   const handleDownload = async () => {
     const pdfData = generatePdfData();
 
-    console.log(pdfData);
+    // console.log(pdfData);
     const result = await calculatorApi.postPDF(pdfData);
     if (result) {
       const blob = new Blob([result.file], { type: 'application/pdf' });

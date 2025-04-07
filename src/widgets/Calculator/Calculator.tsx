@@ -239,7 +239,7 @@ export const Calculator: FC<Props> = ({
 
     addSelectedAsics(newAsic);
 
-    console.log(selectedAsics);
+    // console.log(selectedAsics);
   };
 
   useEffect(() => {
@@ -286,7 +286,7 @@ export const Calculator: FC<Props> = ({
 
       const products = data.products;
 
-      console.log(data);
+      // console.log(data);
       setDollar(data.dollar);
 
       setAsics(products);
@@ -405,7 +405,7 @@ export const Calculator: FC<Props> = ({
   const generatePdfData = () => {
     const course = dollar;
 
-    console.log(course);
+    // console.log(course);
 
     let pdfData: any;
 

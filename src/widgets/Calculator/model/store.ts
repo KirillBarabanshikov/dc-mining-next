@@ -118,7 +118,8 @@ export const useCalculatorStore = create<ICalculatorState>()(
     setAsics: (asics) => {
       return set({ asics });
     },
-    setReadyBusinessTotalPrice: (price: number | string) => set({ readyBusinessTotalPrice: price }),
+    setReadyBusinessTotalPrice: (price: number | string) =>
+      set({ readyBusinessTotalPrice: price }),
     setReadyBusinessAsics: (readyBusinessAsics) => {
       return set({ readyBusinessAsics });
     },
@@ -145,7 +146,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
           count: 1,
         };
 
-        console.log(state.selectedAsics);
+        // console.log(state.selectedAsics);
 
         return {
           selectedAsics: [...updatedSelectedAsics, newAsic],
@@ -176,7 +177,7 @@ export const useCalculatorStore = create<ICalculatorState>()(
     },
 
     removeSelectedAsics: (additionalId: string) => {
-      console.log('Removing ASIC with ID:', additionalId);
+      // console.log('Removing ASIC with ID:', additionalId);
       set((state) => ({
         selectedAsics: state.selectedAsics.filter(
           (asic) => asic.additionalId !== additionalId,
