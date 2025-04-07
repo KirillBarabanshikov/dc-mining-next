@@ -6,6 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
 import { getContacts } from '@/entities/contacts';
+import { getFaq } from '@/entities/faq';
+import { getDataCenterDevelopmentInfo } from '@/entities/pageInfo';
 import fromWhomSrc1 from '@/shared/assets/images/for-whom/1.png';
 import fromWhomSrc2 from '@/shared/assets/images/for-whom/2.png';
 import fromWhomSrc3 from '@/shared/assets/images/for-whom/3.png';
@@ -21,6 +23,18 @@ export const DataCenterDevelopmentPage = () => {
     queryKey: ['contacts'],
     queryFn: getContacts,
   });
+
+  const { data: info } = useQuery({
+    queryKey: ['data-center-development'],
+    queryFn: getDataCenterDevelopmentInfo,
+  });
+
+  const { data: faq } = useQuery({
+    queryKey: ['faq'],
+    queryFn: getFaq,
+  });
+
+  if (!info) return <></>;
 
   return (
     <div className={'data-center-development'}>
@@ -143,7 +157,7 @@ export const DataCenterDevelopmentPage = () => {
         </div>
       </section>
       <Infrastructure />
-      <Variants />
+      <Variants variants={info.variables} />
       <section className={'stages'}>
         <div className={'stages__inner _container'}>
           <h3 className={'stages__title h3'}>
@@ -151,16 +165,12 @@ export const DataCenterDevelopmentPage = () => {
             строительства дата-центров DC Mining
           </h3>
           <div className={'stages__list'}>
-            {Array.from({ length: 6 }).map((_, index) => {
+            {info.stages.map((stage, index) => {
               return (
                 <Accordion
-                  key={index}
-                  title={
-                    'Консультация и анализ потребностей – определяем масштаб и цели проекта'
-                  }
-                  body={
-                    'Консультация и анализ потребностей – определяем масштаб и цели проекта'
-                  }
+                  key={stage.id}
+                  title={stage.title}
+                  body={stage.description}
                   number={index + 1}
                 />
               );
@@ -191,12 +201,12 @@ export const DataCenterDevelopmentPage = () => {
         <div className={'questions__inner _container'}>
           <h3 className={'questions__title h3'}>Вопросы и ответы</h3>
           <div className={'questions__list'}>
-            {Array.from({ length: 6 }).map((_, index) => {
+            {faq?.map((item) => {
               return (
                 <Accordion
-                  key={index}
-                  title={'Как подключить асик-майнер?'}
-                  body={'Как подключить асик-майнер?'}
+                  key={item.id}
+                  title={item.title}
+                  body={item.description}
                 />
               );
             })}

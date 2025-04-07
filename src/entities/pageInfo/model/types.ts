@@ -93,3 +93,53 @@ export interface IDeliveryAndPaymentInfo {
   title: string;
   description: string;
 }
+
+export interface IDataCenterDevelopmentInfo {
+  id: number;
+  section: string;
+  title: string;
+  description: string;
+  titleBlockFirst: string;
+  descriptionBlockFirst: string;
+  titleBlockSecond: string;
+  descriptionBlockSecond: string;
+  link: string;
+  centerTitle: string;
+  centerDescription: string;
+  centerProposal: string;
+  aboutTitle: string;
+  aboutDescription: string;
+  image?: string;
+  variables: IDataCenterDevelopmentVariable[];
+  stages: IDataCenterDevelopmentStage[];
+  abouts: IDataCenterDevelopmentAbout[];
+}
+
+export interface IDataCenterDevelopmentVariable {
+  id: number;
+  type: string;
+  title: string;
+  price: string;
+  contains: {
+    id: number;
+    title: string;
+    description: string;
+    count: number;
+    sequence: number;
+  }[];
+  sequence: number;
+}
+
+export interface IDataCenterDevelopmentStage {
+  id: number;
+  title: string;
+  description: string;
+  sequence: number;
+}
+
+export interface IDataCenterDevelopmentAbout {
+  id: number;
+  title: string;
+  image?: string;
+  sequence: number;
+}

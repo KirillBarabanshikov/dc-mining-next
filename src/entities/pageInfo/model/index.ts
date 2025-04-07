@@ -1,6 +1,10 @@
 export type {
   IAboutInfo,
   IAdvantage,
+  IDataCenterDevelopmentAbout,
+  IDataCenterDevelopmentInfo,
+  IDataCenterDevelopmentStage,
+  IDataCenterDevelopmentVariable,
   IDataCenterInfo,
   IDataCenterPhotos,
   IDeliveryAndPaymentInfo,

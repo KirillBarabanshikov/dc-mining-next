@@ -2,6 +2,7 @@ import { instance } from '@/shared/api';
 
 import {
   IAboutInfo,
+  IDataCenterDevelopmentInfo,
   IDataCenterInfo,
   IDeliveryAndPaymentInfo,
   ILeasingInfo,
@@ -35,6 +36,17 @@ export const getDataCenterInfo = async (): Promise<IDataCenterInfo | null> => {
   } catch (error) {
     console.error(error);
     return null;
+  }
+};
+
+export const getDataCenterDevelopmentInfo = async () => {
+  try {
+    const response = await instance.get<IDataCenterDevelopmentInfo>(
+      '/data_center_developments',
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
   }
 };
 

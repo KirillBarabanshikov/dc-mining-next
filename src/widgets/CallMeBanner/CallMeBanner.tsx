@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { IContacts } from '@/entities/contacts';
 import { OrderCallModal } from '@/features/call';
@@ -35,6 +35,13 @@ export const CallMeBanner: FC<ICallMeBannerProps> = ({
   const { isSafari } = useIsSafari();
   const [isOpen, setIsOpen] = useState(false);
   const { number } = useMangoStore();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return <></>;
 
   return (
     <section className={clsx(styles.banner, className)}>
