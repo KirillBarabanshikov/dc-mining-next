@@ -113,6 +113,11 @@ export interface IDataCenterDevelopmentInfo {
   variables: IDataCenterDevelopmentVariable[];
   stages: IDataCenterDevelopmentStage[];
   abouts: IDataCenterDevelopmentAbout[];
+  gallery: {
+    id: number;
+    media?: string;
+    sequence: number;
+  }[];
 }
 
 export interface IDataCenterDevelopmentVariable {

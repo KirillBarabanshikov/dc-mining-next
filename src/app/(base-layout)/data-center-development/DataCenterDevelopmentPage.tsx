@@ -208,16 +208,7 @@ export const DataCenterDevelopmentPage = () => {
           <h3 className={'gallery__title h3'}>Галерея</h3>
         </div>
         <LivePhotos
-          media={[
-            info.image || '',
-            info.image || '',
-            info.image || '',
-            info.image || '',
-            info.image || '',
-            info.image || '',
-            info.image || '',
-            info.image || '',
-          ]}
+          media={info.gallery.map((item) => item.media || '')}
           className={'gallery__list'}
         />
       </section>

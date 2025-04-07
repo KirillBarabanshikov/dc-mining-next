@@ -1,8 +1,9 @@
 import './Infrastructure.scss';
 
 import clsx from 'clsx';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import exampleSrc from '@/shared/assets/images/infrastructure/example.png';
 import offerSrc from '@/shared/assets/images/infrastructure/image.png';
@@ -42,21 +43,68 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
           <div
             className={'infrastructure__offers-body'}
             dangerouslySetInnerHTML={{ __html: offers }}
-          ></div>
+          />
         </div>
         <div className={'infrastructure__example'}>
           <h3 className={'infrastructure__example-title h3'}>
             <span className={'mark'}>Пример</span> инфраструктуры
           </h3>
-          <Image
-            src={exampleSrc}
-            alt={''}
-            width={1216}
-            height={684}
-            className={'infrastructure__example-image'}
-          />
+          <div className={'infrastructure__example-points'}>
+            <Image
+              src={exampleSrc}
+              alt={''}
+              width={1216}
+              height={684}
+              className={'infrastructure__example-image'}
+            />
+            <Point className={'infrastructure__point-wrap'} />
+          </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const Point: FC<{ className?: string }> = ({ className }) => {
+  const [isHover, setIsHover] = useState(false);
+
+  return (
+    <div className={className}>
+      <div className={'infrastructure__point'}>
+        <motion.div
+          onHoverStart={() => setIsHover(true)}
+          onHoverEnd={() => setIsHover(false)}
+          animate={{ scale: isHover ? 1 : [1, 1.1, 1] }}
+          transition={{
+            duration: isHover ? 0.2 : 1.5,
+            ease: 'easeInOut',
+            repeat: isHover ? 0 : Infinity,
+          }}
+          className={'infrastructure__point-dot'}
+        >
+          <motion.div
+            animate={{ scale: isHover ? 1.7 : 1 }}
+            transition={{
+              duration: 0.2,
+              ease: 'easeInOut',
+            }}
+            className={'infrastructure__point-ellipse'}
+          />
+        </motion.div>
+        <AnimatePresence>
+          {isHover && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 5 }}
+              className={'infrastructure__point-text'}
+            >
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus,
+              quae?
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
   );
 };
