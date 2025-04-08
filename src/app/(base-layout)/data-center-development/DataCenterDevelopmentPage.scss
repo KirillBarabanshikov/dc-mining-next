@@ -49,6 +49,18 @@
     align-items: flex-start;
     row-gap: 20px;
 
+    @media screen and (max-width: 1800px) {
+      margin-left: 196px;
+    }
+
+    @media screen and (max-width: 1500px) {
+      margin-left: 136px;
+    }
+
+    @include tablet {
+      margin-left: initial;
+    }
+
     @include mobile {
       align-items: stretch;
     }
@@ -304,9 +316,23 @@
   }
 
   &__list {
-    max-width: 1568px !important;
-    padding: unset !important;
-    margin: unset !important;
-    margin-left: auto !important;
+    @media screen and (min-width: 1200px) {
+      margin-left: calc((100vw - var(--container-width)) / 2) !important;
+      width: calc(100vw - ((100vw - var(--container-width)) / 2)) !important;
+      padding: 0 0 0 0 !important;
+    }
+
+    width: 100vw !important;
+    max-width: unset !important;
+    margin: 0 0 0 auto !important;
+    padding: 0 0 0 16px !important;
+
+    @include tablet {
+      padding: 0 0 0 32px !important;
+    }
+
+    @include mobile {
+      padding: 0 0 0 0 !important;
+    }
   }
 }

@@ -205,7 +205,7 @@ export const DataCenterDevelopmentPage = () => {
       <About info={info} />
       <section className={'gallery'}>
         <div className={'gallery__inner _container'}>
-          <h3 className={'gallery__title h3'}>Галерея</h3>
+          <h3 className={'gallery__title h2'}>Галерея</h3>
         </div>
         <LivePhotos
           media={info.gallery.map((item) => item.media || '')}
@@ -214,7 +214,7 @@ export const DataCenterDevelopmentPage = () => {
       </section>
       <section className={'questions'}>
         <div className={'questions__inner _container'}>
-          <h3 className={'questions__title h3'}>Вопросы и ответы</h3>
+          <h3 className={'questions__title h2'}>Вопросы и ответы</h3>
           <div className={'questions__list'}>
             {faq?.map((item) => {
               return (
