@@ -34,6 +34,7 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
 }) => {
   const matches = useMediaQuery('(max-width: 1023.98px)');
   const [isHover, setIsHover] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   return (
     <motion.div
@@ -54,51 +55,69 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
       </div>
       {matches ? (
         <>
-          <motion.div
-            key={'b'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={'variant-card__info'}
-          >
+          <div className={'variant-card__info'}>
+            <div className={'variant-card__alternative'}>
+              <div className={'variant-card__alternative-key'}>Вложения</div>
+              <div className={'variant-card__alternative-value'}>
+                {variant.price}
+              </div>
+            </div>
+
             {variant.alternatives.map((item) => {
               return (
-                <div key={item.id} className={'variant-card__item'}>
-                  <div className={'variant-card__item-body'}>
-                    <div className={'variant-card__item-title'}>
-                      {item.title}
-                    </div>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                      className={'variant-card__item-value'}
-                    />
+                <div key={item.id} className={'variant-card__alternative'}>
+                  <div className={'variant-card__alternative-key'}>
+                    {item.title}
                   </div>
+                  <div
+                    className={'variant-card__alternative-value'}
+                    dangerouslySetInnerHTML={{ __html: item.description }}
+                  />
                 </div>
               );
             })}
+            {!showMore && (
+              <button
+                onClick={() => setShowMore(true)}
+                className={'variant-card__button'}
+              >
+                Подробнее
+              </button>
+            )}
 
-            {variant.contains.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className={'variant-card__item variant-card__item--count'}
-                >
-                  <div className={'variant-card__item-body'}>
-                    <div className={'variant-card__item-title'}>
-                      {item.title}
-                    </div>
+            {showMore && (
+              <>
+                {variant.contains.map((item) => {
+                  return (
                     <div
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                      className={'variant-card__item-value'}
-                    />
-                  </div>
-                  <div className={'variant-card__item-count'}>
-                    {item.count} шт.
-                  </div>
-                </div>
-              );
-            })}
-          </motion.div>
+                      key={item.id}
+                      className={'variant-card__item variant-card__item--count'}
+                    >
+                      <div className={'variant-card__item-body'}>
+                        <div className={'variant-card__item-title'}>
+                          {item.title}
+                        </div>
+                        <div
+                          dangerouslySetInnerHTML={{ __html: item.description }}
+                          className={'variant-card__item-value'}
+                        />
+                      </div>
+                      <div className={'variant-card__item-count'}>
+                        {item.count} шт.
+                      </div>
+                    </div>
+                  );
+                })}
+                <button
+                  onClick={() => setShowMore(false)}
+                  className={'variant-card__button'}
+                  style={{ width: '100%' }}
+                >
+                  Скрыть
+                </button>
+              </>
+            )}
+          </div>
         </>
       ) : (
         <AnimatePresence mode={'wait'}>
