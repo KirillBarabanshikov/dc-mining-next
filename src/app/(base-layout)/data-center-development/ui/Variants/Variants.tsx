@@ -19,11 +19,13 @@ export const Variants: FC<IVariantsProps> = ({ variants, className }) => {
     <section className={clsx('variants', className)}>
       <div className={'variants__inner _container'}>
         <h3 className={'variants__title h3'}>Варианты пакетных решений</h3>
-        <div className={'variants__list'}>
-          {variants.map((variant) => {
-            return <VariantCard key={variant.id} variant={variant} />;
-          })}
-        </div>
+        <motion.div layout className={'variants__list'}>
+          <AnimatePresence>
+            {variants.map((variant) => {
+              return <VariantCard key={variant.id} variant={variant} />;
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
@@ -38,6 +40,7 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
 
   return (
     <motion.div
+      layout
       onHoverStart={() => (matches ? {} : setIsHover(true))}
       onHoverEnd={() => (matches ? {} : setIsHover(false))}
       className={'variant-card'}
@@ -55,7 +58,7 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
       </div>
       {matches ? (
         <>
-          <div className={'variant-card__info'}>
+          <motion.div layout className={'variant-card__info'}>
             <div className={'variant-card__alternative'}>
               <div className={'variant-card__alternative-key'}>Вложения</div>
               <div className={'variant-card__alternative-value'}>
@@ -117,7 +120,7 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
                 </button>
               </>
             )}
-          </div>
+          </motion.div>
         </>
       ) : (
         <AnimatePresence mode={'wait'}>
