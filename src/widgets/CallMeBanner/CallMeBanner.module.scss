@@ -175,8 +175,9 @@
 
     .image {
       width: 100%;
-      max-width: 328px;
-      left: calc(50% - 164px);
+      max-width: 280px;
+      left: 50%;
+      transform: translateX(-50%);
     }
   }
 }

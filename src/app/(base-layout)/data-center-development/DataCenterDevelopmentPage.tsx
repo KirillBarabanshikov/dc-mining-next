@@ -51,7 +51,7 @@ export const DataCenterDevelopmentPage = () => {
           playsInline
           className={'data-center-development__video'}
         >
-          <source src={'/animations/data_center-animation.webm'} />
+          <source src={'/animations/data-center-development.webm'} />
           Ваш браузер не поддерживает тег video.
         </video>
         <section className={'development'}>
