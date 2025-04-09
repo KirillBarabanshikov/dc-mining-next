@@ -8,6 +8,7 @@ const links: Record<string, string> = {
   ['Размещение в дата центре']: '/data-center',
   ['Ремонт и сервис']: '/service',
   ['Лизинг']: '/leasing',
+  ['Строительство ЦОД']: '/data-center-development',
 };
 
 export function mapCategory(category: ICategoryDto): ICategory {
