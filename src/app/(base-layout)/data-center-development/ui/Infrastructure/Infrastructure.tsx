@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 
-import exampleSrc from '@/shared/assets/images/infrastructure/example.png';
+import exampleSrc from '@/shared/assets/images/infrastructure/example.jpg';
 import offerSrc from '@/shared/assets/images/infrastructure/image.png';
 import { useOutsideClick } from '@/shared/lib';
 
