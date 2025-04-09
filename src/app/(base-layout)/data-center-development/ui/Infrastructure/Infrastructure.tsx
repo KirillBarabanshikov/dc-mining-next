@@ -16,6 +16,16 @@ interface IInfrastructureProps {
   className?: string;
 }
 
+const hints = [
+  'Газопоршневая установка (ГПУ) – генерирует электроэнергию из газа. Мощность варьируется от 100 кВт до 5 мВт',
+  'Контейнер для майнинг оборудования – вместимость от 36 шт. до 264 шт. при максимальной нагрузке до 1,5 мВт',
+  'Трансформаторная подстанция (опционно)',
+  'Административно бытовое здание – для размещения персонала и склада',
+  'Газорегуряторный пункт (ГРП) – для понижения входного давления газа до заданного уровня и поддержания его на выходе',
+  'Электрические кабельные линии (опционно) – для подачи сетевой электроэнергии',
+  'Оградительная конструкция с системой видеонаблюдения',
+];
+
 export const Infrastructure: FC<IInfrastructureProps> = ({
   title,
   subtitle,
@@ -58,16 +68,14 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
               height={684}
               className={'infrastructure__example-image'}
             />
-            {Array.from({ length: 6 }).map((_, index) => (
+            {Array.from({ length: 7 }).map((_, index) => (
               <Point
                 key={index}
                 className={clsx(
                   'infrastructure__point-wrap',
                   `infrastructure__point-wrap-${index}`,
                 )}
-                text={
-                  'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ratione!'
-                }
+                text={hints[index]}
               />
             ))}
           </div>

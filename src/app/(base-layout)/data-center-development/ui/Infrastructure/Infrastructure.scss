@@ -110,67 +110,36 @@
     position: absolute;
 
     &-0 {
-      top: 63%;
-      left: 30%;
-
-      @include mobile {
-        top: 78%;
-        left: 10%;
-      }
-    }
-
-    &-1 {
-      top: 41%;
-      left: 34%;
-
-      @include mobile {
-        top: 37%;
-        left: 19%;
-      }
-    }
-
-    &-2 {
-      top: 32%;
-      left: 46%;
-
-      @include mobile {
-        top: 37%;
-        left: 19%;
-      }
-    }
-
-    &-3 {
-      top: 48%;
-      left: 50%;
-
-      @include mobile {
-        top: 23%;
-        left: 42%;
-      }
-    }
-
-    &-4 {
-      top: 48%;
-      left: 61%;
+      top: 67%;
+      left: 54%;
 
       .infrastructure__point-text {
         left: unset !important;
         right: 30px;
       }
 
-      @include mobile {
-        top: 48%;
-        left: 69%;
-
+      @include tablet {
         .infrastructure__point-text {
-          left: unset !important;
+          width: 300px !important;
+        }
+      }
+
+      @include mobile {
+        .infrastructure__point-text {
+          left: unset;
           right: 15px;
+          width: 170px !important;
         }
       }
     }
 
-    &-5 {
-      top: 43%;
+    &-1 {
+      top: 63%;
+      left: 30%;
+    }
+
+    &-2 {
+      top: 39%;
       left: 70%;
 
       .infrastructure__point-text {
@@ -179,9 +148,62 @@
       }
 
       @include mobile {
-        top: 39%;
-        left: 87%;
+        .infrastructure__point-text {
+          left: unset;
+          right: 15px;
+        }
+      }
+    }
 
+    &-3 {
+      top: 36%;
+      left: 47%;
+
+      @include tablet {
+        .infrastructure__point-text {
+          width: 300px !important;
+        }
+      }
+
+      @include mobile {
+        .infrastructure__point-text {
+          width: 160px !important;
+        }
+      }
+    }
+
+    &-4 {
+      top: 63%;
+      left: 73%;
+
+      .infrastructure__point-text {
+        left: unset !important;
+        right: 30px;
+      }
+
+      @include mobile {
+        .infrastructure__point-text {
+          left: unset;
+          right: 15px;
+        }
+      }
+    }
+
+    &-5 {
+      top: 44%;
+      left: 26%;
+    }
+
+    &-6 {
+      top: 80%;
+      left: 83%;
+
+      .infrastructure__point-text {
+        left: unset !important;
+        right: 30px;
+      }
+
+      @include mobile {
         .infrastructure__point-text {
           left: unset;
           right: 15px;
@@ -230,6 +252,11 @@
       line-height: 1.3;
       letter-spacing: 0.02em;
       color: var(--text-primary);
+
+      @include tablet {
+        width: 450px;
+        white-space: wrap;
+      }
 
       @include mobile {
         left: 15px;
