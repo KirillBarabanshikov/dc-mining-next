@@ -3,10 +3,10 @@
 import './DataCenterDevelopmentPage.scss';
 
 import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 
-import { getContacts } from '@/entities/contacts';
 import { getFaq } from '@/entities/faq';
 import { getDataCenterDevelopmentInfo } from '@/entities/pageInfo';
 import { OrderCallModal } from '@/features/call';
@@ -24,11 +24,6 @@ import { About, Infrastructure, Variants } from './ui';
 export const DataCenterDevelopmentPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { data: contacts } = useQuery({
-    queryKey: ['contacts'],
-    queryFn: getContacts,
-  });
-
   const { data: info } = useQuery({
     queryKey: ['data-center-development'],
     queryFn: getDataCenterDevelopmentInfo,
@@ -44,16 +39,18 @@ export const DataCenterDevelopmentPage = () => {
   return (
     <div className={'data-center-development'}>
       <div className={'data-center-development__hero'}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={'data-center-development__video'}
-        >
-          <source src={'/animations/data-center-development.webm'} />
-          Ваш браузер не поддерживает тег video.
-        </video>
+        <div className={'data-center-development__video-overlay'}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={'data-center-development__video'}
+          >
+            <source src={'/animations/data-center-development.webm'} />
+            Ваш браузер не поддерживает тег video.
+          </video>
+        </div>
         <section className={'development'}>
           <div className={'development__inner _container-second'}>
             <div className={'development__body'}>
@@ -95,13 +92,23 @@ export const DataCenterDevelopmentPage = () => {
               </Button>
             </div>
             <div className={'development__resource'}>
-              <Image
-                src={operatorSrc}
-                alt={'Resource'}
-                width={'72'}
-                height={'72'}
-                className={'development__resource-image'}
-              />
+              <motion.div
+                animate={{ scale: [1, 0.85, 1] }}
+                transition={{
+                  duration: 0.8,
+                  ease: 'easeInOut',
+                  repeat: Infinity,
+                  repeatDelay: 0.8,
+                }}
+              >
+                <Image
+                  src={operatorSrc}
+                  alt={'Resource'}
+                  width={72}
+                  height={72}
+                  className={'development__resource-image'}
+                />
+              </motion.div>
               <div className={'development__resource-body'}>
                 <div className={'development__resource-title'}>
                   ООО «Диси Телеком»
@@ -182,6 +189,15 @@ export const DataCenterDevelopmentPage = () => {
         offers={info.centerProposal}
       />
       <Variants variants={info.variables} />
+      <section className={'gallery'}>
+        <div className={'gallery__inner _container'}>
+          <h3 className={'gallery__title h2'}>Галерея</h3>
+        </div>
+        <LivePhotos
+          media={info.gallery.map((item) => item.media || '')}
+          className={'gallery__list'}
+        />
+      </section>
       <section className={'stages'}>
         <div className={'stages__inner _container'}>
           <h3 className={'stages__title h3'}>
@@ -203,15 +219,6 @@ export const DataCenterDevelopmentPage = () => {
         </div>
       </section>
       <About info={info} />
-      <section className={'gallery'}>
-        <div className={'gallery__inner _container'}>
-          <h3 className={'gallery__title h2'}>Галерея</h3>
-        </div>
-        <LivePhotos
-          media={info.gallery.map((item) => item.media || '')}
-          className={'gallery__list'}
-        />
-      </section>
       <section className={'questions'}>
         <div className={'questions__inner _container'}>
           <h3 className={'questions__title h2'}>Вопросы и ответы</h3>
@@ -234,8 +241,6 @@ export const DataCenterDevelopmentPage = () => {
           subtitle={
             'Свяжитесь с нами, мы поможем подобрать оптимальное решение'
           }
-          variant={'contacts'}
-          contacts={contacts}
         />
       </div>
       <OrderCallModal

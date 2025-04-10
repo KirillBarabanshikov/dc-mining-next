@@ -32,6 +32,11 @@
   padding: 12px;
   background-color: var(--background-secondary);
   position: relative;
+  min-height: 325px;
+
+  @include mobile {
+    min-height: unset;
+  }
 
   &__bg {
     position: absolute;
@@ -178,6 +183,10 @@
     letter-spacing: 0.02em;
     text-align: center;
     color: var(--text-accent-blue);
+
+    @include mobile {
+      min-width: 130px;
+    }
   }
 
   &__alternatives {
@@ -198,6 +207,30 @@
     @include mobile {
       padding: 8px 12px;
       flex: 1 1 40%;
+
+      &:nth-child(1) {
+        order: -2;
+      }
+
+      &:nth-child(2) {
+        order: -1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .variant-card__alternative-key {
+          margin-bottom: unset;
+        }
+
+        .variant-card__alternative-value {
+          font-size: 12px;
+        }
+      }
+
+      &:nth-child(3) {
+        order: -2;
+      }
     }
 
     &-key {
@@ -210,6 +243,10 @@
 
       @include tablet {
         margin-bottom: 8px;
+      }
+
+      @include mobile {
+        font-weight: 500;
       }
     }
 

@@ -50,6 +50,7 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
             width={592}
             height={296}
             className={'infrastructure__offers-image'}
+            quality={100}
           />
           <div
             className={'infrastructure__offers-body'}
@@ -122,9 +123,9 @@ const Point: FC<{ text: string; className?: string }> = ({
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 5 }}
-              className={'infrastructure__point-text'}
+              className={'infrastructure__point-text-wrap'}
             >
-              {text}
+              <div className={'infrastructure__point-text'}>{text}</div>
             </motion.div>
           )}
         </AnimatePresence>

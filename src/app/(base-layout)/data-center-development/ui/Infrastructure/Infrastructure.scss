@@ -113,22 +113,14 @@
       top: 67%;
       left: 54%;
 
-      .infrastructure__point-text {
-        left: unset !important;
-        right: 30px;
-      }
-
-      @include tablet {
-        .infrastructure__point-text {
-          width: 300px !important;
-        }
-      }
-
       @include mobile {
-        .infrastructure__point-text {
+        .infrastructure__point-text-wrap {
           left: unset;
           right: 15px;
-          width: 170px !important;
+        }
+
+        .infrastructure__point-text {
+          max-width: 180px;
         }
       }
     }
@@ -142,14 +134,11 @@
       top: 39%;
       left: 70%;
 
-      .infrastructure__point-text {
-        left: unset !important;
+      .infrastructure__point-text-wrap {
+        left: unset;
         right: 30px;
-      }
 
-      @include mobile {
-        .infrastructure__point-text {
-          left: unset;
+        @include mobile {
           right: 15px;
         }
       }
@@ -159,15 +148,9 @@
       top: 36%;
       left: 47%;
 
-      @include tablet {
-        .infrastructure__point-text {
-          width: 300px !important;
-        }
-      }
-
       @include mobile {
         .infrastructure__point-text {
-          width: 160px !important;
+          max-width: 170px !important;
         }
       }
     }
@@ -176,14 +159,11 @@
       top: 63%;
       left: 73%;
 
-      .infrastructure__point-text {
-        left: unset !important;
+      .infrastructure__point-text-wrap {
+        left: unset;
         right: 30px;
-      }
 
-      @include mobile {
-        .infrastructure__point-text {
-          left: unset;
+        @include mobile {
           right: 15px;
         }
       }
@@ -198,14 +178,11 @@
       top: 80%;
       left: 83%;
 
-      .infrastructure__point-text {
-        left: unset !important;
+      .infrastructure__point-text-wrap {
+        left: unset;
         right: 30px;
-      }
 
-      @include mobile {
-        .infrastructure__point-text {
-          left: unset;
+        @include mobile {
           right: 15px;
         }
       }
@@ -218,10 +195,12 @@
     &-dot {
       border-radius: 100%;
       background-color: var(--background-white);
+      min-width: 24px;
       @include square(24px);
       @include flex-center();
 
       @include mobile {
+        min-width: 12px;
         @include square(12px);
       }
     }
@@ -236,16 +215,24 @@
       }
     }
 
-    &-text {
+    &-text-wrap {
       @include abs-y();
       z-index: 2;
       left: 30px;
+
+      @include mobile {
+        left: 15px;
+      }
+    }
+
+    &-text {
       border-radius: 8px;
       padding: 8px;
       box-shadow: 0 25px 25px 0 rgba(22, 32, 53, 0.15);
       background-color: var(--background-tonal);
+      width: max-content;
 
-      white-space: nowrap;
+      max-width: 300px;
 
       font-weight: 400;
       font-size: 14px;
@@ -253,17 +240,11 @@
       letter-spacing: 0.02em;
       color: var(--text-primary);
 
-      @include tablet {
-        width: 450px;
-        white-space: wrap;
-      }
-
       @include mobile {
-        left: 15px;
         font-size: 12px;
         padding: 5px;
-        width: 200px;
-        white-space: wrap;
+
+        max-width: 200px;
       }
     }
   }

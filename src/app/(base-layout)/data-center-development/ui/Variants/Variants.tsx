@@ -52,7 +52,7 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
         <div className={'variant-card__header'}>
           <div className={'variant-card__type'}>{variant.type}</div>
           <Button
-            theme={isHover ? 'blue' : 'white'}
+            theme={isHover || matches ? 'blue' : 'white'}
             size={'sm'}
             onClick={() => setIsOpen(true)}
           >
@@ -137,28 +137,6 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
           <AnimatePresence mode={'wait'}>
             {isHover ? (
               <motion.div
-                key={'a'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className={'variant-card__alternatives'}
-              >
-                {variant.alternatives.map((item) => {
-                  return (
-                    <div key={item.id} className={'variant-card__alternative'}>
-                      <div className={'variant-card__alternative-key'}>
-                        {item.title}
-                      </div>
-                      <div
-                        className={'variant-card__alternative-value'}
-                        dangerouslySetInnerHTML={{ __html: item.description }}
-                      />
-                    </div>
-                  );
-                })}
-              </motion.div>
-            ) : (
-              <motion.div
                 key={'b'}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -180,6 +158,28 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
                       <div className={'variant-card__item-count'}>
                         {item.count} шт.
                       </div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            ) : (
+              <motion.div
+                key={'a'}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={'variant-card__alternatives'}
+              >
+                {variant.alternatives.map((item) => {
+                  return (
+                    <div key={item.id} className={'variant-card__alternative'}>
+                      <div className={'variant-card__alternative-key'}>
+                        {item.title}
+                      </div>
+                      <div
+                        className={'variant-card__alternative-value'}
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      />
                     </div>
                   );
                 })}
