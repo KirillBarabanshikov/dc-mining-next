@@ -34,8 +34,13 @@
   position: relative;
   min-height: 325px;
 
+  @include tablet {
+    padding-bottom: 4px;
+  }
+
   @include mobile {
     min-height: unset;
+    overflow: hidden;
   }
 
   &__bg {
@@ -119,6 +124,12 @@
     border-radius: 8px;
     padding: 8px;
     background-color: var(--background-primary);
+
+    @include tablet {
+      &:last-child {
+        margin-bottom: 8px;
+      }
+    }
 
     @include mobile {
       flex: 1 1 40%;

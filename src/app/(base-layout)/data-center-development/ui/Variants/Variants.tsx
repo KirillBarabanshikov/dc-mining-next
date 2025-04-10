@@ -20,13 +20,11 @@ export const Variants: FC<IVariantsProps> = ({ variants, className }) => {
     <section className={clsx('variants', className)}>
       <div className={'variants__inner _container'}>
         <h3 className={'variants__title h3'}>Варианты пакетных решений</h3>
-        <motion.div layout className={'variants__list'}>
-          <AnimatePresence>
-            {variants.map((variant) => {
-              return <VariantCard key={variant.id} variant={variant} />;
-            })}
-          </AnimatePresence>
-        </motion.div>
+        <div className={'variants__list'}>
+          {variants.map((variant) => {
+            return <VariantCard key={variant.id} variant={variant} />;
+          })}
+        </div>
       </div>
     </section>
   );
@@ -43,7 +41,6 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
   return (
     <>
       <motion.div
-        layout
         onHoverStart={() => (matches ? {} : setIsHover(true))}
         onHoverEnd={() => (matches ? {} : setIsHover(false))}
         className={'variant-card'}
@@ -65,7 +62,7 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
         </div>
         {matches ? (
           <>
-            <motion.div layout className={'variant-card__info'}>
+            <motion.div className={'variant-card__info'}>
               <div className={'variant-card__alternative'}>
                 <div className={'variant-card__alternative-key'}>Вложения</div>
                 <div className={'variant-card__alternative-value'}>
@@ -86,51 +83,47 @@ const VariantCard: FC<{ variant: IDataCenterDevelopmentVariable }> = ({
                   </div>
                 );
               })}
-              {!showMore && (
-                <button
-                  onClick={() => setShowMore(true)}
-                  className={'variant-card__button'}
-                >
-                  Подробнее
-                </button>
-              )}
+              <button
+                onClick={() => setShowMore((prevState) => !prevState)}
+                className={'variant-card__button'}
+              >
+                {showMore ? 'Скрыть' : 'Подробнее'}
+              </button>
 
-              {showMore && (
-                <>
-                  {variant.contains.map((item) => {
-                    return (
-                      <div
-                        key={item.id}
-                        className={
-                          'variant-card__item variant-card__item--count'
-                        }
-                      >
-                        <div className={'variant-card__item-body'}>
-                          <div className={'variant-card__item-title'}>
-                            {item.title}
+              <AnimatePresence>
+                <motion.div
+                  animate={{ height: showMore ? 'auto' : 0 }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <div className={'variant-card__info'}>
+                    {variant.contains.map((item) => {
+                      return (
+                        <div
+                          key={item.id}
+                          className={
+                            'variant-card__item variant-card__item--count'
+                          }
+                        >
+                          <div className={'variant-card__item-body'}>
+                            <div className={'variant-card__item-title'}>
+                              {item.title}
+                            </div>
+                            <div
+                              dangerouslySetInnerHTML={{
+                                __html: item.description,
+                              }}
+                              className={'variant-card__item-value'}
+                            />
                           </div>
-                          <div
-                            dangerouslySetInnerHTML={{
-                              __html: item.description,
-                            }}
-                            className={'variant-card__item-value'}
-                          />
+                          <div className={'variant-card__item-count'}>
+                            {item.count} шт.
+                          </div>
                         </div>
-                        <div className={'variant-card__item-count'}>
-                          {item.count} шт.
-                        </div>
-                      </div>
-                    );
-                  })}
-                  <button
-                    onClick={() => setShowMore(false)}
-                    className={'variant-card__button'}
-                    style={{ width: '100%' }}
-                  >
-                    Скрыть
-                  </button>
-                </>
-              )}
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </motion.div>
           </>
         ) : (
