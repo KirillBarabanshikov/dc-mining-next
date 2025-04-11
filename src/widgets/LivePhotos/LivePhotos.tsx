@@ -131,7 +131,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 key={BASE_URL + selectedMedia}
                 src={BASE_URL + selectedMedia}
                 controls
-                autoPlay
+                autoPlay={false}
                 muted
                 playsInline
                 controlsList='nodownload'
