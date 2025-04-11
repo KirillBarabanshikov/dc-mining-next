@@ -34,38 +34,17 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
   }, [isOpen]);
 
   useEffect(() => {
-    return () => {
-      if (previewVideoRef.current) {
-        const selectedMedia = media[selectedIndex];
-        const selectedType = getMediaType(selectedMedia);
+    if (!isOpen || !previewVideoRef.current) return;
 
-        if (selectedType == 'video') {
-          previewVideoRef.current.pause();
-          // previewVideoRef.current.src = '';
-          // previewVideoRef.current.load();
-          // previewVideoRef.current.src = BASE_URL + media[selectedIndex];
-          // console.log(BASE_URL + media[selectedIndex]);
-        }
-      }
-    };
-  }, [selectedIndex]);
+    const selectedMedia = media[selectedIndex];
+    const selectedType = getMediaType(selectedMedia);
 
-  useEffect(() => {
-    return () => {
-      if (previewVideoRef.current) {
-        const selectedMedia = media[selectedIndex];
-        const selectedType = getMediaType(selectedMedia);
-
-        if (selectedType == 'video') {
-          previewVideoRef.current.pause();
-          // previewVideoRef.current.src = '';
-          // previewVideoRef.current.load();
-          // previewVideoRef.current.src = BASE_URL + media[selectedIndex];
-          // console.log(BASE_URL + media[selectedIndex]);
-        }
-      }
-    };
-  }, [isOpen]);
+    if (selectedType === 'video') {
+      previewVideoRef.current.src = BASE_URL + selectedMedia;
+      previewVideoRef.current.load();
+      previewVideoRef.current.play().catch(() => {});
+    }
+  }, [selectedIndex, isOpen, media]);
 
   if (!media?.length) return null;
 
@@ -161,9 +140,8 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
               />
             ) : (
               <video
-                key={BASE_URL + selectedMedia}
+                key={selectedMedia}
                 ref={previewVideoRef}
-                src={BASE_URL + selectedMedia}
                 controls
                 autoPlay
                 muted
