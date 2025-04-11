@@ -25,12 +25,30 @@ interface ILivePhotosProps {
 export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const previewVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const { setIsLocked } = useBodyScrollLock();
 
   useEffect(() => {
     setIsLocked(isOpen);
   }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (previewVideoRef.current) {
+        const selectedMedia = media[selectedIndex];
+        const selectedType = getMediaType(selectedMedia);
+
+        if (selectedType == 'video') {
+          previewVideoRef.current.pause();
+          // previewVideoRef.current.src = '';
+          // previewVideoRef.current.load();
+          // previewVideoRef.current.src = BASE_URL + media[selectedIndex];
+          // console.log(BASE_URL + media[selectedIndex]);
+        }
+      }
+    };
+  }, [selectedIndex]);
 
   if (!media?.length) return null;
 
@@ -59,7 +77,6 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
               {type === 'image' ? (
                 <div className={styles.photo}>
                   <Image
-                    key={BASE_URL + src}
                     src={BASE_URL + src}
                     alt={'Photo'}
                     width={280}
@@ -127,20 +144,19 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 className={styles.image}
               />
             ) : (
-              <div className={styles.videoWrap}>
-                <video
-                  key={BASE_URL + selectedMedia}
-                  src={BASE_URL + selectedMedia}
-                  controls
-                  autoPlay={false}
-                  muted
-                  playsInline
-                  controlsList='nodownload'
-                  width={1280}
-                  height={720}
-                  className={styles.video}
-                />
-              </div>
+              <video
+                key={BASE_URL + selectedMedia}
+                ref={previewVideoRef}
+                src={BASE_URL + selectedMedia}
+                controls
+                autoPlay
+                muted
+                playsInline
+                controlsList='nodownload'
+                width={1280}
+                height={720}
+                className={styles.video}
+              />
             )}
 
             <button
