@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ArrowPrev from '@/shared/assets/icons/arrow-left24.svg';
@@ -56,48 +56,34 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
           const type = getMediaType(src);
           return (
             <SwiperSlide key={index} className={styles.slide}>
-              <div className={styles.photo}>
-                {type === 'image' ? (
-                  <>
-                    <Image
-                      key={BASE_URL + src}
-                      src={BASE_URL + src}
-                      alt={'Photo'}
-                      width={280}
-                      height={280}
-                      loading={'lazy'}
-                      onClick={() => {
-                        setSelectedIndex(index);
-                        setIsOpen(true);
-                      }}
-                    />
-                    <div className={styles.eyeIcon}>
-                      <EyeIcon />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <video
-                      key={BASE_URL + src}
-                      src={BASE_URL + src}
-                      width={280}
-                      height={280}
-                      muted
-                      playsInline
-                      autoPlay={false}
-                      preload='metadata'
-                      poster={`${BASE_URL + src}.jpg`}
-                      onClick={() => {
-                        setSelectedIndex(index);
-                        setIsOpen(true);
-                      }}
-                    />
-                    <div className={styles.videoIcon}>
-                      <PlayIcon />
-                    </div>
-                  </>
-                )}
-              </div>
+              {type === 'image' ? (
+                <div className={styles.photo}>
+                  <Image
+                    key={BASE_URL + src}
+                    src={BASE_URL + src}
+                    alt={'Photo'}
+                    width={280}
+                    height={280}
+                    loading={'lazy'}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      setIsOpen(true);
+                    }}
+                  />
+                  <div className={styles.eyeIcon}>
+                    <EyeIcon />
+                  </div>
+                </div>
+              ) : (
+                <VideoPreview
+                  key={src}
+                  src={src}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    setIsOpen(true);
+                  }}
+                />
+              )}
             </SwiperSlide>
           );
         })}
@@ -106,6 +92,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
           className={clsx(styles.swiperButton, styles.next)}
         />
       </Swiper>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -129,6 +116,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
             >
               <ArrowPrev />
             </button>
+
             {selectedType === 'image' ? (
               <Image
                 key={BASE_URL + selectedMedia}
@@ -152,6 +140,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 className={styles.video}
               />
             )}
+
             <button
               title={'Следующее'}
               aria-label={'Следующее'}
@@ -163,6 +152,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
             >
               <ArrowNext />
             </button>
+
             <button
               title={'Закрыть'}
               aria-label={'Закрыть'}
@@ -174,6 +164,45 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+};
+
+interface VideoPreviewProps {
+  src: string;
+  onClick: () => void;
+}
+
+export const VideoPreview: FC<VideoPreviewProps> = ({ src, onClick }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video
+        .play()
+        .then(() => video.pause())
+        .catch(() => {});
+    }
+  }, []);
+
+  return (
+    <div className={styles.photo}>
+      <video
+        ref={videoRef}
+        src={BASE_URL + src}
+        width={280}
+        height={280}
+        muted
+        playsInline
+        preload='metadata'
+        autoPlay={false}
+        poster={`${BASE_URL + src}.jpg`}
+        onClick={onClick}
+      />
+      <div className={styles.videoIcon}>
+        <PlayIcon />
+      </div>
     </div>
   );
 };
