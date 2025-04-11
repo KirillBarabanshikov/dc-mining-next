@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { FC, useState } from 'react';
 
-import exampleSrc from '@/shared/assets/images/infrastructure/example.jpg';
 import offerSrc from '@/shared/assets/images/infrastructure/image.png';
 import { useOutsideClick } from '@/shared/lib';
 
@@ -62,13 +61,18 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
             <span className={'mark'}>Пример</span> инфраструктуры
           </h3>
           <div className={'infrastructure__example-points'}>
-            <Image
-              src={exampleSrc}
-              alt={''}
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
               width={1216}
               height={684}
               className={'infrastructure__example-image'}
-            />
+            >
+              <source src={'/animations/data_center_development.webm'} />
+              Ваш браузер не поддерживает тег video.
+            </video>
             {Array.from({ length: 7 }).map((_, index) => (
               <Point
                 key={index}
