@@ -50,6 +50,23 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
     };
   }, [selectedIndex]);
 
+  useEffect(() => {
+    return () => {
+      if (previewVideoRef.current) {
+        const selectedMedia = media[selectedIndex];
+        const selectedType = getMediaType(selectedMedia);
+
+        if (selectedType == 'video') {
+          previewVideoRef.current.pause();
+          // previewVideoRef.current.src = '';
+          // previewVideoRef.current.load();
+          // previewVideoRef.current.src = BASE_URL + media[selectedIndex];
+          // console.log(BASE_URL + media[selectedIndex]);
+        }
+      }
+    };
+  }, [isOpen]);
+
   if (!media?.length) return null;
 
   const getMediaType = (src: string): 'image' | 'video' => {
