@@ -111,7 +111,6 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
               ) : (
                 <VideoPreview
                   key={src}
-                  src={src}
                   onClick={() => {
                     setSelectedIndex(index);
                     setIsOpen(true);
@@ -204,38 +203,39 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
 };
 
 interface VideoPreviewProps {
-  src: string;
   onClick: () => void;
 }
 
-export const VideoPreview: FC<VideoPreviewProps> = ({ src, onClick }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+export const VideoPreview: FC<VideoPreviewProps> = ({ onClick }) => {
+  // const videoRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video
-        .play()
-        .then(() => video.pause())
-        .catch(() => {});
-    }
-  }, []);
+  // useEffect(() => {
+  //   const video = videoRef.current;
+  //   if (video) {
+  //     video
+  //       .play()
+  //       .then(() => video.pause())
+  //       .catch(() => {});
+  //   }
+  // }, []);
 
   return (
     <div className={styles.photo}>
-      <video
-        ref={videoRef}
-        src={BASE_URL + src}
-        width={280}
-        height={280}
-        muted
-        playsInline
-        preload='metadata'
-        autoPlay={false}
-        onClick={onClick}
-      />
-      <div className={styles.videoIcon}>
-        <PlayIcon />
+      <div className={styles.videoWrap} onClick={onClick}>
+        {/*<video*/}
+        {/*  ref={videoRef}*/}
+        {/*  src={BASE_URL + src}*/}
+        {/*  width={280}*/}
+        {/*  height={280}*/}
+        {/*  muted*/}
+        {/*  playsInline*/}
+        {/*  preload='metadata'*/}
+        {/*  autoPlay={false}*/}
+        {/*  onClick={onClick}*/}
+        {/*/>*/}
+        <div className={styles.videoIcon}>
+          <PlayIcon />
+        </div>
       </div>
     </div>
   );
