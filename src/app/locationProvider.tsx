@@ -1,12 +1,13 @@
 'use client';
 
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FC, PropsWithChildren, useEffect } from 'react';
 
 import { useMangoStore } from '@/shared/lib';
 // import { TURNSTILE_SITE_KEY } from '@/shared/consts';
 
 export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { setNumber } = useMangoStore();
@@ -22,6 +23,14 @@ export const LocationProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     if (!sessionStorage.getItem('entryPoint')) {
       sessionStorage.setItem('entryPoint', document.referrer || '/');
+    }
+  }, []);
+
+  useEffect(() => {
+    const password = prompt('Введите пароль для доступа:');
+
+    if (password !== 'kirill') {
+      router.push('/error');
     }
   }, []);
 

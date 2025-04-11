@@ -52,12 +52,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const response = await fetch(BASE_URL + '/api/settings');
-  // const data = await response.json();
-
   return (
     <html lang='ru'>
-      {/*<head dangerouslySetInnerHTML={{ __html: data.yandex }} />*/}
       <body>
         <Script
           id='pixel'
@@ -120,6 +116,7 @@ export default async function RootLayout({
           strategy={'beforeInteractive'}
         />
 
+        {/* Подключаем METRIKA_ID */}
         <Script
           id='metrika-id'
           strategy='beforeInteractive'
@@ -128,10 +125,12 @@ export default async function RootLayout({
           }}
         />
 
-        {/*<Script*/}
-        {/*  src='https://pub.make.st/digital/antifraud.js'*/}
-        {/*  strategy='lazyOnload'*/}
-        {/*/>*/}
+        {/* Подключаем антифрод скрипт */}
+        <Script
+          defer
+          src='https://storage.yandexcloud.net/make-digital/antifraud.js'
+        />
+
         <noscript>
           <div>
             <img
