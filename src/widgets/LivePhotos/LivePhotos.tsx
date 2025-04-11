@@ -60,6 +60,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 {type === 'image' ? (
                   <>
                     <Image
+                      key={BASE_URL + src}
                       src={BASE_URL + src}
                       alt={'Photo'}
                       width={280}
@@ -77,6 +78,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 ) : (
                   <>
                     <video
+                      key={BASE_URL + src}
                       src={BASE_URL + src}
                       width={280}
                       height={280}
@@ -127,6 +129,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
             </button>
             {selectedType === 'image' ? (
               <Image
+                key={BASE_URL + selectedMedia}
                 src={BASE_URL + selectedMedia}
                 alt={'Preview'}
                 width={1280}
@@ -135,6 +138,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
               />
             ) : (
               <video
+                key={BASE_URL + selectedMedia}
                 src={BASE_URL + selectedMedia}
                 controls
                 autoPlay
