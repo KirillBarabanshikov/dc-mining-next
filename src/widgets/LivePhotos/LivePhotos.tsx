@@ -80,9 +80,9 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                       src={BASE_URL + src}
                       width={280}
                       height={280}
-                      controls={false}
-                      autoPlay={false}
+                      muted
                       playsInline
+                      preload='metadata'
                       onClick={() => {
                         setSelectedIndex(index);
                         setIsOpen(true);
@@ -138,6 +138,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 src={BASE_URL + selectedMedia}
                 controls
                 autoPlay
+                muted
                 playsInline
                 controlsList='nodownload'
                 width={1280}
