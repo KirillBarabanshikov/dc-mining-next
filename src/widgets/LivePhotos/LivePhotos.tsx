@@ -76,18 +76,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                   </>
                 ) : (
                   <>
-                    <video
-                      src={BASE_URL + src}
-                      width={280}
-                      height={280}
-                      controls={false}
-                      autoPlay={false}
-                      playsInline
-                      onClick={() => {
-                        setSelectedIndex(index);
-                        setIsOpen(true);
-                      }}
-                    />
+                    <video src={BASE_URL + src} width={280} height={280} />
                     <div className={styles.videoIcon}>
                       <PlayIcon />
                     </div>
