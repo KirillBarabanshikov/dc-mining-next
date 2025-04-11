@@ -82,6 +82,8 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                       src={BASE_URL + src}
                       width={280}
                       height={280}
+                      controls
+                      autoPlay
                       muted
                       playsInline
                       preload='metadata'
