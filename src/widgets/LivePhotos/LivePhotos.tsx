@@ -109,14 +109,15 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                   </div>
                 </div>
               ) : (
-                <VideoPreview
-                  key={src}
-                  src={src}
-                  onClick={() => {
-                    setSelectedIndex(index);
-                    setIsOpen(true);
-                  }}
-                />
+                <div></div>
+                // <VideoPreview
+                //   key={src}
+                //   src={src}
+                //   onClick={() => {
+                //     setSelectedIndex(index);
+                //     setIsOpen(true);
+                //   }}
+                // />
               )}
             </SwiperSlide>
           );
@@ -161,19 +162,20 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 className={styles.image}
               />
             ) : (
-              <video
-                key={BASE_URL + selectedMedia}
-                ref={previewVideoRef}
-                src={BASE_URL + selectedMedia}
-                controls
-                autoPlay
-                muted
-                playsInline
-                controlsList='nodownload'
-                width={1280}
-                height={720}
-                className={styles.video}
-              />
+              <div></div>
+              // <video
+              //   key={BASE_URL + selectedMedia}
+              //   ref={previewVideoRef}
+              //   src={BASE_URL + selectedMedia}
+              //   controls
+              //   autoPlay
+              //   muted
+              //   playsInline
+              //   controlsList='nodownload'
+              //   width={1280}
+              //   height={720}
+              //   className={styles.video}
+              // />
             )}
 
             <button
