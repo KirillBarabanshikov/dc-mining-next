@@ -16,6 +16,8 @@ export const Photos: FC<IPhotosProps> = ({ photos, className }) => {
 
   if (!photos.length) return <></>;
 
+  const media = photos[activeTab].images.map((image) => image.image);
+
   return (
     <div className={clsx(styles.livePhotos, className)}>
       <div className={'container'}>
@@ -23,7 +25,7 @@ export const Photos: FC<IPhotosProps> = ({ photos, className }) => {
           {photos.map((slider, index) => {
             return (
               <div
-                key={slider.id}
+                key={slider.id + index}
                 className={clsx(
                   styles.livePhotosTab,
                   activeTab === index && styles.active,
@@ -36,10 +38,7 @@ export const Photos: FC<IPhotosProps> = ({ photos, className }) => {
           })}
         </div>
       </div>
-
-      <LivePhotos
-        media={photos[activeTab]?.images.map((image) => image.image)}
-      />
+      <LivePhotos key={activeTab} media={media} />
     </div>
   );
 };
