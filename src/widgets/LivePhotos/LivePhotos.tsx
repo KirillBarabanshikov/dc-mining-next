@@ -90,7 +90,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
         {media.map((src, index) => {
           const type = getMediaType(src);
           return (
-            <SwiperSlide key={index} className={styles.slide}>
+            <SwiperSlide key={src} className={styles.slide}>
               {type === 'image' ? (
                 <div className={styles.photo}>
                   <Image
