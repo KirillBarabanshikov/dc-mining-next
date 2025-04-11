@@ -82,11 +82,11 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                       src={BASE_URL + src}
                       width={280}
                       height={280}
-                      controls={false}
-                      autoPlay={false}
                       muted
                       playsInline
+                      autoPlay={false}
                       preload='metadata'
+                      poster={`${BASE_URL + src}.jpg`}
                       onClick={() => {
                         setSelectedIndex(index);
                         setIsOpen(true);
