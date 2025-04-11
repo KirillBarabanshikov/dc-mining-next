@@ -127,18 +127,20 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 className={styles.image}
               />
             ) : (
-              <video
-                key={BASE_URL + selectedMedia}
-                src={BASE_URL + selectedMedia}
-                controls
-                autoPlay={false}
-                muted
-                playsInline
-                controlsList='nodownload'
-                width={1280}
-                height={720}
-                className={styles.video}
-              />
+              <div className={styles.videoWrap}>
+                <video
+                  key={BASE_URL + selectedMedia}
+                  src={BASE_URL + selectedMedia}
+                  controls
+                  autoPlay={false}
+                  muted
+                  playsInline
+                  controlsList='nodownload'
+                  width={1280}
+                  height={720}
+                  className={styles.video}
+                />
+              </div>
             )}
 
             <button
@@ -197,7 +199,6 @@ export const VideoPreview: FC<VideoPreviewProps> = ({ src, onClick }) => {
         playsInline
         preload='metadata'
         autoPlay={false}
-        poster={`${BASE_URL + src}.jpg`}
         onClick={onClick}
       />
       <div className={styles.videoIcon}>

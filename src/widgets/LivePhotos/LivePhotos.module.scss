@@ -206,6 +206,11 @@
     max-width: max-content;
   }
 
+  .videoWrap {
+    border-radius: 16px;
+    background: rgba(22, 32, 53, 0.4);
+  }
+
   .video {
     border-radius: 16px;
     object-fit: contain;
