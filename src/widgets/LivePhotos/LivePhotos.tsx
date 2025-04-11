@@ -3,7 +3,7 @@
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import ArrowPrev from '@/shared/assets/icons/arrow-left24.svg';
@@ -25,12 +25,26 @@ interface ILivePhotosProps {
 export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const previewVideoRef = useRef<HTMLVideoElement | null>(null);
 
   const { setIsLocked } = useBodyScrollLock();
 
   useEffect(() => {
     setIsLocked(isOpen);
   }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || !previewVideoRef.current) return;
+
+    const selectedMedia = media[selectedIndex];
+    const selectedType = getMediaType(selectedMedia);
+
+    if (selectedType === 'video') {
+      previewVideoRef.current.src = BASE_URL + selectedMedia;
+      previewVideoRef.current.load();
+      previewVideoRef.current.play().catch(() => {});
+    }
+  }, [selectedIndex, isOpen, media]);
 
   if (!media?.length) return null;
 
@@ -55,45 +69,33 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
         {media.map((src, index) => {
           const type = getMediaType(src);
           return (
-            <SwiperSlide key={index} className={styles.slide}>
-              <div className={styles.photo}>
-                {type === 'image' ? (
-                  <>
-                    <Image
-                      src={BASE_URL + src}
-                      alt={'Photo'}
-                      width={280}
-                      height={280}
-                      loading={'lazy'}
-                      onClick={() => {
-                        setSelectedIndex(index);
-                        setIsOpen(true);
-                      }}
-                    />
-                    <div className={styles.eyeIcon}>
-                      <EyeIcon />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <video
-                      src={BASE_URL + src}
-                      width={280}
-                      height={280}
-                      controls={false}
-                      autoPlay={false}
-                      playsInline
-                      onClick={() => {
-                        setSelectedIndex(index);
-                        setIsOpen(true);
-                      }}
-                    />
-                    <div className={styles.videoIcon}>
-                      <PlayIcon />
-                    </div>
-                  </>
-                )}
-              </div>
+            <SwiperSlide key={src} className={styles.slide}>
+              {type === 'image' ? (
+                <div className={styles.photo}>
+                  <Image
+                    src={BASE_URL + src}
+                    alt={'Photo'}
+                    width={280}
+                    height={280}
+                    loading={'lazy'}
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      setIsOpen(true);
+                    }}
+                  />
+                  <div className={styles.eyeIcon}>
+                    <EyeIcon />
+                  </div>
+                </div>
+              ) : (
+                <VideoPreview
+                  key={src}
+                  onClick={() => {
+                    setSelectedIndex(index);
+                    setIsOpen(true);
+                  }}
+                />
+              )}
             </SwiperSlide>
           );
         })}
@@ -102,6 +104,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
           className={clsx(styles.swiperButton, styles.next)}
         />
       </Swiper>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -125,8 +128,10 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
             >
               <ArrowPrev />
             </button>
+
             {selectedType === 'image' ? (
               <Image
+                key={BASE_URL + selectedMedia}
                 src={BASE_URL + selectedMedia}
                 alt={'Preview'}
                 width={1280}
@@ -135,9 +140,11 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
               />
             ) : (
               <video
-                src={BASE_URL + selectedMedia}
+                key={selectedMedia}
+                ref={previewVideoRef}
                 controls
                 autoPlay
+                muted
                 playsInline
                 controlsList='nodownload'
                 width={1280}
@@ -145,6 +152,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
                 className={styles.video}
               />
             )}
+
             <button
               title={'Следующее'}
               aria-label={'Следующее'}
@@ -156,6 +164,7 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
             >
               <ArrowNext />
             </button>
+
             <button
               title={'Закрыть'}
               aria-label={'Закрыть'}
@@ -167,6 +176,45 @@ export const LivePhotos: FC<ILivePhotosProps> = ({ media, className }) => {
           </motion.div>
         )}
       </AnimatePresence>
+    </div>
+  );
+};
+
+interface VideoPreviewProps {
+  onClick: () => void;
+}
+
+export const VideoPreview: FC<VideoPreviewProps> = ({ onClick }) => {
+  // const videoRef = useRef<HTMLVideoElement>(null);
+
+  // useEffect(() => {
+  //   const video = videoRef.current;
+  //   if (video) {
+  //     video
+  //       .play()
+  //       .then(() => video.pause())
+  //       .catch(() => {});
+  //   }
+  // }, []);
+
+  return (
+    <div className={styles.photo}>
+      <div className={styles.videoWrap} onClick={onClick}>
+        {/*<video*/}
+        {/*  ref={videoRef}*/}
+        {/*  src={BASE_URL + src}*/}
+        {/*  width={280}*/}
+        {/*  height={280}*/}
+        {/*  muted*/}
+        {/*  playsInline*/}
+        {/*  preload='metadata'*/}
+        {/*  autoPlay={false}*/}
+        {/*  onClick={onClick}*/}
+        {/*/>*/}
+        <div className={styles.videoIcon}>
+          <PlayIcon />
+        </div>
+      </div>
     </div>
   );
 };
