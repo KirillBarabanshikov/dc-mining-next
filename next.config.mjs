@@ -112,6 +112,12 @@ const nextConfig = {
                 permanent: true,
                 statusCode: 301,
             },
+            {
+                source: '/catalog/gotovyj-biznes-dlya-majninga-kriptovalyut',
+                destination: '/catalog/gotovyi-biznes-dlia-maininga-kriptovaliut',
+                permanent: true,
+                statusCode: 301,
+            },
 
             ///
             // {
