@@ -94,7 +94,7 @@ const CatalogPage = () => {
           <Catalog catalogData={catalogData} category={category} />
           {customFilter && customFilter.productText && (
             <div
-              className={clsx(styles.productText, '_container')}
+              className={clsx(styles.productText, 'container')}
               dangerouslySetInnerHTML={{ __html: customFilter.productText }}
             />
           )}
