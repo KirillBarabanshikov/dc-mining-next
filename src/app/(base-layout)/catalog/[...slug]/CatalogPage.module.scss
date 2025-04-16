@@ -1,57 +1,96 @@
 .catalog {
+  .catalogTitle {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+
+    h1 {
+      font-size: 48px;
+      line-height: 57.6px;
+    }
+
+    span {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 24px;
+      color: var(--text-fourthiary);
+    }
+  }
+
+  .livePhotos {
+    margin-top: 120px;
+  }
+
+  .banners {
+    margin-top: 200px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  @media screen and (max-width: 992px) {
     .catalogTitle {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 32px;
-
-        h1 {
-            font-size: 48px;
-            line-height: 57.6px;
-        }
-
-        span {
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 24px;
-            color: var(--text-fourthiary);
-        }
+      margin-bottom: 14px;
     }
+  }
 
-    .livePhotos {
-        margin-top: 120px;
-    }
-
+  @media screen and (max-width: 855px) {
     .banners {
-        margin-top: 200px;
-
-        display: flex;
-        flex-direction: column;
-        gap: 17px;
+      margin-top: 64px;
     }
+  }
 
-    @media screen and (max-width: 992px) {
-        .catalogTitle {
-            margin-bottom: 14px;
-        }
-    }
+  @media screen and (max-width: 768px) {
+    .catalogTitle {
+      h1 {
+        font-size: 40px;
+        line-height: 48px;
+      }
 
-    @media screen and (max-width: 855px) {
-        .banners {
-            margin-top: 64px;
-        }
+      span {
+        display: none;
+      }
     }
+  }
+}
+
+.productText {
+  margin-top: 30px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.3;
+  color: var(--text-secondary);
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    margin-top: 40px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.2;
+    color: var(--text-primary);
 
     @media screen and (max-width: 768px) {
-        .catalogTitle {
-            h1 {
-                font-size: 40px;
-                line-height: 48px;
-            }
-
-            span {
-                display: none;
-            }
-        }
+      font-size: 24px;
     }
+  }
+
+  ul,
+  ol {
+    list-style: inside;
+    display: block;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
 }

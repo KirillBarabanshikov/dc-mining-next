@@ -24,10 +24,12 @@ export const DataCenterInfo: FC<IDataCenterInfoProps> = ({
 
   return (
     <div className={clsx(styles.dataCenterInfo, className)}>
-      <video autoPlay loop muted playsInline className={styles.background}>
-        <source src={'/animations/data_center-animation.webm'} />
-        Ваш браузер не поддерживает тег video.
-      </video>
+      <div className={styles.videoOverlay}>
+        <video autoPlay loop muted playsInline className={styles.background}>
+          <source src={'/animations/data-center.webm'} />
+          Ваш браузер не поддерживает тег video.
+        </video>
+      </div>
       <section className={styles.dataCenterInfo}>
         <div className={'container'}>
           <div className={styles.dataCenterBody}>

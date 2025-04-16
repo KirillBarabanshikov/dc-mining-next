@@ -14,6 +14,28 @@
       top: 0;
       height: 360px;
       object-position: center;
+      border-radius: 0 0 20px 20px;
+    }
+  }
+
+  .videoOverlay {
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 700px;
+      object-fit: cover;
+      object-position: left;
+      border-radius: 0 0 40px 40px;
+      z-index: -1;
+      background-color: #16203580;
+
+      @media screen and (max-width: 768px) {
+        height: 360px;
+        border-radius: 0 0 20px 20px;
+      }
     }
   }
 
@@ -36,6 +58,10 @@
     }
 
     .title {
+      @media screen and (min-width: 769px) {
+        color: var(--text-contrast);
+      }
+
       @media screen and (max-width: 1900px) {
         margin-bottom: 20px;
       }
@@ -62,6 +88,10 @@
       font-size: 20px;
       line-height: 1.2;
       margin-bottom: 40px;
+
+      @media screen and (min-width: 769px) {
+        color: var(--text-contrast);
+      }
 
       @media screen and (max-width: 1900px) {
         margin-bottom: 20px;
