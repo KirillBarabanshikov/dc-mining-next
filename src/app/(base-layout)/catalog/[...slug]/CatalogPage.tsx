@@ -92,6 +92,12 @@ const CatalogPage = () => {
       {category && catalogData && (
         <>
           <Catalog catalogData={catalogData} category={category} />
+          {customFilter && customFilter.productText && (
+            <div
+              className={clsx(styles.productText, '_container')}
+              dangerouslySetInnerHTML={{ __html: customFilter.productText }}
+            />
+          )}
           <LivePhotos
             media={category.images.map(({ image }) => image ?? '')}
             className={styles.livePhotos}
