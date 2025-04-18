@@ -5,6 +5,7 @@ import 'swiper/css/pagination';
 import '@/shared/styles/main.scss';
 
 import type { Metadata } from 'next';
+import Head from 'next/head';
 import Script from 'next/script';
 import React from 'react';
 
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
     'yandex-verification': 'a930c94ae40ba145',
     'google-site-verification': 'hiXOz0MdF5y3OzsOCuwRAs50p6iLpm_vWiVJhg0bt50',
     'mailru-domain': 'mSupiPZza7ZVWW82',
+    robots: 'noindex, nofollow',
   },
 };
 
@@ -55,6 +57,10 @@ export default async function RootLayout({
   return (
     <html lang='ru'>
       <body>
+        <Head>
+          <meta name='robots' content='noindex, nofollow' />
+        </Head>
+
         <Script
           id='pixel'
           strategy='afterInteractive'
