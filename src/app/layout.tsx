@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   manifest: '/site.webmanifest',
   other: {
-    'yandex-verification': 'a930c94ae40ba145',
+    'yandex-verification': '6b030afb1f19b005',
     'google-site-verification': 'hiXOz0MdF5y3OzsOCuwRAs50p6iLpm_vWiVJhg0bt50',
     'mailru-domain': 'mSupiPZza7ZVWW82',
     robots: 'noindex, nofollow',
