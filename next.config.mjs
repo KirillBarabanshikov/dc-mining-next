@@ -7,7 +7,7 @@ const nextConfig = {
                 headers: [
                     {
                         key: 'X-Robots-Tag',
-                        value: process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'all' : 'noindex, nofollow',
+                        value: 'noindex, nofollow',
                     },
                 ],
             },
