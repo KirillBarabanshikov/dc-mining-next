@@ -87,7 +87,7 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     params.slug[0],
   ]);
 
-  if (!category) return notFound();
+  if (!category || category.link) return notFound();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
