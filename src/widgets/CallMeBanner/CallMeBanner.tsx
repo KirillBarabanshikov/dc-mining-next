@@ -46,7 +46,7 @@ export const CallMeBanner: FC<ICallMeBannerProps> = ({
   return (
     <section className={clsx(styles.banner, className)}>
       <div className={styles.content}>
-        <h3>{title}</h3>
+        <h2>{title}</h2>
         <p>{subtitle}</p>
         {variant === 'order' && (
           <Button onClick={() => setIsOpen(true)}>Оставить запрос</Button>

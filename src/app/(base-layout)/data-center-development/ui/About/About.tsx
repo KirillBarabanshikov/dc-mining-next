@@ -22,7 +22,7 @@ export const About: FC<IAboutProps> = ({ info }) => {
           className={'about__image'}
         />
         <div className={'about__body'}>
-          <h3 className={'about__title h2'}>{info.aboutTitle}</h3>
+          <h2 className={'about__title h2'}>{info.aboutTitle}</h2>
           <div
             className={'about__subtitle'}
             dangerouslySetInnerHTML={{ __html: info.aboutDescription }}

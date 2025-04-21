@@ -19,7 +19,7 @@ export const Variants: FC<IVariantsProps> = ({ variants, className }) => {
   return (
     <section className={clsx('variants', className)}>
       <div className={'variants__inner _container'}>
-        <h3 className={'variants__title h3'}>Варианты пакетных решений</h3>
+        <h2 className={'variants__title h3'}>Варианты пакетных решений</h2>
         <div className={'variants__list'}>
           {variants.map((variant) => {
             return <VariantCard key={variant.id} variant={variant} />;
