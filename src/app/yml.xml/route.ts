@@ -4,44 +4,20 @@ import { ICategoryDto } from '@/entities/category';
 import { IProductDto } from '@/entities/product/api';
 import { BASE_URL } from '@/shared/consts';
 
-const fetchCategories = async () => {
-  try {
-    const response = await fetch(BASE_URL + '/api/product_categories', {
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return (await response.json()) as ICategoryDto[];
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return [];
-  }
-};
-
-const fetchProducts = async () => {
-  try {
-    const response = await fetch(BASE_URL + '/api/products', {
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return (await response.json()) as IProductDto[];
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return [];
-  }
-};
-
 export async function GET() {
   try {
-    const categories = await fetchCategories();
-    const products = await fetchProducts();
+    const categoriesResponse = await fetch(
+      BASE_URL + '/api/product_categories',
+      {
+        cache: 'no-store',
+      },
+    );
+    const productsResponse = await fetch(BASE_URL + '/api/products', {
+      cache: 'no-store',
+    });
+
+    const categories = (await categoriesResponse.json()) as ICategoryDto[];
+    const products = (await productsResponse.json()) as IProductDto[];
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <yml_catalog date="${new Date().toISOString()}">
