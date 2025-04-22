@@ -267,13 +267,7 @@
     }
 
     .indicatorItem {
-      display: flex;
-      align-items: center;
-      column-gap: 16px;
-
-      @media screen and (max-width: 1900px) {
-        column-gap: 8px;
-      }
+      display: inline;
 
       .indicatorTitle {
         font-size: 16px;
@@ -287,6 +281,11 @@
       .indicatorValue {
         font-size: 16px;
         line-height: 1.3;
+        padding-left: 16px;
+
+        @media screen and (max-width: 1900px) {
+          padding-left: 8px;
+        }
 
         &.accent {
           font-weight: 700;
