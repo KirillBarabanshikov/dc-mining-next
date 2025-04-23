@@ -8,12 +8,16 @@ import { Metadata } from 'next';
 import { getContacts } from '@/entities/contacts';
 import { getFaq } from '@/entities/faq';
 import { getDataCenterDevelopmentInfo } from '@/entities/pageInfo';
+import { getSeo } from '@/entities/seo';
 
 import { DataCenterDevelopmentPage } from './DataCenterDevelopmentPage';
 
 export async function generateMetadata(): Promise<Metadata> {
+  const data = await getSeo('Строительство майнинг центра');
+
   return {
-    title: 'Строительство дата-центров',
+    title: data?.title,
+    description: data?.description,
   };
 }
 

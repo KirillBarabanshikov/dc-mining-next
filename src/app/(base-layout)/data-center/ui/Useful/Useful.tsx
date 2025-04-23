@@ -41,7 +41,7 @@ const WhatDataCenter = ({ info }: { info: string }) => {
   return (
     <section className={styles.whatDataCenter}>
       <div className={clsx(styles.container, 'container')}>
-        <h3 className={styles.whatDataCenterTitle}>Что такое дата центр?</h3>
+        <h3 className={styles.whatDataCenterTitle}>Майнинг-отель</h3>
         <div
           dangerouslySetInnerHTML={{ __html: info }}
           className={clsx(

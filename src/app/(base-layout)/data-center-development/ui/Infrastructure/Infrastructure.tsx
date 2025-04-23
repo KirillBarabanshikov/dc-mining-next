@@ -34,7 +34,7 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
   return (
     <section className={clsx('infrastructure', className)}>
       <div className={'infrastructure__inner _container'}>
-        <h3
+        <h2
           className={'infrastructure__title h3'}
           dangerouslySetInnerHTML={{ __html: title }}
         />
@@ -57,9 +57,9 @@ export const Infrastructure: FC<IInfrastructureProps> = ({
           />
         </div>
         <div className={'infrastructure__example'}>
-          <h3 className={'infrastructure__example-title h3'}>
+          <h2 className={'infrastructure__example-title h3'}>
             <span className={'mark'}>Пример</span> инфраструктуры
-          </h3>
+          </h2>
           <div className={'infrastructure__example-points'}>
             <video
               autoPlay

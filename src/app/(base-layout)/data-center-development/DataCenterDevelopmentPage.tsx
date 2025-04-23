@@ -191,7 +191,7 @@ export const DataCenterDevelopmentPage = () => {
       <Variants variants={info.variables} />
       <section className={'gallery'}>
         <div className={'gallery__inner _container'}>
-          <h3 className={'gallery__title h2'}>Галерея</h3>
+          <h2 className={'gallery__title h2'}>Галерея</h2>
         </div>
         <LivePhotos
           media={info.gallery.map((item) => item.media || '')}
@@ -200,10 +200,10 @@ export const DataCenterDevelopmentPage = () => {
       </section>
       <section className={'stages'}>
         <div className={'stages__inner _container'}>
-          <h3 className={'stages__title h3'}>
+          <h2 className={'stages__title h3'}>
             <span className={'mark'}>Стадии реализации</span> проекта
             строительства дата-центров DC Mining
-          </h3>
+          </h2>
           <div className={'stages__list'}>
             {info.stages.map((stage, index) => {
               return (
@@ -221,7 +221,7 @@ export const DataCenterDevelopmentPage = () => {
       <About info={info} />
       <section className={'questions'}>
         <div className={'questions__inner _container'}>
-          <h3 className={'questions__title h2'}>Вопросы и ответы</h3>
+          <h2 className={'questions__title h2'}>Вопросы и ответы</h2>
           <div className={'questions__list'}>
             {faq?.map((item) => {
               return (

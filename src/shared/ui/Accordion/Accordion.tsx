@@ -23,10 +23,10 @@ export const Accordion: FC<IAccordionProps> = ({ title, body, number }) => {
   return (
     <div className={styles.accordion}>
       <div onClick={handleClick} className={styles.head}>
-        <h3>
+        <h2>
           {number && <div className={styles.accordionNum}>{number}</div>}
           {title}
-        </h3>
+        </h2>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ damping: 0 }}
