@@ -99,9 +99,15 @@
       height: 24px;
       position: absolute;
       right: 22px;
+      color: var(--stroke-tertiary);
     }
   }
+
   &.md {
     height: 48px;
+  }
+
+  &.sm {
+    height: 40px;
   }
 }
