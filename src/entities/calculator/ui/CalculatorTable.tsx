@@ -7,6 +7,7 @@ import React from 'react';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
 import { CalculatorFilters } from './CalculatorFilters';
+import { CalculatorFinModel } from './CalculatorFinModel';
 import { CalculatorModelRow } from './CalculatorModelRow';
 import { CalculatorProductRow } from './CalculatorProductRow';
 import { CalculatorTableHeader } from './CalculatorTableHeader';
@@ -34,6 +35,14 @@ export const CalculatorTable = () => {
         {Array.from({ length: 10 }).map((_, index) => {
           return <CalculatorModelRow key={index} />;
         })}
+      </div>
+      <CalculatorFinModel />
+      <div className={'calculator-table__extra'}>
+        <div>Не является публичной офертой</div>
+        <div>
+          BTC=101 000 $, DOGE=0.31 $, LTC=0.35 $,{' '}
+          <span>Курс доллара = 85 ₽</span>
+        </div>
       </div>
     </div>
   );
