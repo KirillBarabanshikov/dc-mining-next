@@ -2,9 +2,9 @@
 
 import './CalculatorTable.scss';
 
-import { CalculatorTableHeader } from '@/entities/calculator/ui/CalculatorTableHeader';
-
 import { CalculatorFilters } from './CalculatorFilters';
+import { CalculatorProductRow } from './CalculatorProductRow';
+import { CalculatorTableHeader } from './CalculatorTableHeader';
 
 const modelHeaderCells = [
   { title: 'Название' },
@@ -20,6 +20,11 @@ export const CalculatorTable = () => {
     <div className={'calculator-table'}>
       <CalculatorFilters />
       <CalculatorTableHeader cells={modelHeaderCells} />
+      <div className={'calculator-table__rows'}>
+        {Array.from({ length: 10 }).map((_, index) => {
+          return <CalculatorProductRow key={index} />;
+        })}
+      </div>
     </div>
   );
 };
