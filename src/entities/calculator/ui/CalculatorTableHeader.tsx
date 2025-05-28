@@ -3,13 +3,23 @@ import './CalculatorTable.scss';
 import clsx from 'clsx';
 import { FC } from 'react';
 
+import { Currency } from '@/entities/calculator/model/types';
+
 const cells = {
   product: [
     { title: 'Название' },
     { title: 'Хэшрейт' },
     { title: 'Цена' },
-    { title: 'Доход, руб.', subtitles: ['В монете в месяц', 'В руб. в месяц'] },
-    { title: 'Доход, руб.', subtitles: ['без учета э/э', 'с учетом э/э'] },
+    {
+      title: 'Доход, ',
+      currency: { rub: 'руб.', dollar: 'долл.' },
+      subtitles: ['В монете в месяц', 'В руб. в месяц'],
+    },
+    {
+      title: 'Доход, ',
+      currency: { rub: 'руб.', dollar: 'долл.' },
+      subtitles: ['без учета э/э', 'с учетом э/э'],
+    },
     {
       title: 'Окупаемость, мес.',
       subtitles: ['без учета э/э', 'с учетом э/э'],
@@ -19,7 +29,11 @@ const cells = {
     { title: 'Название' },
     { title: 'Хэшрейт' },
     { title: 'Количество' },
-    { title: 'Доход, руб.', subtitles: ['без учета э/э', 'с учетом э/э'] },
+    {
+      title: 'Доход, ',
+      currency: { rub: 'руб.', dollar: 'долл.' },
+      subtitles: ['без учета э/э', 'с учетом э/э'],
+    },
     { title: 'Цена за шт.' },
     { title: 'Общая стоимость' },
   ],
@@ -27,10 +41,12 @@ const cells = {
 
 interface ICalculatorTableHeaderProps {
   variant: 'product' | 'model';
+  currency: Currency;
 }
 
 export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
   variant,
+  currency,
 }) => {
   return (
     <div
@@ -46,7 +62,9 @@ export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
             'calculator-table__header-cell--subtitles': !!cell.subtitles,
           })}
         >
-          <div className={'calculator-table__header-title'}>{cell.title}</div>
+          <div className={'calculator-table__header-title'}>
+            {cell.title} {cell?.currency && cell.currency[currency]}
+          </div>
           <div className={'calculator-table__header-subtitle'}>
             {cell.subtitles?.map((subtitle, index) => (
               <span key={index}>{subtitle}</span>

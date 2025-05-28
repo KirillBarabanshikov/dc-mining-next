@@ -4,20 +4,22 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { FC } from 'react';
 
-const currencies = [
+import { Currency } from '../../../model/types';
+
+const currencies: { symbol: string; value: Currency }[] = [
   {
     symbol: '₽',
-    value: 'RU',
+    value: 'rub',
   },
   {
     symbol: '$',
-    value: 'EN',
+    value: 'dollar',
   },
 ];
 
 interface ICurrencySwitchProps {
   value: string;
-  onChange: (currency: string) => void;
+  onChange: (currency: Currency) => void;
 }
 
 export const CurrencySwitch: FC<ICurrencySwitchProps> = ({

@@ -1,11 +1,13 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { CurrencySwitch } from '@/entities/calculator/ui/ui';
 import styles from '@/features/search/ui/Search/Search.module.scss';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import { Input } from '@/shared/ui';
+
+import { Currency } from '../model/types';
 
 const options = [
   'Все',
@@ -14,9 +16,16 @@ const options = [
   'Лучший выбор',
 ];
 
-export const CalculatorFilters = () => {
+interface ICalculatorFiltersProps {
+  currency: Currency;
+  onChangeCurrency: (currency: Currency) => void;
+}
+
+export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
+  currency,
+  onChangeCurrency,
+}) => {
   const [activeOption, setActiveOption] = useState(options[0]);
-  const [currency, setCurrency] = useState('RU');
   const [searchValue, setSearchValue] = useState('');
 
   return (
@@ -35,7 +44,7 @@ export const CalculatorFilters = () => {
           </button>
         ))}
       </div>
-      <CurrencySwitch value={currency} onChange={setCurrency} />
+      <CurrencySwitch value={currency} onChange={onChangeCurrency} />
       <Input
         className={'calculator-table__search'}
         placeholder={'Поиск по модели'}
