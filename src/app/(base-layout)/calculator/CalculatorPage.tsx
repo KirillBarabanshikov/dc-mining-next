@@ -1,4 +1,4 @@
-import { CalculatorTable } from '@/entities/calculator';
+import { Calculator } from '@/entities/calculator';
 import { Breadcrumbs } from '@/shared/ui';
 
 const paths = [
@@ -11,7 +11,7 @@ const CalculatorPage = () => {
     <div className='sections'>
       <div className='container'>
         <Breadcrumbs paths={paths} />
-        <CalculatorTable />
+        <Calculator />
       </div>
     </div>
   );

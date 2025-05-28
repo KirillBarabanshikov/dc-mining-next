@@ -31,3 +31,5 @@ export type CalculatorData = {
 export type Currency = 'dollar' | 'rub';
 
 export type Filter = 'profitable' | 'fastPayback' | 'bestChoice' | '';
+
+export type Model = { product: Product; count: number };

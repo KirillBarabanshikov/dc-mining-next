@@ -2,18 +2,22 @@ import { FC } from 'react';
 
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
-import { formatPriceByCurrency } from '../lib/formatPriceByCurrency';
-import { Currency, Product } from '../model/types';
-import { CoinsList } from './CoinsList';
+import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
+import { Currency, Model, Product } from '../../model/types';
+import { CoinsList } from '../CoinsList';
 
 interface ICalculatorProductRowProps {
   product: Product;
   currency: Currency;
+  models: Model[];
+  addModel: (product: Product) => void;
 }
 
 export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
   product,
   currency,
+  models,
+  addModel,
 }) => {
   return (
     <div className={'calculator-table__product-row'}>
@@ -22,13 +26,13 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
           {product.title}
         </div>
         <div className={'calculator-table__product-row-info'}>
-          <div>
+          <div className={'calculator-table__product-row-info-wrap'}>
             <div className={'calculator-table__product-row-key'}>Алгоритм</div>
             <div className={'calculator-table__product-row-value'}>
               {product.algorithm}
             </div>
           </div>
-          <div>
+          <div className={'calculator-table__product-row-info-wrap'}>
             <div className={'calculator-table__product-row-key'}>
               Потребление, Вт.
             </div>
@@ -59,7 +63,11 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
           {product.profitWithWatt}
         </div>
       </div>
-      <button className={'calculator-table__product-row-button'}>
+      <button
+        disabled={!!models.find((model) => model.product.id === product.id)}
+        onClick={() => addModel(product)}
+        className={'calculator-table__product-row-button'}
+      >
         <PlusIcon />
       </button>
     </div>

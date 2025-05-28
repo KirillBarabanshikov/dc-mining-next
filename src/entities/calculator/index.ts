@@ -1,1 +1,1 @@
-export { CalculatorTable } from './ui';
+export { Calculator } from './ui';

@@ -15,6 +15,7 @@ interface INumberInputProps {
   defaultValue?: number;
   onChange?: (count: number) => void;
   variant?: 'default' | 'small' | 'sm-full-width' | 'header' | 'calculator';
+  disabled?: boolean;
 }
 
 export const NumberInput: FC<INumberInputProps> = ({
@@ -23,6 +24,7 @@ export const NumberInput: FC<INumberInputProps> = ({
   defaultValue = 0,
   onChange,
   variant = 'default',
+  disabled,
 }) => {
   const [count, setCount] = useState(defaultValue);
 
@@ -58,6 +60,7 @@ export const NumberInput: FC<INumberInputProps> = ({
         <Input
           type={'number'}
           value={`${count}`}
+          disabled={disabled}
           onChange={(e) => setCount(+e.target.value <= 0 ? 1 : +e.target.value)}
           style={{ textAlign: 'center' }}
           className={styles.input}
