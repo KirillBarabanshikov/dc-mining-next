@@ -1,6 +1,6 @@
 import { instance } from '@/shared/api';
 
-import type { CalculatorData } from '../model/types.ts';
+import type { CalculatorData } from '../model/types';
 import type { CalculatorDataParams } from './types';
 
 export const getCalculatorData = async (params: CalculatorDataParams = {}) => {

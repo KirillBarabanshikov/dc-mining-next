@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { FC } from 'react';
 
-import { Currency } from '../../../model/types';
+import { Currency } from '../../model/types';
 
 const currencies: { symbol: string; value: Currency }[] = [
   {
@@ -26,12 +26,23 @@ export const CurrencySwitch: FC<ICurrencySwitchProps> = ({
   value,
   onChange,
 }) => {
+  const handleOnChange = (newValue: Currency) => {
+    if (newValue === value) {
+      const alternative = currencies.find((c) => c.value !== newValue);
+      if (alternative) {
+        onChange(alternative.value);
+      }
+    } else {
+      onChange(newValue);
+    }
+  };
+
   return (
     <div className={'currency-switch'}>
       {currencies.map((currency) => (
         <button
           key={currency.value}
-          onClick={() => onChange(currency.value)}
+          onClick={() => handleOnChange(currency.value)}
           className={clsx('currency-switch__item', {
             'currency-switch__item--active': value === currency.value,
           })}

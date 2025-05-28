@@ -1,0 +1,78 @@
+@use '@/shared/styles/helpers' as *;
+
+.coins-list {
+  flex: 1;
+  border-radius: 12px;
+  padding: 4px;
+  background-color: var(--background-primary);
+  white-space: nowrap;
+  max-width: 320px;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__coin {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+
+    &-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
+    }
+
+    &-image {
+      width: 20px;
+      height: 20px;
+    }
+
+    &-title,
+    &-value {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.3;
+      color: var(--text-secondary);
+    }
+
+    &-value {
+      flex: 1;
+    }
+  }
+
+  &-button {
+    border-radius: 16px;
+    padding: 0 16px;
+    width: 100%;
+    height: 20px;
+    background-color: var(--background-secondary);
+    margin-top: 8px;
+    transition: background-color 0.3s;
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      display: flex;
+      color: var(--text-accent-blue);
+      transition: color 0.3s;
+    }
+
+    @include hover() {
+      background-color: var(--button-hover);
+      svg {
+        color: var(--text-contrast);
+      }
+    }
+  }
+}

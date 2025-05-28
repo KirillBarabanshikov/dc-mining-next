@@ -2,10 +2,12 @@
 
 import './CalculatorTable.scss';
 
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import React, { useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
-import { Currency } from '@/entities/calculator/model/types';
+import { Currency, Filter } from '@/entities/calculator/model/types';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
 import { getCalculatorData } from '../api/calculatorApi';
@@ -14,26 +16,56 @@ import { CalculatorProductRow } from './CalculatorProductRow';
 import { CalculatorTableHeader } from './CalculatorTableHeader';
 
 export const CalculatorTable = () => {
-  const [currency, setCurrency] = useState<Currency>('rub');
-
-  const { data } = useQuery({
-    queryKey: ['calculator'],
-    queryFn: () => getCalculatorData(),
+  const [filters, setFilters] = useState({
+    currency: 'rub' as Currency,
+    search: '',
+    filter: '' as Filter,
   });
+  const [debouncedSearch] = useDebounce(filters.search, 300);
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['calculator', filters.currency, filters.filter, debouncedSearch],
+    queryFn: () =>
+      getCalculatorData({
+        currency: filters.currency,
+        filter: filters.filter,
+        title: debouncedSearch,
+      }),
+    placeholderData: keepPreviousData,
+  });
+
+  const setFilterField = <T extends keyof typeof filters>(
+    key: T,
+    value: (typeof filters)[T],
+  ) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  };
 
   if (!data) return <></>;
 
   return (
     <div className={'calculator-table'}>
-      <CalculatorFilters currency={currency} onChangeCurrency={setCurrency} />
-      <CalculatorTableHeader variant={'product'} currency={currency} />
-      <div className={'calculator-table__rows calculator-table__rows-products'}>
+      <CalculatorFilters
+        currency={filters.currency}
+        onChangeCurrency={(v) => setFilterField('currency', v)}
+        search={filters.search}
+        onChangeSearch={(v) => setFilterField('search', v)}
+        filter={filters.filter}
+        onChangeFilter={(v) => setFilterField('filter', v)}
+      />
+      <CalculatorTableHeader variant={'product'} currency={filters.currency} />
+      <div
+        className={clsx(
+          'calculator-table__rows calculator-table__rows-products',
+          { 'calculator-loading': isFetching },
+        )}
+      >
         {data.products.map((product) => {
           return (
             <CalculatorProductRow
               key={product.id}
               product={product}
-              currency={currency}
+              currency={filters.currency}
             />
           );
         })}

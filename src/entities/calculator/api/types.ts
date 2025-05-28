@@ -1,7 +1,9 @@
+import { Currency, Filter } from '../model/types';
+
 export type CalculatorDataParams = {
   type?: string;
   title?: string;
-  filter?: string;
-  currency?: string;
+  filter?: Filter;
+  currency?: Currency;
   display?: boolean;
 };

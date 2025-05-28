@@ -13,16 +13,19 @@ const cells = {
     {
       title: 'Доход, ',
       currency: { rub: 'руб.', dollar: 'долл.' },
-      subtitles: ['В монете в месяц', 'В руб. в месяц'],
+      subtitles: (currency: Currency) => [
+        'В монете в месяц',
+        `В ${currency === 'rub' ? 'руб.' : 'долл.'} в месяц`,
+      ],
     },
     {
       title: 'Доход, ',
       currency: { rub: 'руб.', dollar: 'долл.' },
-      subtitles: ['без учета э/э', 'с учетом э/э'],
+      subtitles: () => ['без учета э/э', 'с учетом э/э'],
     },
     {
       title: 'Окупаемость, мес.',
-      subtitles: ['без учета э/э', 'с учетом э/э'],
+      subtitles: () => ['без учета э/э', 'с учетом э/э'],
     },
   ],
   model: [
@@ -32,7 +35,7 @@ const cells = {
     {
       title: 'Доход, ',
       currency: { rub: 'руб.', dollar: 'долл.' },
-      subtitles: ['без учета э/э', 'с учетом э/э'],
+      subtitles: () => ['без учета э/э', 'с учетом э/э'],
     },
     { title: 'Цена за шт.' },
     { title: 'Общая стоимость' },
@@ -65,11 +68,13 @@ export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
           <div className={'calculator-table__header-title'}>
             {cell.title} {cell?.currency && cell.currency[currency]}
           </div>
-          <div className={'calculator-table__header-subtitle'}>
-            {cell.subtitles?.map((subtitle, index) => (
-              <span key={index}>{subtitle}</span>
-            ))}
-          </div>
+          {typeof cell.subtitles === 'function' && (
+            <div className={'calculator-table__header-subtitle'}>
+              {cell.subtitles(currency).map((subtitle, index) => (
+                <span key={index}>{subtitle}</span>
+              ))}
+            </div>
+          )}
         </div>
       ))}
     </div>
