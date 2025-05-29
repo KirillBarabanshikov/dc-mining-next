@@ -37,21 +37,23 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
   return (
     <div className={'calculator-filters'}>
       <div className={'calculator-filters__title'}>Модели оборудования</div>
-      <div className={'calculator-filters__options-list'}>
-        {options.map((option) => (
-          <button
-            key={option.filter}
-            onClick={() => onChangeFilter(option.filter)}
-            className={clsx('calculator-filters__options-item', {
-              'calculator-filters__options-item--active':
-                filter === option.filter,
-            })}
-          >
-            {option.title}
-          </button>
-        ))}
+      <div className={'calculator-filters__wrap'}>
+        <div className={'calculator-filters__options-list'}>
+          {options.map((option) => (
+            <button
+              key={option.filter}
+              onClick={() => onChangeFilter(option.filter)}
+              className={clsx('calculator-filters__options-item', {
+                'calculator-filters__options-item--active':
+                  filter === option.filter,
+              })}
+            >
+              {option.title}
+            </button>
+          ))}
+        </div>
+        <CurrencySwitch value={currency} onChange={onChangeCurrency} />
       </div>
-      <CurrencySwitch value={currency} onChange={onChangeCurrency} />
       <Input
         className={'calculator-filters__search'}
         placeholder={'Поиск по модели'}
