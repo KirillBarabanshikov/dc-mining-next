@@ -1,20 +1,28 @@
 import './FinModel.scss';
 
-import { FC, useMemo } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { FC, useMemo, useState } from 'react';
 
 import ArrowDownIcon from '@/shared/assets/icons/arrow-down2.svg';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
+import { BASE_URL } from '@/shared/consts';
+import { useOutsideClick } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
-import { Currency, Model } from '../../model/types';
+import { Coin, Currency, Model } from '../../model/types';
 
 interface IFinModelProps {
   models: Model[];
   currency: Currency;
 }
 
+const DAYS_IN_MONTH = 30;
+
 export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
+  const [showCoins, setShowCoins] = useState(false);
+
   const {
     countModels,
     kW,
@@ -23,6 +31,7 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
     paybackWithWatt,
     paybackWithoutWatt,
     cost,
+    coins,
   } = useMemo(() => {
     return models.reduce(
       (previousValue, currentValue) => {
@@ -38,12 +47,33 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
           currentValue.product.profitDayAll * currentValue.count;
         const paybackWithWatt =
           previousValue.paybackWithWatt +
-          currentValue.product.profitWithWatt * currentValue.count;
+          (currentValue.product.price * currentValue.count) /
+            profitWithWatt /
+            DAYS_IN_MONTH;
         const paybackWithoutWatt =
           previousValue.paybackWithoutWatt +
-          currentValue.product.paybackPerMonth * currentValue.count;
+          (currentValue.product.price * currentValue.count) /
+            profitWithoutWatt /
+            DAYS_IN_MONTH;
         const cost =
           previousValue.cost + currentValue.product.price * currentValue.count;
+
+        const newCoins = [...previousValue.coins];
+        currentValue.product.coinsArray.forEach((coin) => {
+          const existing = newCoins.find((c) => c.title === coin.title);
+          const multipliedCoin = {
+            ...coin,
+            value: coin.value * currentValue.count,
+            profit: coin.profit * currentValue.count,
+          };
+
+          if (existing) {
+            existing.value += multipliedCoin.value;
+            existing.profit += multipliedCoin.profit;
+          } else {
+            newCoins.push(multipliedCoin);
+          }
+        });
 
         return {
           countModels,
@@ -53,6 +83,7 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
           paybackWithWatt,
           paybackWithoutWatt,
           cost,
+          coins: newCoins,
         };
       },
       {
@@ -63,6 +94,7 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
         paybackWithWatt: 0,
         paybackWithoutWatt: 0,
         cost: 0,
+        coins: [] as Coin[],
       },
     );
   }, [models]);
@@ -105,9 +137,20 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
             </div>
           </div>
         </div>
-        <button className={'fin-model__trigger'}>
-          <ArrowDownIcon />
-        </button>
+        <div className={'fin-model__coins-wrap'}>
+          <button
+            onClick={() => setShowCoins((prev) => !prev)}
+            className={'fin-model__trigger'}
+          >
+            <ArrowDownIcon />
+          </button>
+          <Coins
+            coins={coins}
+            show={showCoins}
+            onClose={() => setShowCoins(false)}
+            currency={currency}
+          />
+        </div>
       </div>
       <div className={'fin-model__column-wrap'}>
         <div className={'fin-model__card fin-model__row-wrap'}>
@@ -121,7 +164,7 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
                     'fin-model__item-value fin-model__item-value--light'
                   }
                 >
-                  {paybackWithoutWatt}
+                  {Math.round(paybackWithoutWatt)}
                 </div>
               </div>
               <div className={'fin-model__item fin-model__item--row'}>
@@ -131,7 +174,7 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
                     'fin-model__item-value fin-model__item-value--light'
                   }
                 >
-                  {paybackWithWatt}
+                  {Math.round(paybackWithWatt)}
                 </div>
               </div>
             </div>
@@ -158,5 +201,55 @@ export const FinModel: FC<IFinModelProps> = ({ models, currency }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const Coins: FC<{
+  coins: Coin[];
+  show: boolean;
+  onClose: () => void;
+  currency: Currency;
+}> = ({ coins, show, onClose, currency }) => {
+  const containerRef = useOutsideClick<HTMLDivElement>(onClose);
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          ref={containerRef}
+          className={'fin-model__coins'}
+        >
+          <div className={'fin-model__coins-list'}>
+            {coins.map((coin, index) => (
+              <div key={index} className={'fin-model__coins-item'}>
+                <div className={'fin-model__coins-wrap'}>
+                  {coin.image && (
+                    <Image
+                      src={`${BASE_URL}${coin.image}`}
+                      alt={coin.title}
+                      width={20}
+                      height={20}
+                      className={'fin-model__coins-image'}
+                    />
+                  )}
+                  <div className={'fin-model__coins-title'}>{coin.title}</div>
+                </div>
+                <div className={'fin-model__coins-value'}>
+                  {coin.value.toFixed(9)}
+                </div>
+                <div
+                  className={'fin-model__coins-value fin-model__coins-profit'}
+                >
+                  {formatPriceByCurrency(coin.profit, currency)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
