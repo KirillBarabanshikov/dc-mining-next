@@ -16,8 +16,12 @@ export const Calculator = () => {
     search: '',
     filter: '' as Filter,
   });
+
   const [models, setModels] = useState<Model[]>([]);
+  const [electricityCost, setElectricityCost] = useState(5.5);
+
   const [debouncedSearch] = useDebounce(filters.search, 300);
+  const [debouncedElectricityCost] = useDebounce(electricityCost, 300);
 
   const { data, isFetching } = useQuery({
     queryKey: ['calculator', filters.currency, filters.filter, debouncedSearch],
@@ -38,10 +42,24 @@ export const Calculator = () => {
         const updatedProduct = data.products.find(
           (p) => p.id === model.product.id,
         );
-        return updatedProduct ? { ...model, product: updatedProduct } : model;
+        if (!updatedProduct) return model;
+
+        let paybackWithWatt =
+          (updatedProduct.watt / 1000) * debouncedElectricityCost * 24;
+        if (filters.currency === 'dollar') {
+          paybackWithWatt /= data.dollar;
+        }
+
+        return {
+          ...model,
+          product: {
+            ...updatedProduct,
+            paybackWithWatt: updatedProduct.profitDayAll - paybackWithWatt,
+          },
+        };
       }),
     );
-  }, [data]);
+  }, [data, debouncedElectricityCost, filters.currency]);
 
   const setFilterField = <T extends keyof typeof filters>(
     key: T,
@@ -63,7 +81,7 @@ export const Calculator = () => {
   const setModelCount = (product: Product, count: number) => {
     setModels((prev) =>
       prev.map((model) =>
-        model.product.id === product.id ? { product, count } : model,
+        model.product.id === product.id ? { ...model, count } : model,
       ),
     );
   };
@@ -81,6 +99,8 @@ export const Calculator = () => {
         addModel={addModel}
         removeModel={removeModel}
         setModelCount={setModelCount}
+        electricityCoast={electricityCost}
+        setElectricityCoast={setElectricityCost}
         className={'calculator__table'}
       />
     </div>

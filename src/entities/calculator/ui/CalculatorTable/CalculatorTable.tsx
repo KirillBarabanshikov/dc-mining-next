@@ -34,6 +34,8 @@ interface ICalculatorTableProps {
   addModel: (product: Product) => void;
   removeModel: (product: Product) => void;
   setModelCount: (product: Product, count: number) => void;
+  electricityCoast: number;
+  setElectricityCoast: (value: number) => void;
   className?: string;
 }
 
@@ -46,6 +48,8 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   addModel,
   removeModel,
   setModelCount,
+  electricityCoast,
+  setElectricityCoast,
   className,
 }) => {
   return (
@@ -109,7 +113,13 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
               );
             })}
           </div>
-          <FinModel models={models} currency={filters.currency} />
+          <FinModel
+            models={models}
+            currency={filters.currency}
+            dollar={calculatorData.dollar}
+            electricityCoast={electricityCoast}
+            onChangeElectricityCoast={setElectricityCoast}
+          />
         </>
       )}
       <div className={'calculator-table__extra'}>

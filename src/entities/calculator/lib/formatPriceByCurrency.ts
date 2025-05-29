@@ -9,7 +9,5 @@ export function formatPriceByCurrency(
   return value.toLocaleString(isDollar ? 'en-EN' : 'ru-RU', {
     style: 'currency',
     currency: isDollar ? 'USD' : 'RUB',
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
   });
 }
