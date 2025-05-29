@@ -63,13 +63,15 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
           {product.profitWithWatt}
         </div>
       </div>
-      <button
-        disabled={!!models.find((model) => model.product.id === product.id)}
-        onClick={() => addModel(product)}
-        className={'calculator-table__product-row-button'}
-      >
-        <PlusIcon />
-      </button>
+      <div className={'calculator-table__product-row-button-wrap'}>
+        <button
+          disabled={!!models.find((model) => model.product.id === product.id)}
+          onClick={() => addModel(product)}
+          className={'calculator-table__product-row-button'}
+        >
+          <PlusIcon />
+        </button>
+      </div>
     </div>
   );
 };

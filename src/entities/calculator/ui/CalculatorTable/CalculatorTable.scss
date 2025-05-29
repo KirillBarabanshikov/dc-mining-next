@@ -5,6 +5,38 @@
   padding: 20px;
   background-color: var(--background-secondary);
 
+  @media screen and (max-width: 1439px) {
+    padding: 12px;
+  }
+
+  &__content {
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    @include scrollbar();
+
+    @media screen and (max-width: 1439px) {
+      &::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+      }
+    }
+  }
+
+  &__header-wrap {
+    @media screen and (max-width: 1439px) {
+      position: sticky;
+      top: -1px;
+      z-index: 2;
+      background-color: var(--background-secondary);
+      padding: 2px 0 12px 0;
+      min-width: 1319px;
+    }
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -15,6 +47,11 @@
     height: 61px;
     background-color: var(--background-primary);
     margin-bottom: 12px;
+    min-width: 1319px;
+
+    @media screen and (max-width: 1439px) {
+      margin-bottom: unset;
+    }
 
     &--product {
       .calculator-table__header-cell {
@@ -97,9 +134,19 @@
     padding-right: 10px;
     scrollbar-gutter: stable;
 
+    @media screen and (max-width: 1439px) {
+      padding-right: unset;
+      overflow: unset;
+
+      &::-webkit-scrollbar {
+        width: 0 !important;
+        height: 0 !important;
+      }
+    }
+
     &-products {
       max-height: 760px;
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
 
     &-models {
@@ -107,21 +154,7 @@
       margin-bottom: 20px;
     }
 
-    &::-webkit-scrollbar {
-      width: 12px;
-      height: 12px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: var(--background-tonal);
-      border-radius: 4px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: var(--background-secondary);
-      border-radius: 8px;
-      border: 3px solid var(--background-tonal);
-    }
+    @include scrollbar();
   }
 
   &__product-row {
@@ -131,6 +164,11 @@
     border-radius: 16px;
     padding: 8px 16px;
     background-color: var(--background-tonal);
+
+    @media screen and (max-width: 1439px) {
+      min-width: 1319px;
+      padding: 8px 0 8px 16px;
+    }
 
     &-cell {
       flex: 1;
@@ -192,6 +230,21 @@
       }
     }
 
+    &-button-wrap {
+      @media screen and (max-width: 1439px) {
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-right: 16px;
+        padding-left: 8px;
+        position: sticky;
+        right: -1px;
+        background: var(--background-tonal);
+        border-radius: 5px;
+      }
+    }
+
     &-button {
       display: flex;
       align-items: center;
@@ -201,6 +254,10 @@
       height: 32px;
       background-color: var(--background-white);
       color: var(--text-accent-blue);
+
+      @media screen and (max-width: 1439px) {
+        border-radius: 8px;
+      }
 
       svg {
         display: flex;
@@ -260,6 +317,11 @@
     border-radius: 16px;
     padding: 8px 16px;
     background-color: var(--background-tonal);
+
+    @media screen and (max-width: 1439px) {
+      min-width: 1319px;
+      padding: 8px 0 8px 16px;
+    }
 
     &-cell {
       flex: 1;
@@ -321,8 +383,21 @@
       }
     }
 
+    &-button-wrap {
+      display: contents;
+
+      @media screen and (max-width: 1439px) {
+        align-self: stretch;
+        padding-right: 16px;
+        position: sticky;
+        right: -1px;
+        background: var(--background-tonal);
+        border-radius: 5px;
+      }
+    }
+
     &-button {
-      position: absolute;
+      @include abs-y;
       right: 16px;
       display: flex;
       align-items: center;
@@ -332,6 +407,12 @@
       height: 32px;
       background-color: var(--background-white);
       color: var(--text-accent-blue);
+
+      @media screen and (max-width: 1439px) {
+        position: static;
+        border-radius: 8px;
+        transform: translateY(50%);
+      }
 
       svg {
         display: flex;

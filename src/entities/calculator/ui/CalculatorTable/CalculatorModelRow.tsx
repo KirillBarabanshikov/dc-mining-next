@@ -74,12 +74,14 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
           {formatPriceByCurrency(model.product.price * model.count, currency)}
         </div>
       </div>
-      <button
-        onClick={() => removeModel(model.product)}
-        className={'calculator-table__model-row-button'}
-      >
-        <PlusIcon />
-      </button>
+      <div className={'calculator-table__product-row-button-wrap'}>
+        <button
+          onClick={() => removeModel(model.product)}
+          className={'calculator-table__model-row-button'}
+        >
+          <PlusIcon />
+        </button>
+      </div>
     </div>
   );
 };
