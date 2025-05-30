@@ -5,6 +5,8 @@ import React, { FC } from 'react';
 
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/lib';
 import { Input } from '@/shared/ui';
 
 import { Currency, Filter } from '../../model/types';
@@ -34,6 +36,8 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
   filter,
   onChangeFilter,
 }) => {
+  const match = useMediaQuery(MAX_WIDTH_MD);
+
   return (
     <div className={'calculator-filters'}>
       <div className={'calculator-filters__title'}>Модели оборудования</div>
@@ -52,11 +56,13 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
             </button>
           ))}
         </div>
-        <CurrencySwitch
-          value={currency}
-          onChange={onChangeCurrency}
-          className={'calculator-filters__mobile-hidden'}
-        />
+        {!match && (
+          <CurrencySwitch
+            value={currency}
+            onChange={onChangeCurrency}
+            className={'calculator-filters__mobile-hidden'}
+          />
+        )}
       </div>
       <div className={'calculator-filters__wrap'}>
         <Input
@@ -76,11 +82,13 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
             )
           }
         />
-        <CurrencySwitch
-          value={currency}
-          onChange={onChangeCurrency}
-          className={'calculator-filters__mobile-visibility'}
-        />
+        {match && (
+          <CurrencySwitch
+            value={currency}
+            onChange={onChangeCurrency}
+            className={'calculator-filters__mobile-visibility'}
+          />
+        )}
       </div>
     </div>
   );

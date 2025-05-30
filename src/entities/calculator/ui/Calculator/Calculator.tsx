@@ -6,6 +6,9 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
+import { MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery } from '@/shared/lib';
+
 import { getCalculatorData } from '../../api/calculatorApi';
 import { Currency, Filter, Model, Product } from '../../model/types';
 import { CalculatorList } from '../CalculatorList';
@@ -23,6 +26,7 @@ export const Calculator = () => {
 
   const [debouncedSearch] = useDebounce(filters.search, 300);
   const [debouncedElectricityCost] = useDebounce(electricityCost, 300);
+  const match = useMediaQuery(MAX_WIDTH_MD);
 
   const { data, isFetching } = useQuery({
     queryKey: ['calculator', filters.currency, filters.filter, debouncedSearch],
@@ -91,32 +95,35 @@ export const Calculator = () => {
 
   return (
     <div className={'calculator'}>
-      <CalculatorTable
-        filters={filters}
-        setFilterField={setFilterField}
-        calculatorData={data}
-        isFetching={isFetching}
-        models={models}
-        addModel={addModel}
-        removeModel={removeModel}
-        setModelCount={setModelCount}
-        electricityCoast={electricityCost}
-        setElectricityCoast={setElectricityCost}
-        className={'calculator__table'}
-      />
-      <CalculatorList
-        filters={filters}
-        setFilterField={setFilterField}
-        calculatorData={data}
-        isFetching={isFetching}
-        models={models}
-        addModel={addModel}
-        removeModel={removeModel}
-        setModelCount={setModelCount}
-        electricityCoast={electricityCost}
-        setElectricityCoast={setElectricityCost}
-        className={'calculator__list'}
-      />
+      {!match ? (
+        <CalculatorTable
+          filters={filters}
+          setFilterField={setFilterField}
+          calculatorData={data}
+          isFetching={isFetching}
+          models={models}
+          addModel={addModel}
+          removeModel={removeModel}
+          setModelCount={setModelCount}
+          electricityCoast={electricityCost}
+          setElectricityCoast={setElectricityCost}
+          className={'calculator__table'}
+        />
+      ) : (
+        <CalculatorList
+          filters={filters}
+          setFilterField={setFilterField}
+          calculatorData={data}
+          isFetching={isFetching}
+          models={models}
+          addModel={addModel}
+          removeModel={removeModel}
+          setModelCount={setModelCount}
+          electricityCoast={electricityCost}
+          setElectricityCoast={setElectricityCost}
+          className={'calculator__list'}
+        />
+      )}
     </div>
   );
 };
