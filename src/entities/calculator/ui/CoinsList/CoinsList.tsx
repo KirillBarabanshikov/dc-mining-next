@@ -28,14 +28,16 @@ export const CoinsList: FC<ICoinsListProps> = ({ coins, currency }) => {
         {visibleCoins.map((coin, index) => (
           <div key={index} className='coins-list__coin'>
             <div className='coins-list__coin-wrap'>
-              {coin.image && (
+              {coin.image ? (
                 <Image
                   src={`${BASE_URL}${coin.image}`}
                   alt={coin.title}
                   width={20}
                   height={20}
-                  className='coins-list__coin-image'
+                  className={'coins-list__coin-image'}
                 />
+              ) : (
+                <div className={'coins-list__coin-image'} />
               )}
               <div className='coins-list__coin-title'>{coin.title}</div>
             </div>
@@ -60,7 +62,7 @@ export const CoinsList: FC<ICoinsListProps> = ({ coins, currency }) => {
                 transition={{ duration: 0.3 }}
               >
                 <div className={'coins-list__coin-wrap'}>
-                  {coin.image && (
+                  {coin.image ? (
                     <Image
                       src={`${BASE_URL}${coin.image}`}
                       alt={coin.title}
@@ -68,6 +70,8 @@ export const CoinsList: FC<ICoinsListProps> = ({ coins, currency }) => {
                       height={20}
                       className={'coins-list__coin-image'}
                     />
+                  ) : (
+                    <div className={'coins-list__coin-image'} />
                   )}
                   <div className={'coins-list__coin-title'}>{coin.title}</div>
                 </div>

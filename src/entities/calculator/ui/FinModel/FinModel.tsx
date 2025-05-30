@@ -280,7 +280,7 @@ const Coins: FC<{
             {coins.map((coin, index) => (
               <div key={index} className={'fin-model__coins-item'}>
                 <div className={'fin-model__coins-wrap'}>
-                  {coin.image && (
+                  {coin.image ? (
                     <Image
                       src={`${BASE_URL}${coin.image}`}
                       alt={coin.title}
@@ -288,6 +288,8 @@ const Coins: FC<{
                       height={20}
                       className={'fin-model__coins-image'}
                     />
+                  ) : (
+                    <div className={'fin-model__coins-image'} />
                   )}
                   <div className={'fin-model__coins-title'}>{coin.title}</div>
                 </div>
