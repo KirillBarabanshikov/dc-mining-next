@@ -1,9 +1,10 @@
 import './CalculatorTable.scss';
 
 import clsx from 'clsx';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { Currency } from '@/entities/calculator/model/types';
+import ArrowRightIcon from '@/shared/assets/icons/arrow-right2.svg';
 
 const cells = {
   product: [
@@ -45,11 +46,17 @@ const cells = {
 interface ICalculatorTableHeaderProps {
   variant: 'product' | 'model';
   currency: Currency;
+  isScrollable: boolean;
+  atStart: boolean;
+  scrollRight: () => void;
 }
 
 export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
   variant,
   currency,
+  isScrollable,
+  atStart,
+  scrollRight,
 }) => {
   return (
     <div
@@ -77,6 +84,16 @@ export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
           )}
         </div>
       ))}
+      {isScrollable && atStart && (
+        <div className={'calculator-table__header-button-wrap'}>
+          <button
+            className={'calculator-table__header-button'}
+            onClick={scrollRight}
+          >
+            <ArrowRightIcon />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

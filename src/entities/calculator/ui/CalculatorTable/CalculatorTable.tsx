@@ -14,9 +14,8 @@ import {
 } from '../../model/types';
 import { CalculatorFilters } from '../CalculatorFilters';
 import { FinModel } from '../FinModel';
-import { CalculatorModelRow } from './CalculatorModelRow';
-import { CalculatorProductRow } from './CalculatorProductRow';
-import { CalculatorTableHeader } from './CalculatorTableHeader';
+import { ModelsContent } from './ModelsContent';
+import { ProductsContent } from './ProductsContent';
 
 interface ICalculatorTableProps {
   filters: {
@@ -62,32 +61,13 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
         filter={filters.filter}
         onChangeFilter={(v) => setFilterField('filter', v)}
       />
-      <div className={'calculator-table__content'}>
-        <div className={'calculator-table__header-wrap'}>
-          <CalculatorTableHeader
-            variant={'product'}
-            currency={filters.currency}
-          />
-        </div>
-        <div
-          className={clsx(
-            'calculator-table__rows calculator-table__rows-products',
-            { 'calculator-table--loading': isFetching },
-          )}
-        >
-          {calculatorData.products.map((product) => {
-            return (
-              <CalculatorProductRow
-                key={product.id}
-                product={product}
-                currency={filters.currency}
-                models={models}
-                addModel={addModel}
-              />
-            );
-          })}
-        </div>
-      </div>
+      <ProductsContent
+        filters={filters}
+        calculatorData={calculatorData}
+        models={models}
+        addModel={addModel}
+        isFetching={isFetching}
+      />
       <div className={'calculator-table__title'}>Расчет финансовой модели</div>
       <div className={'calculator-table__hint'}>
         Для добавления товара в расчет нажмите на{' '}
@@ -98,33 +78,13 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
       </div>
       {!!models.length && (
         <>
-          <div className={'calculator-table__content'}>
-            <div className={'calculator-table__header-wrap'}>
-              <CalculatorTableHeader
-                variant={'model'}
-                currency={filters.currency}
-              />
-            </div>
-
-            <div
-              className={clsx(
-                'calculator-table__rows calculator-table__rows-models',
-                { 'calculator-table--loading': isFetching },
-              )}
-            >
-              {models.map((model) => {
-                return (
-                  <CalculatorModelRow
-                    key={model.product.id}
-                    currency={filters.currency}
-                    model={model}
-                    removeModel={removeModel}
-                    setModelCount={setModelCount}
-                  />
-                );
-              })}
-            </div>
-          </div>
+          <ModelsContent
+            filters={filters}
+            models={models}
+            removeModel={removeModel}
+            setModelCount={setModelCount}
+            isFetching={isFetching}
+          />
           <FinModel
             models={models}
             currency={filters.currency}

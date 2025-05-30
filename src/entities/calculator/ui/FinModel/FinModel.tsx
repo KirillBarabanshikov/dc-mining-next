@@ -198,7 +198,7 @@ export const FinModel: FC<IFinModelProps> = ({
           />
         </div>
       </div>
-      <div className={'fin-model__column-wrap'}>
+      <div className={'fin-model__column-wrap fin-model__column-cost'}>
         <div className={'fin-model__card fin-model__row-wrap'}>
           <div className={'fin-model__flex'}>
             <div className={'fin-model__card-label'}>Окупаемость, мес.</div>

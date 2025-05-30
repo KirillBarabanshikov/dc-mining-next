@@ -9,6 +9,17 @@
   margin-bottom: 40px;
   height: 184px;
 
+  @media screen and (max-width: 1439px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    height: unset;
+
+    &:last-child {
+      grid-column: 1 / 4;
+    }
+  }
+
   &__card {
     flex: 1;
     border-radius: 12px;
@@ -22,6 +33,10 @@
       align-items: center;
       justify-content: center;
       max-width: 160px;
+
+      @media screen and (max-width: 1439px) {
+        max-width: unset;
+      }
 
       div {
         font-size: 16px;
@@ -105,12 +120,26 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+
+    @media screen and (max-width: 1439px) {
+      row-gap: 4px;
+    }
+  }
+
+  &__column-cost {
+    @media screen and (max-width: 1439px) {
+      grid-column: 1 / 4;
+    }
   }
 
   &__row-wrap {
     display: flex;
     justify-content: space-between;
     column-gap: 8px;
+
+    @media screen and (max-width: 1439px) {
+      column-gap: 4px;
+    }
   }
 
   &__flex {
@@ -120,6 +149,10 @@
 
   &__max {
     max-width: 360px;
+
+    @media screen and (max-width: 1439px) {
+      max-width: unset;
+    }
   }
 
   &__price-wrap {
