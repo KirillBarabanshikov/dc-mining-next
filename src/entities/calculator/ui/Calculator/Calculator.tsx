@@ -8,6 +8,7 @@ import { useDebounce } from 'use-debounce';
 
 import { getCalculatorData } from '../../api/calculatorApi';
 import { Currency, Filter, Model, Product } from '../../model/types';
+import { CalculatorList } from '../CalculatorList';
 import { CalculatorTable } from '../CalculatorTable';
 
 export const Calculator = () => {
@@ -102,6 +103,19 @@ export const Calculator = () => {
         electricityCoast={electricityCost}
         setElectricityCoast={setElectricityCost}
         className={'calculator__table'}
+      />
+      <CalculatorList
+        filters={filters}
+        setFilterField={setFilterField}
+        calculatorData={data}
+        isFetching={isFetching}
+        models={models}
+        addModel={addModel}
+        removeModel={removeModel}
+        setModelCount={setModelCount}
+        electricityCoast={electricityCost}
+        setElectricityCoast={setElectricityCost}
+        className={'calculator__list'}
       />
     </div>
   );

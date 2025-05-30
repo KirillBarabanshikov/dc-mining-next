@@ -140,6 +140,11 @@
   &.calculator {
     max-width: 152px;
 
+    @media (max-width: 768px) {
+      max-width: 120px;
+      gap: 4px;
+    }
+
     .button {
       border: 1px solid var(--background-accent-bacground);
       border-radius: 8px;
@@ -170,6 +175,11 @@
       width: 70px;
       height: 32px;
       background-color: var(--background-tonal);
+
+      @media (max-width: 768px) {
+        max-width: 50px;
+        width: 50px;
+      }
 
       input {
         font-weight: 400;

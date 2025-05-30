@@ -1,0 +1,71 @@
+@use '@/shared/styles/helpers' as *;
+
+.calculator-list {
+  &__items {
+    max-height: 580px;
+    overflow-x: auto;
+    @include hide-scrollbar;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    &--loading {
+      filter: blur(2px);
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+
+  &__separator {
+    height: 1px;
+    background: var(--stroke-disabled);
+    margin-block: 20px;
+  }
+
+  &__hint {
+    margin-bottom: 10px;
+
+    &-title {
+      font-family: var(--third-family);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 120%;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    &-card {
+      display: flex;
+      align-items: center;
+      border-radius: 16px;
+      padding: 8px;
+      background: var(--background-secondary);
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      min-width: 32px;
+      height: 32px;
+      background: var(--background-white);
+      margin-right: 8px;
+
+      svg {
+        color: var(--text-accent-blue);
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &-text {
+      font-family: var(--font-family);
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 120%;
+      color: var(--text-secondary);
+    }
+  }
+}

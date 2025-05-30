@@ -1,3 +1,5 @@
+@use '@/shared/styles/helpers' as *;
+
 .calculator-filters {
   display: flex;
   align-items: center;
@@ -16,6 +18,10 @@
     line-height: 1.2;
     letter-spacing: 0.01em;
     color: var(--text-primary);
+
+    @media screen and (max-width: 768px) {
+      font-size: 20px;
+    }
   }
 
   &__wrap {
@@ -23,6 +29,7 @@
 
     @media screen and (max-width: 1439px) {
       display: flex;
+      gap: 4px;
       justify-content: space-between;
     }
   }
@@ -32,6 +39,16 @@
     align-items: center;
     column-gap: 8px;
     flex: 1;
+
+    @media screen and (max-width: 768px) {
+      white-space: nowrap;
+      overflow-y: auto;
+      width: 100vw;
+      margin-inline: -16px;
+      padding: 0 16px;
+
+      @include hide-scrollbar();
+    }
   }
 
   &__options-item {
@@ -47,6 +64,10 @@
     letter-spacing: 0.02em;
     color: #424242;
 
+    @media screen and (max-width: 768px) {
+      max-width: unset;
+    }
+
     &--active {
       background-color: var(--buttons-normal);
       color: #fff;
@@ -60,8 +81,28 @@
       max-width: 100%;
     }
 
+    @media screen and (max-width: 768px) {
+      input {
+        padding: 12px;
+      }
+    }
+
     &-clear {
       cursor: pointer;
+    }
+  }
+
+  &__mobile-hidden {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__mobile-visibility {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: block;
     }
   }
 }

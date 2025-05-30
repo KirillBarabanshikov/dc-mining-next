@@ -148,7 +148,9 @@ export const FinModel: FC<IFinModelProps> = ({
   return (
     <div className={'fin-model'}>
       <div className={'fin-model__card fin-model__card--base'}>
-        <div>Общее потребление, кВт.</div>
+        <div>
+          Общее <br /> потребление, кВт.
+        </div>
         <p>{kW.toFixed(1)}</p>
       </div>
       <div className={'fin-model__card fin-model__card--base'}>
@@ -166,19 +168,19 @@ export const FinModel: FC<IFinModelProps> = ({
           </div>
           <div className={'fin-model__row-wrap'}>
             <div className={'fin-model__item fin-model__item--column'}>
-              <div className={'fin-model__item-title'}>с учетом э/э</div>
-              <div
-                className={'fin-model__item-value fin-model__item-value--dark'}
-              >
-                {formatPriceByCurrency(profitWithWatt, currency)}
-              </div>
-            </div>
-            <div className={'fin-model__item fin-model__item--column'}>
               <div className={'fin-model__item-title'}>без учета э/э</div>
               <div
                 className={'fin-model__item-value fin-model__item-value--light'}
               >
                 {formatPriceByCurrency(profitWithoutWatt, currency)}
+              </div>
+            </div>
+            <div className={'fin-model__item fin-model__item--column'}>
+              <div className={'fin-model__item-title'}>с учетом э/э</div>
+              <div
+                className={'fin-model__item-value fin-model__item-value--dark'}
+              >
+                {formatPriceByCurrency(profitWithWatt, currency)}
               </div>
             </div>
           </div>

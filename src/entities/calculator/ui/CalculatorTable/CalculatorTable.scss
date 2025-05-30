@@ -346,7 +346,10 @@
       width: 32px;
       height: 32px;
       background: var(--background-white);
-      color: var(--text-accent-blue);
+
+      svg {
+        color: var(--text-accent-blue);
+      }
     }
   }
 

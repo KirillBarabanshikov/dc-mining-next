@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import PlusIcon from '@/shared/assets/icons/trash.svg';
+import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { NumberInput } from '@/shared/ui';
 
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
@@ -79,7 +79,7 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
           onClick={() => removeModel(model.product)}
           className={'calculator-table__model-row-button'}
         >
-          <PlusIcon />
+          <TrashIcon />
         </button>
       </div>
     </div>

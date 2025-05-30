@@ -20,11 +20,13 @@ const currencies: { symbol: string; value: Currency }[] = [
 interface ICurrencySwitchProps {
   value: string;
   onChange: (currency: Currency) => void;
+  className?: string;
 }
 
 export const CurrencySwitch: FC<ICurrencySwitchProps> = ({
   value,
   onChange,
+  className,
 }) => {
   const handleOnChange = (newValue: Currency) => {
     if (newValue === value) {
@@ -38,7 +40,7 @@ export const CurrencySwitch: FC<ICurrencySwitchProps> = ({
   };
 
   return (
-    <div className={'currency-switch'}>
+    <div className={clsx('currency-switch', className)}>
       {currencies.map((currency) => (
         <button
           key={currency.value}

@@ -52,25 +52,36 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
             </button>
           ))}
         </div>
-        <CurrencySwitch value={currency} onChange={onChangeCurrency} />
+        <CurrencySwitch
+          value={currency}
+          onChange={onChangeCurrency}
+          className={'calculator-filters__mobile-hidden'}
+        />
       </div>
-      <Input
-        className={'calculator-filters__search'}
-        placeholder={'Поиск по модели'}
-        sizes={'sm'}
-        value={search}
-        onChange={(e) => onChangeSearch(e.target.value)}
-        icon={
-          search ? (
-            <CloseIcon
-              onClick={() => onChangeSearch('')}
-              className={'calculator-filters__search-clear'}
-            />
-          ) : (
-            <SearchIcon />
-          )
-        }
-      />
+      <div className={'calculator-filters__wrap'}>
+        <Input
+          className={'calculator-filters__search'}
+          placeholder={'Поиск по модели'}
+          sizes={'sm'}
+          value={search}
+          onChange={(e) => onChangeSearch(e.target.value)}
+          icon={
+            search ? (
+              <CloseIcon
+                onClick={() => onChangeSearch('')}
+                className={'calculator-filters__search-clear'}
+              />
+            ) : (
+              <SearchIcon />
+            )
+          }
+        />
+        <CurrencySwitch
+          value={currency}
+          onChange={onChangeCurrency}
+          className={'calculator-filters__mobile-visibility'}
+        />
+      </div>
     </div>
   );
 };
