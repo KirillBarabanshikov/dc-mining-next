@@ -131,6 +131,10 @@
     display: none;
 
     @media screen and (max-width: 1439px) {
+      opacity: 0;
+      user-select: none;
+      pointer-events: none;
+
       align-self: stretch;
       display: flex;
       align-items: center;
@@ -141,6 +145,12 @@
       right: -1px;
       background: var(--background-primary);
       border-radius: 5px;
+
+      &--visible {
+        opacity: 1;
+        user-select: initial;
+        pointer-events: initial;
+      }
     }
   }
 

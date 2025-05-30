@@ -34,7 +34,7 @@ export const ProductsContent: FC<IProductsContentProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
-  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
 
   useEffect(() => {
     const container = ref.current;
@@ -44,7 +44,7 @@ export const ProductsContent: FC<IProductsContentProps> = ({
       if (!container) return;
       const { scrollWidth, clientWidth, scrollLeft } = container;
       setIsScrollable(scrollWidth > clientWidth);
-      setAtStart(scrollLeft === 0);
+      setAtEnd(Math.ceil(scrollLeft + clientWidth) >= scrollWidth);
     };
 
     checkScroll();
@@ -68,7 +68,7 @@ export const ProductsContent: FC<IProductsContentProps> = ({
           variant={'product'}
           currency={filters.currency}
           scrollRight={scrollRight}
-          atStart={atStart}
+          atEnd={atEnd}
           isScrollable={isScrollable}
         />
       </div>

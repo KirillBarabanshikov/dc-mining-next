@@ -47,7 +47,7 @@ interface ICalculatorTableHeaderProps {
   variant: 'product' | 'model';
   currency: Currency;
   isScrollable: boolean;
-  atStart: boolean;
+  atEnd: boolean;
   scrollRight: () => void;
 }
 
@@ -55,7 +55,7 @@ export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
   variant,
   currency,
   isScrollable,
-  atStart,
+  atEnd,
   scrollRight,
 }) => {
   return (
@@ -84,16 +84,19 @@ export const CalculatorTableHeader: FC<ICalculatorTableHeaderProps> = ({
           )}
         </div>
       ))}
-      {isScrollable && atStart && (
-        <div className={'calculator-table__header-button-wrap'}>
-          <button
-            className={'calculator-table__header-button'}
-            onClick={scrollRight}
-          >
-            <ArrowRightIcon />
-          </button>
-        </div>
-      )}
+      <div
+        className={clsx('calculator-table__header-button-wrap', {
+          'calculator-table__header-button-wrap--visible':
+            isScrollable && !atEnd,
+        })}
+      >
+        <button
+          className={'calculator-table__header-button'}
+          onClick={scrollRight}
+        >
+          <ArrowRightIcon />
+        </button>
+      </div>
     </div>
   );
 };

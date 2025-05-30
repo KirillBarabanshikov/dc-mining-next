@@ -28,7 +28,7 @@ export const ModelsContent: FC<IProductsContentProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
-  const [atStart, setAtStart] = useState(true);
+  const [atEnd, setAtEnd] = useState(false);
 
   useEffect(() => {
     const container = ref.current;
@@ -38,7 +38,7 @@ export const ModelsContent: FC<IProductsContentProps> = ({
       if (!container) return;
       const { scrollWidth, clientWidth, scrollLeft } = container;
       setIsScrollable(scrollWidth > clientWidth);
-      setAtStart(scrollLeft === 0);
+      setAtEnd(Math.ceil(scrollLeft + clientWidth) >= scrollWidth);
     };
 
     checkScroll();
@@ -56,13 +56,13 @@ export const ModelsContent: FC<IProductsContentProps> = ({
   };
 
   return (
-    <div className={'calculator-table__content'}>
+    <div className={'calculator-table__content'} ref={ref}>
       <div className={'calculator-table__header-wrap'}>
         <CalculatorTableHeader
           variant={'model'}
           currency={filters.currency}
           scrollRight={scrollRight}
-          atStart={atStart}
+          atEnd={atEnd}
           isScrollable={isScrollable}
         />
       </div>

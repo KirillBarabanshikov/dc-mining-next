@@ -235,7 +235,9 @@ export const FinModel: FC<IFinModelProps> = ({
             <div className={'fin-model__cost-label'}>Стоимость э/э, ₽</div>
             <Input
               value={electricityCoast}
-              onChange={(e) => onChangeElectricityCoast(+e.target.value)}
+              onChange={(e) =>
+                onChangeElectricityCoast(e.target.value ? +e.target.value : 1)
+              }
               type={'number'}
               sizes={'md'}
               className={'fin-model__cost-input'}
