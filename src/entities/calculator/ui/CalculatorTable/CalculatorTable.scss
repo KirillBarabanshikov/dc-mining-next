@@ -9,6 +9,12 @@
     padding: 12px;
   }
 
+  &--is-fixed-top {
+    .calculator-table__rows {
+      overflow-y: auto;
+    }
+  }
+
   &__content {
     overflow-x: auto;
     overflow-y: auto;
@@ -172,7 +178,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding-right: 10px;
     scrollbar-gutter: stable;
 

@@ -1,7 +1,7 @@
 import './CalculatorTable.scss';
 
 import clsx from 'clsx';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
@@ -51,8 +51,29 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   setElectricityCoast,
   className,
 }) => {
+  const tableRef = useRef<HTMLDivElement>(null);
+  const [isFixedTop, setIsFixedTop] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!tableRef.current) return;
+      const top = tableRef.current.getBoundingClientRect().top;
+      setIsFixedTop(top <= 100);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <div className={clsx('calculator-table', className)}>
+    <div
+      ref={tableRef}
+      className={clsx(
+        'calculator-table',
+        { 'calculator-table--is-fixed-top': isFixedTop },
+        className,
+      )}
+    >
       <CalculatorFilters
         currency={filters.currency}
         onChangeCurrency={(v) => setFilterField('currency', v)}
