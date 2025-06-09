@@ -17,7 +17,7 @@ interface ICoinsListProps {
 export const CoinsList: FC<ICoinsListProps> = ({ coins, currency }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const visibleCoins = isExpanded ? coins : coins.slice(0, 2);
+  const visibleCoins = coins.slice(0, 2);
   const hiddenCoins = coins.slice(2);
 
   const toggleExpanded = () => setIsExpanded((prev) => !prev);

@@ -164,7 +164,7 @@ export const FinModel: FC<IFinModelProps> = ({
       <div className={'fin-model__column-wrap fin-model__max'}>
         <div className={'fin-model__card'}>
           <div className={'fin-model__card-label'}>
-            Доход, {currency === 'rub' ? 'руб.' : 'долл.'}
+            Доход, {currency === 'rub' ? 'в мес. руб.' : 'в мес. $'}
           </div>
           <div className={'fin-model__row-wrap'}>
             <div className={'fin-model__item fin-model__item--column'}>
@@ -228,7 +228,7 @@ export const FinModel: FC<IFinModelProps> = ({
             </div>
           </div>
           <div className={'fin-model__price-wrap'}>
-            <div>Общая стоимость, {currency === 'rub' ? 'руб.' : 'долл.'}</div>
+            <div>Общая стоимость, {currency === 'rub' ? 'руб.' : '$'}</div>
             <p>{formatPriceByCurrency(cost, currency)}</p>
           </div>
         </div>

@@ -13,15 +13,15 @@ const cells = {
     { title: 'Цена' },
     {
       title: 'Доход, ',
-      currency: { rub: 'руб.', dollar: 'долл.' },
+      currency: { rub: 'руб.', dollar: '$' },
       subtitles: (currency: Currency) => [
         'В монете в месяц',
-        `В ${currency === 'rub' ? 'руб.' : 'долл.'} в месяц`,
+        `В ${currency === 'rub' ? 'руб.' : '$'} в месяц`,
       ],
     },
     {
       title: 'Доход, ',
-      currency: { rub: 'руб.', dollar: 'долл.' },
+      currency: { rub: 'руб. в мес.', dollar: 'в мес. $' },
       subtitles: () => ['без учета э/э', 'с учетом э/э'],
     },
     {
@@ -35,7 +35,7 @@ const cells = {
     { title: 'Количество' },
     {
       title: 'Доход, ',
-      currency: { rub: 'руб.', dollar: 'долл.' },
+      currency: { rub: 'руб. в мес.', dollar: 'в мес. $' },
       subtitles: () => ['без учета э/э', 'с учетом э/э'],
     },
     { title: 'Цена за шт.' },

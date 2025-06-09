@@ -83,7 +83,7 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
                 <div className={'calculator-card__extra'}>
                   <div className={'calculator-card__extra-card'}>
                     <div className={'calculator-card__extra-title'}>
-                      Доход, руб.
+                      {currency === 'rub' ? 'Доход, руб.' : 'Доход, $'}
                     </div>
                     <div
                       className={
@@ -94,7 +94,7 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
                         В монете в месяц
                       </div>
                       <div className={'calculator-card__extra-item'}>
-                        В руб. в месяц
+                        {currency === 'rub' ? 'В руб. в месяц' : 'В $ в месяц'}
                       </div>
                     </div>
                     <CoinsList coins={product.coinsArray} currency={currency} />
@@ -102,7 +102,9 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
 
                   <div className={'calculator-card__extra-card'}>
                     <div className={'calculator-card__extra-title'}>
-                      Доход, руб.
+                      {currency === 'rub'
+                        ? 'Доход, руб. в мес.'
+                        : 'Доход, в мес. $'}
                     </div>
                     <div className={'calculator-card__extra-row'}>
                       <div className={'calculator-card__extra-item'}>
@@ -249,7 +251,9 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
                 <div className={'calculator-card__extra'}>
                   <div className={'calculator-card__extra-card'}>
                     <div className={'calculator-card__extra-title'}>
-                      Доход, руб.
+                      {currency === 'rub'
+                        ? 'Доход, руб. в мес.'
+                        : 'Доход, в мес. $'}
                     </div>
                     <div className={'calculator-card__extra-row'}>
                       <div className={'calculator-card__extra-item'}>
