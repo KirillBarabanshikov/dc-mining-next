@@ -65,16 +65,23 @@ export const HeaderContent = () => {
   }, [pathname, setIsLocked]);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (pathname === '/calculator') {
+        setIsSticky(false);
+        return;
+      }
+
+      const scrollTop = window.scrollY;
+      setIsSticky(scrollTop > 0);
+    };
+
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  const handleScroll = () => {
-    const scrollTop = window.scrollY;
-    setIsSticky(scrollTop > 0);
-  };
+  }, [pathname]);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
