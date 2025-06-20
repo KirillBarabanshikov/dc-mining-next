@@ -1,6 +1,15 @@
 @use '@/shared/styles/helpers' as *;
 
 .calculator-list {
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9e9f3;
+  }
+
   &__items {
     max-height: 580px;
     overflow-x: auto;

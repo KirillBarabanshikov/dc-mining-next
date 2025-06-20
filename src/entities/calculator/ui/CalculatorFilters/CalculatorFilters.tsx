@@ -82,13 +82,6 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
             )
           }
         />
-        {match && (
-          <CurrencySwitch
-            value={currency}
-            onChange={onChangeCurrency}
-            className={'calculator-filters__mobile-visibility'}
-          />
-        )}
       </div>
     </div>
   );
