@@ -5,10 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
 
+import { CurrencySwitch } from '@/entities/calculator/ui/CurrencySwitch';
 import ArrowDownIcon from '@/shared/assets/icons/arrow-down2.svg';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
-import { BASE_URL } from '@/shared/consts';
-import { useOutsideClick } from '@/shared/lib';
+import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
+import { useMediaQuery, useOutsideClick } from '@/shared/lib';
 import { Button, Input } from '@/shared/ui';
 
 import { generateFinModelPdf } from '../../api/calculatorApi';
@@ -21,6 +22,7 @@ interface IFinModelProps {
   dollar: number;
   electricityCoast: number;
   onChangeElectricityCoast: (value: number) => void;
+  onChangeCurrency?: (currency: Currency) => void;
 }
 
 const DAYS_IN_MONTH = 30;
@@ -31,7 +33,9 @@ export const FinModel: FC<IFinModelProps> = ({
   dollar,
   electricityCoast,
   onChangeElectricityCoast,
+  onChangeCurrency,
 }) => {
+  const match = useMediaQuery(MAX_WIDTH_MD);
   const [showCoins, setShowCoins] = useState(false);
 
   const {
@@ -147,113 +151,132 @@ export const FinModel: FC<IFinModelProps> = ({
 
   return (
     <div className={'fin-model'}>
-      <div className={'fin-model__card fin-model__card--base'}>
-        <div>
-          Общее <br /> потребление, кВт.
-        </div>
-        <p>{kW.toFixed(1)}</p>
-      </div>
-      <div className={'fin-model__card fin-model__card--base'}>
-        <div>
-          Кол-во
-          <br />
-          устройств, шт.
-        </div>
-        <p>{countModels}</p>
-      </div>
-      <div className={'fin-model__column-wrap fin-model__max'}>
-        <div className={'fin-model__card'}>
-          <div className={'fin-model__card-label'}>
-            Доход, {currency === 'rub' ? 'в мес. руб.' : 'в мес. $'}
+      {match ? (
+        <>
+          <div className={'fin-model__header'}>
+            <div className={'fin-model__title'}>Финансовые результаты</div>
+            {onChangeCurrency && (
+              <CurrencySwitch value={currency} onChange={onChangeCurrency} />
+            )}
           </div>
-          <div className={'fin-model__row-wrap'}>
-            <div className={'fin-model__item fin-model__item--column'}>
-              <div className={'fin-model__item-title'}>без учета э/э</div>
-              <div
-                className={'fin-model__item-value fin-model__item-value--light'}
-              >
-                {formatPriceByCurrency(profitWithoutWatt, currency)}
+        </>
+      ) : (
+        <>
+          <div className={'fin-model__card fin-model__card--base'}>
+            <div>
+              Общее <br /> потребление, кВт.
+            </div>
+            <p>{kW.toFixed(1)}</p>
+          </div>
+          <div className={'fin-model__card fin-model__card--base'}>
+            <div>
+              Кол-во
+              <br />
+              устройств, шт.
+            </div>
+            <p>{countModels}</p>
+          </div>
+          <div className={'fin-model__column-wrap fin-model__max'}>
+            <div className={'fin-model__card'}>
+              <div className={'fin-model__card-label'}>
+                Доход, {currency === 'rub' ? 'в мес. руб.' : 'в мес. $'}
+              </div>
+              <div className={'fin-model__row-wrap'}>
+                <div className={'fin-model__item fin-model__item--column'}>
+                  <div className={'fin-model__item-title'}>без учета э/э</div>
+                  <div
+                    className={
+                      'fin-model__item-value fin-model__item-value--light'
+                    }
+                  >
+                    {formatPriceByCurrency(profitWithoutWatt, currency)}
+                  </div>
+                </div>
+                <div className={'fin-model__item fin-model__item--column'}>
+                  <div className={'fin-model__item-title'}>с учетом э/э</div>
+                  <div
+                    className={
+                      'fin-model__item-value fin-model__item-value--dark'
+                    }
+                  >
+                    {formatPriceByCurrency(profitWithWatt, currency)}
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={'fin-model__item fin-model__item--column'}>
-              <div className={'fin-model__item-title'}>с учетом э/э</div>
-              <div
-                className={'fin-model__item-value fin-model__item-value--dark'}
+            <div className={'fin-model__coins-wrap'}>
+              <button
+                onClick={() => setShowCoins((prev) => !prev)}
+                className={'fin-model__trigger'}
               >
-                {formatPriceByCurrency(profitWithWatt, currency)}
-              </div>
+                <ArrowDownIcon />
+              </button>
+              <Coins
+                coins={coins}
+                show={showCoins}
+                onClose={() => setShowCoins(false)}
+                currency={currency}
+              />
             </div>
           </div>
-        </div>
-        <div className={'fin-model__coins-wrap'}>
-          <button
-            onClick={() => setShowCoins((prev) => !prev)}
-            className={'fin-model__trigger'}
-          >
-            <ArrowDownIcon />
-          </button>
-          <Coins
-            coins={coins}
-            show={showCoins}
-            onClose={() => setShowCoins(false)}
-            currency={currency}
-          />
-        </div>
-      </div>
-      <div className={'fin-model__column-wrap fin-model__column-cost'}>
-        <div className={'fin-model__card fin-model__row-wrap'}>
-          <div className={'fin-model__flex'}>
-            <div className={'fin-model__card-label'}>Окупаемость, мес.</div>
+          <div className={'fin-model__column-wrap fin-model__column-cost'}>
+            <div className={'fin-model__card fin-model__row-wrap'}>
+              <div className={'fin-model__flex'}>
+                <div className={'fin-model__card-label'}>Окупаемость, мес.</div>
+                <div className={'fin-model__row-wrap'}>
+                  <div className={'fin-model__item fin-model__item--row'}>
+                    <div className={'fin-model__item-title'}>без учета э/э</div>
+                    <div
+                      className={
+                        'fin-model__item-value fin-model__item-value--light'
+                      }
+                    >
+                      {Math.round(paybackWithoutWatt)}
+                    </div>
+                  </div>
+                  <div className={'fin-model__item fin-model__item--row'}>
+                    <div className={'fin-model__item-title'}>с учетом э/э</div>
+                    <div
+                      className={
+                        'fin-model__item-value fin-model__item-value--light'
+                      }
+                    >
+                      {Math.round(paybackWithWatt)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className={'fin-model__price-wrap'}>
+                <div>Общая стоимость, {currency === 'rub' ? 'руб.' : '$'}</div>
+                <p>{formatPriceByCurrency(cost, currency)}</p>
+              </div>
+            </div>
             <div className={'fin-model__row-wrap'}>
-              <div className={'fin-model__item fin-model__item--row'}>
-                <div className={'fin-model__item-title'}>без учета э/э</div>
-                <div
-                  className={
-                    'fin-model__item-value fin-model__item-value--light'
+              <div className={'fin-model__card fin-model__cost'}>
+                <div className={'fin-model__cost-label'}>Стоимость э/э, ₽</div>
+                <Input
+                  value={electricityCoast}
+                  onChange={(e) =>
+                    onChangeElectricityCoast(
+                      e.target.value ? +e.target.value : 1,
+                    )
                   }
-                >
-                  {Math.round(paybackWithoutWatt)}
-                </div>
+                  type={'number'}
+                  sizes={'md'}
+                  className={'fin-model__cost-input'}
+                />
               </div>
-              <div className={'fin-model__item fin-model__item--row'}>
-                <div className={'fin-model__item-title'}>с учетом э/э</div>
-                <div
-                  className={
-                    'fin-model__item-value fin-model__item-value--light'
-                  }
-                >
-                  {Math.round(paybackWithWatt)}
-                </div>
-              </div>
+              <Button
+                onClick={handleDownload}
+                disabled={isPending}
+                className={'fin-model__download'}
+              >
+                Скачать фин модель <DownloadIcon />
+              </Button>
             </div>
           </div>
-          <div className={'fin-model__price-wrap'}>
-            <div>Общая стоимость, {currency === 'rub' ? 'руб.' : '$'}</div>
-            <p>{formatPriceByCurrency(cost, currency)}</p>
-          </div>
-        </div>
-        <div className={'fin-model__row-wrap'}>
-          <div className={'fin-model__card fin-model__cost'}>
-            <div className={'fin-model__cost-label'}>Стоимость э/э, ₽</div>
-            <Input
-              value={electricityCoast}
-              onChange={(e) =>
-                onChangeElectricityCoast(e.target.value ? +e.target.value : 1)
-              }
-              type={'number'}
-              sizes={'md'}
-              className={'fin-model__cost-input'}
-            />
-          </div>
-          <Button
-            onClick={handleDownload}
-            disabled={isPending}
-            className={'fin-model__download'}
-          >
-            Скачать фин модель <DownloadIcon />
-          </Button>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };

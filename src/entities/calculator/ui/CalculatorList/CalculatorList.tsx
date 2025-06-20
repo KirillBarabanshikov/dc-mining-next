@@ -3,6 +3,7 @@ import './CalculatorList.scss';
 import clsx from 'clsx';
 import React, { FC } from 'react';
 
+import { FinModel } from '@/entities/calculator/ui/FinModel';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import { Button } from '@/shared/ui';
 
@@ -88,6 +89,21 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
           Добавить оборудование <PlusIcon />
         </Button>
       </div>
+      {!!models.length && (
+        <>
+          <div className={'calculator-list__title'}>
+            Расчет финансовой модели
+          </div>
+          <FinModel
+            models={models}
+            currency={filters.currency}
+            dollar={calculatorData.dollar}
+            electricityCoast={electricityCoast}
+            onChangeElectricityCoast={setElectricityCoast}
+            onChangeCurrency={(v) => setFilterField('currency', v)}
+          />
+        </>
+      )}
     </div>
   );
 };
