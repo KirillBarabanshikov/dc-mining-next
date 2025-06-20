@@ -58,7 +58,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
     const onScroll = () => {
       if (!tableRef.current) return;
       const top = tableRef.current.getBoundingClientRect().top;
-      setIsFixedTop(top <= 100);
+      setIsFixedTop(top <= 250);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
