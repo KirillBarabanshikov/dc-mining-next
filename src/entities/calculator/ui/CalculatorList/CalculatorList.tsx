@@ -1,9 +1,10 @@
 import './CalculatorList.scss';
 
 import clsx from 'clsx';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import { FinModel } from '@/entities/calculator/ui/FinModel';
+import CloseIcon from '@/shared/assets/icons/close.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import { Button } from '@/shared/ui';
 
@@ -51,6 +52,8 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
   setElectricityCoast,
   className,
 }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+
   return (
     <div className={clsx('calculator-list', className)}>
       <div className={'calculator-list__wrap'}>
@@ -72,20 +75,49 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
           </div>
         )}
 
-        <CalculatorDropdownItem
-          filters={filters}
-          setFilterField={setFilterField}
-          calculatorData={calculatorData}
-          isFetching={isFetching}
-          models={models}
-          addModel={addModel}
-          removeModel={removeModel}
-          setModelCount={setModelCount}
-          electricityCoast={electricityCoast}
-          setElectricityCoast={setElectricityCoast}
-        />
+        {!models.length && (
+          <CalculatorDropdownItem
+            filters={filters}
+            setFilterField={setFilterField}
+            calculatorData={calculatorData}
+            isFetching={isFetching}
+            models={models}
+            addModel={addModel}
+            removeModel={removeModel}
+            setModelCount={setModelCount}
+            electricityCoast={electricityCoast}
+            setElectricityCoast={setElectricityCoast}
+            onAdd={() => setShowDropdown(false)}
+          />
+        )}
 
-        <Button size={'sm'} isWide>
+        {showDropdown && (
+          <div className={'calculator-list__dropdown-wrap'}>
+            <CalculatorDropdownItem
+              filters={filters}
+              setFilterField={setFilterField}
+              calculatorData={calculatorData}
+              isFetching={isFetching}
+              models={models}
+              addModel={addModel}
+              removeModel={removeModel}
+              setModelCount={setModelCount}
+              electricityCoast={electricityCoast}
+              setElectricityCoast={setElectricityCoast}
+              onAdd={() => setShowDropdown(false)}
+            />
+            <button onClick={() => setShowDropdown(false)}>
+              <CloseIcon />
+            </button>
+          </div>
+        )}
+
+        <Button
+          size={'sm'}
+          isWide
+          disabled={!models.length || showDropdown}
+          onClick={() => setShowDropdown(true)}
+        >
           Добавить оборудование <PlusIcon />
         </Button>
       </div>

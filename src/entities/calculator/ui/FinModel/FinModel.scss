@@ -21,18 +21,11 @@
   }
 
   @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     margin-bottom: unset;
     margin-top: 20px;
-
-    &:nth-child(3) {
-      grid-column: 1 / 3;
-      grid-row: 2 / 4;
-    }
-
-    &:last-child {
-      grid-column: 1 / 3;
-    }
+    row-gap: 4px;
   }
 
   &__card {
@@ -286,6 +279,13 @@
 
     &-label {
       white-space: nowrap;
+      @media screen and (max-width: 768px) {
+        font-family: var(--second-family);
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 130%;
+        color: var(--text-primary);
+      }
     }
 
     &-input {
@@ -293,12 +293,16 @@
     }
 
     @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 4px;
       max-width: unset;
       justify-content: space-between;
+      align-items: flex-start;
 
       .fin-model__cost-input {
-        max-width: 80px;
-        max-height: 40px;
+        border-radius: 8px;
+        max-width: 56px;
+        max-height: 32px;
       }
     }
   }
@@ -315,8 +319,11 @@
     }
 
     @media screen and (max-width: 768px) {
-      min-height: 48px;
-      font-size: 16px !important;
+      min-height: 52px;
+      font-family: var(--second-family) !important;
+      font-size: 12px !important;
+      line-height: 120% !important;
+      color: var(--text-contrast);
     }
   }
 
@@ -360,6 +367,19 @@
     box-shadow: 0 20px 20px 0 rgba(22, 32, 53, 0.1);
     background: var(--background-tonal);
 
+    &-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      font-family: var(--second-family);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 120%;
+      color: var(--text-primary);
+      padding-bottom: 4px;
+    }
+
     &-list {
       display: flex;
       flex-direction: column;
@@ -382,6 +402,15 @@
         background: var(--background-secondary);
         border-radius: 8px;
         border: 3px solid var(--background-primary);
+      }
+
+      @media screen and (max-width: 768px) {
+        max-height: unset;
+        width: 100%;
+
+        border-radius: 8px;
+        padding: 4px;
+        background: var(--background-secondary);
       }
     }
 
@@ -406,18 +435,117 @@
     &-title {
       line-height: 1.3;
       color: var(--text-secondary);
+
+      @media screen and (max-width: 768px) {
+        font-family: var(--second-family);
+      }
     }
 
     &-value {
       flex: 1;
       line-height: 1.3;
       color: var(--text-secondary);
+
+      @media screen and (max-width: 768px) {
+        font-family: var(--second-family);
+      }
     }
 
     &-profit {
       border-radius: 8px;
       padding: 4px 8px;
       background-color: var(--background-secondary);
+
+      @media screen and (max-width: 768px) {
+        font-family: var(--second-family);
+        text-align: right;
+        padding: unset;
+      }
     }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 10px;
+    padding: 8px 0 4px 4px;
+  }
+
+  &__title {
+    font-family: var(--third-family);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  &__handle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 4px;
+    padding: 4px 0 8px 4px;
+
+    &-title {
+      font-family: var(--second-family);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+    padding: 5px 8px;
+
+    &-title {
+      flex: 1;
+      font-family: var(--second-family);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    &-count {
+      font-family: var(--second-family);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 1;
+      color: var(--text-primary);
+      margin-right: 15px;
+    }
+
+    &-value {
+      font-family: var(--second-family);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1;
+      text-align: right;
+      color: var(--text-primary);
+    }
+
+    &--white {
+      background: var(--background-tonal);
+    }
+
+    &--blue {
+      background: var(--background-secondary);
+
+      .fin-model__option-value {
+        font-weight: 400;
+      }
+    }
+  }
+
+  &__foot {
+    display: flex;
+    column-gap: 8px;
+    padding-top: 8px;
   }
 }

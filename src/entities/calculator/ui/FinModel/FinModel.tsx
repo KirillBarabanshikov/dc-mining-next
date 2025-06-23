@@ -10,7 +10,7 @@ import ArrowDownIcon from '@/shared/assets/icons/arrow-down2.svg';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
 import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useOutsideClick } from '@/shared/lib';
-import { Button, Input } from '@/shared/ui';
+import { Button, Input, Switch } from '@/shared/ui';
 
 import { generateFinModelPdf } from '../../api/calculatorApi';
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
@@ -37,6 +37,7 @@ export const FinModel: FC<IFinModelProps> = ({
 }) => {
   const match = useMediaQuery(MAX_WIDTH_MD);
   const [showCoins, setShowCoins] = useState(false);
+  const [considerCost, setConsiderCost] = useState(true);
 
   const {
     countModels,
@@ -158,6 +159,132 @@ export const FinModel: FC<IFinModelProps> = ({
             {onChangeCurrency && (
               <CurrencySwitch value={currency} onChange={onChangeCurrency} />
             )}
+          </div>
+          <div className={'fin-model__handle'}>
+            <div className={'fin-model__handle-title'}>
+              Учитывать расходы на э/э
+            </div>
+            <Switch
+              isOn={considerCost}
+              onClick={(value) => setConsiderCost(value)}
+            />
+          </div>
+          <div className={'fin-model__option fin-model__option--white'}>
+            <div className={'fin-model__option-title'}>Ежемесячный доход</div>
+            <div className={'fin-model__option-value'}>
+              {considerCost
+                ? formatPriceByCurrency(profitWithWatt, currency)
+                : formatPriceByCurrency(profitWithoutWatt, currency)}
+            </div>
+          </div>
+
+          {models.map((model) => {
+            return (
+              <div
+                key={model.product.id}
+                className={'fin-model__option fin-model__option--blue'}
+              >
+                <div className={'fin-model__option-title'}>
+                  {model.product.title}
+                </div>
+                <div className={'fin-model__option-count'}>
+                  {model.count} шт.
+                </div>
+                <div className={'fin-model__option-value'}>
+                  {formatPriceByCurrency(
+                    model.product.price * model.count,
+                    currency,
+                  )}
+                </div>
+              </div>
+            );
+          })}
+
+          <div className={'fin-model__coins-wrap'}>
+            <div className={'fin-model__coins-list'}>
+              <div className={'fin-model__coins-head'}>
+                <div>Криптовалюта в монете</div>
+                <div>
+                  {currency === 'rub' ? 'в рублях' : 'в $'} (без учета э/э)
+                </div>
+              </div>
+
+              {coins.map((coin, index) => (
+                <div key={index} className={'fin-model__coins-item'}>
+                  <div className={'fin-model__coins-wrap'}>
+                    {coin.image ? (
+                      <Image
+                        src={`${BASE_URL}${coin.image}`}
+                        alt={coin.title}
+                        width={20}
+                        height={20}
+                        className={'fin-model__coins-image'}
+                      />
+                    ) : (
+                      <div className={'fin-model__coins-image'} />
+                    )}
+                    <div className={'fin-model__coins-title'}>
+                      {coin.title}:
+                    </div>
+                  </div>
+                  <div className={'fin-model__coins-value'}>
+                    {coin.value.toFixed(9)}
+                  </div>
+                  <div
+                    className={'fin-model__coins-value fin-model__coins-profit'}
+                  >
+                    {formatPriceByCurrency(coin.profit, currency)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={'fin-model__option fin-model__option--white'}>
+            <div className={'fin-model__option-title'}>Окупаемость, мес.</div>
+            <div className={'fin-model__option-value'}>
+              {considerCost
+                ? Math.round(paybackWithWatt)
+                : Math.round(paybackWithoutWatt)}
+            </div>
+          </div>
+
+          <div className={'fin-model__option fin-model__option--white'}>
+            <div className={'fin-model__option-title'}>
+              Общее потребление, кВт.
+            </div>
+            <div className={'fin-model__option-value'}>{kW.toFixed(1)}</div>
+          </div>
+
+          <div className={'fin-model__option fin-model__option--white'}>
+            <div className={'fin-model__option-title'}>
+              Общая сумма вложений:
+            </div>
+            <div className={'fin-model__option-value'}>
+              {formatPriceByCurrency(cost, currency)}
+            </div>
+          </div>
+
+          <div className={'fin-model__foot'}>
+            <div className={'fin-model__cost'}>
+              <div className={'fin-model__cost-label'}>Стоимость э/э, ₽</div>
+              <Input
+                value={electricityCoast}
+                onChange={(e) =>
+                  onChangeElectricityCoast(e.target.value ? +e.target.value : 1)
+                }
+                type={'number'}
+                sizes={'md'}
+                className={'fin-model__cost-input'}
+              />
+            </div>
+            <Button
+              onClick={handleDownload}
+              disabled={isPending}
+              className={'fin-model__download'}
+            >
+              Скачать фин модель <DownloadIcon />
+            </Button>
           </div>
         </>
       ) : (

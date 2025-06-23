@@ -86,4 +86,19 @@
     color: var(--text-primary);
     margin-top: 20px;
   }
+
+  &__dropdown-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    button {
+      display: flex;
+      padding: 4px;
+
+      svg {
+        color: var(--stroke-accent);
+      }
+    }
+  }
 }

@@ -31,4 +31,16 @@
     border-radius: 16px;
     background-color: var(--text-contrast);
   }
+
+  @media screen and (max-width: 768px) {
+    &__item {
+      width: 32px;
+      height: 24px;
+
+      font-family: var(--second-family);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1;
+    }
+  }
 }

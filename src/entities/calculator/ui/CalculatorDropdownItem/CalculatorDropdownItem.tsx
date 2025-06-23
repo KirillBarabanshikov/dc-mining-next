@@ -1,3 +1,5 @@
+'use client';
+
 import './CalculatorDropdownItem.scss';
 
 import { FC, useState } from 'react';
@@ -31,6 +33,7 @@ interface ICalculatorDropdownItemProps {
   setModelCount: (product: Product, count: number) => void;
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
+  onAdd: () => void;
   className?: string;
 }
 
@@ -38,6 +41,7 @@ export const CalculatorDropdownItem: FC<ICalculatorDropdownItemProps> = ({
   calculatorData,
   addModel,
   setFilterField,
+  onAdd,
   filters,
 }) => {
   const [selected, setSelected] = useState('');
@@ -96,6 +100,7 @@ export const CalculatorDropdownItem: FC<ICalculatorDropdownItemProps> = ({
 
             addModel(product);
             setIsOpen(false);
+            setTimeout(() => onAdd(), 1);
           }}
         >
           Добавить
