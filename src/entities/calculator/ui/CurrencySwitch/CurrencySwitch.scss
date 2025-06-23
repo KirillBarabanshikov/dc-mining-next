@@ -3,6 +3,7 @@
   padding: 4px;
   background-color: var(--buttons-normal);
   white-space: nowrap;
+  overflow: hidden;
 
   &__item {
     position: relative;

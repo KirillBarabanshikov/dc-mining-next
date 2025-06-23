@@ -25,8 +25,6 @@ interface IFinModelProps {
   onChangeCurrency?: (currency: Currency) => void;
 }
 
-const DAYS_IN_MONTH = 30;
-
 export const FinModel: FC<IFinModelProps> = ({
   models,
   currency,
@@ -65,9 +63,9 @@ export const FinModel: FC<IFinModelProps> = ({
         const cost =
           previousValue.cost + currentValue.product.price * currentValue.count;
 
-        const paybackWithWatt = cost / (profitWithWatt * DAYS_IN_MONTH);
+        const paybackWithWatt = cost / profitWithWatt;
 
-        const paybackWithoutWatt = cost / (profitWithoutWatt * DAYS_IN_MONTH);
+        const paybackWithoutWatt = cost / profitWithoutWatt;
 
         const newCoins = [...previousValue.coins];
         currentValue.product.coinsArray.forEach((coin) => {

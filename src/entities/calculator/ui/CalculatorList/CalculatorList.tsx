@@ -52,7 +52,7 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
   setElectricityCoast,
   className,
 }) => {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
     <div className={clsx('calculator-list', className)}>
@@ -75,22 +75,6 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
           </div>
         )}
 
-        {!models.length && (
-          <CalculatorDropdownItem
-            filters={filters}
-            setFilterField={setFilterField}
-            calculatorData={calculatorData}
-            isFetching={isFetching}
-            models={models}
-            addModel={addModel}
-            removeModel={removeModel}
-            setModelCount={setModelCount}
-            electricityCoast={electricityCoast}
-            setElectricityCoast={setElectricityCoast}
-            onAdd={() => setShowDropdown(false)}
-          />
-        )}
-
         {showDropdown && (
           <div className={'calculator-list__dropdown-wrap'}>
             <CalculatorDropdownItem
@@ -106,9 +90,11 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
               setElectricityCoast={setElectricityCoast}
               onAdd={() => setShowDropdown(false)}
             />
-            <button onClick={() => setShowDropdown(false)}>
-              <CloseIcon />
-            </button>
+            {!!models.length && (
+              <button onClick={() => setShowDropdown(false)}>
+                <CloseIcon />
+              </button>
+            )}
           </div>
         )}
 

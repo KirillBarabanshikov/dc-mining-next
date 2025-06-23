@@ -40,7 +40,11 @@ export const CurrencySwitch: FC<ICurrencySwitchProps> = ({
   };
 
   return (
-    <div className={clsx('currency-switch', className)}>
+    <motion.div
+      className={clsx('currency-switch', className)}
+      layout
+      layoutRoot
+    >
       {currencies.map((currency) => (
         <button
           key={currency.value}
@@ -63,6 +67,6 @@ export const CurrencySwitch: FC<ICurrencySwitchProps> = ({
           )}
         </button>
       ))}
-    </div>
+    </motion.div>
   );
 };
