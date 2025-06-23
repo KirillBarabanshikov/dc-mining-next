@@ -189,10 +189,15 @@ export const FinModel: FC<IFinModelProps> = ({
                   {model.count} шт.
                 </div>
                 <div className={'fin-model__option-value'}>
-                  {formatPriceByCurrency(
-                    model.product.price * model.count,
-                    currency,
-                  )}
+                  {considerCost
+                    ? formatPriceByCurrency(
+                        model.product.paybackWithWatt * model.count,
+                        currency,
+                      )
+                    : formatPriceByCurrency(
+                        model.product.profitDayAll * model.count,
+                        currency,
+                      )}
                 </div>
               </div>
             );
@@ -251,7 +256,7 @@ export const FinModel: FC<IFinModelProps> = ({
             <div className={'fin-model__option-title'}>
               Общее потребление, кВт.
             </div>
-            <div className={'fin-model__option-value'}>{kW.toFixed(1)}</div>
+            <div className={'fin-model__option-value'}>{Math.round(kW)}</div>
           </div>
 
           <div className={'fin-model__option fin-model__option--white'}>
@@ -291,7 +296,7 @@ export const FinModel: FC<IFinModelProps> = ({
             <div>
               Общее <br /> потребление, кВт.
             </div>
-            <p>{kW.toFixed(1)}</p>
+            <p>{Math.round(kW)}</p>
           </div>
           <div className={'fin-model__card fin-model__card--base'}>
             <div>

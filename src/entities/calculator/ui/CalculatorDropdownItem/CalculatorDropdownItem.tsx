@@ -100,6 +100,8 @@ export const CalculatorDropdownItem: FC<ICalculatorDropdownItemProps> = ({
 
             addModel(product);
             setIsOpen(false);
+            document.body.style.overflowY = 'auto';
+            document.body.style.paddingRight = '0px';
             setTimeout(() => onAdd(), 1);
           }}
         >

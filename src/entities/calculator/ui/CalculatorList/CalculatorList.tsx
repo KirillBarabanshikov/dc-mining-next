@@ -75,7 +75,7 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
           </div>
         )}
 
-        {showDropdown && (
+        {(showDropdown || !models.length) && (
           <div className={'calculator-list__dropdown-wrap'}>
             <CalculatorDropdownItem
               filters={filters}
