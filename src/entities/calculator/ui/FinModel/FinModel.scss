@@ -503,6 +503,23 @@
     border-radius: 8px;
     padding: 5px 8px;
 
+    &-title-wrap {
+      width: 100%;
+      display: flex;
+      .fin-model__option-title {
+        max-width: 400px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &-value-wrap {
+      width: 100%;
+      max-width: 86px;
+      min-width: 86px;
+    }
+
     &-title {
       flex: 1;
       font-family: var(--second-family);
@@ -518,7 +535,6 @@
       font-size: 12px;
       line-height: 1;
       color: var(--text-primary);
-      margin-right: 15px;
     }
 
     &-value {
@@ -528,6 +544,7 @@
       line-height: 1;
       text-align: right;
       color: var(--text-primary);
+      white-space: nowrap;
     }
 
     &--white {

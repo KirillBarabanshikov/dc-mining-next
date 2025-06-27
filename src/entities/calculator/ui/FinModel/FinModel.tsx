@@ -186,13 +186,19 @@ export const FinModel: FC<IFinModelProps> = ({
                 key={model.product.id}
                 className={'fin-model__option fin-model__option--blue'}
               >
-                <div className={'fin-model__option-title'}>
-                  {model.product.title}
+                <div className={'fin-model__option-title-wrap'}>
+                  <div className={'fin-model__option-title'}>
+                    {model.product.title}
+                  </div>
+                  <div className={'fin-model__option-count'}>
+                    {model.count} шт.
+                  </div>
                 </div>
-                <div className={'fin-model__option-count'}>
-                  {model.count} шт.
-                </div>
-                <div className={'fin-model__option-value'}>
+                <div
+                  className={
+                    'fin-model__option-value fin-model__option-value-wrap'
+                  }
+                >
                   {considerCost
                     ? formatPriceByCurrency(
                         model.product.paybackWithWatt * model.count,
