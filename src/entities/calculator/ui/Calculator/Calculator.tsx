@@ -73,8 +73,19 @@ export const Calculator = () => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
-  const addModel = (product: Product) => {
-    setModels((prev) => [...prev, { product, count: 1 }]);
+  const addModel = (product: Product, model?: Model) => {
+    if (model) {
+      return setModels((prev) =>
+        prev.map((prevModel) => {
+          if (prevModel.product.id === model.product.id) {
+            return { ...prevModel, product };
+          }
+          return prevModel;
+        }),
+      );
+    } else {
+      setModels((prev) => [...prev, { product, count: 1 }]);
+    }
   };
 
   const removeModel = (product: Product) => {

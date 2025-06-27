@@ -1,0 +1,53 @@
+@use '@/shared/styles/helpers' as *;
+
+.calculator-item {
+  width: 100%;
+
+  &__input {
+    border: 1px solid var(--background-secondary) !important;
+    border-radius: 8px !important;
+    padding: unset !important;
+    height: 40px !important;
+    background: #fff !important;
+
+    input {
+      padding: 0 40px 0 8px !important;
+    }
+
+    svg {
+      color: var(--text-accent-blue);
+      transform: translateX(10px);
+    }
+  }
+
+  &__input-wrap {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 5px 4px;
+    max-height: 210px;
+    overflow: auto;
+    background: var(--text-contrast);
+    scrollbar-gutter: stable;
+
+    @include scrollbar();
+  }
+
+  &__item {
+    border-bottom: 1px solid var(--stroke-disabled);
+    padding: 16px;
+    height: 50px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: 0.02em;
+    color: var(--text-primary);
+  }
+}

@@ -1,10 +1,10 @@
 import './CalculatorItemCard.scss';
 
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import { formatPriceByCurrency } from '@/entities/calculator/lib/formatPriceByCurrency';
-import TrashIcon from '@/shared/assets/icons/trash.svg';
-import { Button, NumberInput } from '@/shared/ui';
+import { CalculatorItemInput } from '@/entities/calculator/ui/CalculatorItemInput/CalculatorItemInput';
+import { NumberInput } from '@/shared/ui';
 
 import { Currency, Model, Product } from '../../model/types';
 
@@ -13,6 +13,8 @@ interface ICalculatorItemCardProps {
   model: Model;
   setModelCount: (product: Product, count: number) => void;
   removeModel: (product: Product) => void;
+  addModel: (product: Product) => void;
+  models: Model[];
 }
 
 export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
@@ -20,18 +22,18 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
   model,
   setModelCount,
   removeModel,
+  addModel,
+  models,
 }) => {
   return (
     <div className={'calculator-card'}>
       <div className={'calculator-card__title-wrap'}>
-        <div className={'calculator-card__title'}>{model.product.title}</div>
-        <Button
-          theme={'white'}
-          onClick={() => removeModel(model.product)}
-          className={'calculator-card__button calculator-card__button-remove'}
-        >
-          <TrashIcon />
-        </Button>
+        <CalculatorItemInput
+          addModel={addModel}
+          model={model}
+          removeModel={removeModel}
+          models={models}
+        />
       </div>
       <div className={'calculator-card__extra'}>
         <NumberInput

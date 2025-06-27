@@ -3,8 +3,8 @@ import './CalculatorList.scss';
 import clsx from 'clsx';
 import React, { FC, useState } from 'react';
 
+import { CalculatorItemInput } from '@/entities/calculator/ui/CalculatorItemInput/CalculatorItemInput';
 import { FinModel } from '@/entities/calculator/ui/FinModel';
-import CloseIcon from '@/shared/assets/icons/close.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 import { Button } from '@/shared/ui';
 
@@ -15,7 +15,6 @@ import {
   Model,
   Product,
 } from '../../model/types';
-import { CalculatorDropdownItem } from '../CalculatorDropdownItem';
 import { CalculatorItemCard } from '../CalculatorItemCard';
 
 interface ICalculatorListProps {
@@ -31,7 +30,7 @@ interface ICalculatorListProps {
   calculatorData: CalculatorData;
   isFetching?: boolean;
   models: Model[];
-  addModel: (product: Product) => void;
+  addModel: (product: Product, model?: Model) => void;
   removeModel: (product: Product) => void;
   setModelCount: (product: Product, count: number) => void;
   electricityCoast: number;
@@ -45,8 +44,8 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
   calculatorData,
   isFetching,
   models,
-  addModel,
   removeModel,
+  addModel,
   setModelCount,
   electricityCoast,
   setElectricityCoast,
@@ -70,6 +69,8 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
                 currency={filters.currency}
                 setModelCount={setModelCount}
                 removeModel={removeModel}
+                addModel={addModel}
+                models={models}
               />
             ))}
           </div>
@@ -77,24 +78,13 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
 
         {(showDropdown || !models.length) && (
           <div className={'calculator-list__dropdown-wrap'}>
-            <CalculatorDropdownItem
-              filters={filters}
-              setFilterField={setFilterField}
-              calculatorData={calculatorData}
-              isFetching={isFetching}
-              models={models}
+            <CalculatorItemInput
               addModel={addModel}
-              removeModel={removeModel}
-              setModelCount={setModelCount}
-              electricityCoast={electricityCoast}
-              setElectricityCoast={setElectricityCoast}
               onAdd={() => setShowDropdown(false)}
+              onClose={() => setShowDropdown(false)}
+              showClose={!!models.length}
+              models={models}
             />
-            {!!models.length && (
-              <button onClick={() => setShowDropdown(false)}>
-                <CloseIcon />
-              </button>
-            )}
           </div>
         )}
 
@@ -103,6 +93,7 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
           isWide
           disabled={!models.length || showDropdown}
           onClick={() => setShowDropdown(true)}
+          className={'calculator-list__add-btn'}
         >
           Добавить оборудование <PlusIcon />
         </Button>

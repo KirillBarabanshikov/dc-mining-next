@@ -89,16 +89,21 @@
 
   &__dropdown-wrap {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 4px;
 
     button {
       display: flex;
       padding: 4px;
+      margin-top: 4px;
 
       svg {
         color: var(--stroke-accent);
       }
     }
+  }
+
+  &__add-btn {
+    border-radius: 8px !important;
   }
 }
