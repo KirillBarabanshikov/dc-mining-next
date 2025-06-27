@@ -43,7 +43,7 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
         />
         <div className={'calculator-card__extra-title'}>Стоимость</div>
         <div className={'calculator-card__extra-value'}>
-          {formatPriceByCurrency(model.product.price, currency)}
+          {formatPriceByCurrency(model.product.price * model.count, currency)}
         </div>
       </div>
     </div>
