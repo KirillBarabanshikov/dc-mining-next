@@ -291,9 +291,18 @@ export const FinModel: FC<IFinModelProps> = ({
               <div className={'fin-model__cost-label'}>Стоимость э/э, ₽</div>
               <Input
                 value={electricityCoast}
-                onChange={(e) =>
-                  onChangeElectricityCoast(e.target.value ? +e.target.value : 1)
-                }
+                onChange={(e) => {
+                  if (+e.target.value >= 0 && +e.target.value < 1000000) {
+                    onChangeElectricityCoast(e.target.value as any);
+                  }
+                }}
+                onBlur={(e) => {
+                  if (!e.target.value || +e.target.value < 0) {
+                    onChangeElectricityCoast(0);
+                  }
+                }}
+                min={0}
+                max={1000000}
                 type={'number'}
                 sizes={'md'}
                 disabled={!models.length}
@@ -405,11 +414,18 @@ export const FinModel: FC<IFinModelProps> = ({
                 <div className={'fin-model__cost-label'}>Стоимость э/э, ₽</div>
                 <Input
                   value={electricityCoast}
-                  onChange={(e) =>
-                    onChangeElectricityCoast(
-                      e.target.value ? +e.target.value : 1,
-                    )
-                  }
+                  onChange={(e) => {
+                    if (+e.target.value >= 0 && +e.target.value < 1000000) {
+                      onChangeElectricityCoast(e.target.value as any);
+                    }
+                  }}
+                  onBlur={(e) => {
+                    if (!e.target.value || +e.target.value < 0) {
+                      onChangeElectricityCoast(0);
+                    }
+                  }}
+                  min={0}
+                  max={1000000}
                   type={'number'}
                   sizes={'md'}
                   className={'fin-model__cost-input'}
