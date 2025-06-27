@@ -107,21 +107,17 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
           Добавить оборудование <PlusIcon />
         </Button>
       </div>
-      {!!models.length && (
-        <>
-          <div className={'calculator-list__title'}>
-            Расчет финансовой модели
-          </div>
-          <FinModel
-            models={models}
-            currency={filters.currency}
-            dollar={calculatorData.dollar}
-            electricityCoast={electricityCoast}
-            onChangeElectricityCoast={setElectricityCoast}
-            onChangeCurrency={(v) => setFilterField('currency', v)}
-          />
-        </>
-      )}
+      <>
+        <div className={'calculator-list__title'}>Расчет финансовой модели</div>
+        <FinModel
+          models={models}
+          currency={filters.currency}
+          dollar={calculatorData.dollar}
+          electricityCoast={electricityCoast}
+          onChangeElectricityCoast={setElectricityCoast}
+          onChangeCurrency={(v) => setFilterField('currency', v)}
+        />
+      </>
     </div>
   );
 };

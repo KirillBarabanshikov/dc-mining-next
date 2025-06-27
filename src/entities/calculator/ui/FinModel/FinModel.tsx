@@ -171,8 +171,12 @@ export const FinModel: FC<IFinModelProps> = ({
             <div className={'fin-model__option-title'}>Ежемесячный доход</div>
             <div className={'fin-model__option-value'}>
               {considerCost
-                ? formatPriceByCurrency(profitWithWatt, currency)
-                : formatPriceByCurrency(profitWithoutWatt, currency)}
+                ? profitWithWatt
+                  ? formatPriceByCurrency(profitWithWatt, currency)
+                  : '-'
+                : profitWithoutWatt
+                  ? formatPriceByCurrency(profitWithoutWatt, currency)
+                  : '-'}
             </div>
           </div>
 
@@ -212,6 +216,14 @@ export const FinModel: FC<IFinModelProps> = ({
                 </div>
               </div>
 
+              {!coins.length && (
+                <div className={'fin-model__coins-item'}>
+                  <div className={'fin-model__coins-wrap'}>
+                    <div className={'fin-model__coins-title'}>-</div>
+                  </div>
+                </div>
+              )}
+
               {coins.map((coin, index) => (
                 <div key={index} className={'fin-model__coins-item'}>
                   <div className={'fin-model__coins-wrap'}>
@@ -247,8 +259,12 @@ export const FinModel: FC<IFinModelProps> = ({
             <div className={'fin-model__option-title'}>Окупаемость, мес.</div>
             <div className={'fin-model__option-value'}>
               {considerCost
-                ? Math.round(paybackWithWatt)
-                : Math.round(paybackWithoutWatt)}
+                ? paybackWithWatt
+                  ? Math.round(paybackWithWatt)
+                  : '-'
+                : paybackWithoutWatt
+                  ? Math.round(paybackWithoutWatt)
+                  : '-'}
             </div>
           </div>
 
@@ -256,7 +272,9 @@ export const FinModel: FC<IFinModelProps> = ({
             <div className={'fin-model__option-title'}>
               Общее потребление, кВт.
             </div>
-            <div className={'fin-model__option-value'}>{Math.round(kW)}</div>
+            <div className={'fin-model__option-value'}>
+              {kW ? Math.round(kW) : '-'}
+            </div>
           </div>
 
           <div className={'fin-model__option fin-model__option--white'}>
@@ -264,7 +282,7 @@ export const FinModel: FC<IFinModelProps> = ({
               Общая сумма вложений:
             </div>
             <div className={'fin-model__option-value'}>
-              {formatPriceByCurrency(cost, currency)}
+              {cost ? formatPriceByCurrency(cost, currency) : '-'}
             </div>
           </div>
 
@@ -278,12 +296,13 @@ export const FinModel: FC<IFinModelProps> = ({
                 }
                 type={'number'}
                 sizes={'md'}
+                disabled={!models.length}
                 className={'fin-model__cost-input'}
               />
             </div>
             <Button
               onClick={handleDownload}
-              disabled={isPending}
+              disabled={isPending || !models.length}
               className={'fin-model__download'}
             >
               Скачать фин модель <DownloadIcon />
