@@ -50,7 +50,7 @@ export const Calculator = () => {
         if (!updatedProduct) return model;
 
         let paybackWithWatt =
-          (updatedProduct.watt / 1000) * debouncedElectricityCost * 24;
+          ((updatedProduct.watt * 24) / 1000) * debouncedElectricityCost * 30;
         if (filters.currency === 'dollar') {
           paybackWithWatt /= data.dollar;
         }
