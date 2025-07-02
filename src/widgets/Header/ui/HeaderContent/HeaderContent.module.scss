@@ -1,7 +1,4 @@
 .header {
-  position: sticky;
-  z-index: 5;
-  top: 20px;
   max-width: 1840px;
   margin: 20px auto 0;
   width: 100%;
@@ -21,6 +18,10 @@
   }
 
   &.sticky {
+    position: sticky;
+    z-index: 5;
+    top: 20px;
+
     .headerContainer {
       background-color: var(--background-tonal);
       box-shadow:
