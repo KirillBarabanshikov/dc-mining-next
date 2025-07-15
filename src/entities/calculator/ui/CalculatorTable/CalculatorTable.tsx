@@ -3,10 +3,12 @@ import './CalculatorTable.scss';
 import clsx from 'clsx';
 import React, { FC, useEffect, useRef, useState } from 'react';
 
+import { formatPriceByCurrency } from '@/entities/calculator/lib/formatPriceByCurrency';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
 import {
   CalculatorData,
+  Coin,
   Currency,
   Filter,
   Model,
@@ -35,6 +37,7 @@ interface ICalculatorTableProps {
   setModelCount: (product: Product, count: number) => void;
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
+  coinRates: Coin[];
   className?: string;
 }
 
@@ -49,6 +52,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   setModelCount,
   electricityCoast,
   setElectricityCoast,
+  coinRates,
   className,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
@@ -117,8 +121,13 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
       )}
       <div className={'calculator-table__extra'}>
         <div>Не является публичной офертой</div>
-        <div>
-          BTC=101 000 $, DOGE=0.31 $, LTC=0.35 $,{' '}
+        <div className={'calculator-table__extra-wrap'}>
+          {coinRates.map((coin) => (
+            <div key={coin.title}>
+              {coin.title}={formatPriceByCurrency(coin.price, filters.currency)}
+              ,
+            </div>
+          ))}
           <span>Курс доллара = {calculatorData.dollar} ₽</span>
         </div>
       </div>

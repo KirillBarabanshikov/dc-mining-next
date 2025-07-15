@@ -3,14 +3,14 @@
 import './Calculator.scss';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 
 import { getCalculatorData } from '../../api/calculatorApi';
-import { Currency, Filter, Model, Product } from '../../model/types';
+import { Coin, Currency, Filter, Model, Product } from '../../model/types';
 import { CalculatorList } from '../CalculatorList';
 import { CalculatorTable } from '../CalculatorTable';
 
@@ -39,6 +39,22 @@ export const Calculator = () => {
     placeholderData: keepPreviousData,
   });
 
+  const coinRates = useMemo(
+    () =>
+      models.reduce((previousValue, currentValue) => {
+        const newCoins = [...previousValue];
+        currentValue.product.coinsArray.forEach((coin) => {
+          const existing = newCoins.find((c) => c.title === coin.title);
+          if (!existing) {
+            newCoins.push(coin);
+          }
+        });
+
+        return newCoins;
+      }, [] as Coin[]),
+    [models],
+  );
+
   useEffect(() => {
     if (!data) return;
 
@@ -64,7 +80,7 @@ export const Calculator = () => {
         };
       }),
     );
-  }, [data, debouncedElectricityCost, filters.currency]);
+  }, [data, debouncedElectricityCost, filters.currency, models]);
 
   const setFilterField = <T extends keyof typeof filters>(
     key: T,
@@ -118,6 +134,7 @@ export const Calculator = () => {
           setModelCount={setModelCount}
           electricityCoast={electricityCost}
           setElectricityCoast={setElectricityCost}
+          coinRates={coinRates}
           className={'calculator__table'}
         />
       ) : (
