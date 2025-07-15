@@ -116,21 +116,10 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
             dollar={calculatorData.dollar}
             electricityCoast={electricityCoast}
             onChangeElectricityCoast={setElectricityCoast}
+            coinRates={coinRates}
           />
         </>
       )}
-      <div className={'calculator-table__extra'}>
-        <div>Не является публичной офертой</div>
-        <div className={'calculator-table__extra-wrap'}>
-          {coinRates.map((coin) => (
-            <div key={coin.title}>
-              {coin.title}={formatPriceByCurrency(coin.price, filters.currency)}
-              ,
-            </div>
-          ))}
-          <span>Курс доллара = {calculatorData.dollar} ₽</span>
-        </div>
-      </div>
     </div>
   );
 };

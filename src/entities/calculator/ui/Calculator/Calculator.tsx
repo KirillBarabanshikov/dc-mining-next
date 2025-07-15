@@ -80,7 +80,7 @@ export const Calculator = () => {
         };
       }),
     );
-  }, [data, debouncedElectricityCost, filters.currency, models]);
+  }, [data, debouncedElectricityCost, filters.currency]);
 
   const setFilterField = <T extends keyof typeof filters>(
     key: T,
