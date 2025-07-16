@@ -3,7 +3,6 @@ import './CalculatorTable.scss';
 import clsx from 'clsx';
 import React, { FC, useEffect, useRef, useState } from 'react';
 
-import { formatPriceByCurrency } from '@/entities/calculator/lib/formatPriceByCurrency';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
 
 import {
@@ -93,7 +92,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
         addModel={addModel}
         isFetching={isFetching}
       />
-      <div className={'calculator-table__title'}>Расчет финансовой модели</div>
+      <div className={'calculator-table__title'}>Бизнес план майнинга</div>
       <div className={'calculator-table__hint'}>
         Для добавления товара в расчет нажмите на{' '}
         <div className={'calculator-table__hint-icon'}>

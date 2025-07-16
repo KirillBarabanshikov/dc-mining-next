@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
 
 import { CurrencySwitch } from '@/entities/calculator/ui/CurrencySwitch';
+import { OrderCallModal } from '@/features/call';
+import ArrowDown from '@/shared/assets/icons/arrow-down2.svg';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
 import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useOutsideClick } from '@/shared/lib';
@@ -36,6 +38,7 @@ export const FinModel: FC<IFinModelProps> = ({
 }) => {
   const match = useMediaQuery(MAX_WIDTH_MD);
   const [showCoins, setShowCoins] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [considerCost, setConsiderCost] = useState(true);
 
   const {
@@ -377,10 +380,24 @@ export const FinModel: FC<IFinModelProps> = ({
                   <div className={'fin-model__card-title'}>Без учета э/э</div>
                   <div className={'fin-model__card-value-box'}>
                     {formatPriceByCurrency(profitWithoutWatt, currency)}
+                    <button
+                      onClick={() => setShowCoins(true)}
+                      className={'fin-model__card-trigger'}
+                    >
+                      <motion.div animate={{ rotate: showCoins ? 180 : 0 }}>
+                        <ArrowDown />
+                      </motion.div>
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+            <Coins
+              coins={coins}
+              show={showCoins}
+              onClose={() => setShowCoins(false)}
+              currency={currency}
+            />
           </div>
         </div>
         <div className={'fin-model__item'}>
@@ -398,7 +415,7 @@ export const FinModel: FC<IFinModelProps> = ({
                 {Math.round(paybackWithWatt)}
               </div>
             </div>
-            <div className={'fin-model__price'}>
+            <div className={'fin-model__price fin-model__price--desktop'}>
               <div className={'fin-model__price-title'}>
                 Общая стоимость, {currency === 'rub' ? 'руб.' : '$'}
               </div>
@@ -407,6 +424,14 @@ export const FinModel: FC<IFinModelProps> = ({
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className={'fin-model__price fin-model__price--mobile'}>
+        <div className={'fin-model__price-title'}>
+          Общая стоимость, {currency === 'rub' ? 'руб.' : '$'}
+        </div>
+        <div className={'fin-model__price-value'}>
+          {formatPriceByCurrency(cost, currency)}
         </div>
       </div>
       <div className={'fin-model__footer'}>
@@ -430,14 +455,16 @@ export const FinModel: FC<IFinModelProps> = ({
           >
             Скачать фин модель <DownloadIcon />
           </Button>
-          <Button size={'md'}>Оставить запрос</Button>
+          <Button size={'md'} onClick={() => setShowModal(true)}>
+            Оставить запрос
+          </Button>
         </div>
       </div>
-      <Coins
-        coins={coins}
-        show={showCoins}
-        onClose={() => setShowCoins(false)}
-        currency={currency}
+      <OrderCallModal
+        title={'Заказать звонок'}
+        subtitle={'Оставьте свои контакты и мы вам перезвоним'}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
       />
     </div>
   );

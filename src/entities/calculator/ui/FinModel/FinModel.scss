@@ -21,6 +21,7 @@
     }
 
     &-cards {
+      position: relative;
       display: flex;
       gap: 8px;
     }
@@ -33,6 +34,10 @@
       height: 100px;
       width: 100%;
       background: rgba(231, 238, 255, 0.5);
+
+      @media screen and (max-width: 1300px) {
+        padding: 12px 8px;
+      }
     }
 
     &:nth-child(3) {
@@ -49,6 +54,10 @@
     padding: 12px;
     background: rgba(231, 238, 255, 0.5);
     height: 100px;
+
+    @media screen and (max-width: 1300px) {
+      padding: 12px 8px;
+    }
 
     &-title {
       font-weight: 400;
@@ -77,6 +86,8 @@
     &-value-box {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       border-radius: 8px;
       padding: 4px 8px;
       width: 174px;
@@ -87,6 +98,31 @@
       font-size: 16px;
       line-height: 120%;
       color: var(--text-primary);
+
+      @media screen and (max-width: 1440px) {
+        width: 150px;
+      }
+
+      @media screen and (max-width: 1100px) {
+        width: 128px;
+      }
+
+      @media screen and (max-width: 973px) {
+        width: 110px;
+      }
+    }
+
+    &-trigger {
+      border-radius: 8px;
+      width: 24px;
+      height: 24px;
+      background: var(--text-contrast);
+      padding: 4px;
+
+      svg {
+        color: var(--text-accent-blue);
+        display: flex;
+      }
     }
 
     &-input {
@@ -115,7 +151,6 @@
     flex: 1;
     border-radius: 8px;
     padding: 8px;
-    width: 160px;
     height: 74px;
     background: #becbeb;
 
@@ -156,6 +191,23 @@
     height: 76px;
     background: var(--background-secondary);
 
+    &--mobile {
+      display: none;
+    }
+
+    @media screen and (max-width: 1300px) {
+      &--desktop {
+        display: none;
+      }
+
+      &--mobile {
+        display: block;
+        width: 100%;
+        margin-left: auto;
+        margin-bottom: 8px;
+      }
+    }
+
     &-title {
       font-family: var(--font-family);
       font-weight: 400;
@@ -164,6 +216,7 @@
       text-align: right;
       color: var(--text-secondary);
       margin-bottom: 4px;
+      white-space: nowrap;
     }
 
     &-value {
@@ -191,6 +244,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 24px;
   }
 
   // Mobile
@@ -271,7 +325,7 @@
 
   &__coins {
     position: absolute;
-    top: 44px;
+    top: calc(100% + 8px);
 
     border-radius: 12px;
     padding: 12px 4px 12px 12px;
