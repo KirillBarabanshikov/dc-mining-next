@@ -3,7 +3,7 @@
 import './Calculator.scss';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { MAX_WIDTH_MD } from '@/shared/consts';
@@ -14,7 +14,11 @@ import { Coin, Currency, Filter, Model, Product } from '../../model/types';
 import { CalculatorList } from '../CalculatorList';
 import { CalculatorTable } from '../CalculatorTable';
 
-export const Calculator = () => {
+interface ICalculatorProps {
+  productId?: number;
+}
+
+export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
   const [filters, setFilters] = useState({
     currency: 'rub' as Currency,
     search: '',
@@ -82,6 +86,16 @@ export const Calculator = () => {
     );
   }, [data, debouncedElectricityCost, filters.currency]);
 
+  useEffect(() => {
+    if (!data || !productId) return;
+
+    const prod = data.products.find((p) => p.id === productId);
+
+    if (!prod) return;
+
+    setModels((prevModels) => [...prevModels, { product: prod, count: 1 }]);
+  }, [data, productId, debouncedElectricityCost, filters.currency]);
+
   const setFilterField = <T extends keyof typeof filters>(
     key: T,
     value: (typeof filters)[T],
@@ -135,6 +149,7 @@ export const Calculator = () => {
           electricityCoast={electricityCost}
           setElectricityCoast={setElectricityCost}
           coinRates={coinRates}
+          productId={productId}
           className={'calculator__table'}
         />
       ) : (

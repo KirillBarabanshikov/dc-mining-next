@@ -37,6 +37,7 @@ interface ICalculatorTableProps {
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
   coinRates: Coin[];
+  productId?: number;
   className?: string;
 }
 
@@ -52,6 +53,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   electricityCoast,
   setElectricityCoast,
   coinRates,
+  productId,
   className,
 }) => {
   const tableRef = useRef<HTMLDivElement>(null);
@@ -88,6 +90,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
       <ProductsContent
         filters={filters}
         calculatorData={calculatorData}
+        productId={productId}
         models={models}
         addModel={addModel}
         isFetching={isFetching}

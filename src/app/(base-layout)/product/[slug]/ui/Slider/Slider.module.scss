@@ -45,6 +45,8 @@
       background-color: var(--background-white);
       border-radius: 20px;
       object-fit: cover;
+      width: 592px;
+      height: 592px;
 
       @media screen and (max-width: 1900px) {
         max-width: 448px;
@@ -84,6 +86,8 @@
         outline: 2px solid transparent;
         outline-offset: -2px;
         transition: outline-color 0.3s;
+        width: 100px;
+        height: 100px;
 
         @media screen and (max-width: 992px) {
           width: 80px;

@@ -505,3 +505,19 @@
     pointer-events: none;
   }
 }
+
+.calculator-table--block {
+  overflow-y: hidden !important;
+  position: relative;
+
+  .calculator-table__product-row:not(:first-child) {
+    filter: blur(2px);
+  }
+
+  &-button {
+    position: absolute;
+    bottom: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

@@ -12,6 +12,8 @@ import {
 } from '../../model/types';
 import { CalculatorProductRow } from './CalculatorProductRow';
 import { CalculatorTableHeader } from './CalculatorTableHeader';
+import { Button } from '@/shared/ui';
+import Plus from '@/shared/assets/icons/plus.svg';
 
 interface IProductsContentProps {
   filters: {
@@ -22,6 +24,7 @@ interface IProductsContentProps {
   calculatorData: CalculatorData;
   isFetching?: boolean;
   models: Model[];
+  productId?: number;
   addModel: (product: Product) => void;
 }
 
@@ -31,10 +34,12 @@ export const ProductsContent: FC<IProductsContentProps> = ({
   filters,
   models,
   addModel,
+  productId,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
+  const [isBlock, setIsBlock] = useState(!!productId);
 
   useEffect(() => {
     const container = ref.current;
@@ -76,10 +81,18 @@ export const ProductsContent: FC<IProductsContentProps> = ({
         className={clsx(
           'calculator-table__rows calculator-table__rows-products',
           { 'calculator-table--loading': isFetching },
+          { 'calculator-table--block': isBlock },
         )}
       >
-        {calculatorData.products.map((product) => {
-          return (
+        {calculatorData.products
+          .slice()
+          .sort((a, b) => {
+            if (!productId) return 0;
+            if (a.id === productId) return -1;
+            if (b.id === productId) return 1;
+            return 0;
+          })
+          .map((product) => (
             <CalculatorProductRow
               key={product.id}
               product={product}
@@ -87,8 +100,19 @@ export const ProductsContent: FC<IProductsContentProps> = ({
               models={models}
               addModel={addModel}
             />
-          );
-        })}
+          ))}
+
+        {isBlock && (
+          <Button
+            theme={'white'}
+            size={'md'}
+            onClick={() => setIsBlock(false)}
+            className={'calculator-table--block-button'}
+          >
+            Добавить модель
+            <Plus />
+          </Button>
+        )}
       </div>
     </div>
   );
