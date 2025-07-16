@@ -68,7 +68,12 @@ export const ProductsContent: FC<IProductsContentProps> = ({
   };
 
   return (
-    <div className={'calculator-table__content'} ref={ref}>
+    <div
+      className={clsx('calculator-table__content', {
+        'calculator-table__content__block': isBlock,
+      })}
+      ref={ref}
+    >
       <div className={'calculator-table__header-wrap'}>
         <CalculatorTableHeader
           variant={'product'}

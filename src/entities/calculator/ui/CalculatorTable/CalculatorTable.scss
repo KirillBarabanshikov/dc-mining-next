@@ -30,6 +30,10 @@
         height: 0 !important;
       }
     }
+
+    &__block {
+      overflow-y: hidden;
+    }
   }
 
   &__header-wrap {
@@ -521,6 +525,10 @@
 .calculator-table--block {
   position: relative;
   min-height: 196px;
+
+  @media screen and (min-width: 1439px) {
+    overflow: hidden !important;
+  }
 
   &-button {
     position: absolute;
