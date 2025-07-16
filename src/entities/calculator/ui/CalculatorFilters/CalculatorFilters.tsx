@@ -26,6 +26,8 @@ interface ICalculatorFiltersProps {
   onChangeSearch: (search: string) => void;
   filter: Filter;
   onChangeFilter: (filter: Filter) => void;
+  isBlock?: boolean;
+  productName?: string;
 }
 
 export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
@@ -35,6 +37,8 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
   onChangeSearch,
   filter,
   onChangeFilter,
+  isBlock,
+  productName,
 }) => {
   const match = useMediaQuery(MAX_WIDTH_MD);
 
@@ -67,9 +71,10 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
       <div className={'calculator-filters__wrap'}>
         <Input
           className={'calculator-filters__search'}
-          placeholder={'Поиск по модели'}
+          placeholder={isBlock ? `${productName}` : 'Поиск по модели'}
           sizes={'sm'}
           value={search}
+          readOnly={isBlock}
           onChange={(e) => onChangeSearch(e.target.value)}
           icon={
             search ? (

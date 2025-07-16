@@ -27,6 +27,8 @@ interface IProductsContentProps {
   models: Model[];
   productId?: number;
   addModel: (product: Product) => void;
+  isBlock?: boolean;
+  setIsBlock?: (isBlock: boolean) => void;
 }
 
 export const ProductsContent: FC<IProductsContentProps> = ({
@@ -36,11 +38,12 @@ export const ProductsContent: FC<IProductsContentProps> = ({
   models,
   addModel,
   productId,
+  isBlock,
+  setIsBlock,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
-  const [isBlock, setIsBlock] = useState(!!productId);
 
   useEffect(() => {
     const container = ref.current;
@@ -116,7 +119,7 @@ export const ProductsContent: FC<IProductsContentProps> = ({
           <Button
             theme={'white'}
             size={'md'}
-            onClick={() => setIsBlock(false)}
+            onClick={() => setIsBlock?.(false)}
             className={'calculator-table--block-button'}
           >
             Добавить модель
