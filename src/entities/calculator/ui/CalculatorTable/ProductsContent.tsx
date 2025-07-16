@@ -3,6 +3,9 @@ import './CalculatorTable.scss';
 import clsx from 'clsx';
 import React, { FC, useEffect, useRef, useState } from 'react';
 
+import Plus from '@/shared/assets/icons/plus.svg';
+import { Button } from '@/shared/ui';
+
 import {
   CalculatorData,
   Currency,
@@ -12,8 +15,6 @@ import {
 } from '../../model/types';
 import { CalculatorProductRow } from './CalculatorProductRow';
 import { CalculatorTableHeader } from './CalculatorTableHeader';
-import { Button } from '@/shared/ui';
-import Plus from '@/shared/assets/icons/plus.svg';
 
 interface IProductsContentProps {
   filters: {
@@ -99,6 +100,10 @@ export const ProductsContent: FC<IProductsContentProps> = ({
               currency={filters.currency}
               models={models}
               addModel={addModel}
+              className={clsx({
+                'calculator-table__product-row--block':
+                  isBlock && product.id !== productId,
+              })}
             />
           ))}
 

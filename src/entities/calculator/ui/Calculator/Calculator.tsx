@@ -93,7 +93,11 @@ export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
 
     if (!prod) return;
 
-    setModels((prevModels) => [...prevModels, { product: prod, count: 1 }]);
+    setModels((prevModels) => {
+      if (prevModels.find((model) => model.product.id === productId))
+        return prevModels;
+      return [...prevModels, { product: prod, count: 1 }];
+    });
   }, [data, productId, debouncedElectricityCost, filters.currency]);
 
   const setFilterField = <T extends keyof typeof filters>(

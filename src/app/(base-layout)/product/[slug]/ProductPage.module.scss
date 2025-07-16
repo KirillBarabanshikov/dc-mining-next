@@ -20,6 +20,12 @@
   }
 }
 
+.asicContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
 .productInfoTop {
   display: grid;
   grid-template: min-content min-content 1fr / 608px 1fr 1fr;

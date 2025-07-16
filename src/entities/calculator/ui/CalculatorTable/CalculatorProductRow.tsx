@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { FC } from 'react';
 
 import PlusIcon from '@/shared/assets/icons/plus.svg';
@@ -11,6 +12,7 @@ interface ICalculatorProductRowProps {
   currency: Currency;
   models: Model[];
   addModel: (product: Product) => void;
+  className?: string;
 }
 
 export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
@@ -18,9 +20,10 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
   currency,
   models,
   addModel,
+  className,
 }) => {
   return (
-    <div className={'calculator-table__product-row'}>
+    <div className={clsx('calculator-table__product-row', className)}>
       <div className={'calculator-table__product-row-cell'}>
         <div className={'calculator-table__product-row-title'}>
           {product.title}

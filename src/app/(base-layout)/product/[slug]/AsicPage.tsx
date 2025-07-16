@@ -141,14 +141,14 @@ export const AsicPage = () => {
 
   return (
     <div>
-      <div className={clsx('container', styles.container)}>
+      <div className={clsx('container', styles.asicContainer)}>
         <Breadcrumbs
           paths={breadcrumbsPaths}
           className={styles.asicBreadcrumbs}
         />
       </div>
       <div
-        className={clsx('container', styles.container)}
+        className={clsx('container', styles.asicContainer)}
         itemScope
         itemType={'https://schema.org/Product'}
       >
