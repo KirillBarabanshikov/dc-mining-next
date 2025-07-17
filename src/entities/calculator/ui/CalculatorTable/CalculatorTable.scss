@@ -222,9 +222,15 @@
         content: '';
         position: absolute;
         inset: 0;
+        bottom: -8px;
         background: rgba(22, 32, 53, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
+        backdrop-filter: blur(5px);
+      }
+
+      &:nth-child(2) {
+        &:after {
+          border-radius: 16px 16px 0 0;
+        }
       }
     }
 
@@ -524,7 +530,7 @@
 
 .calculator-table--block {
   position: relative;
-  min-height: 196px;
+  height: 276px;
 
   @media screen and (min-width: 1439px) {
     overflow: hidden !important;
