@@ -3,8 +3,6 @@ import './CalculatorTable.scss';
 import clsx from 'clsx';
 import React, { FC, useMemo, useState } from 'react';
 
-import PlusIcon from '@/shared/assets/icons/plus.svg';
-
 import {
   CalculatorData,
   Coin,
@@ -89,10 +87,8 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
       <div className={'calculator-table__title'}>Бизнес план майнинга</div>
       <div className={'calculator-table__hint'}>
         Для добавления товара в расчет нажмите на{' '}
-        <div className={'calculator-table__hint-icon'}>
-          <PlusIcon />
-        </div>{' '}
-        справа от модели оборудования
+        <div className={'calculator-table__hint-icon'}>Добавить</div> справа от
+        модели оборудования
       </div>
       {!!models.length && (
         <>

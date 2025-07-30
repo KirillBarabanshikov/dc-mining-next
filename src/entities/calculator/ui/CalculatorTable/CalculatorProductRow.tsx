@@ -1,8 +1,6 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 
-import PlusIcon from '@/shared/assets/icons/plus.svg';
-
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
 import { Currency, Model, Product } from '../../model/types';
 import { CoinsList } from '../CoinsList';
@@ -72,7 +70,9 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
           onClick={() => addModel(product)}
           className={'calculator-table__product-row-button'}
         >
-          <PlusIcon />
+          {models.find((model) => model.product.id === product.id)
+            ? 'Добавлено'
+            : 'Добавить'}
         </button>
       </div>
     </div>

@@ -9,12 +9,6 @@
     padding: 12px;
   }
 
-  //&--is-fixed-top {
-  //  .calculator-table__rows {
-  //    overflow-y: auto;
-  //  }
-  //}
-
   &__content {
     overflow-x: auto;
     overflow-y: auto;
@@ -305,7 +299,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding-right: 16px;
+        padding-right: 8px;
         padding-left: 8px;
         position: sticky;
         right: -1px;
@@ -318,29 +312,28 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 120%;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: var(--text-contrast);
       border-radius: 16px;
-      width: 32px;
+      padding: 0 16px;
+      width: 92px;
       height: 32px;
-      background-color: var(--background-white);
-      color: var(--text-accent-blue);
+      background: var(--background-accent-blue);
 
-      @media screen and (max-width: 1439px) {
-        border-radius: 8px;
-      }
-
-      svg {
-        display: flex;
-      }
-
-      @include hover() {
-        background-color: var(--background-accent-blue);
-        color: var(--text-contrast);
+      &:hover {
+        background: var(--button-hover);
       }
 
       &:disabled {
+        color: var(--text-accent-blue);
+        background: var(--background-accent-bacground);
+        opacity: 0.5;
         user-select: none;
         pointer-events: none;
-        opacity: 0.5;
       }
     }
   }
@@ -371,13 +364,16 @@
       align-items: center;
       justify-content: center;
       border-radius: 16px;
-      width: 32px;
+      padding: 0 16px;
+      width: 92px;
       height: 32px;
-      background: var(--background-white);
-
-      svg {
-        color: var(--text-accent-blue);
-      }
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 120%;
+      letter-spacing: 0.02em;
+      text-align: center;
+      color: var(--text-contrast);
+      background: var(--background-accent-blue);
     }
   }
 
