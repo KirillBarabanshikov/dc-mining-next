@@ -5,10 +5,15 @@ export function formatPriceByCurrency(
   currency: Currency,
 ): string {
   const isDollar = currency === 'dollar';
+  const roundedValue = Math.round(value); // Округляем до целого числа
 
-  return value.toLocaleString(isDollar ? 'en-EN' : 'ru-RU', {
+  if (isDollar) {
+    return `${roundedValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} $`;
+  }
+
+  return roundedValue.toLocaleString('ru-RU', {
     style: 'currency',
-    currency: isDollar ? 'USD' : 'RUB',
+    currency: 'RUB',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
