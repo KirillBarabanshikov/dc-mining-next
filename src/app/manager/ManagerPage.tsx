@@ -4,7 +4,6 @@ import axios from 'axios';
 import clsx from 'clsx';
 
 import LogoutIcon from '@/shared/assets/icons/logout.svg';
-import { Calculator } from '@/widgets/Calculator';
 
 import styles from './ManagerPage.module.scss';
 
@@ -20,7 +19,6 @@ export const ManagerPage = () => {
         <button onClick={handleLogout} className={styles.btn}>
           <LogoutIcon />
         </button>
-        <Calculator type={'pro'} isManager />
       </div>
     </div>
   );

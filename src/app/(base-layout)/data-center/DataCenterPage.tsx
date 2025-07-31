@@ -5,7 +5,6 @@ import clsx from 'clsx';
 
 import { getDataCenterInfo } from '@/entities/pageInfo';
 import { OrderCallBanner } from '@/features/call';
-import { Calculator } from '@/widgets/Calculator';
 
 import styles from './DataCenterPage.module.scss';
 import {
@@ -38,13 +37,6 @@ export const DataCenterPage = () => {
         tariffs={dataCenterInfo.tariffPlans}
         className={clsx(styles.margin, styles.tariffs)}
       />
-      <div
-        id={'calculator'}
-        style={{ scrollMarginTop: '200px' }}
-        className={clsx('container', styles.container, styles.margin)}
-      >
-        <Calculator singleType={3} />
-      </div>
       <Benefits
         countDevices={dataCenterInfo.countDevices}
         className={styles.margin}

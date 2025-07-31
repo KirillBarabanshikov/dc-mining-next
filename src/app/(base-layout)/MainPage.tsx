@@ -21,7 +21,6 @@ import {
   Managers,
   Offers,
 } from '@/widgets';
-import { Calculator } from '@/widgets/Calculator';
 import { NewsList } from '@/widgets/NewsList';
 
 import styles from './MainPage.module.scss';
@@ -90,9 +89,6 @@ export const MainPage = () => {
       </div>
       <div className={clsx(styles.managers, 'container')}>
         <Managers />
-      </div>
-      <div className={'container'}>
-        <Calculator />
       </div>
       <section className={styles.news}>
         <div className={'container'}>
