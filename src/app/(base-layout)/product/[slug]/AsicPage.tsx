@@ -7,6 +7,7 @@ import { useParams } from 'next/navigation';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Benefits } from '@/app/(base-layout)/data-center/ui';
+import { Calculator } from '@/entities/calculator';
 import { getProductBySlug } from '@/entities/product';
 import { useRecentStore } from '@/entities/product/model';
 import { OrderCallModal } from '@/features/call';
@@ -21,7 +22,6 @@ import { BASE_URL } from '@/shared/consts';
 import { formatter } from '@/shared/lib';
 import { Breadcrumbs, Button } from '@/shared/ui';
 import { RecentProductsList } from '@/widgets';
-import { Calculator } from '@/widgets/Calculator';
 import { calculatorApi } from '@/widgets/Calculator/api';
 import { CallMeBanner } from '@/widgets/CallMeBanner';
 import { ProductsTabs } from '@/widgets/ProductDetails/ui';
@@ -141,14 +141,14 @@ export const AsicPage = () => {
 
   return (
     <div>
-      <div className={clsx('container', styles.container)}>
+      <div className={clsx('container', styles.asicContainer)}>
         <Breadcrumbs
           paths={breadcrumbsPaths}
           className={styles.asicBreadcrumbs}
         />
       </div>
       <div
-        className={clsx('container', styles.container)}
+        className={clsx('container', styles.asicContainer)}
         itemScope
         itemType={'https://schema.org/Product'}
       >
@@ -370,12 +370,13 @@ export const AsicPage = () => {
             />
           )}
         </div>
-        <Calculator
-          variant={'product'}
-          defaultAsicId={product.id}
-          title={`Калькулятор доходности ${product.title}`}
-          defaultOpenAccordionId={1}
-        />
+        <div>
+          <h2 className={styles.calculatorTitle}>
+            Калькулятор доходности{' '}
+            {product.seoHOne ? product.seoHOne : product.title}
+          </h2>
+          <Calculator productId={product.id} />
+        </div>
         <ProductsTabs
           product={product}
           ref={targetRef}

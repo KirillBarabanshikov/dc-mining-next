@@ -1,6 +1,5 @@
+import clsx from 'clsx';
 import { FC } from 'react';
-
-import PlusIcon from '@/shared/assets/icons/plus.svg';
 
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
 import { Currency, Model, Product } from '../../model/types';
@@ -11,6 +10,7 @@ interface ICalculatorProductRowProps {
   currency: Currency;
   models: Model[];
   addModel: (product: Product) => void;
+  className?: string;
 }
 
 export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
@@ -18,9 +18,10 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
   currency,
   models,
   addModel,
+  className,
 }) => {
   return (
-    <div className={'calculator-table__product-row'}>
+    <div className={clsx('calculator-table__product-row', className)}>
       <div className={'calculator-table__product-row-cell'}>
         <div className={'calculator-table__product-row-title'}>
           {product.title}
@@ -69,7 +70,9 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
           onClick={() => addModel(product)}
           className={'calculator-table__product-row-button'}
         >
-          <PlusIcon />
+          {models.find((model) => model.product.id === product.id)
+            ? 'Добавлено'
+            : 'Добавить'}
         </button>
       </div>
     </div>

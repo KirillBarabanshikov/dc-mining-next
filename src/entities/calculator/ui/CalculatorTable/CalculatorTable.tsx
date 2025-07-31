@@ -1,12 +1,11 @@
 import './CalculatorTable.scss';
 
 import clsx from 'clsx';
-import React, { FC, useEffect, useRef, useState } from 'react';
-
-import PlusIcon from '@/shared/assets/icons/plus.svg';
+import React, { FC, useMemo, useState } from 'react';
 
 import {
   CalculatorData,
+  Coin,
   Currency,
   Filter,
   Model,
@@ -35,6 +34,8 @@ interface ICalculatorTableProps {
   setModelCount: (product: Product, count: number) => void;
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
+  coinRates: Coin[];
+  productId?: number;
   className?: string;
 }
 
@@ -49,31 +50,20 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   setModelCount,
   electricityCoast,
   setElectricityCoast,
+  coinRates,
+  productId,
   className,
 }) => {
-  const tableRef = useRef<HTMLDivElement>(null);
-  const [isFixedTop, setIsFixedTop] = useState(false);
+  const [isBlock, setIsBlock] = useState(!!productId);
 
-  useEffect(() => {
-    const onScroll = () => {
-      if (!tableRef.current) return;
-      const top = tableRef.current.getBoundingClientRect().top;
-      setIsFixedTop(top <= 250);
-    };
+  const productName = useMemo(() => {
+    if (!productId) return '';
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+    return calculatorData.products.find((p) => p.id === productId)?.title || '';
+  }, [productId]);
 
   return (
-    <div
-      ref={tableRef}
-      className={clsx(
-        'calculator-table',
-        { 'calculator-table--is-fixed-top': isFixedTop },
-        className,
-      )}
-    >
+    <div className={clsx('calculator-table', className)}>
       <CalculatorFilters
         currency={filters.currency}
         onChangeCurrency={(v) => setFilterField('currency', v)}
@@ -81,21 +71,24 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
         onChangeSearch={(v) => setFilterField('search', v)}
         filter={filters.filter}
         onChangeFilter={(v) => setFilterField('filter', v)}
+        isBlock={isBlock}
+        productName={productName}
       />
       <ProductsContent
         filters={filters}
         calculatorData={calculatorData}
+        productId={productId}
         models={models}
         addModel={addModel}
         isFetching={isFetching}
+        isBlock={isBlock}
+        setIsBlock={setIsBlock}
       />
-      <div className={'calculator-table__title'}>Расчет финансовой модели</div>
+      <div className={'calculator-table__title'}>Бизнес план майнинга</div>
       <div className={'calculator-table__hint'}>
         Для добавления товара в расчет нажмите на{' '}
-        <div className={'calculator-table__hint-icon'}>
-          <PlusIcon />
-        </div>{' '}
-        справа от модели оборудования
+        <div className={'calculator-table__hint-icon'}>Добавить</div> справа от
+        модели оборудования
       </div>
       {!!models.length && (
         <>
@@ -112,16 +105,10 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
             dollar={calculatorData.dollar}
             electricityCoast={electricityCoast}
             onChangeElectricityCoast={setElectricityCoast}
+            coinRates={coinRates}
           />
         </>
       )}
-      <div className={'calculator-table__extra'}>
-        <div>Не является публичной офертой</div>
-        <div>
-          BTC=101 000 $, DOGE=0.31 $, LTC=0.35 $,{' '}
-          <span>Курс доллара = {calculatorData.dollar} ₽</span>
-        </div>
-      </div>
     </div>
   );
 };
