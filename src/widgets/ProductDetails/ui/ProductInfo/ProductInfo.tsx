@@ -19,6 +19,7 @@ interface IProductInfoProps {
 
 export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isContainer = product.category?.title === 'Контейнеры для майнинг ферм';
 
   return (
     <section className={styles.info}>
@@ -33,25 +34,31 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
         <h1 itemProp='name'>
           {product.seoHOne ? product.seoHOne : product.title}
         </h1>
-        <div className={styles.specifications}>
-          {product.value
-            .filter((value) => value.display)
-            .map((value) => {
-              return (
-                <div key={value.id} className={styles.specification}>
-                  <p className={styles.name}>{value.valueInKey}</p>
-                  <p className={styles.value}>
-                    {value.title} {value.unit}
-                  </p>
-                </div>
-              );
-            })}
-        </div>
-        <div
-          itemProp={'description'}
-          className={styles.description}
-          dangerouslySetInnerHTML={{ __html: product.shortDescription }}
-        />
+
+        {!!product.value.filter((value) => value.display).length && (
+          <div className={styles.specifications}>
+            {product.value
+              .filter((value) => value.display)
+              .map((value) => {
+                return (
+                  <div key={value.id} className={styles.specification}>
+                    <p className={styles.name}>{value.valueInKey}</p>
+                    <p className={styles.value}>
+                      {value.title} {value.unit}
+                    </p>
+                  </div>
+                );
+              })}
+          </div>
+        )}
+
+        {!isContainer && (
+          <div
+            itemProp={'description'}
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: product.shortDescription }}
+          />
+        )}
 
         <div
           itemProp={'offers'}

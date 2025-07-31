@@ -17,7 +17,9 @@ export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
   ({ product, className }, ref) => {
     const [currentTab, setCurrentTab] = useState(0);
     const isAsic = product.category?.title === 'ASIC майнеры';
-    const currentTabs = isAsic ? ['Описание', ...tabs] : tabs;
+    const isContainer =
+      product.category?.title === 'Контейнеры для майнинг ферм';
+    const currentTabs = isAsic || isContainer ? ['Описание', ...tabs] : tabs;
 
     const renderTabs = () => {
       let tabs = [
@@ -28,7 +30,7 @@ export const ProductsTabs = forwardRef<HTMLDivElement, IProductTabsProps>(
         </div>,
       ];
 
-      if (isAsic) {
+      if (isAsic || isContainer) {
         tabs = [
           <ProductDescription key={'description'} product={product} />,
           ...tabs,
