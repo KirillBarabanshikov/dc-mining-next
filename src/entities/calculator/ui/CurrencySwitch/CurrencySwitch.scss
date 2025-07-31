@@ -1,0 +1,47 @@
+.currency-switch {
+  border-radius: 24px;
+  padding: 4px;
+  background-color: var(--buttons-normal);
+  white-space: nowrap;
+  overflow: hidden;
+
+  &__item {
+    position: relative;
+    padding: 0 8px;
+    width: 39px;
+    height: 32px;
+
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--text-contrast);
+
+    &--active {
+      color: var(--text-accent-blue);
+    }
+
+    &-title {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__handle {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background-color: var(--text-contrast);
+  }
+
+  @media screen and (max-width: 768px) {
+    &__item {
+      width: 32px;
+      height: 24px;
+
+      font-family: var(--second-family);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 1;
+    }
+  }
+}

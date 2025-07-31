@@ -1,0 +1,63 @@
+.calculator-card {
+  border-radius: 12px;
+  padding: 4px;
+  background: var(--background-secondary);
+
+  &__title-wrap {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  &__title {
+    width: 100%;
+    border: 1px solid var(--background-secondary);
+    border-radius: 10px;
+    padding: 11px 8px;
+    height: 40px;
+    background: #fff;
+    font-family: var(--second-family);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    color: var(--text-secondary);
+  }
+
+  &__button {
+    border-radius: 8px;
+    padding: 0 16px;
+    width: 40px !important;
+    height: 40px !important;
+    background: var(--background-white);
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__extra {
+    display: flex;
+    align-items: center;
+
+    &-title {
+      font-family: var(--second-family);
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 120%;
+      color: var(--text-secondary);
+      margin-left: 8px;
+      flex: 1;
+    }
+
+    &-value {
+      font-family: var(--second-family);
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 120%;
+      color: var(--text-primary);
+      margin: 0 4px;
+    }
+  }
+}

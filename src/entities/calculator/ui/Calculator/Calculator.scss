@@ -1,0 +1,15 @@
+.calculator {
+  &__table {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__list {
+    display: none;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
+  }
+}
