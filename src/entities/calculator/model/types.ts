@@ -2,6 +2,7 @@ export type Coin = {
   title: string;
   value: number;
   profit: number;
+  price: number;
   image: string | null;
 };
 

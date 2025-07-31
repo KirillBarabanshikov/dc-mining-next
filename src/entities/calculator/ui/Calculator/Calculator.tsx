@@ -3,18 +3,22 @@
 import './Calculator.scss';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery } from '@/shared/lib';
 
 import { getCalculatorData } from '../../api/calculatorApi';
-import { Currency, Filter, Model, Product } from '../../model/types';
+import { Coin, Currency, Filter, Model, Product } from '../../model/types';
 import { CalculatorList } from '../CalculatorList';
 import { CalculatorTable } from '../CalculatorTable';
 
-export const Calculator = () => {
+interface ICalculatorProps {
+  productId?: number;
+}
+
+export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
   const [filters, setFilters] = useState({
     currency: 'rub' as Currency,
     search: '',
@@ -38,6 +42,22 @@ export const Calculator = () => {
       }),
     placeholderData: keepPreviousData,
   });
+
+  const coinRates = useMemo(
+    () =>
+      models.reduce((previousValue, currentValue) => {
+        const newCoins = [...previousValue];
+        currentValue.product.coinsArray.forEach((coin) => {
+          const existing = newCoins.find((c) => c.title === coin.title);
+          if (!existing) {
+            newCoins.push(coin);
+          }
+        });
+
+        return newCoins;
+      }, [] as Coin[]),
+    [models],
+  );
 
   useEffect(() => {
     if (!data) return;
@@ -65,6 +85,20 @@ export const Calculator = () => {
       }),
     );
   }, [data, debouncedElectricityCost, filters.currency]);
+
+  useEffect(() => {
+    if (!data || !productId) return;
+
+    const prod = data.products.find((p) => p.id === productId);
+
+    if (!prod) return;
+
+    setModels((prevModels) => {
+      if (prevModels.find((model) => model.product.id === productId))
+        return prevModels;
+      return [...prevModels, { product: prod, count: 1 }];
+    });
+  }, [data, productId, debouncedElectricityCost, filters.currency]);
 
   const setFilterField = <T extends keyof typeof filters>(
     key: T,
@@ -118,6 +152,8 @@ export const Calculator = () => {
           setModelCount={setModelCount}
           electricityCoast={electricityCost}
           setElectricityCoast={setElectricityCost}
+          coinRates={coinRates}
+          productId={productId}
           className={'calculator__table'}
         />
       ) : (
