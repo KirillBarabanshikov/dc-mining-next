@@ -19,3 +19,10 @@ export const generateFinModelPdf = async (data: FinModelPdf) => {
     pdfId: +response.headers['entity-id'] as number,
   };
 };
+
+export const getCalculatorInfo = async () => {
+  const response = await instance.get<{ title: string; description: string }>(
+    '/calculatings',
+  );
+  return response.data;
+};

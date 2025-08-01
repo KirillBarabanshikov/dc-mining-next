@@ -76,7 +76,7 @@ export const FinModel: FC<IFinModelProps> = ({
           const existing = newCoins.find((c) => c.title === coin.title);
           const multipliedCoin = {
             ...coin,
-            value: coin.value * currentValue.count,
+            value: coin.value * 30 * currentValue.count,
             profit: coin.profit * currentValue.count,
           };
 

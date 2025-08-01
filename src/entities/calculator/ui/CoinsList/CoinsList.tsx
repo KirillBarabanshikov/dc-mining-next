@@ -42,7 +42,7 @@ export const CoinsList: FC<ICoinsListProps> = ({ coins, currency }) => {
               <div className='coins-list__coin-title'>{coin.title}</div>
             </div>
             <div className='coins-list__coin-value'>
-              {coin.value.toFixed(9)}
+              {(coin.value * 30).toFixed(9)}
             </div>
             <div className='coins-list__coin-value'>
               {formatPriceByCurrency(coin.profit, currency)}

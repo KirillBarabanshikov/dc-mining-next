@@ -1,31 +1,35 @@
 @use '@/shared/styles/helpers' as *;
 
 .calculator-page {
-  &__info {
-    margin-bottom: 20px;
-
-    &-title {
-      font-family: var(--third-family);
-      font-weight: 700;
-      line-height: 120%;
-      color: var(--text-primary);
-      margin-bottom: 20px;
-    }
-
-    &-text {
-      font-family: var(--font-family);
-      font-weight: 400;
-      @include fluid-text(16, 14);
-      line-height: 130%;
-      color: var(--text-secondary);
-    }
-  }
-
   &__title {
     margin-bottom: 20px;
 
     span {
       color: var(--text-accent-blue);
+    }
+  }
+
+  &__info {
+    font-family: var(--font-family);
+    font-weight: 400;
+    line-height: 130%;
+    color: var(--text-secondary);
+    margin-block: 40px;
+
+    @include fluid-text(16, 14);
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--third-family);
+      font-weight: 700;
+      line-height: 120%;
+      color: var(--text-primary);
+
+      @include fluid-text(32, 24);
     }
   }
 }
