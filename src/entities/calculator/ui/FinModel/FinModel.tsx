@@ -250,7 +250,7 @@ export const FinModel: FC<IFinModelProps> = ({
                   <div className={'fin-model__coins-title'}>{coin.title}:</div>
                 </div>
                 <div className={'fin-model__coins-value'}>
-                  {coin.value.toFixed(9)}
+                  {coin.value.toFixed(8)}
                 </div>
                 <div
                   className={'fin-model__coins-value fin-model__coins-profit'}
@@ -506,7 +506,7 @@ const Coins: FC<{
                   <div className={'fin-model__coins-title'}>{coin.title}</div>
                 </div>
                 <div className={'fin-model__coins-value'}>
-                  {coin.value.toFixed(9)}
+                  {coin.value.toFixed(8)}
                 </div>
                 <div
                   className={'fin-model__coins-value fin-model__coins-profit'}
