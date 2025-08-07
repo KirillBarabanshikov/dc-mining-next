@@ -7,7 +7,10 @@ export const getCalculatorData = async (params: CalculatorDataParams = {}) => {
   const response = await instance.get<CalculatorData>('/product/calculating', {
     params: { ...params, type: 'ASIC майнеры', display: true },
   });
-  return response.data;
+
+  const products = !!response.data?.products;
+
+  return products ? response.data : { ...response.data, products: [] };
 };
 
 export const generateFinModelPdf = async (data: FinModelPdf) => {

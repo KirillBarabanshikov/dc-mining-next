@@ -3,6 +3,8 @@ import './CalculatorTable.scss';
 import clsx from 'clsx';
 import React, { FC, useMemo, useState } from 'react';
 
+import { Pagination } from '@/shared/ui';
+
 import {
   CalculatorData,
   Coin,
@@ -21,9 +23,10 @@ interface ICalculatorTableProps {
     currency: Currency;
     search: string;
     filter: Filter;
+    page: number;
   };
   setFilterField: (
-    key: 'search' | 'currency' | 'filter',
+    key: 'search' | 'currency' | 'filter' | 'page',
     value: string,
   ) => void;
   calculatorData: CalculatorData;
@@ -84,6 +87,16 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
         isBlock={isBlock}
         setIsBlock={setIsBlock}
       />
+
+      {calculatorData.totalTabs && (
+        <Pagination
+          currentPage={filters.page}
+          length={calculatorData.totalTabs}
+          onChange={(page) => setFilterField('page', page as any)}
+          className={'calculator-table__pagination'}
+        />
+      )}
+
       <div className={'calculator-table__title'}>Бизнес план майнинга</div>
       <div className={'calculator-table__hint'}>
         Для добавления товара в расчет нажмите на{' '}

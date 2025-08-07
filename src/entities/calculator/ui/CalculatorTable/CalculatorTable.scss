@@ -15,7 +15,6 @@
     white-space: nowrap;
     display: block;
     width: 100%;
-    margin-bottom: 20px;
     @include scrollbar();
 
     @media screen and (max-width: 1439px) {
@@ -192,7 +191,6 @@
 
     &-products {
       max-height: 412px;
-      margin-bottom: 20px;
     }
 
     &-models {
@@ -343,6 +341,7 @@
     font-size: 24px;
     line-height: 1.2;
     letter-spacing: 0.01em;
+    margin-top: 40px;
   }
 
   &__hint {
@@ -521,6 +520,10 @@
     filter: blur(2px);
     user-select: none;
     pointer-events: none;
+  }
+
+  &__pagination {
+    margin-block: 20px 40px;
   }
 }
 

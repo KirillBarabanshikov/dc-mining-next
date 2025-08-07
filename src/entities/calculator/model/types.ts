@@ -26,6 +26,7 @@ export type Product = {
 export type CalculatorData = {
   electricityCoast: number;
   dollar: number;
+  totalTabs?: number;
   products: Product[];
 };
 

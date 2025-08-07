@@ -23,6 +23,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
     currency: 'rub' as Currency,
     search: '',
     filter: '' as Filter,
+    page: 1,
   });
 
   const [models, setModels] = useState<Model[]>([]);
@@ -33,12 +34,19 @@ export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
   const match = useMediaQuery(MAX_WIDTH_MD);
 
   const { data, isFetching } = useQuery({
-    queryKey: ['calculator', filters.currency, filters.filter, debouncedSearch],
+    queryKey: [
+      'calculator',
+      filters.currency,
+      filters.filter,
+      filters.page,
+      debouncedSearch,
+    ],
     queryFn: () =>
       getCalculatorData({
         currency: filters.currency,
         filter: filters.filter,
         title: debouncedSearch,
+        page: filters.page,
       }),
     placeholderData: keepPreviousData,
   });

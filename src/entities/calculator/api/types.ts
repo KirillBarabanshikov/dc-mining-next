@@ -6,4 +6,5 @@ export type CalculatorDataParams = {
   filter?: Filter;
   currency?: Currency;
   display?: boolean;
+  page?: number;
 };
