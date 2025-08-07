@@ -176,8 +176,6 @@
     flex-direction: column;
     row-gap: 8px;
     overflow-y: auto;
-    padding-right: 10px;
-    scrollbar-gutter: stable;
 
     @media screen and (max-width: 1439px) {
       padding-right: unset;
@@ -189,12 +187,10 @@
       }
     }
 
-    &-products {
-      max-height: 412px;
-    }
-
     &-models {
       max-height: 328px;
+      padding-right: 10px;
+      scrollbar-gutter: stable;
     }
 
     @include scrollbar();
@@ -490,6 +486,12 @@
       @include hover() {
         background-color: var(--background-accent-blue);
         color: var(--text-contrast);
+      }
+
+      &:disabled {
+        pointer-events: none;
+        user-select: none;
+        opacity: 0.5;
       }
     }
   }

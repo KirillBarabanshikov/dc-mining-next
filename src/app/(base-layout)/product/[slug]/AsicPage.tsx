@@ -375,7 +375,7 @@ export const AsicPage = () => {
             Калькулятор доходности{' '}
             {product.seoHOne ? product.seoHOne : product.title}
           </h2>
-          <Calculator productId={product.id} />
+          <Calculator productName={product.title} />
         </div>
         <ProductsTabs
           product={product}

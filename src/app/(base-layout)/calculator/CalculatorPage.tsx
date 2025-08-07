@@ -18,7 +18,7 @@ const paths = [
 const CalculatorPage = () => {
   const { data: faq } = useQuery({
     queryKey: ['faq'],
-    queryFn: getFaq,
+    queryFn: () => getFaq({ type: 'Калькулятор' }),
   });
 
   const { data: info } = useQuery({
@@ -52,22 +52,25 @@ const CalculatorPage = () => {
           )}
         </div>
 
-        <section className={'questions'}>
-          <div className={'questions__inner'}>
-            <h2 className={'questions__title h2'}>Вопросы и ответы</h2>
-            <div className={'questions__list'}>
-              {faq?.map((item) => {
-                return (
-                  <Accordion
-                    key={item.id}
-                    title={item.title}
-                    body={item.description}
-                  />
-                );
-              })}
+        {!!faq?.length && (
+          <section className={'questions'}>
+            <div className={'questions__inner'}>
+              <h2 className={'questions__title h2'}>Вопросы и ответы</h2>
+              <div className={'questions__list'}>
+                {faq?.map((item, index) => {
+                  return (
+                    <Accordion
+                      number={++index}
+                      key={item.id}
+                      title={item.title}
+                      body={item.description}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <OrderCallBanner />
       </div>

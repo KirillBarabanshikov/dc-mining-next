@@ -25,10 +25,10 @@ interface IProductsContentProps {
   calculatorData: CalculatorData;
   isFetching?: boolean;
   models: Model[];
-  productId?: number;
   addModel: (product: Product) => void;
   isBlock?: boolean;
   setIsBlock?: (isBlock: boolean) => void;
+  onBlock?: () => void;
 }
 
 export const ProductsContent: FC<IProductsContentProps> = ({
@@ -37,9 +37,9 @@ export const ProductsContent: FC<IProductsContentProps> = ({
   filters,
   models,
   addModel,
-  productId,
   isBlock,
   setIsBlock,
+  onBlock,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
@@ -93,38 +93,68 @@ export const ProductsContent: FC<IProductsContentProps> = ({
           { 'calculator-table--block': isBlock },
         )}
       >
-        {calculatorData.products
-          .slice()
-          .sort((a, b) => {
-            if (!productId) return 0;
-            if (a.id === productId) return -1;
-            if (b.id === productId) return 1;
-            return 0;
-          })
-          .map((product) => (
+        {calculatorData.products.map((product) => (
+          <CalculatorProductRow
+            key={product.id}
+            product={product}
+            currency={filters.currency}
+            models={models}
+            addModel={addModel}
+          />
+        ))}
+
+        {isBlock && calculatorData.products[0] && (
+          <>
             <CalculatorProductRow
-              key={product.id}
-              product={product}
+              product={calculatorData.products[0]}
               currency={filters.currency}
               models={models}
               addModel={addModel}
               className={clsx({
-                'calculator-table__product-row--block':
-                  isBlock && product.id !== productId,
+                'calculator-table__product-row--block': isBlock,
               })}
             />
-          ))}
+            <CalculatorProductRow
+              product={calculatorData.products[0]}
+              currency={filters.currency}
+              models={models}
+              addModel={addModel}
+              className={clsx({
+                'calculator-table__product-row--block': isBlock,
+              })}
+            />
+            <CalculatorProductRow
+              product={calculatorData.products[0]}
+              currency={filters.currency}
+              models={models}
+              addModel={addModel}
+              className={clsx({
+                'calculator-table__product-row--block': isBlock,
+              })}
+            />
+            <CalculatorProductRow
+              product={calculatorData.products[0]}
+              currency={filters.currency}
+              models={models}
+              addModel={addModel}
+              className={clsx({
+                'calculator-table__product-row--block': isBlock,
+              })}
+            />
 
-        {isBlock && (
-          <Button
-            theme={'white'}
-            size={'md'}
-            onClick={() => setIsBlock?.(false)}
-            className={'calculator-table--block-button'}
-          >
-            Добавить модель
-            <Plus />
-          </Button>
+            <Button
+              theme={'white'}
+              size={'md'}
+              onClick={() => {
+                setIsBlock?.(false);
+                onBlock?.();
+              }}
+              className={'calculator-table--block-button'}
+            >
+              Добавить модель
+              <Plus />
+            </Button>
+          </>
         )}
       </div>
     </div>

@@ -17,6 +17,7 @@ interface IProductsContentProps {
   models: Model[];
   removeModel: (product: Product) => void;
   setModelCount: (product: Product, count: number) => void;
+  isBlock?: boolean;
 }
 
 export const ModelsContent: FC<IProductsContentProps> = ({
@@ -25,6 +26,7 @@ export const ModelsContent: FC<IProductsContentProps> = ({
   models,
   removeModel,
   setModelCount,
+  isBlock,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
@@ -81,6 +83,7 @@ export const ModelsContent: FC<IProductsContentProps> = ({
               model={model}
               removeModel={removeModel}
               setModelCount={setModelCount}
+              isBlock={isBlock}
             />
           );
         })}

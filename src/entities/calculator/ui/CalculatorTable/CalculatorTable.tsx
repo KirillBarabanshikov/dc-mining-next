@@ -1,7 +1,7 @@
 import './CalculatorTable.scss';
 
 import clsx from 'clsx';
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { Pagination } from '@/shared/ui';
 
@@ -23,7 +23,7 @@ interface ICalculatorTableProps {
     currency: Currency;
     search: string;
     filter: Filter;
-    page: number;
+    page: string;
   };
   setFilterField: (
     key: 'search' | 'currency' | 'filter' | 'page',
@@ -38,7 +38,7 @@ interface ICalculatorTableProps {
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
   coinRates: Coin[];
-  productId?: number;
+  productName?: string;
   className?: string;
 }
 
@@ -54,16 +54,10 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   electricityCoast,
   setElectricityCoast,
   coinRates,
-  productId,
+  productName,
   className,
 }) => {
-  const [isBlock, setIsBlock] = useState(!!productId);
-
-  const productName = useMemo(() => {
-    if (!productId) return '';
-
-    return calculatorData.products.find((p) => p.id === productId)?.title || '';
-  }, [productId]);
+  const [isBlock, setIsBlock] = useState(!!productName);
 
   return (
     <div className={clsx('calculator-table', className)}>
@@ -80,19 +74,19 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
       <ProductsContent
         filters={filters}
         calculatorData={calculatorData}
-        productId={productId}
         models={models}
         addModel={addModel}
         isFetching={isFetching}
         isBlock={isBlock}
         setIsBlock={setIsBlock}
+        onBlock={() => setFilterField('search', '')}
       />
 
-      {calculatorData.totalTabs && (
+      {calculatorData.totalTabs && !isBlock && (
         <Pagination
-          currentPage={filters.page}
+          currentPage={+filters.page}
           length={calculatorData.totalTabs}
-          onChange={(page) => setFilterField('page', page as any)}
+          onChange={(page) => setFilterField('page', page.toString())}
           className={'calculator-table__pagination'}
         />
       )}
@@ -111,6 +105,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
             removeModel={removeModel}
             setModelCount={setModelCount}
             isFetching={isFetching}
+            isBlock={isBlock}
           />
           <FinModel
             models={models}

@@ -11,6 +11,7 @@ interface ICalculatorModelRowProps {
   currency: Currency;
   removeModel: (product: Product) => void;
   setModelCount: (product: Product, count: number) => void;
+  isBlock?: boolean;
 }
 
 export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
@@ -18,6 +19,7 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
   currency,
   removeModel,
   setModelCount,
+  isBlock,
 }) => {
   return (
     <div className={'calculator-table__model-row'}>
@@ -78,6 +80,7 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
         <button
           onClick={() => removeModel(model.product)}
           className={'calculator-table__model-row-button'}
+          disabled={isBlock}
         >
           <TrashIcon />
         </button>

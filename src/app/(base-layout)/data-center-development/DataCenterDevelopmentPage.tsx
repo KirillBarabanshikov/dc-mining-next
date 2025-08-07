@@ -31,7 +31,7 @@ export const DataCenterDevelopmentPage = () => {
 
   const { data: faq } = useQuery({
     queryKey: ['faq'],
-    queryFn: getFaq,
+    queryFn: () => getFaq(),
   });
 
   if (!info) return <></>;

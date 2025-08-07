@@ -15,15 +15,15 @@ import { CalculatorList } from '../CalculatorList';
 import { CalculatorTable } from '../CalculatorTable';
 
 interface ICalculatorProps {
-  productId?: number;
+  productName?: string;
 }
 
-export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
+export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
   const [filters, setFilters] = useState({
     currency: 'rub' as Currency,
-    search: '',
+    search: productName,
     filter: '' as Filter,
-    page: 1,
+    page: '1',
   });
 
   const [models, setModels] = useState<Model[]>([]);
@@ -95,24 +95,28 @@ export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
   }, [data, debouncedElectricityCost, filters.currency]);
 
   useEffect(() => {
-    if (!data || !productId) return;
+    if (!data || !productName) return;
 
-    const prod = data.products.find((p) => p.id === productId);
+    const prod = data.products.find((p) => p.title === productName);
 
     if (!prod) return;
 
     setModels((prevModels) => {
-      if (prevModels.find((model) => model.product.id === productId))
+      if (prevModels.find((model) => model.product.title === productName))
         return prevModels;
       return [...prevModels, { product: prod, count: 1 }];
     });
-  }, [data, productId, debouncedElectricityCost, filters.currency]);
+  }, [data, productName, debouncedElectricityCost, filters.currency]);
 
   const setFilterField = <T extends keyof typeof filters>(
     key: T,
     value: (typeof filters)[T],
   ) => {
-    setFilters((prev) => ({ ...prev, [key]: value }));
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      page: key === 'page' ? value : '1',
+    }));
   };
 
   const addModel = (product: Product, model?: Model) => {
@@ -161,7 +165,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productId }) => {
           electricityCoast={electricityCost}
           setElectricityCoast={setElectricityCost}
           coinRates={coinRates}
-          productId={productId}
+          productName={productName}
           className={'calculator__table'}
         />
       ) : (

@@ -35,7 +35,7 @@ export default async function Page() {
     }),
     queryClient.prefetchQuery({
       queryKey: ['faq'],
-      queryFn: getFaq,
+      queryFn: () => getFaq(),
     }),
   ]);
 

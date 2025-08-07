@@ -73,11 +73,11 @@ export const CalculatorFilters: FC<ICalculatorFiltersProps> = ({
           className={'calculator-filters__search'}
           placeholder={isBlock ? `${productName}` : 'Поиск по модели'}
           sizes={'sm'}
-          value={search}
+          value={isBlock ? undefined : search}
           readOnly={isBlock}
           onChange={(e) => onChangeSearch(e.target.value)}
           icon={
-            search ? (
+            search && !isBlock ? (
               <CloseIcon
                 onClick={() => onChangeSearch('')}
                 className={'calculator-filters__search-clear'}

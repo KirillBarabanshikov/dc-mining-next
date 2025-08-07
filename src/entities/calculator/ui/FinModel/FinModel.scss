@@ -1,6 +1,8 @@
 @use '@/shared/styles/helpers' as *;
 
 .fin-model {
+  margin-top: 20px;
+
   &__items {
     display: flex;
     gap: 8px;

@@ -19,6 +19,7 @@
       top: -161px;
       left: -40px;
       width: 665px;
+      pointer-events: none;
 
       @media screen and (max-width: 1900px) {
         width: 592px;
