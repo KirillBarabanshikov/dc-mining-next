@@ -138,6 +138,12 @@ const nextConfig = {
         permanent: true,
         statusCode: 301,
       },
+      {
+        source: '/product/whatsminer-m63s',
+        destination: '/product/whatsminer-m63s-408-ths',
+        permanent: true,
+        statusCode: 301,
+      },
 
       ///
       // {
