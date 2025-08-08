@@ -316,9 +316,10 @@
 
     @media screen and (max-width: 768px) {
       position: absolute;
-      left: 16px;
-      bottom: 22px;
+      left: 8px;
+      bottom: 10px;
       font-size: 16px;
+      max-width: 100px;
     }
   }
 
