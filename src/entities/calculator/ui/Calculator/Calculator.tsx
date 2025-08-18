@@ -72,9 +72,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
 
     setModels((prevModels) =>
       prevModels.map((model) => {
-        const updatedProduct = data.products.find(
-          (p) => p.id === model.product.id,
-        );
+        const updatedProduct = model.product;
         if (!updatedProduct) return model;
 
         let paybackWithWatt =
