@@ -5,13 +5,14 @@ import React, { FC, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 
 import { getCalculatorData } from '@/entities/calculator/api/calculatorApi';
-import { Model, Product } from '@/entities/calculator/model/types';
+import { Currency, Model, Product } from '@/entities/calculator/model/types';
 import CloseIcon from '@/shared/assets/icons/close.svg';
 import SearchIcon from '@/shared/assets/icons/search.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { Button, Input } from '@/shared/ui';
 
 interface ICalculatorItemInputProps {
+  currency: Currency;
   addModel: (product: Product, model?: Model) => void;
   model?: Model;
   removeModel?: (product: Product) => void;
@@ -22,6 +23,7 @@ interface ICalculatorItemInputProps {
 }
 
 export const CalculatorItemInput: FC<ICalculatorItemInputProps> = ({
+  currency,
   model,
   removeModel,
   addModel,
@@ -35,10 +37,10 @@ export const CalculatorItemInput: FC<ICalculatorItemInputProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const { data: products = [] } = useQuery({
-    queryKey: ['calculator-item-products', debouncedSearch],
+    queryKey: ['calculator-item-products', debouncedSearch, currency],
     queryFn: () =>
       getCalculatorData({
-        currency: 'rub',
+        currency: currency,
         title: debouncedSearch,
       }),
     select: (data) => data.products,

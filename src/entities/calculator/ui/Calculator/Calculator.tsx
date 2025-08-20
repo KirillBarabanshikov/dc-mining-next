@@ -72,11 +72,23 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
 
     setModels((prevModels) =>
       prevModels.map((model) => {
-        const updatedProduct = model.product;
-        if (!updatedProduct) return model;
+        const product = model.product;
+
+        let price = model.currentPrice;
+        let profitDayAll = model.currentProfitDayAll;
+
+        if (model.currency === 'rub' && filters.currency === 'dollar') {
+          price = price / data.dollar;
+          profitDayAll = profitDayAll / data.dollar;
+        }
+
+        if (model.currency === 'dollar' && filters.currency === 'rub') {
+          price = price * data.dollar;
+          profitDayAll = profitDayAll * data.dollar;
+        }
 
         let paybackWithWatt =
-          ((updatedProduct.watt * 24) / 1000) * debouncedElectricityCost * 30;
+          ((product.watt * 24) / 1000) * debouncedElectricityCost * 30;
         if (filters.currency === 'dollar') {
           paybackWithWatt /= data.dollar;
         }
@@ -84,13 +96,15 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
         return {
           ...model,
           product: {
-            ...updatedProduct,
-            paybackWithWatt: updatedProduct.profitDayAll - paybackWithWatt,
+            ...product,
+            paybackWithWatt: profitDayAll - paybackWithWatt,
+            price,
+            profitDayAll,
           },
         };
       }),
     );
-  }, [data, debouncedElectricityCost, filters.currency]);
+  }, [data, debouncedElectricityCost, filters.currency, models.length]);
 
   useEffect(() => {
     if (!data || !productName) return;
@@ -102,7 +116,16 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
     setModels((prevModels) => {
       if (prevModels.find((model) => model.product.title === productName))
         return prevModels;
-      return [...prevModels, { product: prod, count: 1 }];
+      return [
+        ...prevModels,
+        {
+          product: prod,
+          count: 1,
+          currency: filters.currency,
+          currentPrice: prod.price,
+          currentProfitDayAll: prod.profitDayAll,
+        },
+      ];
     });
   }, [data, productName, debouncedElectricityCost, filters.currency]);
 
@@ -113,7 +136,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value,
-      page: key === 'page' ? value : '1',
+      page: key === 'currency' ? prev.page : key === 'page' ? value : '1',
     }));
   };
 
@@ -128,7 +151,16 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
         }),
       );
     } else {
-      setModels((prev) => [...prev, { product, count: 1 }]);
+      setModels((prev) => [
+        ...prev,
+        {
+          product,
+          count: 1,
+          currency: filters.currency,
+          currentPrice: product.price,
+          currentProfitDayAll: product.profitDayAll,
+        },
+      ]);
     }
   };
 

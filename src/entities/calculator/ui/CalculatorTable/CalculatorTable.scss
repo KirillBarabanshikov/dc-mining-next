@@ -58,6 +58,12 @@
     }
 
     &--product {
+      padding: 8px 110px 8px 16px;
+
+      @media screen and (max-width: 1439px) {
+        padding: 8px 0 8px 16px;
+      }
+
       .calculator-table__header-cell {
         &:nth-child(1) {
           max-width: 260px;

@@ -79,6 +79,7 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
         {(showDropdown || !models.length) && (
           <div className={'calculator-list__dropdown-wrap'}>
             <CalculatorItemInput
+              currency={filters.currency}
               addModel={addModel}
               onAdd={() => setShowDropdown(false)}
               onClose={() => setShowDropdown(false)}

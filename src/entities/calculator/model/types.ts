@@ -34,7 +34,13 @@ export type Currency = 'dollar' | 'rub';
 
 export type Filter = 'profitable' | 'fastPayback' | 'bestChoice' | '';
 
-export type Model = { product: Product; count: number };
+export type Model = {
+  product: Product;
+  count: number;
+  currency: Currency;
+  currentPrice: number;
+  currentProfitDayAll: number;
+};
 
 export type FinModelPdf = {
   sumRuble: string;

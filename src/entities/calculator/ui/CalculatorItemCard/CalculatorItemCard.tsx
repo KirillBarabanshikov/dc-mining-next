@@ -29,6 +29,7 @@ export const CalculatorItemCard: FC<ICalculatorItemCardProps> = ({
     <div className={'calculator-card'}>
       <div className={'calculator-card__title-wrap'}>
         <CalculatorItemInput
+          currency={currency}
           addModel={addModel}
           model={model}
           removeModel={removeModel}
