@@ -33,9 +33,9 @@ export const AddToBasketButton: FC<IAddToBasketButton> = ({
   return (
     <IconButton
       icon={<BasketIcon />}
-      additionalIcon={<PlusIcon style={{width: '10px', height: '10px'}} />}
+      additionalIcon={<PlusIcon />}
       onClick={onClick}
-      aria-label={'Add To Compare'}
+      aria-label={'Add To basket'}
       className={clsx(isBasket && styles.isBasket, className)}
       isBasket={isBasket}
     />
