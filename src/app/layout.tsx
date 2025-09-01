@@ -55,21 +55,6 @@ export default async function RootLayout({
   return (
     <html lang='ru'>
       <body>
-        {/*<Script*/}
-        {/*  id='pixel'*/}
-        {/*  strategy='afterInteractive'*/}
-        {/*  dangerouslySetInnerHTML={{*/}
-        {/*    __html: `(function (d, w) {*/}
-        {/*      var n = d.getElementsByTagName("script")[0],*/}
-        {/*          s = d.createElement("script");*/}
-        {/*      s.type = "text/javascript";*/}
-        {/*      s.async = true;*/}
-        {/*      s.src = "https://victorycorp.ru/index.php?ref="+d.referrer+"&page=" + encodeURIComponent(w.location.href);*/}
-        {/*      n.parentNode.insertBefore(s, n);*/}
-        {/*  })(document, window);`,*/}
-        {/*  }}*/}
-        {/*/>*/}
-
         <Script
           id='yandex-metrika'
           strategy='afterInteractive'
