@@ -11,17 +11,11 @@ import {
   orderBasketFormScheme,
   TOrderBasketFormScheme,
 } from '@/features/product/orderBasket/model';
-import {
-  getAsics,
-  sendBasketForm,
-  sendBasketPDF,
-} from '@/features/product/orderBasket/ui/OrderBasketForm/api/basketFormApi';
-import { generatePDF } from '@/features/product/orderBasket/ui/OrderBasketForm/lib/generatePDF';
+import { sendBasketForm } from '@/features/product/orderBasket/ui/OrderBasketForm/api/basketFormApi';
 import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
 import { formatter, useMediaQuery } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input } from '@/shared/ui';
-import { IPostPDFRequest } from '@/widgets/Calculator/types';
 
 import styles from './OrderBasketForm.module.scss';
 
@@ -62,65 +56,34 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({
     mutationFn: sendBasketForm,
   });
 
-  const { mutateAsync: basketPDF } = useMutation({
-    mutationFn: sendBasketPDF,
-  });
-
-  const { mutateAsync: getCourse } = useMutation({
-    mutationFn: getAsics,
-  });
-
   const onSubmit = async (data: TOrderBasketFormScheme) => {
     const entryPoint = sessionStorage.getItem('entryPoint') || '/';
 
     try {
       setIsLoading(true);
 
-      const dollarCourse = await getCourse();
-
-      const course = dollarCourse.dollar;
-
-      const pdfData = generatePDF(basket, products, 5.5, course);
-
-      const result = await basketPDF(pdfData as IPostPDFRequest);
-
-      if (result) {
-        const requestData = products
-          .map((item) => {
-            const productCount =
-              basket.find((b) => b.productId === item.id)?.count || item.count;
-            return (
-              `Продукт: ${item.title}<br/>` +
-              `Цена: ${item.price ? formatter.format(item.price) : 'Цена по запросу'}<br/>` +
-              `Кол-во: ${productCount}`
-            );
-          })
-          .join('<br/><br/>');
-
-        const title = 'basket';
-
-        await sendRequest({
-          ...data,
-          data: requestData,
-          title,
-          entryPoint,
-          pdfId: result!.pdfId,
-        });
-        await axios.post(
-          `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
-          {
-            subject: 'Оформление заказа',
-            fio: data.name,
-            phoneNumber: data.phone,
-            requestUrl: window.location.href,
+      await sendRequest({
+        title: 'basket',
+        name: data.name,
+        phone: data.phone,
+        entryPoint,
+        data: 'string',
+        pdfId: 1,
+      });
+      await axios.post(
+        `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
+        {
+          subject: 'Оформление заказа',
+          fio: data.name,
+          phoneNumber: data.phone,
+          requestUrl: window.location.href,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-          },
-        );
-      }
+        },
+      );
     } catch (error) {
       console.error(error);
       setIsError(true);
@@ -128,8 +91,6 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({
       setIsFinally(true);
       setIsLoading(false);
     }
-
-    // handleClose();
   };
 
   const handleClose = () => {
@@ -138,7 +99,6 @@ export const OrderBasketForm: FC<IOrderBasketFormProps> = ({
   };
 
   const price = (item: IProduct) => {
-    // return item.price?.toLocaleString('ru-RU')
     return item.price ? formatter.format(item.price) : '';
   };
 
