@@ -1,2 +1,1 @@
-export { Calculator } from './Calculator';
 export { DownloadFinModel } from './DownloadFinModel';

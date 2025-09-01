@@ -1,10 +1,10 @@
 import './FinModel.scss';
 
-import { useMutation } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 
+import { useFinModel } from '@/entities/calculator/lib/useFinModel';
 import { CurrencySwitch } from '@/entities/calculator/ui/CurrencySwitch';
 import { OrderCallModal } from '@/features/call';
 import ArrowDown from '@/shared/assets/icons/arrow-down2.svg';
@@ -13,7 +13,6 @@ import { BASE_URL, MAX_WIDTH_MD } from '@/shared/consts';
 import { useMediaQuery, useOutsideClick } from '@/shared/lib';
 import { Button, Input, Switch } from '@/shared/ui';
 
-import { generateFinModelPdf } from '../../api/calculatorApi';
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
 import { Coin, Currency, Model } from '../../model/types';
 
@@ -42,115 +41,19 @@ export const FinModel: FC<IFinModelProps> = ({
   const [considerCost, setConsiderCost] = useState(true);
 
   const {
-    countModels,
-    kW,
-    profitWithWatt,
-    profitWithoutWatt,
-    paybackWithWatt,
-    paybackWithoutWatt,
-    cost,
-    coins,
-  } = useMemo(() => {
-    return models.reduce(
-      (previousValue, currentValue) => {
-        const countModels = previousValue.countModels + currentValue.count;
-        const kW =
-          previousValue.kW +
-          (currentValue.product.watt * currentValue.count) / 1000;
-        const profitWithWatt =
-          previousValue.profitWithWatt +
-          currentValue.product.paybackWithWatt * currentValue.count;
-        const profitWithoutWatt =
-          previousValue.profitWithoutWatt +
-          currentValue.product.profitDayAll * currentValue.count;
-
-        const cost =
-          previousValue.cost + currentValue.product.price * currentValue.count;
-
-        const paybackWithWatt = cost / profitWithWatt;
-
-        const paybackWithoutWatt = cost / profitWithoutWatt;
-
-        const newCoins = [...previousValue.coins];
-        currentValue.product.coinsArray.forEach((coin) => {
-          const existing = newCoins.find((c) => c.title === coin.title);
-          const multipliedCoin = {
-            ...coin,
-            value: coin.value * 30 * currentValue.count,
-            profit: coin.profit * currentValue.count,
-          };
-
-          if (existing) {
-            existing.value += multipliedCoin.value;
-            existing.profit += multipliedCoin.profit;
-          } else {
-            newCoins.push(multipliedCoin);
-          }
-        });
-
-        return {
-          countModels,
-          kW,
-          profitWithWatt,
-          profitWithoutWatt,
-          paybackWithWatt,
-          paybackWithoutWatt,
-          cost,
-          coins: newCoins,
-        };
-      },
-      {
-        countModels: 0,
-        kW: 0,
-        profitWithWatt: 0,
-        profitWithoutWatt: 0,
-        paybackWithWatt: 0,
-        paybackWithoutWatt: 0,
-        cost: 0,
-        coins: [] as Coin[],
-      },
-    );
-  }, [models]);
-
-  const { mutateAsync: generatePdf, isPending } = useMutation({
-    mutationFn: generateFinModelPdf,
-  });
-
-  const handleDownload = async () => {
-    const result = await generatePdf({
-      curs: dollar.toFixed(1),
-      everyMonthWatt: kW.toString(),
-      profitWithMonth: profitWithoutWatt.toString(),
-      profitWithoutWatt: profitWithoutWatt.toString(),
-      sumDollar:
-        currency === 'dollar' ? cost.toString() : (cost * dollar).toString(),
-      sumIn: currency === 'rub' ? cost.toString() : (cost / dollar).toString(),
-      sumRuble:
-        currency === 'rub' ? cost.toString() : (cost / dollar).toString(),
-      type: 'По моделям',
-      asics: models.map((model) => ({
-        id: model.product.id,
-        title: model.product.title,
-        hashrate: model.product.hashrate.toString(),
-        quantity: model.count,
-        priceOnePiece: model.product.price.toString(),
-        price: (model.product.price * model.count).toString(),
-      })),
-    });
-
-    if (result) {
-      const blob = new Blob([result.file], { type: 'application/pdf' });
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'фин_модель.pdf';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }
-  };
+    finModel: {
+      countModels,
+      kW,
+      cost,
+      paybackWithoutWatt,
+      paybackWithWatt,
+      profitWithWatt,
+      profitWithoutWatt,
+      coins,
+    },
+    handleDownload,
+    isPending,
+  } = useFinModel({ models, currency, dollar, electricityCoast });
 
   return match ? (
     <div className={'fin-model'}>

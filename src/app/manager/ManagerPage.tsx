@@ -3,6 +3,7 @@
 import axios from 'axios';
 import clsx from 'clsx';
 
+import { Calculator } from '@/entities/calculator';
 import LogoutIcon from '@/shared/assets/icons/logout.svg';
 
 import styles from './ManagerPage.module.scss';
@@ -19,6 +20,8 @@ export const ManagerPage = () => {
         <button onClick={handleLogout} className={styles.btn}>
           <LogoutIcon />
         </button>
+
+        <Calculator />
       </div>
     </div>
   );

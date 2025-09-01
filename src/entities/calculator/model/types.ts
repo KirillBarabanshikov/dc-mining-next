@@ -43,20 +43,31 @@ export type Model = {
 };
 
 export type FinModelPdf = {
-  sumRuble: string;
-  sumDollar: string;
+  cu: string;
+  ro: string;
+  ta: string;
+  allwaro: string;
+  allwa: string;
+  wmio: string;
+  rm: string;
+  allprice: string;
   curs: string;
-  sumIn: string;
-  everyMonthWatt: string;
-  profitWithoutWatt: string;
-  profitWithMonth: string;
+  coins: {
+    title: string;
+    currency: string;
+  }[];
   asics: {
     id: number;
     title: string;
-    hashrate: string;
+    hash: string;
     quantity: number;
-    priceOnePiece: string;
-    price: string;
+    wawi: string;
+    waro: string;
+    algorithm: string;
+    watt: string;
+    prone: string;
+    prall: string;
   }[];
-  type: 'По моделям';
+  id?: number;
+  type: string;
 };

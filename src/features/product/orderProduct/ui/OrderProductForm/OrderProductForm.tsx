@@ -1,57 +1,36 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { getPersonalData } from '@/entities/personalData';
 import { IProduct, orderProduct } from '@/entities/product';
-import { CALLTOUCH_SITE_ID, MAX_WIDTH_MD } from '@/shared/consts';
+import { MAX_WIDTH_MD } from '@/shared/consts';
 import { formatter, useMediaQuery, useMetrikaGoal } from '@/shared/lib';
 import { maskPhone } from '@/shared/lib/phone';
 import { Button, Checkbox, Input, NumberInput } from '@/shared/ui';
-import { calculatorApi } from '@/widgets/Calculator/api';
-import { useCalculatorStore } from '@/widgets/Calculator/model/store';
-import { IAsic, IPackage } from '@/widgets/Calculator/types';
 
 import { orderProductFormScheme, TOrderProductFormScheme } from '../../model';
 import styles from './OrderProductForm.module.scss';
 
 interface IOrderProductFormProps {
   onClose: () => void;
-  product: IProduct | IAsic | IPackage;
-  isMultiple?: boolean;
-  additionalProducts?: IAsic[];
+  product: IProduct;
   setIsFinally: (value: boolean) => void;
   setIsError: (value: boolean) => void;
-  variant?: 'product' | 'calculator';
-  generatePdfData?: () => any;
 }
 
 export const OrderProductForm: FC<IOrderProductFormProps> = ({
   onClose,
   product,
-  isMultiple,
-  additionalProducts,
   setIsFinally,
   setIsError,
-  variant = 'product',
-  generatePdfData,
 }) => {
   const [price, setPrice] = useState(product.price || 0);
   const [count, setCount] = useState(1);
-  const [additionalCounts, setAdditionalCounts] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const { sendMetrikaGoal } = useMetrikaGoal();
   const matches = useMediaQuery(MAX_WIDTH_MD);
-
-  const { calculatorType, calculatorTypes } = useCalculatorStore();
-
-  useEffect(() => {
-    if (!additionalProducts) return;
-
-    setAdditionalCounts(additionalProducts.map((asic) => asic.count));
-  }, [additionalProducts]);
 
   const {
     handleSubmit,
@@ -73,74 +52,22 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
     mutationFn: orderProduct,
   });
 
-  const { mutateAsync: sendRequest } = useMutation({
-    mutationFn: calculatorApi.sendFormRequest,
-  });
-
   const onChangeProductCount = (value: number) => {
     product.price && setPrice(product.price * value);
     setCount(value);
-  };
-
-  const onChangeAdditionalCount = (index: number, value: number) => {
-    const newCounts = [...additionalCounts];
-    newCounts[index] = value;
-    setAdditionalCounts(newCounts);
   };
 
   const onSubmit = async (data: TOrderProductFormScheme) => {
     const entryPoint = sessionStorage.getItem('entryPoint') || '/';
     try {
       setIsLoading(true);
-      if (variant === 'product') {
-        await order({
-          ...data,
-          productId: product.id,
-          price: price ?? 0,
-          count,
-          entryPoint,
-        });
-      } else {
-        if (generatePdfData) {
-          const result = await calculatorApi.postPDF(generatePdfData());
-          const title =
-            calculatorTypes.find((type) => type.id === calculatorType)?.title ||
-            '';
-
-          let requestData = `Продукт: ${product.title}<br/>Цена: ${price ? formatter.format(price) : 'Цена по запросу'}<br/>Кол-во: ${count}`;
-
-          if (additionalProducts?.length) {
-            requestData += '<br/>';
-            additionalProducts.forEach((asic, index) => {
-              requestData += `Продукт: ${asic.title}<br/>Цена: ${asic.price ? formatter.format(asic.price) : 'Цена по запросу'}<br/>Кол-во: ${additionalCounts[index]}${additionalProducts.length - 1 !== index ? '<br />' : ''}`;
-            });
-          }
-
-          await axios.post(
-            `https://api.calltouch.ru/calls-service/RestAPI/requests/${CALLTOUCH_SITE_ID}/register`,
-            {
-              subject: 'Заказать продукт',
-              fio: data.name,
-              phoneNumber: data.phone,
-              requestUrl: window.location.href,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            },
-          );
-
-          await sendRequest({
-            ...data,
-            data: requestData,
-            title,
-            entryPoint,
-            pdfId: result!.pdfId,
-          });
-        }
-      }
-
+      await order({
+        ...data,
+        productId: product.id,
+        price: price ?? 0,
+        count,
+        entryPoint,
+      });
       sendMetrikaGoal();
     } catch (error) {
       console.error(error);
@@ -194,53 +121,12 @@ export const OrderProductForm: FC<IOrderProductFormProps> = ({
               <span className={styles.label}>Количество</span>
               <NumberInput
                 min={1}
-                defaultValue={
-                  variant === 'product' ? 1 : product.count ? product.count : 1
-                }
+                defaultValue={1}
                 onChange={onChangeProductCount}
               />
             </div>
           </div>
         </>
-      )}
-      {isMultiple && !!additionalProducts?.length && !matches && (
-        <div className={styles.additionalProducts}>
-          {additionalProducts.map((additionalProduct, index) => (
-            <div key={index} className={styles.additionalProductItem}>
-              <span className={styles.label} style={{ marginTop: '20px' }}>
-                Название
-              </span>
-              <Input
-                disabled
-                value={additionalProduct.title}
-                className={styles.inputProduct}
-              />
-              <div className={styles.wrap}>
-                <div className={styles.item}>
-                  <span className={styles.label}>Цена</span>
-                  <Input
-                    disabled
-                    value={
-                      additionalProduct.price && additionalCounts[index]
-                        ? formatter.format(
-                            additionalProduct.price * additionalCounts[index],
-                          )
-                        : 'Цена по запросу'
-                    }
-                  />
-                </div>
-                <div className={styles.item}>
-                  <span className={styles.label}>Количество</span>
-                  <NumberInput
-                    min={1}
-                    defaultValue={additionalProduct.count}
-                    onChange={(value) => onChangeAdditionalCount(index, value)}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
       )}
       <div className={styles.buttonsWrap}>
         <Checkbox

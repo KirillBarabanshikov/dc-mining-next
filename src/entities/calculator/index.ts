@@ -1,1 +1,1 @@
-export { Calculator } from './ui';
+export { Calculator, DownloadFinModel } from './ui';

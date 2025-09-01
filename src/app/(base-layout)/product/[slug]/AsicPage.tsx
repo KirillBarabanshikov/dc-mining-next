@@ -7,14 +7,13 @@ import { useParams } from 'next/navigation';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Benefits } from '@/app/(base-layout)/data-center/ui';
-import { Calculator } from '@/entities/calculator';
+import { Calculator, DownloadFinModel } from '@/entities/calculator';
 import { getProductBySlug } from '@/entities/product';
 import { useRecentStore } from '@/entities/product/model';
 import { OrderCallModal } from '@/features/call';
 import { AddToBasketButton, OrderProductModal } from '@/features/product';
 import CodeIcon from '@/shared/assets/icons/code.svg';
 import CoinsIcon from '@/shared/assets/icons/coins.svg';
-import DownloadIcon from '@/shared/assets/icons/download.svg';
 import PowerIcon from '@/shared/assets/icons/power.svg';
 import ZapIcon from '@/shared/assets/icons/zap.svg';
 import LeasingImage from '@/shared/assets/images/leasing/leasing.png';
@@ -22,7 +21,6 @@ import { BASE_URL } from '@/shared/consts';
 import { formatter } from '@/shared/lib';
 import { Breadcrumbs, Button } from '@/shared/ui';
 import { RecentProductsList } from '@/widgets';
-import { calculatorApi } from '@/widgets/Calculator/api';
 import { CallMeBanner } from '@/widgets/CallMeBanner';
 import { ProductsTabs } from '@/widgets/ProductDetails/ui';
 
@@ -37,10 +35,8 @@ const paths = [
 ];
 
 export const AsicPage = () => {
-  const [dollar, setDollar] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenCall, setIsOpenCall] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const { slug } = useParams<{ slug: string }>();
   const targetRef = useRef<HTMLDivElement>(null);
   const { addToRecent } = useRecentStore();
@@ -60,73 +56,9 @@ export const AsicPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await calculatorApi.getAsics();
-      if (data) {
-        setDollar(data.dollar);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
     if (!product) return;
     addToRecent(product.id);
   }, [addToRecent, product]);
-
-  const downloadPdf = async () => {
-    if (!product) return;
-
-    const totalPrice = product.price || 0;
-    const course = dollar;
-
-    const profitWithoutElectricity = (product.profitDayAll ?? 0) * 30;
-    const totalConsumption = ((product.watt ?? 0) * 24 * 30) / 1000;
-
-    const pdfData = {
-      sumRuble: totalPrice.toLocaleString('ru-RU'),
-      sumDollar: (totalPrice / course).toFixed(0),
-      curs: course.toString(),
-      sumIn: totalPrice.toLocaleString('ru-RU'),
-      everyMonthWatt: totalConsumption.toLocaleString('ru-RU'),
-      profitWithoutWatt: profitWithoutElectricity.toFixed(0),
-      profitWithMonth: (totalPrice / profitWithoutElectricity).toFixed(0),
-      asics: [
-        {
-          id: product.id,
-          title: product.title,
-          hashrate: `${product.hashrate}`,
-          quantity: '1',
-          priceOnePiece: product.price
-            ? (product.price / course).toFixed(0)
-            : '0',
-          price: product.price ? (product.price / course).toFixed(0) : '0',
-        },
-      ],
-      type: 'По моделям',
-    };
-
-    try {
-      setIsLoading(true);
-      const result = await calculatorApi.postPDF(pdfData);
-      if (result) {
-        const blob = new Blob([result.file], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'фин_модель.pdf';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   if (!product) return;
 
@@ -250,16 +182,10 @@ export const AsicPage = () => {
                 </span>
               </div>
             </div>
-            <Button
-              disabled={isLoading}
-              variant={'outline'}
-              size={'md'}
-              onClick={downloadPdf}
+            <DownloadFinModel
+              productName={product.title}
               className={styles.indicatorButton}
-            >
-              Скачать фин модель
-              <DownloadIcon />
-            </Button>
+            />
           </div>
           <div
             itemProp={'offers'}
