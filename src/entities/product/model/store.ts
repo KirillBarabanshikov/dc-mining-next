@@ -37,8 +37,8 @@ export const useFavoritesStore = create<IFavoritesState>()(
 );
 
 interface IBasketState {
-  basket: { productId: number; count: number }[];
-  addToBasket: (productId: number) => void;
+  basket: { productId: number; productName: string; count: number }[];
+  addToBasket: (productId: number, productName: string) => void;
   removeFromBasket: (productId: number) => void;
   setProductCount: ({
     productId,
@@ -56,9 +56,11 @@ export const useBasketStore = create<IBasketState>()(
     persist(
       (set, get) => ({
         basket: [],
-        addToBasket: (product) => {
+        addToBasket: (productId, productName) => {
           const currentBasket = get().basket;
-          set({ basket: [{ productId: product, count: 1 }, ...currentBasket] });
+          set({
+            basket: [{ productId, productName, count: 1 }, ...currentBasket],
+          });
         },
         removeFromBasket: (productId) => {
           const updatedBasket = get().basket.filter(

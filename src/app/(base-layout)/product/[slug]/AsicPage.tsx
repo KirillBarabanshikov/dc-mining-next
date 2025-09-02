@@ -270,6 +270,7 @@ export const AsicPage = () => {
               </Button>
               <AddToBasketButton
                 productId={product.id}
+                productName={product.title}
                 className={clsx(styles.iconButton)}
               />
             </div>

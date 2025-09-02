@@ -86,6 +86,7 @@ export const ProductBodySimple: FC<IProductBodySimpleProps> = ({
           {/*/>*/}
           <AddToBasketButton
             productId={product.id}
+            productName={product.title}
             className={clsx(cardStyles.iconButton, styles.iconButton)}
           />
         </div>

@@ -20,7 +20,7 @@ export const useFinModel = ({
 }) => {
   const pathname = usePathname();
 
-  const { mutateAsync: generatePdf, isPending } = useMutation({
+  const { mutateAsync: generate, isPending } = useMutation({
     mutationFn: generateFinModelPdf,
   });
 
@@ -86,10 +86,10 @@ export const useFinModel = ({
     );
   }, [models]);
 
-  const handleDownload = async () => {
+  const generatePdf = async () => {
     const managerId = Cookies.get('manager');
 
-    const result = await generatePdf({
+    return await generate({
       cu: Math.round(finModel.kW).toString(),
       ro: finModel.countModels.toString(),
       ta: electricityCoast.toString(),
@@ -129,6 +129,10 @@ export const useFinModel = ({
       id: pathname === '/manager' && managerId ? +managerId : undefined,
       type: 'По моделям',
     });
+  };
+
+  const handleDownload = async () => {
+    const result = await generatePdf();
 
     if (result) {
       const blob = new Blob([result.file], { type: 'application/pdf' });
@@ -146,6 +150,7 @@ export const useFinModel = ({
 
   return {
     finModel,
+    generatePdf,
     handleDownload,
     isPending,
   };

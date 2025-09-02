@@ -38,9 +38,15 @@
       align-items: center;
       gap: 4px;
 
+      img {
+        width: 55px;
+        height: 55px;
+        object-fit: cover;
+      }
+
       .productCardDescription {
         flex-wrap: wrap;
-        font-family: "MADE Evolve Sans", serif;
+        font-family: 'MADE Evolve Sans', serif;
         font-size: 12px;
         line-height: 120%;
         color: var(--text-primary);
@@ -73,4 +79,3 @@
     }
   }
 }
-

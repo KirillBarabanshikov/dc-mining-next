@@ -136,6 +136,7 @@ export const ProductInfo: FC<IProductInfoProps> = ({ product }) => {
           </Button>
           <AddToBasketButton
             productId={product.id}
+            productName={product.title}
             className={styles.iconButton}
           />
           <AddToFavoritesButton

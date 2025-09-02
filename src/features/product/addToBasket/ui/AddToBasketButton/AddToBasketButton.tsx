@@ -11,11 +11,13 @@ import styles from './AddToBasketButton.module.scss';
 
 interface IAddToBasketButton {
   productId: number;
+  productName: string;
   className?: string;
 }
 
 export const AddToBasketButton: FC<IAddToBasketButton> = ({
   productId,
+  productName,
   className,
 }) => {
   const store = useStore(useBasketStore, (state) => state);
@@ -26,7 +28,7 @@ export const AddToBasketButton: FC<IAddToBasketButton> = ({
     if (isBasket) {
       store?.removeFromBasket(productId);
     } else {
-      store?.addToBasket(productId);
+      store?.addToBasket(productId, productName);
     }
   };
 

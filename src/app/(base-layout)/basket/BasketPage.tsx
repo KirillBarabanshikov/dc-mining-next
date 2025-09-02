@@ -1,6 +1,7 @@
 'use client';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
@@ -54,7 +55,12 @@ const BasketPage: React.FC<BasketPageProps> = ({ isHeader }) => {
   return (
     <div className='sections'>
       <section className={isHeader ? styles.basketHeader : styles.basket}>
-        <div className='container'>
+        <div
+          className={clsx(
+            'container',
+            isHeader && styles.basketHeaderContainer,
+          )}
+        >
           {!isHeader && (
             <div className={styles.head}>
               <h1 className='section-title-secondary'>Корзина</h1>

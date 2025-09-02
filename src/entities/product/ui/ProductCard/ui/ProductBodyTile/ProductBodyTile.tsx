@@ -3,9 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { FC } from 'react';
 
 import { IProduct } from '@/entities/product';
-import {
-  AddToBasketButton,
-} from '@/features/product';
+import { AddToBasketButton } from '@/features/product';
 import { formatter } from '@/shared/lib';
 import { Badge, Button } from '@/shared/ui';
 
@@ -91,6 +89,7 @@ export const ProductBodyTile: FC<IProductBodyTileProps> = ({
         {/*/>*/}
         <AddToBasketButton
           productId={product.id}
+          productName={product.title}
           className={clsx(cardStyles.iconButton, styles.iconButton)}
         />
       </div>
