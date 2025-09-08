@@ -24,6 +24,32 @@ export const useFinModel = ({
     mutationFn: generateFinModelPdf,
   });
 
+  const coinRates = useMemo(
+    () =>
+      models.reduce((previousValue, currentValue) => {
+        const newCoins = [...previousValue];
+        currentValue.product.coinsArray.forEach((coin) => {
+          const existing = newCoins.find((c) => c.title === coin.title);
+          if (!existing) {
+            let price = coin.price;
+
+            if (currentValue.currency === 'rub' && currency === 'dollar') {
+              price /= dollar;
+            }
+
+            if (currentValue.currency === 'dollar' && currency === 'rub') {
+              price *= dollar;
+            }
+
+            newCoins.push({ ...coin, price });
+          }
+        });
+
+        return newCoins;
+      }, [] as Coin[]),
+    [models, currency, dollar],
+  );
+
   const finModel = useMemo(() => {
     return models.reduce(
       (previousValue, currentValue) => {
@@ -99,9 +125,9 @@ export const useFinModel = ({
       rm: Math.round(finModel.paybackWithWatt).toString(),
       allprice: formatPriceByCurrency(finModel.cost, currency).toString(),
       curs: formatPriceByCurrency(dollar, 'rub').toString(),
-      coins: finModel.coins.map((coin) => ({
+      coins: coinRates.map((coin) => ({
         title: coin.title,
-        currency: coin.value.toFixed(8),
+        currency: formatPriceByCurrency(coin.price, currency),
       })),
       asics: models.map((model) => {
         return {
@@ -153,5 +179,6 @@ export const useFinModel = ({
     generatePdf,
     handleDownload,
     isPending,
+    coinRates,
   };
 };
