@@ -39,9 +39,9 @@ const CalculatorPage = () => {
             />
           )}
 
-          <h1 className={'h1 calculator-page__title'}>
+          <h2 className={'h1 calculator-page__title'}>
             Рассчитайте <span>выгоду</span>
-          </h1>
+          </h2>
           <Calculator />
 
           {info && (
@@ -57,16 +57,14 @@ const CalculatorPage = () => {
             <div className={'questions__inner'}>
               <h2 className={'questions__title h2'}>Вопросы и ответы</h2>
               <div className={'questions__list'}>
-                {faq?.map((item, index) => {
-                  return (
-                    <Accordion
-                      number={++index}
-                      key={item.id}
-                      title={item.title}
-                      body={item.description}
-                    />
-                  );
-                })}
+                {faq?.map((item, index) => (
+                  <Accordion
+                    number={index + 1}
+                    key={item.id}
+                    title={item.title}
+                    body={item.description}
+                  />
+                ))}
               </div>
             </div>
           </section>
