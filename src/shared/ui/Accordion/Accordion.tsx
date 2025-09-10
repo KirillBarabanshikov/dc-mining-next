@@ -42,7 +42,7 @@ export const Accordion: FC<IAccordionProps> = ({ title, body, number }) => {
             exit={{ height: 0, opacity: 0 }}
             className={styles.body}
           >
-            <p dangerouslySetInnerHTML={{ __html: body }} />
+            <p dangerouslySetInnerHTML={{ __html: body }} className={'list'} />
           </motion.div>
         )}
       </AnimatePresence>

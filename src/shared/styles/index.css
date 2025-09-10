@@ -180,6 +180,7 @@ ol {
   height: 4px;
   border-radius: 4px;
   background-color: var(--text-accent-blue);
+  flex-shrink: 0;
 }
 
 input[type='checkbox'],
