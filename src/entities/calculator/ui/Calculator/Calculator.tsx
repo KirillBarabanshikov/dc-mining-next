@@ -68,15 +68,24 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
 
         let price = model.currentPrice;
         let profitDayAll = model.currentProfitDayAll;
+        let coinsArray = model.currentCoinsArray;
 
         if (model.currency === 'rub' && filters.currency === 'dollar') {
           price = price / data.dollar;
           profitDayAll = profitDayAll / data.dollar;
+          coinsArray = coinsArray.map((coin) => ({
+            ...coin,
+            profit: coin.profit / data.dollar,
+          }));
         }
 
         if (model.currency === 'dollar' && filters.currency === 'rub') {
           price = price * data.dollar;
           profitDayAll = profitDayAll * data.dollar;
+          coinsArray = coinsArray.map((coin) => ({
+            ...coin,
+            profit: coin.profit * data.dollar,
+          }));
         }
 
         let paybackWithWatt =
@@ -89,6 +98,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
           ...model,
           product: {
             ...product,
+            coinsArray,
             paybackWithWatt: profitDayAll - paybackWithWatt,
             price,
             profitDayAll,
@@ -116,6 +126,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
           currency: filters.currency,
           currentPrice: prod.price,
           currentProfitDayAll: prod.profitDayAll,
+          currentCoinsArray: prod.coinsArray,
         },
       ];
     });
@@ -151,6 +162,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
           currency: filters.currency,
           currentPrice: product.price,
           currentProfitDayAll: product.profitDayAll,
+          currentCoinsArray: product.coinsArray,
         },
       ]);
     }

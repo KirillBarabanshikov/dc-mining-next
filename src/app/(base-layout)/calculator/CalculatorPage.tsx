@@ -32,7 +32,7 @@ const CalculatorPage = () => {
         <div>
           <Breadcrumbs paths={paths} />
 
-          {info && (
+          {info && info.title && (
             <div
               className={'calculator-page__info'}
               dangerouslySetInnerHTML={{ __html: info.title }}
@@ -44,7 +44,7 @@ const CalculatorPage = () => {
           </h2>
           <Calculator />
 
-          {info && (
+          {info && info.description && (
             <div
               className={'calculator-page__info'}
               dangerouslySetInnerHTML={{ __html: info.description }}

@@ -40,6 +40,7 @@ export type Model = {
   currency: Currency;
   currentPrice: number;
   currentProfitDayAll: number;
+  currentCoinsArray: Coin[];
 };
 
 export type FinModelPdf = {
