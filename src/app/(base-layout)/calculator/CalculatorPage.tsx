@@ -4,8 +4,7 @@ import './CalculatorPage.scss';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Calculator } from '@/entities/calculator';
-import { getCalculatorInfo } from '@/entities/calculator/api/calculatorApi';
+import { Calculator, getCalculatorInfo } from '@/entities/calculator';
 import { getFaq } from '@/entities/faq';
 import { OrderCallBanner } from '@/features/call';
 import { Accordion, Breadcrumbs } from '@/shared/ui';
@@ -17,7 +16,7 @@ const paths = [
 
 const CalculatorPage = () => {
   const { data: faq } = useQuery({
-    queryKey: ['faq'],
+    queryKey: ['faq-calculator'],
     queryFn: () => getFaq({ type: 'Калькулятор' }),
   });
 

@@ -1,4 +1,12 @@
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 import Script from 'next/script';
+
+import { getCalculatorInfo } from '@/entities/calculator';
+import { getFaq } from '@/entities/faq';
 
 import CalculatorPage from './CalculatorPage';
 
@@ -75,7 +83,20 @@ const schemaFaq = {
   ],
 };
 
-export default function Page() {
+export default async function Page() {
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery({
+      queryKey: ['faq-calculator'],
+      queryFn: () => getFaq({ type: 'Калькулятор' }),
+    }),
+    queryClient.prefetchQuery({
+      queryKey: ['calculator-info'],
+      queryFn: getCalculatorInfo,
+    }),
+  ]);
+
   return (
     <>
       <Script
@@ -84,7 +105,9 @@ export default function Page() {
         strategy='afterInteractive'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaFaq) }}
       />
-      <CalculatorPage />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <CalculatorPage />
+      </HydrationBoundary>
     </>
   );
 }
