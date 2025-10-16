@@ -1,7 +1,7 @@
 .bestsellers {
   .bestsellersList {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(230px, 1fr));
     align-items: start;
     gap: 16px;
 
@@ -28,6 +28,7 @@
 
     .product {
       height: initial !important;
+      max-width: 292.812px;
     }
   }
 }

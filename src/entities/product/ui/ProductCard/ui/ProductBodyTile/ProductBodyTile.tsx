@@ -56,7 +56,11 @@ export const ProductBodyTile: FC<IProductBodyTileProps> = ({
               )}
               {product.hashrate && <div>Хешрейт — {product.hashrate}</div>}
               {product.algorithm && <div>Алгоритм — {product.algorithm}</div>}
-              {product.coins && <div>Монета — {product.coins}</div>}
+              {product.coins && (
+                <div className={styles.specificationCoins}>
+                  Монета — {product.coins}
+                </div>
+              )}
               {product.value
                 .filter((value) => value.display)
                 .map((value) => {
