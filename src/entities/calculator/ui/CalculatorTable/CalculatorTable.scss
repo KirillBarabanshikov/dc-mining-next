@@ -211,6 +211,18 @@
     padding: 8px 16px;
     background-color: var(--background-tonal);
 
+    &-title {
+      font-weight: 500;
+      cursor: pointer;
+      transition: color var(--transition-duration);
+
+      @media (hover: hover) {
+        &:hover {
+          color: var(--text-accent-blue);
+        }
+      }
+    }
+
     &--block {
       &:after {
         content: '';

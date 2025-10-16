@@ -1,5 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import { FC } from 'react';
+
+import { getProductById } from '@/entities/product';
 
 import { formatPriceByCurrency } from '../../lib/formatPriceByCurrency';
 import { Currency, Model, Product } from '../../model/types';
@@ -20,10 +24,29 @@ export const CalculatorProductRow: FC<ICalculatorProductRowProps> = ({
   addModel,
   className,
 }) => {
+  const router = useRouter();
+
+  const { refetch, isLoading } = useQuery({
+    queryKey: ['calculator-product', product.id],
+    queryFn: () => getProductById(product.id),
+    enabled: false,
+  });
+
+  const handleClickOnProduct = async () => {
+    const { data } = await refetch();
+    if (data) {
+      router.push(`/product/${data.slug}`);
+    }
+  };
+
   return (
     <div className={clsx('calculator-table__product-row', className)}>
       <div className={'calculator-table__product-row-cell'}>
-        <div className={'calculator-table__product-row-title'}>
+        <div
+          onClick={handleClickOnProduct}
+          className={'calculator-table__product-row-title'}
+          style={{ pointerEvents: isLoading ? 'none' : 'initial' }}
+        >
           {product.title}
         </div>
         <div className={'calculator-table__product-row-info'}>

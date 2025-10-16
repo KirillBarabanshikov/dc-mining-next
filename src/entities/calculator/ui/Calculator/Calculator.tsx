@@ -197,6 +197,34 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
     recalculateModels();
   };
 
+  useEffect(() => {
+    const savedModels = localStorage.getItem('calculator_models');
+    if (savedModels) {
+      try {
+        const parsed = JSON.parse(savedModels);
+        if (Array.isArray(parsed)) {
+          setModels(parsed);
+        }
+      } catch (e) {
+        console.error('Ошибка при восстановлении моделей из localStorage', e);
+      }
+    }
+
+    return () => {
+      if (productName) {
+        localStorage.removeItem('calculator_models');
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (models.length > 0) {
+      localStorage.setItem('calculator_models', JSON.stringify(models));
+    } else {
+      localStorage.removeItem('calculator_models');
+    }
+  }, [models]);
+
   if (!data) return <></>;
 
   return (
