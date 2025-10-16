@@ -38,6 +38,7 @@ interface ICalculatorTableProps {
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
   coinRates: Coin[];
+  onUpdateModel: (updatedModel: Model) => void;
   productName?: string;
   className?: string;
 }
@@ -54,6 +55,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
   electricityCoast,
   setElectricityCoast,
   coinRates,
+  onUpdateModel,
   productName,
   className,
 }) => {
@@ -105,6 +107,7 @@ export const CalculatorTable: FC<ICalculatorTableProps> = ({
             removeModel={removeModel}
             setModelCount={setModelCount}
             isFetching={isFetching}
+            onUpdateModel={onUpdateModel}
             isBlock={isBlock}
           />
           <FinModel

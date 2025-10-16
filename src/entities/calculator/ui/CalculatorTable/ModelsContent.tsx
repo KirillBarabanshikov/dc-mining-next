@@ -17,6 +17,7 @@ interface IProductsContentProps {
   models: Model[];
   removeModel: (product: Product) => void;
   setModelCount: (product: Product, count: number) => void;
+  onUpdateModel: (updatedModel: Model) => void;
   isBlock?: boolean;
 }
 
@@ -26,6 +27,7 @@ export const ModelsContent: FC<IProductsContentProps> = ({
   models,
   removeModel,
   setModelCount,
+  onUpdateModel,
   isBlock,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -83,6 +85,7 @@ export const ModelsContent: FC<IProductsContentProps> = ({
               model={model}
               removeModel={removeModel}
               setModelCount={setModelCount}
+              onUpdateModel={onUpdateModel}
               isBlock={isBlock}
             />
           );

@@ -60,6 +60,45 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
   });
 
   useEffect(() => {
+    recalculateModels();
+  }, [data, debouncedElectricityCost, filters.currency, models.length]);
+
+  useEffect(() => {
+    if (!data || !productName) return;
+
+    const prod = data.products.find((p) => p.title === productName);
+
+    if (!prod) return;
+
+    setModels((prevModels) => {
+      if (prevModels.find((model) => model.product.title === productName))
+        return prevModels;
+      return [
+        ...prevModels,
+        {
+          product: prod,
+          count: 1,
+          currency: filters.currency,
+          currentPrice: prod.price,
+          currentProfitDayAll: prod.profitDayAll,
+          currentCoinsArray: prod.coinsArray,
+        },
+      ];
+    });
+  }, [data, productName, debouncedElectricityCost, filters.currency]);
+
+  const setFilterField = <T extends keyof typeof filters>(
+    key: T,
+    value: (typeof filters)[T],
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+      page: key === 'currency' ? prev.page : key === 'page' ? value : '1',
+    }));
+  };
+
+  const recalculateModels = () => {
     if (!data) return;
 
     setModels((prevModels) =>
@@ -106,52 +145,16 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
         };
       }),
     );
-  }, [data, debouncedElectricityCost, filters.currency, models.length]);
-
-  useEffect(() => {
-    if (!data || !productName) return;
-
-    const prod = data.products.find((p) => p.title === productName);
-
-    if (!prod) return;
-
-    setModels((prevModels) => {
-      if (prevModels.find((model) => model.product.title === productName))
-        return prevModels;
-      return [
-        ...prevModels,
-        {
-          product: prod,
-          count: 1,
-          currency: filters.currency,
-          currentPrice: prod.price,
-          currentProfitDayAll: prod.profitDayAll,
-          currentCoinsArray: prod.coinsArray,
-        },
-      ];
-    });
-  }, [data, productName, debouncedElectricityCost, filters.currency]);
-
-  const setFilterField = <T extends keyof typeof filters>(
-    key: T,
-    value: (typeof filters)[T],
-  ) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-      page: key === 'currency' ? prev.page : key === 'page' ? value : '1',
-    }));
   };
 
   const addModel = (product: Product, model?: Model) => {
     if (model) {
       return setModels((prev) =>
-        prev.map((prevModel) => {
-          if (prevModel.product.id === model.product.id) {
-            return { ...prevModel, product };
-          }
-          return prevModel;
-        }),
+        prev.map((prevModel) =>
+          prevModel.product.id === model.product.id
+            ? { ...prevModel, product }
+            : prevModel,
+        ),
       );
     } else {
       setModels((prev) => [
@@ -182,6 +185,18 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
     );
   };
 
+  const updateModel = (updatedModel: Model) => {
+    setModels((prev) =>
+      prev.map((model) =>
+        model.product.id === updatedModel.product.id
+          ? { ...updatedModel, currentPrice: updatedModel.product.price }
+          : model,
+      ),
+    );
+
+    recalculateModels();
+  };
+
   if (!data) return <></>;
 
   return (
@@ -199,6 +214,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
           electricityCoast={electricityCost}
           setElectricityCoast={setElectricityCost}
           coinRates={coinRates}
+          onUpdateModel={updateModel}
           productName={productName}
           className={'calculator__table'}
         />
