@@ -183,7 +183,7 @@ export const FinModel: FC<IFinModelProps> = ({
             Общее потребление, кВт.
           </div>
           <div className={'fin-model__option-value'}>
-            {kW ? Math.round(kW) : '-'}
+            {kW ? kW.toFixed(1) : '-'}
           </div>
         </div>
 
@@ -235,7 +235,7 @@ export const FinModel: FC<IFinModelProps> = ({
           <div className={'fin-model__item-cards'}>
             <div className={'fin-model__card'}>
               <div className={'fin-model__card-title'}>Потребление, кВт.</div>
-              <div className={'fin-model__card-value'}>{Math.round(kW)}</div>
+              <div className={'fin-model__card-value'}>{kW.toFixed(1)}</div>
             </div>
             <div className={'fin-model__card'}>
               <div className={'fin-model__card-title'}>Кол-во, шт.</div>

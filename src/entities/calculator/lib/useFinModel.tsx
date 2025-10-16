@@ -118,7 +118,7 @@ export const useFinModel = ({
     const managerId = Cookies.get('manager');
 
     return await generate({
-      cu: Math.round(finModel.kW).toString(),
+      cu: finModel.kW.toFixed(1),
       ro: finModel.countModels.toString(),
       ta: electricityCoast.toString(),
       allwaro: formatPriceByCurrency(finModel.profitWithWatt, currency),
