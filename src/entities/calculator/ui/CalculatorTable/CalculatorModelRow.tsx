@@ -1,5 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { FC, useEffect, useState } from 'react';
 
+import { getProductById } from '@/entities/product';
 import PencilIcon from '@/shared/assets/icons/pencil.svg';
 import TrashIcon from '@/shared/assets/icons/trash.svg';
 import { NumberInput } from '@/shared/ui';
@@ -31,6 +34,13 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
   }>({});
   const [editedModel, setEditedModel] = useState(model);
   const [inputValue, setInputValue] = useState<string>('');
+  const router = useRouter();
+
+  const { refetch, isLoading } = useQuery({
+    queryKey: ['calculator-product', model.product.id],
+    queryFn: () => getProductById(model.product.id),
+    enabled: false,
+  });
 
   const MAX_VALUE = 999_999_999;
 
@@ -102,6 +112,13 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
     );
   };
 
+  const handleClickOnProduct = async () => {
+    const { data } = await refetch();
+    if (data) {
+      router.push(`/product/${data.slug}`);
+    }
+  };
+
   useEffect(() => {
     setEditedModel(model);
   }, [model, currency]);
@@ -109,7 +126,11 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
   return (
     <div className='calculator-table__model-row'>
       <div className='calculator-table__model-row-cell'>
-        <div className='calculator-table__model-row-title'>
+        <div
+          onClick={handleClickOnProduct}
+          className='calculator-table__model-row-title'
+          style={{ pointerEvents: isLoading ? 'none' : 'initial' }}
+        >
           {model.product.title}
         </div>
 

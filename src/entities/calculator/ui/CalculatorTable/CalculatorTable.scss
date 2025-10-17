@@ -404,6 +404,17 @@
       padding: 8px 0 8px 16px;
     }
 
+    &-title {
+      transition: color var(--transition-duration);
+
+      @media (hover: hover) {
+        &:hover {
+          cursor: pointer;
+          color: var(--text-accent-blue);
+        }
+      }
+    }
+
     &-cell {
       flex: 1;
       display: flex;

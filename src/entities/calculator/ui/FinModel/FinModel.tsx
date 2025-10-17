@@ -2,10 +2,12 @@ import './FinModel.scss';
 
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 
 import { useFinModel } from '@/entities/calculator/lib/useFinModel';
 import { CurrencySwitch } from '@/entities/calculator/ui/CurrencySwitch';
+import { getProductById } from '@/entities/product';
 import { OrderCallModal } from '@/features/call';
 import ArrowDown from '@/shared/assets/icons/arrow-down2.svg';
 import DownloadIcon from '@/shared/assets/icons/download.svg';
@@ -39,6 +41,7 @@ export const FinModel: FC<IFinModelProps> = ({
   const [showCoins, setShowCoins] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [considerCost, setConsiderCost] = useState(true);
+  const router = useRouter();
 
   const {
     finModel: {
@@ -54,6 +57,13 @@ export const FinModel: FC<IFinModelProps> = ({
     handleDownload,
     isPending,
   } = useFinModel({ models, currency, dollar, electricityCoast });
+
+  const handleClickOnProduct = async (id: number) => {
+    const data = await getProductById(id);
+    if (data) {
+      router.push(`/product/${data.slug}`);
+    }
+  };
 
   return match ? (
     <div className={'fin-model'}>
@@ -93,7 +103,10 @@ export const FinModel: FC<IFinModelProps> = ({
               className={'fin-model__option fin-model__option--blue'}
             >
               <div className={'fin-model__option-title-wrap'}>
-                <div className={'fin-model__option-title'}>
+                <div
+                  onClick={() => handleClickOnProduct(model.product.id)}
+                  className={'fin-model__option-title'}
+                >
                   {model.product.title}
                 </div>
                 <div className={'fin-model__option-count'}>
