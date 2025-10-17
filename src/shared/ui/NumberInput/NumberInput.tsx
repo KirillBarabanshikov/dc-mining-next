@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import MinusIcon from '@/shared/assets/icons/minus.svg';
 import PlusIcon from '@/shared/assets/icons/plus.svg';
@@ -46,6 +46,20 @@ export const NumberInput: FC<INumberInputProps> = ({
     setCount((prev) => prev - 1);
   };
 
+  const change = (e: ChangeEvent<HTMLInputElement>) => {
+    let value = +e.target.value;
+
+    if (typeof min !== 'undefined') {
+      value = value <= min ? min : value;
+    }
+
+    if (typeof max !== 'undefined') {
+      value = value >= max ? max : value;
+    }
+
+    setCount(value);
+  };
+
   return (
     <div className={clsx(styles.numberInput, styles[variant])}>
       <Button
@@ -61,7 +75,7 @@ export const NumberInput: FC<INumberInputProps> = ({
           type={'number'}
           value={`${count}`}
           disabled={disabled}
-          onChange={(e) => setCount(+e.target.value <= 0 ? 1 : +e.target.value)}
+          onChange={change}
           style={{ textAlign: 'center' }}
           className={styles.input}
         />

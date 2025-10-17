@@ -139,7 +139,7 @@ export const CalculatorModelRow: FC<ICalculatorModelRowProps> = ({
       <NumberInput
         variant='calculator'
         min={1}
-        disabled={true}
+        max={99999}
         defaultValue={model.count}
         onChange={(count) => setModelCount(model.product, count)}
       />

@@ -35,6 +35,7 @@ interface ICalculatorListProps {
   setModelCount: (product: Product, count: number) => void;
   electricityCoast: number;
   setElectricityCoast: (value: number) => void;
+  onUpdateModel: (updatedModel: Model) => void;
   className?: string;
 }
 
@@ -49,6 +50,7 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
   setModelCount,
   electricityCoast,
   setElectricityCoast,
+  onUpdateModel,
   className,
 }) => {
   const [showDropdown, setShowDropdown] = useState(true);
@@ -71,6 +73,7 @@ export const CalculatorList: FC<ICalculatorListProps> = ({
                 removeModel={removeModel}
                 addModel={addModel}
                 models={models}
+                onUpdateModel={onUpdateModel}
               />
             ))}
           </div>

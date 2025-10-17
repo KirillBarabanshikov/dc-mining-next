@@ -258,6 +258,7 @@ export const Calculator: FC<ICalculatorProps> = ({ productName = '' }) => {
           setModelCount={setModelCount}
           electricityCoast={electricityCost}
           setElectricityCoast={setElectricityCost}
+          onUpdateModel={updateModel}
           className={'calculator__list'}
         />
       )}
