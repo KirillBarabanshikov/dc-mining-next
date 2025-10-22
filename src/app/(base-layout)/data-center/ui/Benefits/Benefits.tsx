@@ -53,12 +53,12 @@ export const Benefits: FC<IBenefitsProps> = ({
                   border: '1px solid #e6e6e6',
                   boxSizing: 'border-box',
                 }}
-                src='https://yandex.ru/maps-reviews-widget/6232622173?comments'
+                src='https://yandex.ru/maps-reviews-widget/207502790179?comments'
                 title='Yandex Maps Reviews'
                 className={styles.iframe}
               ></iframe>
               <a
-                href='https://yandex.ru/maps/org/dc_mining/6232622173/'
+                href='https://yandex.ru/maps/org/dc_mining/207502790179/'
                 target='_blank'
                 rel='noopener noreferrer'
                 style={{
